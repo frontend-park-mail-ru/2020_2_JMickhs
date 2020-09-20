@@ -208,3 +208,14 @@ input.input100 {
 .p-b-50 {padding-bottom: 50px;}
 .p-b-4 {scroll-padding-bottom: 4px;}
 .p-b-33 {padding-bottom: 33px;}
+
+h1 {
+  color: #cc0000;
+}
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
