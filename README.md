@@ -10,7 +10,7 @@
 * **Сергей Алексеев** - *Фулстек* - [serenehet](https://github.com/serenehet)
 
 ## Ментор
-* **Наташа Климова** - *Ментор* - [Tataklim](https://github.com/Tataklim)
+* **Наташа Климова** - [Tataklim](https://github.com/Tataklim)
 
 
 
