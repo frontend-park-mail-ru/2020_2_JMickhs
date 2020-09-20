@@ -4,11 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Авторизация</title>
 </head>
 
 <body>
+    <ul class="menu-main">
+        <li><a href="/main.html">HotelScanner</a></li>
+        <li><a href="/list.html">Список отелей</a></li>
+        <li><a href="/signin.html" class="current">Авторизация</a></li>
+        <li><a href="/signup.html">Регистрации</a></li>
+        <li><a href="/signin.html">Профиль(уже чей-то)</a></li>
+    </ul>
 
+
+
+    <form action="" class="ui-form">
+        <h2 style="text-align: center; color: #4a90e2;">Войти на сайт</h2>
+        <div class="form-row">
+            <input type="text" id="email" required autocomplete="off"><label for="email">Email</label>
+        </div>
+        <div class="form-row">
+            <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
+        </div>
+        <button class="buttonLine" style="margin: right;" href="/main.html">
+            Войти
+        </button>
+    </form>
 </body>
 
 </html>

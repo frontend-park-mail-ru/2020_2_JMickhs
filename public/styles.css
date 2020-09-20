@@ -1,9 +1,8 @@
 /* buttons */
 
-
-/* body {
-    background: #1b2631;
-} */
+body {
+    background: #EFF6FA;
+}
 
 .buttonLine {
     text-decoration: none;
@@ -12,10 +11,12 @@
     margin: 10px 20px;
     padding: 10px 30px;
     position: relative;
-    border: 2px solid #000000;
-    color: #000000;
+    border: 2px solid #4a90e2;
+    color: #4a90e2;
     font-family: 'Montserrat', sans-serif;
     transition: .4s;
+    background-color: #EFF6FA;
+    align-content: center;
 }
 
 .buttonLine:after {
@@ -49,7 +50,7 @@
     margin: 40px 0 5px;
     padding: 25px 0 5px;
     text-align: center;
-    background: white;
+    background: #EFF6FA;
 }
 
 .menu-main li {
@@ -127,4 +128,82 @@
         padding: 25px 0 20px;
         margin: 0 30px;
     }
+}
+
+
+/* авторизация и регистрация */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* body {
+  background: #e6f4fd;
+  font-family: 'Roboto', sans-serif;
+} */
+
+.ui-form {
+    max-width: 350px;
+    padding: 80px 30px 30px;
+    margin: 50px auto 30px;
+    background: #EFF6FA;
+}
+
+.form-row {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.form-row input {
+    display: block;
+    width: 100%;
+    padding: 0 10px;
+    line-height: 40px;
+    font-family: 'Roboto', sans-serif;
+    background: none;
+    border-width: 0;
+    border-bottom: 2px solid #4a90e2;
+    transition: all 0.2s ease;
+}
+
+.form-row label {
+    position: absolute;
+    left: 13px;
+    color: #9d959d;
+    font-size: 20px;
+    font-weight: 300;
+    transform: translateY(-35px);
+    transition: all 0.2s ease;
+}
+
+.form-row input:focus {
+    outline: 0;
+    border-color: #F77A52;
+}
+
+.form-row input:focus+label,
+.form-row input:valid+label {
+    transform: translateY(-60px);
+    margin-left: -14px;
+    font-size: 14px;
+    font-weight: 400;
+    outline: 0;
+    border-color: #F77A52;
+    color: #F77A52;
+}
+
+.ui-form input[type="submit"] {
+    width: 100%;
+    padding: 0;
+    line-height: 42px;
+    background: #4a90e2;
+    border-width: 0;
+    color: #EFF6FA;
+    font-size: 20px;
+}
+
+.ui-form p {
+    margin: 0;
+    padding-top: 10px;
 }
