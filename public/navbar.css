@@ -24,11 +24,11 @@ li a {
 }
 
 li a:hover:not(.active) {
-    background-color: #4CAF50;
+    background-color: #2EE59D;
 }
 
 .activeGreenButton {
-    background-color: #4CAF50;
+    background-color: #2EE59D;
 }
 
 li a,
