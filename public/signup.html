@@ -4,11 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Авторизация</title>
 </head>
 
 <body>
+    <ul class="menu-main">
+        <li><a href="/main.html">HotelScanner</a></li>
+        <li><a href="/list.html">Список отелей</a></li>
+        <li><a href="/signup.html" class="current">Регистрация</a></li>
+    </ul>
 
+    <form action="" class="ui-form">
+        <h2 style="text-align: center; color: #4a90e2;">Заполните поля для регистрации</h2>
+        <div class="form-row">
+            <input type="text" required autocomplete="off"><label for="email">ФИО</label>
+        </div>
+        <div class="form-row">
+            <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
+        </div>
+        <div class="form-row">
+            <input type="tel" id="tel" pattern="(\+?\d[- .]*){7,13}" required autocomplete="off"><label for="email">Телефон</label>
+        </div>
+        <div class="form-row">
+            <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
+        </div>
+        <div class="form-row">
+            <input type="password" id="password" required autocomplete="off"><label for="password">Повторите пароль</label>
+        </div>
+        <span class="psw">     Есть аккаунт?
+            <a href="/signin.html">Регистрация</a>
+        </span>
+        <br>
+        <br>
+        <button class="btn" style="text-align: center; margin-bottom: 20px;" href="/profile.html">Вход</button>
+    </form>
 </body>
 
 </html>

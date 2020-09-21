@@ -13,23 +13,23 @@
         <li><a href="/main.html">HotelScanner</a></li>
         <li><a href="/list.html">Список отелей</a></li>
         <li><a href="/signin.html" class="current">Авторизация</a></li>
-        <li><a href="/signup.html">Регистрации</a></li>
-        <li><a href="/signin.html">Профиль(уже чей-то)</a></li>
     </ul>
 
-
-
     <form action="" class="ui-form">
-        <h2 style="text-align: center; color: #4a90e2;">Войти на сайт</h2>
+        <h2 style="text-align: center; color: #4a90e2;">Вход в аккаунт</h2>
         <div class="form-row">
-            <input type="text" id="email" required autocomplete="off"><label for="email">Email</label>
+            <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
         </div>
         <div class="form-row">
             <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
         </div>
-        <button class="buttonLine" style="margin: right;" href="/main.html">
-            Войти
-        </button>
+        <span class="psw">Нету аккаунта? 
+            <a href="/signup.html">Регистрация</a>
+        </span>
+        <br>
+        <br>
+        <br>
+        <button class="btn" style="text-align: center; margin-bottom: 20px;" href="/profile.html">Вход</button>
     </form>
 </body>
 
