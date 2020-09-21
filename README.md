@@ -9,8 +9,13 @@
 * **Никита Щелканов** - *Фулстек* - [n-shch](https://github.com/n-shch')
 * **Сергей Алексеев** - *Фулстек* - [serenehet](https://github.com/serenehet)
 
-## Ментор
-* **Наташа Климова** - [Tataklim](https://github.com/Tataklim)
+## Менторы
+* **Наташа Климова** - *Ментор по фронтенду* - [Tataklim](https://github.com/Tataklim)
+* **Дмитрий Рыбаков** - *Ментор по бэкенду* -[bulletmys](https://github.com/bulletmys)
+
+## Репозиторий с бэкендом
+* [Ссылка](https://github.com/go-park-mail-ru/2020_2_JMickhs)
+
 
 
 
