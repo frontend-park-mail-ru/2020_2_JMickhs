@@ -1,7 +1,15 @@
+// 'use strict'
+
 console.log('i am start!!!')
 
-// Components
-const HomeComponent = {
+// import Test from './js/router'
+// Test.hello()
+
+
+const application = document.getElementById('app');
+
+//Components
+const HomePage = {
     render: () => {
         return `
         <ul class="menu-main">
@@ -16,7 +24,7 @@ const HomeComponent = {
     }
 }
 
-const Page1Component = {
+const ListPage = {
     render: () => {
         return `
         <body>
@@ -31,16 +39,16 @@ const Page1Component = {
     }
 }
 
-const Page2Component = {
+const AuthPage = {
     render: () => {
         return `
         <ul class="menu-main">
         <li><a href="/">HotelScanner</a></li>
         <li><a href="#/list">Список отелей</a></li>
         <li><a href="#/signin" class="current">Авторизация</a></li>
-    </ul>
+        </ul>
 
-    <form action="" class="ui-form">
+        <form action="" class="ui-form">
         <h2 style="text-align: center; color: #4a90e2;">Вход в аккаунт</h2>
         <div class="form-row">
             <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
@@ -55,12 +63,12 @@ const Page2Component = {
         <br>
         <br>
         <button class="btn" style="text-align: center; margin-bottom: 20px;" href="/profile.html">Вход</button>
-    </form>
+        </form>
       `;
     }
 }
 
-const ErrorComponent = {
+const ErrorPage = {
     render: () => {
         return `
         <section>
@@ -72,23 +80,38 @@ const ErrorComponent = {
 }
 
 const routes = [
-    { path: '/', component: HomeComponent, },
-    { path: '/list', component: Page1Component, },
-    { path: '/signin', component: Page2Component, },
+    { path: '/', component: HomePage, },
+    { path: '/list', component: ListPage, },
+    { path: '/signin', component: AuthPage, },
 ];
 
-const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
+class Router {
+    constructor(config) {
+        this.routes = config;
+    }
 
-const findComponentByPath = (path, routes) => routes.find(r => r.path.match(new RegExp(`^\\${path}$`, 'gm'))) || undefined;
+    parseLocation() {
 
-const router = () => {
-    // Find the component based on the current path
-    const path = parseLocation();
-    // If there's no matching route, get the "Error" component
-    const { component = ErrorComponent } = findComponentByPath(path, routes) || {};
-    console.log(path)
-    document.getElementById('app').innerHTML = component.render();
+        return location.hash.slice(1).toLowerCase() || '/';
+        // return location.hash.
+    }
+
+    findComponentByPath(path) {
+        return this.routes.find(r => r.path.match(new RegExp(`^\\${path}$`, 'gm'))) || undefined;
+        // gm - это многострочный текст парни (вроде как)
+    }
+
+    async route() {
+        const path = this.parseLocation();
+
+        const { component } = this.findComponentByPath(path) || { component: ErrorPage };
+        application.innerHTML = component.render();
+    }
+    start() {
+        window.addEventListener('hashchange', this.route.bind(this));
+        window.addEventListener('load', this.route.bind(this));
+    }
 }
 
-window.addEventListener('hashchange', router);
-window.addEventListener('load', router);
+let router = new Router(routes);
+router.start()
