@@ -12,6 +12,10 @@ ul {
 
 .btn {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    left: 50%;
+    transform: translate(-50%, 0);
     overflow: hidden;
     z-index: 1;
     padding: 10px 40px;
@@ -28,6 +32,7 @@ ul {
     outline: none;
     cursor: pointer;
     transition: 1.5s;
+    text-align: center;
 }
 
 .btn:before,
@@ -169,7 +174,8 @@ ul {
 } */
 
 .ui-form {
-    max-width: 350px;
+    max-width: 500px;
+    width: 20%;
     margin: 50px auto 30px;
     background: #EFF6FA;
 }
@@ -237,6 +243,10 @@ ul {
     color: #4a90e2;
 }
 
+.ui-form .btn {
+    margin-top: 35px;
+}
+
 @media screen and (max-width: 300px) {
     span.psw {
         display: block;
@@ -256,7 +266,7 @@ ul {
     width: 30%;
     border-radius: 5px;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .card:hover {
@@ -267,6 +277,12 @@ ul {
     margin: auto;
     display: flex;
     flex-direction: row;
+}
+
+.container .ui-form {
+    margin-top: 150px;
+    margin-left: 0px;
+    width: 100%;
 }
 
 nav ul {

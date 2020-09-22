@@ -13,7 +13,7 @@
 <ul class="menu-main">
     <li><a href="/main.html">HotelScanner</a></li>
     <li><a href="/list.html">Список отелей</a></li>
-    <li><a href="/signin.html" class="current">Авторизация</a></li>
+    <li><a href="/signin.html" class="current">Профиль</a></li>
 </ul>
 </nav>
 
@@ -34,10 +34,13 @@
         <input type="text" id="login" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Логин</label>
     </div>
     <div class="form-row">
-        <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
+        <input type="text" id="email" required autocomplete="off"><label for="password">Email</label>
     </div>
     <div class="form-row">
-        <input type="text" id="email" required autocomplete="off"><label for="password">Email</label>
+        <input type="password" id="password" required autocomplete="off"><label for="password">Старый пароль</label>
+    </div>
+    <div class="form-row">
+        <input type="password" id="password" required autocomplete="off"><label for="password">Новый пароль</label>
     </div>
     <br>
     <br>
