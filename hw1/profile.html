@@ -4,11 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Авторизация</title>
 </head>
 
 <body>
+<nav>
+<ul class="menu-main">
+    <li><a href="/main.html">HotelScanner</a></li>
+    <li><a href="/list.html">Список отелей</a></li>
+    <li><a href="/signin.html" class="current">Авторизация</a></li>
+</ul>
+</nav>
 
+<div class="container">
+<div class="card">
+    <img class="avatar" src="img/avatar.jpg" alt="Avatar">
+    <div class="cnt">
+        <h3><b>Логин: Serenehet</b></h3>
+        <h3><b>Email: seren_predatel@sas.ru</b></h3>
+        <h3><b>тел.: 8(283)293-92-00</b></h3>
+    </div>
+</div>
+
+    <div class="prof_cnt"></div>
+<form action="" class="ui-form">
+    <h2>Изменить данные</h2>
+    <div class="form-row">
+        <input type="text" id="login" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Логин</label>
+    </div>
+    <div class="form-row">
+        <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
+    </div>
+    <div class="form-row">
+        <input type="text" id="email" required autocomplete="off"><label for="password">Email</label>
+    </div>
+    <br>
+    <br>
+    <br>
+    <button class="btn" style="text-align: center; margin-bottom: 20px;" href="/profile.html">Сохранить</button>
+</form>
+</div>
+</div>
 </body>
 
 </html>
