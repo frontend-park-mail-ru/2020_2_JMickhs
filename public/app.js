@@ -91,9 +91,8 @@ class Router {
     }
 
     parseLocation() {
-
+        console.log(location.pathname)
         return location.hash.slice(1).toLowerCase() || '/';
-        // return location.hash.
     }
 
     findComponentByPath(path) {
@@ -103,13 +102,14 @@ class Router {
 
     async route() {
         const path = this.parseLocation();
-
         const { component } = this.findComponentByPath(path) || { component: ErrorPage };
         application.innerHTML = component.render();
     }
+
     start() {
         window.addEventListener('hashchange', this.route.bind(this));
         window.addEventListener('load', this.route.bind(this));
+        window.addEventListener('popstate', this.route.bind(this));
     }
 }
 
