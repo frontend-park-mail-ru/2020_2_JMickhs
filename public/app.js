@@ -85,6 +85,8 @@ const routes = [
     { path: '/signin', component: AuthPage, },
 ];
 
+
+// роутер, работает только по якорям, надо доработать =)
 class Router {
     constructor(config) {
         this.routes = config;
@@ -109,7 +111,7 @@ class Router {
     start() {
         window.addEventListener('hashchange', this.route.bind(this));
         window.addEventListener('load', this.route.bind(this));
-        window.addEventListener('popstate', this.route.bind(this));
+        //window.addEventListener('popstate', this.route.bind(this));
     }
 }
 
