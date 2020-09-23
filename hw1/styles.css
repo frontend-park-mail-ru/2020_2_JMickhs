@@ -1,4 +1,4 @@
-/* buttons */
+/* кнопки */
 
 body {
     background: #EFF6FA;
@@ -14,7 +14,7 @@ ul {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    left: 50%;
+    left: 48%;
     transform: translate(-50%, 0);
     overflow: hidden;
     z-index: 1;
@@ -70,10 +70,23 @@ ul {
 }
 
 
+.card .container .btn {
+    height: 30%;
+    position: relative;
+    left: 25%;
+    top: 20px;
+}
+
+
 /* navbar */
 
+nav ul {
+    z-index: 2;
+}
 
-/* @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed'); */
+nav {
+    height: 60px
+}
 
 .menu-main {
     list-style: none;
@@ -167,12 +180,6 @@ ul {
     box-sizing: border-box;
 }
 
-
-/* body {
-  background: #e6f4fd;
-  font-family: 'Roboto', sans-serif;
-} */
-
 .ui-form {
     max-width: 500px;
     width: 20%;
@@ -243,10 +250,6 @@ ul {
     color: #4a90e2;
 }
 
-.ui-form .btn {
-    margin-top: 35px;
-}
-
 @media screen and (max-width: 300px) {
     span.psw {
         display: block;
@@ -257,8 +260,7 @@ ul {
     }
 }
 
-
-
+/* карточка отеля */
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -273,6 +275,8 @@ ul {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* контейнеры */
+
 .container {
     margin: auto;
     display: flex;
@@ -285,16 +289,12 @@ ul {
     width: 100%;
 }
 
-nav ul {
-    z-index: 2;
+.cnt {
+    color: #f5b08f;
 }
-nav {
-    height: 60px
-}
+
+/* аватарка */
 
 .avatar {
     width: 100%;
-}
-.cnt {
-    color: #f5b08f;
 }
