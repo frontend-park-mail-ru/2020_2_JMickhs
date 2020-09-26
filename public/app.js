@@ -112,7 +112,9 @@ const ErrorPage = {
 }
 
 function ajax(method, url, body = null, callback) {
-    const xhr = new XMLRequest();
+    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+
+    var xhr = new XHR();
     xhr.open(method, url, true);
     //xhr.withCredentials = false;
 
