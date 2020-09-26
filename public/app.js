@@ -114,7 +114,7 @@ const ErrorPage = {
 function ajax(method, url, body = null, callback) {
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
-    var xhr = new XHR();
+    var xhr = new XHR()
     xhr.open(method, url, true);
     //xhr.withCredentials = false;
 
@@ -125,8 +125,11 @@ function ajax(method, url, body = null, callback) {
     });
 
     if (body) {
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-        xhr.send(JSON.stringify(body));
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=utf8');
+        xhr.send(JSON.stringify(`{
+            "username": "kosstikan@mail.ru",
+            "password": "123fds"
+          }`));
         return;
     }
 
@@ -144,12 +147,20 @@ function signupPageRender() {
     btn.type = 'submit';
     btn.value = 'Авторизироваться!';
     form.addEventListener('submit', (evt) => {
+        // evt.preventDefault();
+        // let username = 'serenehet@gmail.com';
+        // let password = '12345678910';
+        // ajax(
+        //     'POST',
+        //     'http://81.163.28.77:8080/api/v1/signup',
+        //     {username, password},
+        //     )
         evt.preventDefault();
         let username = 'kek@gmail.com'
-        let Password = '12345'
+        let password = '12345'
         ajax(
             'POST',
-            'http://81.163.28.77:8080/api/v1/signin', { username, Password },
+            'http://81.163.28.77:8080/api/v1/signup', { username, password },
             (status, response) => {
                 console.log(status);
                 console.log(response);
