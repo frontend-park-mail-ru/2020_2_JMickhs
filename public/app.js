@@ -125,11 +125,8 @@ function ajax(method, url, body = null, callback) {
     });
 
     if (body) {
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=utf8');
-        xhr.send(JSON.stringify(`{
-            "username": "kosstikan@mail.ru",
-            "password": "123fds"
-          }`));
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
+        xhr.send(JSON.stringify(body));
         return;
     }
 
