@@ -62,7 +62,7 @@ const AuthPage = {
         <br>
         <br>
         <br>
-        <button class="btn" id="btnAuth" style="text-align: center; margin-bottom: 20px;" href="/profile.html">Вход</button>
+        <button class="btn" id="btnAuth" style="text-align: center; margin-bottom: 20px;">Вход</button>
         </form>
       `;
     }
@@ -77,7 +77,10 @@ function signupPageRender() {
     let btn = document.getElementById('btnAuth')
     btn.type = 'submit';
     btn.value = 'Авторизироваться!';
-    console.log(form)
+    form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        //console.log('oops')
+    });
 }
 
 const ErrorPage = {
@@ -128,7 +131,7 @@ class Router {
     }
 
     parseLocation() {
-        console.log(location.pathname)
+        //console.log(location.pathname)
         return location.hash.slice(1).toLowerCase() || '/';
     }
 
