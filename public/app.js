@@ -48,7 +48,7 @@ const AuthPage = {
         <li><a href="#/signin" class="current">Авторизация</a></li>
         </ul>
 
-        <form action="" class="ui-form">
+        <form action="" class="ui-form" id="loginform">
         <h2 style="text-align: center; color: #4a90e2;">Вход в аккаунт</h2>
         <div class="form-row">
             <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
@@ -62,10 +62,22 @@ const AuthPage = {
         <br>
         <br>
         <br>
-        <button class="btn" style="text-align: center; margin-bottom: 20px;" href="/profile.html">Вход</button>
+        <button class="btn" id="btnAuth" style="text-align: center; margin-bottom: 20px;" href="/profile.html">Вход</button>
         </form>
       `;
     }
+}
+
+function signupPageRender() {
+    application.innerHTML = AuthPage.render()
+    let form = document.getElementById('loginform')
+    let emailInput = document.getElementById('email')
+    let passInput = document.getElementById('password')
+
+    let btn = document.getElementById('btnAuth')
+    btn.type = 'submit';
+    btn.value = 'Авторизироваться!';
+    console.log(form)
 }
 
 const ErrorPage = {
@@ -78,6 +90,29 @@ const ErrorPage = {
       `;
     }
 }
+
+function ajax(method, url, body = null, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.withCredentials = true;
+
+    xhr.addEventListener('readystatechange', function() {
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+        callback(xhr.status, xhr.responseText);
+    });
+
+    if (body) {
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
+        xhr.send(JSON.stringify(body));
+        return;
+    }
+
+    xhr.send();
+
+}
+
+
 
 const routes = [
     { path: '/', component: HomePage, },
@@ -105,7 +140,12 @@ class Router {
     async route() {
         const path = this.parseLocation();
         const { component } = this.findComponentByPath(path) || { component: ErrorPage };
-        application.innerHTML = component.render();
+        if (component === AuthPage) {
+            signupPageRender();
+        } else {
+            application.innerHTML = component.render();
+        }
+
     }
 
     start() {
