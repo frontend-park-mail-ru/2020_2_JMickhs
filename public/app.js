@@ -1,10 +1,5 @@
 // 'use strict'
 
-console.log('i am start!!!')
-
-// import Test from './js/router'
-// Test.hello()
-
 
 const application = document.getElementById('app');
 
