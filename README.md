@@ -15,7 +15,3 @@
 
 ## Репозиторий с бэкендом
 [Ссылка](https://github.com/go-park-mail-ru/2020_2_JMickhs)
-
-
-
-

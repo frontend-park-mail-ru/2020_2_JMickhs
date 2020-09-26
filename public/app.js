@@ -1,5 +1,5 @@
 // 'use strict'
-
+// import { testHello } from './test/test'
 
 const application = document.getElementById('app');
 
@@ -52,7 +52,7 @@ const AuthPage = {
             <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
         </div>
         <span class="psw">Нету аккаунта? 
-            <a href="/signup.html">Регистрация</a>
+            <a href="#/signup">Регистрация</a>
         </span>
         <br>
         <br>
@@ -63,19 +63,41 @@ const AuthPage = {
     }
 }
 
-function signupPageRender() {
-    application.innerHTML = AuthPage.render()
-    let form = document.getElementById('loginform')
-    let emailInput = document.getElementById('email')
-    let passInput = document.getElementById('password')
+const RegPage = {
+    render: () => {
+        return `
+        <ul class="menu-main">
+        <li><a href="/">HotelScanner</a></li>
+        <li><a href="#/list">Список отелей</a></li>
+        <li><a href="#/signin" class="current">Авторизация</a></li>
+        </ul>
 
-    let btn = document.getElementById('btnAuth')
-    btn.type = 'submit';
-    btn.value = 'Авторизироваться!';
-    form.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-        //console.log('oops')
-    });
+        <div class="container"></div>
+        <form action="" class="ui-form">
+            <h2>Заполните поля для регистрации</h2>
+            <div class="form-row">
+                <input type="text" required autocomplete="off"><label for="email">ФИО</label>
+            </div>
+            <div class="form-row">
+                <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
+            </div>
+            <div class="form-row">
+                <input type="tel" id="tel" pattern="(\+?\d[- .]*){7,13}" required autocomplete="off"><label for="email">Телефон</label>
+            </div>
+            <div class="form-row">
+                <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
+            </div>
+            <div class="form-row">
+                <input type="password" id="password" required autocomplete="off"><label for="password">Повторите пароль</label>
+            </div>
+            <span class="psw">     Есть аккаунт?
+                <a href="/signin.html">Войдите</a>
+            </span>
+        </form>
+        <button class="btn" href="/profile.html">Регистрация</button>
+        </div>
+      `;
+    }
 }
 
 const ErrorPage = {
@@ -90,9 +112,9 @@ const ErrorPage = {
 }
 
 function ajax(method, url, body = null, callback) {
-    const xhr = new XMLHttpRequest();
+    const xhr = new XMLRequest();
     xhr.open(method, url, true);
-    xhr.withCredentials = true;
+    //xhr.withCredentials = false;
 
     xhr.addEventListener('readystatechange', function() {
         if (xhr.readyState !== XMLHttpRequest.DONE) return;
@@ -110,48 +132,36 @@ function ajax(method, url, body = null, callback) {
 
 }
 
+function signupPageRender() {
+    application.innerHTML = AuthPage.render()
+    let form = document.getElementById('loginform')
+    let emailInput = document.getElementById('email')
+    let passInput = document.getElementById('password')
 
+    let btn = document.getElementById('btnAuth')
+    btn.type = 'submit';
+    btn.value = 'Авторизироваться!';
+    form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        let username = 'kek@gmail.com'
+        let Password = '12345'
+        ajax(
+            'POST',
+            'http://81.163.28.77:8080/api/v1/signin', { username, Password },
+            (status, response) => {
+                console.log(status);
+                console.log(response);
+            }
+        )
+    });
+}
 
 const routes = [
     { path: '/', component: HomePage, },
     { path: '/list', component: ListPage, },
     { path: '/signin', component: AuthPage, },
+    { path: '/signup', component: RegPage, },
 ];
 
-
-// роутер, работает только по якорям, надо доработать =)
-class Router {
-    constructor(config) {
-        this.routes = config;
-    }
-
-    parseLocation() {
-        //console.log(location.pathname)
-        return location.hash.slice(1).toLowerCase() || '/';
-    }
-
-    findComponentByPath(path) {
-        return this.routes.find(r => r.path.match(new RegExp(`^\\${path}$`, 'gm'))) || undefined;
-        // gm - это многострочный текст парни (вроде как)
-    }
-
-    async route() {
-        const path = this.parseLocation();
-        const { component } = this.findComponentByPath(path) || { component: ErrorPage };
-        if (component === AuthPage) {
-            signupPageRender();
-        } else {
-            application.innerHTML = component.render();
-        }
-
-    }
-
-    start() {
-        window.addEventListener('hashchange', this.route.bind(this));
-        window.addEventListener('load', this.route.bind(this));
-        //window.addEventListener('popstate', this.route.bind(this));
-    }
-}
-
-let router = new Router(routes);
+const router = new Router(routes);
 router.start()
