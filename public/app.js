@@ -1,10 +1,5 @@
 // 'use strict'
 
-console.log('i am start!!!')
-
-// import Test from './js/router'
-// Test.hello()
-
 
 const application = document.getElementById('app');
 
@@ -41,30 +36,7 @@ const ListPage = {
 
 const AuthPage = {
     render: () => {
-        return `
-        <ul class="menu-main">
-        <li><a href="/">HotelScanner</a></li>
-        <li><a href="#/list">Список отелей</a></li>
-        <li><a href="#/signin" class="current">Авторизация</a></li>
-        </ul>
-
-        <form action="" class="ui-form" id="loginform">
-        <h2 style="text-align: center; color: #4a90e2;">Вход в аккаунт</h2>
-        <div class="form-row">
-            <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
-        </div>
-        <div class="form-row">
-            <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
-        </div>
-        <span class="psw">Нету аккаунта? 
-            <a href="/signup.html">Регистрация</a>
-        </span>
-        <br>
-        <br>
-        <br>
-        <button class="btn" id="btnAuth" style="text-align: center; margin-bottom: 20px;" href="/profile.html">Вход</button>
-        </form>
-      `;
+        return document.cre
     }
 }
 
@@ -77,7 +49,6 @@ function signupPageRender() {
     let btn = document.getElementById('btnAuth')
     btn.type = 'submit';
     btn.value = 'Авторизироваться!';
-    console.log(form)
 }
 
 const ErrorPage = {
@@ -128,7 +99,6 @@ class Router {
     }
 
     parseLocation() {
-        console.log(location.pathname)
         return location.hash.slice(1).toLowerCase() || '/';
     }
 

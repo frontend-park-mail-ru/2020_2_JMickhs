@@ -300,3 +300,13 @@ nav {
 .avatar {
     width: 100%;
 }
+
+.text {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.text-first {
+    text-align: center;
+    margin-top: 100px;
+}
