@@ -21,17 +21,11 @@ class ListModel extends EventEmitter {
             'GET',
             'http://89.208.197.127:8080/api/v1/hotels', {},
             (status, response) => {
-                console.log(response);
-                console.log(typeof response);
-                console.log('data', data);
-                const json = JSON.parse(data);
 
-                //response.toArray().forEach((item) => { this._hotels[this._hotels.length] = item; });
+                this._hotels = JSON.parse(response);
+                this.do('getHotels', () => { console.log('AAA') });
             }
         );
-
-        this.do('getHotels', () => { console.log('AAA') });
-
         return this._hotels;
     }
 
@@ -49,7 +43,6 @@ class ListView extends EventEmitter {
         super();
         this.app = document.getElementById('app');
         this._model = model;
-        this._model.subscribe('getHotels', this.show.bind(this));
     }
 
     show() {
@@ -60,7 +53,7 @@ class ListView extends EventEmitter {
         <div class="container">
             <div class="cnt">
                 <h3>
-                    <b>${this._model._hotels[0]}</b>
+                    <b>${this._model._hotels[0].Name}</b>
                 </h3>
                 <h3>
                     <b>тел.: 8(283)293-92-00</b>
@@ -85,7 +78,7 @@ class ListController {
 
     activate() {
         this._model._hotels = this._model.getHotelsFromDB();
-        this._view.show();
+        this._model.subscribe('getHotels', this._view.show.bind(this._view));
     }
 }
 
