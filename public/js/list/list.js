@@ -46,23 +46,23 @@ class ListView extends EventEmitter {
 
     show() {
         let navbar = new Navbar();
-        this.app.innerHTML = navbar.render('home', 'list', 'signin', 2) + `
+        this.app.innerHTML += navbar.render('home', 'list', 'signin', 2) + `
            <div class="card">
-        <img class="avatar" src="img/mbs41.jpg" alt="Avatar">
-        <div class="container">
-            <div class="cnt">
-                <h3>
-                    <b>${this._model._hotels[0].Name}</b>
-                </h3>
-                <h3>
-                    <b>тел.: 8(283)293-92-00</b>
-                </h3>
+                <img class="avatar" src="img/mbs41.jpg" alt="Avatar">
+                <div class="container">
+                <div class="cnt">
+                    <h3>
+                        <b>${this._model._hotels[0].Name}</b>
+                    </h3>
+                    <h3>
+                        <b>тел.: 8(283)293-92-00</b>
+                    </h3>
+                </div>
+                <button class="btn">Подробнее</button>
+                </div>
             </div>
-            <button class="btn">Подробнее</button>
-        </div>
-        </div>
         `;
-    }
+        }
 }
 
 
