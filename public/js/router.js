@@ -20,12 +20,11 @@ class Router {
     async route() {
         const path = this.parseLocation();
         const { controller } = this.findComponentByPath(path) || { controller: ErrorPage };
+        if (controller === ErrorPage) {
+            application.innerHTML = controller.activate();
+            return;
+        }
         controller.activate();
-        // if (component === AuthPage) {
-        //     signupPageRender();
-        // } else {
-        //     application.innerHTML = component.render();
-        // }
     }
 
     start() {
