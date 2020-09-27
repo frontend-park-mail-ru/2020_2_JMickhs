@@ -18,16 +18,16 @@ class SignUpView extends EventEmitter {
         nav.el3 = { text: 'Регистрация', ref: '#/signup' }
         this.app.innerHTML = nav.render() + `
         <div class="container"></div>
-        <form action="" class="ui-form">
+        <form action="" class="ui-form" id="signupform">
             <h2>Заполните поля для регистрации</h2>
             <div class="form-row">
                 <input type="text" id="email"><label for="email">Email</label>
             </div>
             <div class="form-row">
-                <input type="password" id="password"><label for="password">Пароль</label>
+                <input type="password" id="password1"><label for="password">Пароль</label>
             </div>
             <div class="form-row">
-                <input type="password" id="password"><label for="password">Повторите пароль</label>
+                <input type="password" id="password2"><label for="password">Повторите пароль</label>
             </div>
             <span class="psw">     Есть аккаунт?
                 <a href="#/signin">Войдите</a>
@@ -37,7 +37,7 @@ class SignUpView extends EventEmitter {
         </div>
         `;
 
-        let form = document.getElementById('signinform')
+        let form = document.getElementById('signupform')
         let emailInput = document.getElementById('email')
         let passInput = document.getElementById('password')
 

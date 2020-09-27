@@ -18,17 +18,13 @@ class ListModel extends EventEmitter {
 
     getHotelsFromDB() {
         ajax(
-             'GET',
-             'http://89.208.197.127:8080/api/v1/hotels', {},
+            'GET',
+            'http://89.208.197.127:8080/api/v1/hotels', {},
             (status, response) => {
-
-                 console.log(response);
                  this._hotels = JSON.parse(response);
                  this.do('getHotels', () => {console.log('AAA')});
-                 //response.toArray().forEach((item) => { this._hotels[this._hotels.length] = item; });
             }
-         );
-
+        );
         return this._hotels;
     }
 
