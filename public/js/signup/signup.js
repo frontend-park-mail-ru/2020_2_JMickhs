@@ -3,7 +3,15 @@ class SignupController {
         this.view = view;
         this.model = model;
         this.view.subscribe('signup', (arg) => {
-
+            let pass1 = arg.password1;
+            let pass2 = arg.password2;
+            let email = arg.email;
+            if (pass1 != pass2) {
+                console.log('пароли не равны', pass1, pass2)
+                alert('пароли не равны');
+                return;
+            }
+            this.model.signup(email, pass1)
         });
     }
     activate() {
@@ -16,6 +24,11 @@ class SignupView extends EventEmitter {
         super();
         this.app = document.getElementById('app');
         this.model = model;
+        this.model.subscribe('signupResponse', (arg) => {
+            console.log(arg.status);
+            console.log(arg.response);
+            // открыть профиль юзера
+        });
 
         this.navbar = elements.navbar;
     }

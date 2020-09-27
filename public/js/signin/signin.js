@@ -65,7 +65,14 @@ class UserModel extends EventEmitter {
         this.login = '';
     }
     cookieUser() {
-
+        ajax(
+            'GET',
+            'http://89.208.197.127:8080/api/v1/get_current_user',
+            null,
+            (status, response) => {
+                console.log('cookie status', status);
+                console.log('cookie response', response);
+            })
     }
 
     signin(username, password) {
@@ -87,7 +94,7 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/signup', { username, password },
             (status, response) => {
                 if (status == 200) {
-                    this.do('signupResponse', { responce: response });
+                    this.do('signupResponse', { status: status, responce: response });
                     return
                 }
                 console.log('signup status -', status);

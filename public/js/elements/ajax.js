@@ -2,7 +2,7 @@ function ajax(method, url, body = null, callback) {
     let XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
     let xhr = new XHR()
     xhr.open(method, url, true);
-    //xhr.withCredentials = false;
+    xhr.withCredentials = true;
     xhr.addEventListener('readystatechange', function() {
         if (xhr.readyState !== XMLHttpRequest.DONE) return;
 

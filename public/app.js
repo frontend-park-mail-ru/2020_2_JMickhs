@@ -17,6 +17,8 @@ const navbar = new Navbar();
 
 const userModel = new UserModel();
 
+userModel.cookieUser();
+
 const signinView = new SigninView(userModel, { navbar: navbar });
 const signupView = new SignupView(userModel, { navbar: navbar });
 const homeView = new HomeView({ navbar: navbar });
