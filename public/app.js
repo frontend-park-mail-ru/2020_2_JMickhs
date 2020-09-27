@@ -17,4 +17,5 @@ const router = new Router();
 router.append('/', createHomeContoller());
 router.append('/signin', createSigninController());
 router.append('/signup', createSignUpController());
+router.append('/list',  createListController());
 router.start();
