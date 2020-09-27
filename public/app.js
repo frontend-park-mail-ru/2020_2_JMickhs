@@ -154,10 +154,10 @@ function signupPageRender() {
         //     )
         evt.preventDefault();
         let username = 'kek@gmail.com'
-        let password = '12345'
+        let password = '123456789012'
         ajax(
             'POST',
-            'http://81.163.28.77:8080/api/v1/signup', { username, password },
+            'http://89.208.197.127:8080/api/v1/signup', { username, password },
             (status, response) => {
                 console.log(status);
                 console.log(response);
