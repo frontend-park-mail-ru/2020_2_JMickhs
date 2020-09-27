@@ -13,15 +13,7 @@ class HotelInfo {
 class ListModel extends EventEmitter {
     constructor(hotels = []) {
         super();
-        this.a = 0;
         this._hotels = hotels;
-    }
-
-    callback(status, response) {
-        this._hotels[this._hotels.length] = Ext.util.JSON.decode(response);
-        //this._hotels[this._hotels.length] = '3';
-        this.a = 1;
-        this.do('kek', 'how are you?');
     }
 
     getHotelsFromDB() {
@@ -36,7 +28,7 @@ class ListModel extends EventEmitter {
 
         this.do('getHotels', () => {console.log('AAA')});
 
-        return this.a;
+        return this._hotels;
     }
 
     getItems() {
@@ -88,7 +80,7 @@ class ListController {
     }
 
     activate() {
-        this._model.getHotelsFromDB();
+        this._model._hotels = this._model.getHotelsFromDB();
         this._view.show();
     }
 }
