@@ -5,15 +5,15 @@
  */
 class EventEmitter {
     constructor() {
-            this.events = {}; // храним евенты
-        }
-        //добавляем евенты
+        this.events = {}; // храним евенты
+    }
+    //добавляем евенты
     subscribe(evt, listener) {
-            (this.events[evt] || (this.events[evt] = [])).push(listener);
-            return this;
-        }
-        //ввыполняем 
+        (this.events[evt] || (this.events[evt] = [])).push(listener);
+        return this;
+    }
+    //ввыполняем
     do(evt, arg) {
-        (this._events[evt] || []).slice().forEach(lsn => lsn(arg));
+        (this.events[evt] || []).slice().forEach(lsn => lsn(arg));
     }
 }

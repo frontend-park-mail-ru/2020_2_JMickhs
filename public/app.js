@@ -57,6 +57,7 @@ const ErrorPage = {
 // ];
 
 const router = new Router();
-router.append('/', createHomeContoller())
-router.append('/signin', createSigninController())
-router.start()
+router.append('/', createHomeContoller());
+router.append('/signin', createSigninController());
+router.append('/list',  createListController());
+router.start();
