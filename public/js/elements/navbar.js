@@ -5,7 +5,7 @@ class Navbar {
         this.el3 = { text: 'Авторизация', ref: '#/signin' };
     }
     render() {
-        TODO: return `
+        return `
         <ul class="menu-main">
         <li>
             <a href="${this.el1.ref}">${this.el1.text}</a>
@@ -17,6 +17,6 @@ class Navbar {
             <a href="${this.el3.ref}">${this.el3.text}</a>    
         </li>
         </ul>
-        `
+        `;
     }
 }

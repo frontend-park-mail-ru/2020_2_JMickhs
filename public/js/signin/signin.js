@@ -12,19 +12,20 @@ class SigninController {
     }
 }
 
-class SignInView extends EventEmitter {
-    constructor(model) {
+class SigninView extends EventEmitter {
+    constructor(model, elements) {
         super();
         this.model = model;
         this.app = document.getElementById('app');
-        this.model.subscribe('response', (arg) => {
-            console.log(arg.status);
+        this.model.subscribe('signinResponse', (arg) => {
             console.log(arg.response);
         });
+
+        this.navbar = elements.navbar;
     }
     show() {
-        let navbar = new Navbar();
-        this.app.innerHTML = navbar.render() + `
+        this.navbar.el3 = { text: 'Авторизация', ref: '#/signin' };
+        this.app.innerHTML = this.navbar.render() + `
         
         <div class="container"></div>
         <form action="" class="ui-form" id="signinform">
@@ -45,7 +46,7 @@ class SignInView extends EventEmitter {
         let form = document.getElementById('signinform')
         let emailInput = document.getElementById('email')
         let passInput = document.getElementById('password')
-        let btn = document.getElementById('btnsignin')
+
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -63,29 +64,34 @@ class UserModel extends EventEmitter {
         this.id = -1;
         this.login = '';
     }
-    test(status, response) {
-        console.log('status', status);
-        console.log('response', response);
+    cookieUser() {
+
     }
+
     signin(username, password) {
         ajax(
             'POST',
             'http://89.208.197.127:8080/api/v1/signin', { username, password },
-            this.test.bind(this)
+            (status, response) => {
+                if (status == 200) {
+                    this.do('signinResponse', { responce: response });
+                    return
+                }
+                console.log('signin status -', status);
+            }
         )
     }
     signup(username, password) {
         ajax(
             'POST',
             'http://89.208.197.127:8080/api/v1/signup', { username, password },
-            this.test.bind(this)
+            (status, response) => {
+                if (status == 200) {
+                    this.do('signupResponse', { responce: response });
+                    return
+                }
+                console.log('signup status -', status);
+            }
         )
     }
-}
-
-function createSigninController() {
-    let model = new UserModel();
-    let view = new SignInView(model);
-    let controller = new SigninController(view, model);
-    return controller;
 }

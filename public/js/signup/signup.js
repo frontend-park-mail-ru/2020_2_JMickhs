@@ -1,22 +1,27 @@
-class SignUpController {
+class SignupController {
     constructor(view, model) {
         this.view = view;
         this.model = model;
+        this.view.subscribe('signup', (arg) => {
+
+        });
     }
     activate() {
         this.view.show();
     }
 }
 
-class SignUpView extends EventEmitter {
-    constructor() {
+class SignupView extends EventEmitter {
+    constructor(model, elements) {
         super();
         this.app = document.getElementById('app');
+        this.model = model;
+
+        this.navbar = elements.navbar;
     }
-    show() {
-        let nav = new Navbar();
-        nav.el3 = { text: 'Регистрация', ref: '#/signup' }
-        this.app.innerHTML = nav.render() + `
+    async show() {
+        this.navbar.el3 = { text: 'Регистрация', ref: '#/signup' }
+        this.app.innerHTML = this.navbar.render() + `
         <div class="container"></div>
         <form action="" class="ui-form" id="signupform">
             <h2>Заполните поля для регистрации</h2>
@@ -39,20 +44,15 @@ class SignUpView extends EventEmitter {
 
         let form = document.getElementById('signupform')
         let emailInput = document.getElementById('email')
-        let passInput = document.getElementById('password')
+        let passInput1 = document.getElementById('password1')
+        let passInput2 = document.getElementById('password2')
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const email = emailInput.value.trim();
-            const pass = passInput.value.trim();
-            this.do('signin', { email: email, password: pass });
+            const pass1 = passInput1.value.trim();
+            const pass2 = passInput2.value.trim();
+            this.do('signup', { email: email, password1: pass1, password2: pass2 });
         });
     }
-}
-
-function createSignUpController() {
-    let model = new UserModel();
-    let view = new SignUpView(model);
-    let controller = new SignUpController(view, model);
-    return controller;
 }
