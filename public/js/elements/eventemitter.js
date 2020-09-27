@@ -14,6 +14,6 @@ class EventEmitter {
         }
         //ввыполняем 
     do(evt, arg) {
-        (this._events[evt] || []).slice().forEach(lsn => lsn(arg));
+        (this.events[evt] || []).slice().forEach(lsn => lsn(arg));
     }
 }
