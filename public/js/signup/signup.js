@@ -17,6 +17,9 @@ class SignUpController {
         this.view = view;
         this.model = model;
     }
+    activate() {
+
+    }
 
 }
 

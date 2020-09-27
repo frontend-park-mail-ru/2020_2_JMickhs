@@ -3,105 +3,9 @@
 
 const application = document.getElementById('app');
 
-//Components
-const HomePage = {
-    render: () => {
-        return `
-        <ul class="menu-main">
-        <li><a href="/" class="current">HotelScanner</a></li>
-        <li><a href="#/list">Список отелей</a></li>
-        <li><a href="#/signin">Авторизация</a></li>
-        </ul>
-        <p style="text-align: center;">Главная страница для отработки всех других, и позже роутера</p>
-        <p style="text-align: center;">На главной странице должен быть поиск</p>
-        <p style="text-align: center;">На первом этапе без поиска не очень понятно, что тут будет</p>
-      `;
-    }
-}
-
-const ListPage = {
-    render: () => {
-        return `
-        <body>
-        <ul class="menu-main">
-        <li><a href="/">HotelScanner</a></li>
-        <li><a href="#/list" class="current">Список отелей</a></li>
-        <li><a href="#/signin">Авторизация</a></li>
-        </ul>
-        <h2>Тут должен быть список всех отелей</h2>
-        </body>
-      `;
-    }
-}
-
-const AuthPage = {
-    render: () => {
-        return `
-        <ul class="menu-main">
-        <li><a href="/">HotelScanner</a></li>
-        <li><a href="#/list">Список отелей</a></li>
-        <li><a href="#/signin" class="current">Авторизация</a></li>
-        </ul>
-
-        <form action="" class="ui-form" id="loginform">
-        <h2 style="text-align: center; color: #4a90e2;">Вход в аккаунт</h2>
-        <div class="form-row">
-            <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
-        </div>
-        <div class="form-row">
-            <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
-        </div>
-        <span class="psw">Нету аккаунта? 
-            <a href="#/signup">Регистрация</a>
-        </span>
-        <br>
-        <br>
-        <br>
-        <button class="btn" id="btnAuth" style="text-align: center; margin-bottom: 20px;">Вход</button>
-        </form>
-      `;
-    }
-}
-
-const RegPage = {
-    render: () => {
-        return `
-        <ul class="menu-main">
-        <li><a href="/">HotelScanner</a></li>
-        <li><a href="#/list">Список отелей</a></li>
-        <li><a href="#/signin" class="current">Авторизация</a></li>
-        </ul>
-
-        <div class="container"></div>
-        <form action="" class="ui-form">
-            <h2>Заполните поля для регистрации</h2>
-            <div class="form-row">
-                <input type="text" required autocomplete="off"><label for="email">ФИО</label>
-            </div>
-            <div class="form-row">
-                <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
-            </div>
-            <div class="form-row">
-                <input type="tel" id="tel" pattern="(\+?\d[- .]*){7,13}" required autocomplete="off"><label for="email">Телефон</label>
-            </div>
-            <div class="form-row">
-                <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
-            </div>
-            <div class="form-row">
-                <input type="password" id="password" required autocomplete="off"><label for="password">Повторите пароль</label>
-            </div>
-            <span class="psw">     Есть аккаунт?
-                <a href="/signin.html">Войдите</a>
-            </span>
-        </form>
-        <button class="btn" href="/profile.html">Регистрация</button>
-        </div>
-      `;
-    }
-}
 
 const ErrorPage = {
-    render: () => {
+    activate: () => {
         return `
         <section>
           <h1>Error</h1>
@@ -111,67 +15,48 @@ const ErrorPage = {
     }
 }
 
-function ajax(method, url, body = null, callback) {
-    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
-    var xhr = new XHR()
-    xhr.open(method, url, true);
-    //xhr.withCredentials = false;
 
-    xhr.addEventListener('readystatechange', function() {
-        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+// function signupPageRender() {
+//     application.innerHTML = AuthPage.render()
+//     let form = document.getElementById('loginform')
+//     let emailInput = document.getElementById('email')
+//     let passInput = document.getElementById('password')
 
-        callback(xhr.status, xhr.responseText);
-    });
+//     let btn = document.getElementById('btnAuth')
+//     btn.type = 'submit';
+//     btn.value = 'Авторизироваться!';
+//     form.addEventListener('submit', (evt) => {
+//         // evt.preventDefault();
+//         // let username = 'serenehet@gmail.com';
+//         // let password = '12345678910';
+//         // ajax(
+//         //     'POST',
+//         //     'http://81.163.28.77:8080/api/v1/signup',
+//         //     {username, password},
+//         //     )
+//         evt.preventDefault();
+//         let username = 'kek@gmail.com'
+//         let password = '123456789012'
+//         ajax(
+//             'POST',
+//             'http://89.208.197.127:8080/api/v1/signup', { username, password },
+//             (status, response) => {
+//                 console.log(status);
+//                 console.log(response);
+//             }
+//         )
+//     });
+// }
 
-    if (body) {
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-        xhr.send(JSON.stringify(body));
-        return;
-    }
+// const routes = [
+//     { path: '/', component: HomePage, },
+//     { path: '/list', component: ListPage, },
+//     { path: '/signin', component: AuthPage, },
+//     { path: '/signup', component: RegPage, },
+// ];
 
-    xhr.send();
-
-}
-
-function signupPageRender() {
-    application.innerHTML = AuthPage.render()
-    let form = document.getElementById('loginform')
-    let emailInput = document.getElementById('email')
-    let passInput = document.getElementById('password')
-
-    let btn = document.getElementById('btnAuth')
-    btn.type = 'submit';
-    btn.value = 'Авторизироваться!';
-    form.addEventListener('submit', (evt) => {
-        // evt.preventDefault();
-        // let username = 'serenehet@gmail.com';
-        // let password = '12345678910';
-        // ajax(
-        //     'POST',
-        //     'http://81.163.28.77:8080/api/v1/signup',
-        //     {username, password},
-        //     )
-        evt.preventDefault();
-        let username = 'kek@gmail.com'
-        let password = '123456789012'
-        ajax(
-            'POST',
-            'http://89.208.197.127:8080/api/v1/signup', { username, password },
-            (status, response) => {
-                console.log(status);
-                console.log(response);
-            }
-        )
-    });
-}
-
-const routes = [
-    { path: '/', component: HomePage, },
-    { path: '/list', component: ListPage, },
-    { path: '/signin', component: AuthPage, },
-    { path: '/signup', component: RegPage, },
-];
-
-const router = new Router(routes);
+const router = new Router();
+router.append('/', createHomeContoller())
+router.append('/signin', createSigninController())
 router.start()

@@ -1,7 +1,10 @@
 // роутер, работает только по якорям, надо доработать =)
 class Router {
-    constructor(config) {
-        this.routes = config;
+    routes = []
+    constructor() {}
+
+    append(path, controller) {
+        this.routes[this.routes.length] = { path: path, controller: controller };
     }
 
     parseLocation() {
@@ -16,18 +19,17 @@ class Router {
 
     async route() {
         const path = this.parseLocation();
-        const { component } = this.findComponentByPath(path) || { component: ErrorPage };
-        if (component === AuthPage) {
-            signupPageRender();
-        } else {
-            application.innerHTML = component.render();
-        }
-
+        const { controller } = this.findComponentByPath(path) || { controller: ErrorPage };
+        controller.activate();
+        // if (component === AuthPage) {
+        //     signupPageRender();
+        // } else {
+        //     application.innerHTML = component.render();
+        // }
     }
 
     start() {
         window.addEventListener('hashchange', this.route.bind(this));
         window.addEventListener('load', this.route.bind(this));
-        //window.addEventListener('popstate', this.route.bind(this));
     }
 }
