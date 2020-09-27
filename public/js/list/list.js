@@ -21,7 +21,6 @@ class ListModel extends EventEmitter {
             'GET',
             'http://89.208.197.127:8080/api/v1/hotels', {},
             (status, response) => {
-
                 this._hotels = JSON.parse(response);
                 this.do('getHotels', () => { console.log('AAA') });
             }

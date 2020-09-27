@@ -12,14 +12,16 @@ class SignupController {
 }
 
 class SignupView extends EventEmitter {
-    constructor() {
+    constructor(model, elements) {
         super();
         this.app = document.getElementById('app');
+        this.model = model;
+
+        this.navbar = elements.navbar;
     }
     async show() {
-        let nav = new Navbar();
-        nav.el3 = { text: 'Регистрация', ref: '#/signup' }
-        this.app.innerHTML = nav.render() + `
+        this.navbar.el3 = { text: 'Регистрация', ref: '#/signup' }
+        this.app.innerHTML = this.navbar.render() + `
         <div class="container"></div>
         <form action="" class="ui-form" id="signupform">
             <h2>Заполните поля для регистрации</h2>
