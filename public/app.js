@@ -13,9 +13,16 @@ const ErrorPage = {
     }
 }
 
+const userModel = new UserModel();
+
+const signinView = new SigninView(userModel);
+const signupView = new SignupView(userModel);
+
+const signinController = new SigninController(signinView, userModel);
+const signupController = new SignupController(signupView, userModel);
+
 const router = new Router();
 router.append('/', createHomeContoller());
-router.append('/signin', createSigninController());
-router.append('/signup', createSignUpController());
-router.append('/list',  createListController());
+router.append('/signin', signinController);
+router.append('/signup', signupController);
 router.start();

@@ -23,7 +23,6 @@ class ListModel extends EventEmitter {
             (status, response) => {
                 console.log(response);
                 console.log(typeof response);
-                const data = `{hotels:${response}}`
                 console.log('data', data);
                 const json = JSON.parse(data);
 

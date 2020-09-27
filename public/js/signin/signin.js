@@ -12,7 +12,7 @@ class SigninController {
     }
 }
 
-class SignInView extends EventEmitter {
+class SigninView extends EventEmitter {
     constructor(model) {
         super();
         this.model = model;
@@ -45,7 +45,7 @@ class SignInView extends EventEmitter {
         let form = document.getElementById('signinform')
         let emailInput = document.getElementById('email')
         let passInput = document.getElementById('password')
-        let btn = document.getElementById('btnsignin')
+
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -81,11 +81,4 @@ class UserModel extends EventEmitter {
             this.test.bind(this)
         )
     }
-}
-
-function createSigninController() {
-    let model = new UserModel();
-    let view = new SignInView(model);
-    let controller = new SigninController(view, model);
-    return controller;
 }
