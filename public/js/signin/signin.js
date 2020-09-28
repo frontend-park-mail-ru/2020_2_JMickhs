@@ -70,8 +70,11 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/get_current_user',
             null,
             (status, response) => {
-                console.log('cookie status', status);
-                console.log('cookie response', response);
+                if (status == 200) {
+                    alert('по кукам пользователь найден');
+                    return;
+                }
+                alert('по кукам пользователь не найден');
             })
     }
 
@@ -81,8 +84,9 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/signin', { username, password },
             (status, response) => {
                 if (status == 200) {
-                    alert(`Пользователь ${username} вошел`)
-                    this.do('signinResponse', { responce: response });
+                    document.location.href = "#/signin";
+                    this.isAuth = true;
+                    this.login = username;
                     return
                 }
                 alert(`Пользователь ${username} не вошел`)
@@ -96,8 +100,9 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/signup', { username, password },
             (status, response) => {
                 if (status == 200) {
-                    alert(`Пользователь ${username} зарегистрировался`)
-                    this.do('signupResponse', { status: status, responce: response });
+                    document.location.href = "#/signin";
+                    this.isAuth = true;
+                    this.login = username;
                     return
                 }
                 alert(`Пользователь ${username} не зарегистрировался`)
