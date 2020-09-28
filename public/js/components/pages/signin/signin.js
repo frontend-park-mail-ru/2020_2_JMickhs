@@ -54,7 +54,7 @@ export class SigninView extends EventEmitter {
             evt.preventDefault();
             const email = emailInput.value.trim();
             const pass = passInput.value.trim();
-            this.do('signin', { email: email, password: pass });
+            this.trigger('signin', { email: email, password: pass });
         });
     }
 }
