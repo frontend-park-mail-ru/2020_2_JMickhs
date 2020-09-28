@@ -1,6 +1,6 @@
-import EventEmitter from '../prototypes/eventemitter'
-import ajax from '../network/ajax'
-import Navbar from '../navbar/navbar'
+import EventEmitter from '../../../helpers/prototypes/eventemitter'
+import ajax from '../../../helpers/network/ajax'
+import Navbar from '../../navbar/navbar'
 
 export class HotelInfo {
     constructor(name, id, description) {

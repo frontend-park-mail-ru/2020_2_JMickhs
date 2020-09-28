@@ -1,5 +1,5 @@
-import EventEmitter from '../prototypes/eventemitter'
-import ajax from '../network/ajax'
+import EventEmitter from '../../helpers/prototypes/eventemitter'
+import ajax from '../../helpers/network/ajax'
 
 export default class UserModel extends EventEmitter {
     constructor() {

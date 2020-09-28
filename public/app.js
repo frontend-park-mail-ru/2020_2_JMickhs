@@ -1,11 +1,11 @@
-import Navbar from './js/navbar/navbar'
-import UserModel from './js/usermodel/usermodel'
-import { SigninView, SigninController } from './js/signin/signin'
-import { SignupView, SignupController } from './js/signup/signup'
-import { HomeView, HomeController } from './js/home/home'
-import { ProfileView, ProfileController } from './js/profile/profile'
-import Router from './js/router'
-import createListController from './js/list/list'
+import Navbar from './js/components/navbar/navbar'
+import UserModel from './js/components/usermodel/usermodel'
+import { SigninView, SigninController } from './js/components/pages/signin/signin'
+import { SignupView, SignupController } from './js/components/pages/signup/signup'
+import { HomeView, HomeController } from './js/components/pages/home/home'
+import { ProfileView, ProfileController } from './js/components/pages/profile/profile'
+import Router from './js/helpers/router/router'
+import createListController from './js/components/pages/list/list'
 
 const navbar = new Navbar();
 

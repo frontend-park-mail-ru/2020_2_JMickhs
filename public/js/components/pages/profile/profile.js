@@ -1,4 +1,4 @@
-import EventEmitter from '../prototypes/eventemitter'
+import EventEmitter from '../../../helpers/prototypes/eventemitter'
 
 export class ProfileController {
     constructor(view, model) {
