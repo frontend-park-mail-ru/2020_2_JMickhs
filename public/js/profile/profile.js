@@ -21,7 +21,8 @@ class ProfileView extends EventEmitter {
     }
 
     show() {
-        this.navbar.el3 = { text: 'Профиль', ref: '#/profile' };
+        let username = this.model.login;
+        this.navbar.el3 = { text: `${username}`, ref: '#/profile' };
 
         this.app.innerHTML = this.app.innerHTML = this.navbar.render() + `
         <div class="container">
@@ -29,13 +30,7 @@ class ProfileView extends EventEmitter {
             <img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSLxKO10UasXg7mO30FlOuE-DQCQCOZwdq1Pw&usqp=CAU" alt="Avatar">
             <div class="cnt">
                 <h3>
-                    <b>Логин: Serenehet</b>
-                </h3>
-                <h3>
-                    <b>Email: seren_predatel@sas.ru</b>
-                </h3>
-                <h3>
-                    <b>тел.: 8(283)293-92-00</b>
+                    <b>Логин: ${username}</b>
                 </h3>
             </div>
         </div>
@@ -43,16 +38,13 @@ class ProfileView extends EventEmitter {
         <form action="" class="ui-form">
             <h2>Изменить данные</h2>
             <div class="form-row">
-                <input type="text" id="login" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Логин</label>
+                <input type="text" id="email"><label for="password">Email</label>
             </div>
             <div class="form-row">
-                <input type="text" id="email" required autocomplete="off"><label for="password">Email</label>
+                <input type="password" id="password1"><label for="password">Старый пароль</label>
             </div>
             <div class="form-row">
-                <input type="password" id="password" required autocomplete="off"><label for="password">Старый пароль</label>
-            </div>
-            <div class="form-row">
-                <input type="password" id="password" required autocomplete="off"><label for="password">Новый пароль</label>
+                <input type="password" id="password2"><label for="password">Новый пароль</label>
             </div>
             <button class="btn" href="/profile.html">Сохранить</button>
         </form>

@@ -1,6 +1,6 @@
 function ajax(method, url, body = null, callback) {
-    let XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-    let xhr = new XHR()
+    //let XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+    let xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
     xhr.withCredentials = true;
     xhr.addEventListener('readystatechange', function() {
