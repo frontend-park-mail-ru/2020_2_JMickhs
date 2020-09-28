@@ -1,8 +1,9 @@
 // роутер, работает только по якорям, надо доработать =)
 
 class Router {
-    routes = []
-    constructor() {}
+    constructor() {
+        this.routes = [];
+    }
 
     append(path, controller) {
         this.routes[this.routes.length] = { path: path, controller: controller };
