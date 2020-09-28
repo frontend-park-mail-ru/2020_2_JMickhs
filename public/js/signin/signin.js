@@ -84,7 +84,7 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/signin', { username, password },
             (status, response) => {
                 if (status == 200) {
-                    document.location.href = "#/signin";
+                    document.location.href = "#/profile";
                     this.isAuth = true;
                     this.login = username;
                     return
@@ -100,7 +100,7 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/signup', { username, password },
             (status, response) => {
                 if (status == 200) {
-                    document.location.href = "#/signin";
+                    document.location.href = "#/profile";
                     this.isAuth = true;
                     this.login = username;
                     return

@@ -46,7 +46,7 @@ class ListView extends EventEmitter {
 
     show() {
         let navbar = new Navbar();
-        this.app.innerHTML += navbar.render('home', 'list', 'signin', 2) + `
+        this.app.innerHTML = navbar.render('home', 'list', 'signin', 2) + `
            <div class="card">
                 <img class="avatar" src="img/mbs41.jpg" alt="Avatar">
                 <div class="container">
@@ -62,7 +62,7 @@ class ListView extends EventEmitter {
                 </div>
             </div>
         `;
-        }
+    }
 }
 
 
