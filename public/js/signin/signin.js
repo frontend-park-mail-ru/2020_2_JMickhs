@@ -81,9 +81,11 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/signin', { username, password },
             (status, response) => {
                 if (status == 200) {
+                    alert(`Пользователь ${username} вошел`)
                     this.do('signinResponse', { responce: response });
                     return
                 }
+                alert(`Пользователь ${username} не вошел`)
                 console.log('signin status -', status);
             }
         )
@@ -94,9 +96,11 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/signup', { username, password },
             (status, response) => {
                 if (status == 200) {
+                    alert(`Пользователь ${username} зарегистрировался`)
                     this.do('signupResponse', { status: status, responce: response });
                     return
                 }
+                alert(`Пользователь ${username} не зарегистрировался`)
                 console.log('signup status -', status);
             }
         )
