@@ -1,6 +1,19 @@
 // роутер, работает только по якорям, надо доработать =)
 
-class Router {
+
+const ErrorPage = {
+    activate: () => {
+        return `
+        <section>
+          <h1>Error</h1>
+          <p>This is just a test</p>
+        </section>
+      `;
+    }
+}
+
+
+export default class Router {
     constructor() {
         this.routes = [];
     }

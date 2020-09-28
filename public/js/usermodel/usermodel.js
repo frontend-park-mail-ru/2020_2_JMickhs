@@ -1,4 +1,7 @@
-class UserModel extends EventEmitter {
+import EventEmitter from '../prototypes/eventemitter'
+import ajax from '../network/ajax'
+
+export default class UserModel extends EventEmitter {
     constructor() {
         super();
         this.isAuth = false;
@@ -25,9 +28,9 @@ class UserModel extends EventEmitter {
             'http://89.208.197.127:8080/api/v1/signin', { username, password },
             (status, response) => {
                 if (status == 200) {
-                    document.location.href = "#/profile";
                     this.isAuth = true;
                     this.login = username;
+                    document.location.href = "#/profile";
                     return
                 }
                 alert(`Пользователь ${username} не вошел`)

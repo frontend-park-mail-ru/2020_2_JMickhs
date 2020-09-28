@@ -1,4 +1,6 @@
-class SignupController {
+import EventEmitter from '../prototypes/eventemitter'
+
+export class SignupController {
     constructor(view, model) {
         this.view = view;
         this.model = model;
@@ -19,7 +21,7 @@ class SignupController {
     }
 }
 
-class SignupView extends EventEmitter {
+export class SignupView extends EventEmitter {
     constructor(model, elements) {
         super();
         this.app = document.getElementById('app');

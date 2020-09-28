@@ -1,17 +1,11 @@
-console.log('hello, i am started');
-
-const application = document.getElementById('app');
-
-const ErrorPage = {
-    activate: () => {
-        return `
-        <section>
-          <h1>Error</h1>
-          <p>This is just a test</p>
-        </section>
-      `;
-    }
-}
+import Navbar from './js/navbar/navbar'
+import UserModel from './js/usermodel/usermodel'
+import { SigninView, SigninController } from './js/signin/signin'
+import { SignupView, SignupController } from './js/signup/signup'
+import { HomeView, HomeController } from './js/home/home'
+import { ProfileView, ProfileController } from './js/profile/profile'
+import Router from './js/router'
+import createListController from './js/list/list'
 
 const navbar = new Navbar();
 

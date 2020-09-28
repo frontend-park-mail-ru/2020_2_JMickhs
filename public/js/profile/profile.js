@@ -1,4 +1,6 @@
-class ProfileController {
+import EventEmitter from '../prototypes/eventemitter'
+
+export class ProfileController {
     constructor(view, model) {
         this.view = view;
         this.model = model;
@@ -12,7 +14,7 @@ class ProfileController {
     }
 }
 
-class ProfileView extends EventEmitter {
+export class ProfileView extends EventEmitter {
     constructor(model, elements) {
         super();
         this.model = model;
@@ -27,10 +29,10 @@ class ProfileView extends EventEmitter {
         this.app.innerHTML = this.app.innerHTML = this.navbar.render() + `
         <div class="container">
         <div class="card">
-            <img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSLxKO10UasXg7mO30FlOuE-DQCQCOZwdq1Pw&usqp=CAU" alt="Avatar">
+            <img class="avatar" src="https://cs5.pikabu.ru/images/big_size_comm/2015-10_4/1445372410115880547.png" alt="Avatar">
             <div class="cnt">
                 <h3>
-                    <b>Логин: ${username}</b>
+                    <b>Login: ${username}</b>
                 </h3>
             </div>
         </div>
@@ -38,7 +40,7 @@ class ProfileView extends EventEmitter {
         <form action="" class="ui-form">
             <h2>Изменить данные</h2>
             <div class="form-row">
-                <input type="text" id="email"><label for="password">Email</label>
+                <input type="text" id="email"><label for="password">Login</label>
             </div>
             <div class="form-row">
                 <input type="password" id="password1"><label for="password">Старый пароль</label>
@@ -50,8 +52,6 @@ class ProfileView extends EventEmitter {
         </form>
         </div>
         `;
-
-
 
     }
 }

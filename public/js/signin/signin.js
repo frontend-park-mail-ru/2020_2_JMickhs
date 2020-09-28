@@ -1,5 +1,7 @@
+import EventEmitter from '../prototypes/eventemitter'
+
 // MVC for SignIn
-class SigninController {
+export class SigninController {
     constructor(view, model) {
         this.view = view;
         this.model = model;
@@ -12,7 +14,7 @@ class SigninController {
     }
 }
 
-class SigninView extends EventEmitter {
+export class SigninView extends EventEmitter {
     constructor(model, elements) {
         super();
         this.model = model;

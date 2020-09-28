@@ -1,5 +1,5 @@
 // заглушка контроллера для главной страницы
-class HomeController {
+export class HomeController {
     constructor(view) {
         this.app = document.getElementById('app');
         this.view = view;
@@ -9,7 +9,7 @@ class HomeController {
     }
 }
 
-class HomeView {
+export class HomeView {
     constructor(elements) {
         this.app = document.getElementById('app');
 
@@ -25,6 +25,6 @@ class HomeView {
     }
 }
 
-function createHomeContoller() {
+export function createHomeContoller() {
     return new HomeController();
 }

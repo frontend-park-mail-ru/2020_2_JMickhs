@@ -1,4 +1,8 @@
-class HotelInfo {
+import EventEmitter from '../prototypes/eventemitter'
+import ajax from '../network/ajax'
+import Navbar from '../navbar/navbar'
+
+export class HotelInfo {
     constructor(name, id, description) {
         this._name = name;
         this._id = id;
@@ -6,11 +10,10 @@ class HotelInfo {
     }
 }
 
-
 /**
  * The Model.
  */
-class ListModel extends EventEmitter {
+export class ListModel extends EventEmitter {
     constructor(hotels = []) {
         super();
         this._hotels = hotels;
@@ -37,7 +40,7 @@ class ListModel extends EventEmitter {
 /**
  * The View.
  */
-class ListView extends EventEmitter {
+export class ListView extends EventEmitter {
     constructor(model) {
         super();
         this.app = document.getElementById('app');
@@ -81,7 +84,7 @@ class ListController {
     }
 }
 
-function createListController() {
+export default function createListController() {
     let model = new ListModel('1', '2');
     let view = new ListView(model);
     return new ListController(model, view);

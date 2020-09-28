@@ -1,4 +1,4 @@
-class Navbar {
+export default class Navbar {
     constructor() {
         this.el1 = { text: 'HotelScanner', ref: '#/' };
         this.el2 = { text: 'Список отелей', ref: '#/list' };
