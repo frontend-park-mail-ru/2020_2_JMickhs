@@ -13,7 +13,7 @@ export default class EventEmitter {
             return this;
         }
         //ввыполняем
-    do(evt, arg) {
+    trigger(evt, arg) {
         (this.events[evt] || []).slice().forEach(lsn => lsn(arg));
     }
 }
