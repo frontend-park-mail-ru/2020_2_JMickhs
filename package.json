@@ -1,0 +1,26 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Веб сервис, который помогает найти подходящий отель в поездку",
+  "main": "index.js",
+  "dependencies": {
+    "debug": "^4.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontend-park-mail-ru/2020_2_JMickhs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frontend-park-mail-ru/2020_2_JMickhs/issues"
+  },
+  "homepage": "https://github.com/frontend-park-mail-ru/2020_2_JMickhs#readme"
+}
