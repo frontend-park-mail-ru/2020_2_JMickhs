@@ -67,7 +67,7 @@ export class SignupView extends EventEmitter {
             const email = emailInput.value.trim();
             const pass1 = passInput1.value.trim();
             const pass2 = passInput2.value.trim();
-            this.do('signup', { email: email, password1: pass1, password2: pass2 });
+            this.trigger('signup', { email: email, password1: pass1, password2: pass2 });
         });
     }
 }
