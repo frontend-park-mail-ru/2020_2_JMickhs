@@ -32,7 +32,6 @@ export class NavbarView extends EvenEmitter {
         this.navbar = nav;
     }
     show() {
-        console.log(this.navbar.innerHTML);
         this.navbar.innerHTML = `
         <ul class="menu-main">
         <li>
