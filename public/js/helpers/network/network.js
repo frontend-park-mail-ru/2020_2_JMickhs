@@ -12,7 +12,7 @@ export default class Net {
             statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return { status: statusCode, response: json };
+            return { status: statusCode, body: json };
         }).catch(err => {
             return { status: statusCode, error: err };
         })

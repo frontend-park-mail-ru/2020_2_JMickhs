@@ -12,8 +12,11 @@ export default class UserModel extends EvenEmitter {
     }
     cookieUser() {
         let response = Net.getCurrUser();
-        response.then((status, response) => {
+        response.then((response) => {
+            let status = responsse.status;
+            let body = response.body;
             console.log(status, 'cookie');
+            console.log(body, 'cookie');
             if (status == 200) {
                 alert('пользователь по кукам найден');
             } else {
