@@ -2,13 +2,10 @@ import EvenEmitter from '../../helpers/prototypes/eventemitter'
 
 export class NavbarController {
     constructor(view, model) {
-        console.log(model);
         if (view instanceof NavbarView && model instanceof NavbarModel) {
             this._view = view;
             this._model = model;
-            console.log(view);
         }
-        //console.log('dont is');
     }
     activate() {
         this._view.show();

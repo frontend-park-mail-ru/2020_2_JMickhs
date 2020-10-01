@@ -5,9 +5,9 @@ export class HomeController {
             this._parent = parent;
         }
         let page = document.getElementById('page');
-        if (page == null) {
+        if (page === null) {
             page = document.createElement('div');
-            page.id = 'navbar';
+            page.id = 'page';
             this._parent.appendChild(page);
         }
         this.page = page;
