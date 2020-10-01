@@ -10,6 +10,10 @@ ul {
     width: 100%;
 }
 
+.errorLine {
+    color: #E14545;
+}
+
 .btn {
     position: relative;
     display: flex;
