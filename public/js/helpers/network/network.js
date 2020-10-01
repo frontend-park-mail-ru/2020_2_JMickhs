@@ -1,5 +1,11 @@
 import ajax from './ajax'
 
+
+
+function ajax() {
+
+}
+
 export default class Network {
 
     static signup(username = '', password = '', callback) {
