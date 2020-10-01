@@ -4,7 +4,7 @@ const debug = require('debug')('http')
 
 const server = http.createServer((req, res) => {
     debug('requested', req.url);
-
+    debug('req', req.headers)
     const path = `./public${req.url === '/' ? '/index.html' : req.url}`;
 
     const ip = res.socket.remoteAddress;
