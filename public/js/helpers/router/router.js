@@ -3,10 +3,10 @@
 
 const ErrorPage = {
     activate: () => {
-        return `
+        document.getElementById('page').innerHTML = `
         <section>
           <h1>Error</h1>
-          <p>This is just a test</p>
+          <p>Error Error Error</p>
         </section>
       `;
     }
@@ -35,10 +35,6 @@ export default class Router {
     async route() {
         const path = this.parseLocation();
         const { controller } = this.findComponentByPath(path) || { controller: ErrorPage };
-        if (controller === ErrorPage) {
-            application.innerHTML = controller.activate();
-            return;
-        }
         controller.activate();
     }
 

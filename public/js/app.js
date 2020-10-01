@@ -2,8 +2,11 @@ import Router from './helpers/router/router'
 import { HomeController } from './components/home/home'
 import { NavbarController, NavbarView, NavbarModel } from './components/navbar/navbar'
 import { SigninController, SigninView, SigninModel } from './components/signin/signin'
+import UserModel from './components/usermodel/usermodel'
 
 let application = document.getElementById('app');
+
+const userModel = new UserModel();
 
 const navbarModel = new NavbarModel();
 const navbarView = new NavbarView(application, navbarModel);
@@ -12,7 +15,7 @@ navbarController.activate();
 
 const homeController = new HomeController(navbarView.navbar);
 
-const signinModel = new SigninModel();
+const signinModel = new SigninModel(userModel);
 const signinView = new SigninView(navbarView.navbar, signinModel);
 const signinController = new SigninController(signinView, signinModel);
 
