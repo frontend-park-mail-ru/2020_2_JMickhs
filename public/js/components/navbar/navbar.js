@@ -62,7 +62,6 @@ export class NavbarModel extends EvenEmitter {
             this._user = userModel;
         }
         this._user.subscribe(this._user.updateEvent, () => {
-            console.log('kek');
             if (this._user.isAuth) {
                 this.el3 = { text: 'Профиль', ref: '#/profile' };
                 this.trigger(this.updateNavEvent);
