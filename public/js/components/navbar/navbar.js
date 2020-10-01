@@ -52,7 +52,7 @@ export class NavbarView extends EvenEmitter {
 export class NavbarModel extends EvenEmitter {
     constructor(userModel) {
         super();
-        this.el1 = { text: 'HotelScanner', ref: '#/' };
+        this.el1 = { text: 'HostelScan', ref: '#/' };
         this.el2 = { text: 'Список отелей', ref: '#/list' };
         this.el3 = { text: 'Авторизация', ref: '#/signin' };
 
