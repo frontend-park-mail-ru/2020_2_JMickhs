@@ -1,4 +1,5 @@
 import EvenEmitter from '../../helpers/prototypes/eventemitter'
+import UserModel from '../usermodel/usermodel'
 
 export class NavbarController {
     constructor(view, model) {
@@ -20,6 +21,8 @@ export class NavbarView extends EvenEmitter {
             this._model = model;
         }
 
+        this._model.subscribe(this._model.updateNavEvent, this.show.bind(this));
+
         let nav = document.getElementById('navbar');
         if (nav == null) {
             nav = document.createElement('div');
@@ -29,6 +32,7 @@ export class NavbarView extends EvenEmitter {
         this.navbar = nav;
     }
     show() {
+        console.log(this.navbar.innerHTML);
         this.navbar.innerHTML = `
         <ul class="menu-main">
         <li>
@@ -46,11 +50,24 @@ export class NavbarView extends EvenEmitter {
 }
 
 export class NavbarModel extends EvenEmitter {
-    constructor() {
+    constructor(userModel) {
         super();
         this.el1 = { text: 'HotelScanner', ref: '#/' };
         this.el2 = { text: 'Список отелей', ref: '#/list' };
         this.el3 = { text: 'Авторизация', ref: '#/signin' };
+
+        this.updateNavEvent = 'updatenav';
+
+        if (userModel instanceof UserModel) {
+            this._user = userModel;
+        }
+        this._user.subscribe(this._user.updateEvent, () => {
+            console.log('kek');
+            if (this._user.isAuth) {
+                this.el3 = { text: 'Профиль', ref: '#/profile' };
+                this.trigger(this.updateNavEvent);
+            }
+        });
     }
 }
 

@@ -10,11 +10,24 @@ export default class UserModel extends EvenEmitter {
 
         this.updateEvent = 'updateEvent';
     }
+    cookieUser() {
+        let response = Net.getCurrUser();
+        response.then((status, response) => {
+            if (status == 200) {
+                alert('пользователь по кукам найден');
+            } else {
+                alert('ошибки нет, но пользовательно по кукам не найден');
+            }
+        });
+        response.catch((status, err) => {
+            alert('ошибка работа с куками', status, err);
+        });
+    }
     signin(username, password) {
         let response = Net.signin(username, password);
         response.then((status) => {
-            console.log(status, 'status');
             if (status != 200) {
+                this.trigger(this.updateEvent)
                 return;
             }
             this.isAuth = true;
@@ -22,4 +35,5 @@ export default class UserModel extends EvenEmitter {
             this.trigger(this.updateEvent)
         });
     }
+
 }

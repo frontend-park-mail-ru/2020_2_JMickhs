@@ -1,8 +1,24 @@
 
 
 export default class Net {
+
+    static getCurrUser() {
+        let statusCode;
+        return fetch('http://www.hostelscan.ru:8080/api/v1/get_current_user', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+        }).then((response) => {
+            statusCode = response.status;
+            return response.json();
+        }).then((json) => {
+            return { status: statusCode, response: json };
+        }).catch(err => {
+            return { status: statusCode, error: err };
+        })
+    }
     static signin(username, password) {
-        return fetch('http://89.208.197.127:8080/api/v1/signup', {
+        return fetch('http://www.hostelscan.ru:8080/api/v1/signin', {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
@@ -18,32 +34,3 @@ export default class Net {
         });
     }
 }
-
-
-// export  class Network {
-
-//     static signup(username = '', password = '', callback) {
-//         ajax(
-//             'POST',
-//             'http://89.208.197.127:8080/api/v1/signup', { username, password },
-//             callback,
-//         )
-//     }
-
-//     static signin(username = '', password = '', callback) {
-//         ajax(
-//             'POST',
-//             'http://89.208.197.127:8080/api/v1/signup', { username, password },
-//             callback,
-//         )
-//     }
-
-//     static checkCookie(callback) {
-//         ajax(
-//             'GET',
-//             'http://89.208.197.127:8080/api/v1/get_current_user',
-//             null,
-//             callback,
-//         )
-//     }
-// }

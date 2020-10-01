@@ -12,6 +12,10 @@ export class SigninController {
         });
     }
     activate() {
+        if (this._model.isAuth()) {
+            document.location.href = "#/profile";
+            return;
+        }
         this._view.show();
     }
 }
@@ -82,5 +86,8 @@ export class SigninModel extends EvenEmitter {
     }
     signin(username, password) {
         this._user.signin(username, password);
+    }
+    isAuth() {
+        return this._user.isAuth;
     }
 }

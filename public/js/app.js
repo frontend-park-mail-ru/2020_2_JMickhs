@@ -8,15 +8,17 @@ let application = document.getElementById('app');
 
 const userModel = new UserModel();
 
-const navbarModel = new NavbarModel();
+userModel.cookieUser();
+
+const navbarModel = new NavbarModel(userModel);
 const navbarView = new NavbarView(application, navbarModel);
 const navbarController = new NavbarController(navbarView, navbarModel);
 navbarController.activate();
 
-const homeController = new HomeController(navbarView.navbar);
+const homeController = new HomeController(application);
 
 const signinModel = new SigninModel(userModel);
-const signinView = new SigninView(navbarView.navbar, signinModel);
+const signinView = new SigninView(application, signinModel);
 const signinController = new SigninController(signinView, signinModel);
 
 const router = new Router();
