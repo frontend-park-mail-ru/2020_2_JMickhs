@@ -10,13 +10,13 @@ export class SignupController {
         this._view.subscribe('signup', (arg) => {
             let pass1 = arg.password1;
             let pass2 = arg.password2;
-            let email = arg.email;
+            let login = arg.login;
             if (pass1 != pass2) {
                 console.log('пароли не равны', pass1, pass2)
                 alert('пароли не равны');
                 return;
             }
-            this._model.signup(email, pass1)
+            this._model.signup(login, pass1)
         });
     }
     activate() {

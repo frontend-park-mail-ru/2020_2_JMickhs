@@ -34,6 +34,7 @@ export default class Net {
         });
     }
     static signup(username, password) {
+        console.log(username, password);
         return fetch('http://www.hostelscan.ru:8080/api/v1/signup', {
             method: 'POST',
             mode: 'cors',

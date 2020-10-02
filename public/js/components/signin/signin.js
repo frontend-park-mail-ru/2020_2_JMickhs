@@ -46,7 +46,6 @@ export class SigninView extends EvenEmitter {
             this._model = model;
         }
         this._model.subscribe(this._model.errSigninEvent, () => {
-            console.log('view', this._view);
             this.showErrServer(true, 'Неправильный логин или пароль!');
         })
 
