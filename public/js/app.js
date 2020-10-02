@@ -1,33 +1,44 @@
-import Navbar from './components/navbar/navbar'
-import UserModel from './components/usermodel/usermodel'
-import { SigninView, SigninController } from './components/pages/signin/signin'
-import { SignupView, SignupController } from './components/pages/signup/signup'
-import { HomeView, HomeController } from './components/pages/home/home'
-import { ProfileView, ProfileController } from './components/pages/profile/profile'
 import Router from './helpers/router/router'
-import createListController from './components/pages/list/list'
+import { HomeController } from './components/home/home'
+import { NavbarController, NavbarView, NavbarModel } from './components/navbar/navbar'
+import { SigninController, SigninView, SigninModel } from './components/signin/signin'
+import { SignupController, SignupView, SignupModel } from './components/signup/signup'
+import { ProfileController, ProfileView } from './components/profile/profile'
+import UserModel from './components/profile/usermodel'
+import { LisController, ListView, ListModel } from './components/list/list'
 
-const navbar = new Navbar();
+let application = document.getElementById('app');
 
 const userModel = new UserModel();
 
 userModel.cookieUser();
 
-const signinView = new SigninView(userModel, { navbar: navbar });
-const signupView = new SignupView(userModel, { navbar: navbar });
-const homeView = new HomeView({ navbar: navbar });
-const profileView = new ProfileView(userModel, { navbar: navbar })
+const navbarModel = new NavbarModel(userModel);
+const navbarView = new NavbarView(application, navbarModel);
+const navbarController = new NavbarController(navbarView, navbarModel);
+navbarController.activate();
 
-const signinController = new SigninController(signinView, userModel);
-const signupController = new SignupController(signupView, userModel);
+const homeController = new HomeController(application);
+
+const signinModel = new SigninModel(userModel);
+const signinView = new SigninView(application, signinModel);
+const signinController = new SigninController(signinView, signinModel);
+
+const signupModel = new SignupModel(userModel);
+const signupView = new SignupView(application, signupModel);
+const signupController = new SignupController(signupView, signupModel);
+
+const profileView = new ProfileView(application, userModel);
 const profileController = new ProfileController(profileView, userModel);
-const homeController = new HomeController(homeView);
 
+const listModel = new ListModel();
+const listView = new ListView(application, listModel);
+const listController = new LisController(listView, listModel);
 
 const router = new Router();
 router.append('/', homeController);
 router.append('/signin', signinController);
 router.append('/signup', signupController);
 router.append('/profile', profileController);
-router.append('/list', createListController())
+router.append('/list', listController);
 router.start();

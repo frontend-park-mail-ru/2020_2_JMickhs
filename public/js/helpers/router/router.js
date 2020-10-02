@@ -3,10 +3,10 @@
 
 const ErrorPage = {
     activate: () => {
-        return `
+        document.getElementById('page').innerHTML = `
         <section>
           <h1>Error</h1>
-          <p>This is just a test</p>
+          <p>Error Error Error</p>
         </section>
       `;
     }
@@ -23,7 +23,6 @@ export default class Router {
     }
 
     parseLocation() {
-        //console.log(location.pathname)
         return location.hash.slice(1).toLowerCase() || '/';
     }
 
@@ -32,13 +31,10 @@ export default class Router {
         // gm - это многострочный текст парни (вроде как)
     }
 
-    async route() {
+    async route(evt) {
+        evt.preventDefault();
         const path = this.parseLocation();
         const { controller } = this.findComponentByPath(path) || { controller: ErrorPage };
-        if (controller === ErrorPage) {
-            application.innerHTML = controller.activate();
-            return;
-        }
         controller.activate();
     }
 

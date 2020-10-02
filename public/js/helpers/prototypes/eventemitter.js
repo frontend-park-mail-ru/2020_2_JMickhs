@@ -13,7 +13,7 @@ export default class EventEmitter {
     }
 
     //триггерим выполнение евентов
-    trigger(evt, arg) {
+    trigger(evt, arg = null) {
         (this.events[evt] || []).slice().forEach(lsn => lsn(arg));
     }
 }

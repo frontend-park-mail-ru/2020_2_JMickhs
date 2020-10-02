@@ -24,8 +24,6 @@ const server = http.createServer((req, res) => {
         res.write(file);
         res.end();
     });
-
-    debug('after read file');
 });
 
-server.listen(3000);
+server.listen(80);

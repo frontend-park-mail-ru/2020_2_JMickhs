@@ -1,13 +1,17 @@
-import EventEmitter from '../../../helpers/prototypes/eventemitter'
+import EventEmitter from '../../helpers/prototypes/eventemitter'
+import UserModel from '../profile/usermodel'
 
 export class ProfileController {
     constructor(view, model) {
-        this.view = view;
-        this.model = model;
+        if (view instanceof ProfileView && model instanceof UserModel) {
+            this._view = view;
+            this._model = model;
+        }
     }
     activate() {
-        if (this.model.isAuth) {
-            this.view.show();
+
+        if (this._model.isAuth) {
+            this._view.show();
             return;
         }
         document.location.href = "#/signin"
@@ -15,18 +19,27 @@ export class ProfileController {
 }
 
 export class ProfileView extends EventEmitter {
-    constructor(model, elements) {
+    constructor(parent, model) {
         super();
-        this.model = model;
-        this.app = document.getElementById('app');
-        this.navbar = elements.navbar;
+        if (model instanceof UserModel && parent instanceof HTMLElement) {
+            this._model = model;
+            this._parent = parent;
+        }
+
+
+        let page = document.getElementById('page');
+        if (page === null) {
+            page = document.createElement('div');
+            page.id = 'page';
+            this._parent.appendChild(page);
+        }
+        this.page = page;
     }
 
     show() {
-        let username = this.model.login;
-        this.navbar.el3 = { text: `${username}`, ref: '#/profile' };
+        let username = this._model.login;
 
-        this.app.innerHTML = this.app.innerHTML = this.navbar.render() + `
+        this.page.innerHTML = `
         <div class="container">
         <div class="card">
             <img class="avatar" src="https://cs5.pikabu.ru/images/big_size_comm/2015-10_4/1445372410115880547.png" alt="Avatar">
@@ -36,7 +49,6 @@ export class ProfileView extends EventEmitter {
                 </h3>
             </div>
         </div>
-
         <form action="" class="ui-form">
             <h2>Изменить данные</h2>
             <div class="form-row">

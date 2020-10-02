@@ -179,6 +179,7 @@ nav {
     box-sizing: border-box;
 }
 
+
 .ui-form {
     max-width: 500px;
     width: 20%;
@@ -309,4 +310,8 @@ nav {
 .text-first {
     text-align: center;
     margin-top: 100px;
+}
+
+.errorLine {
+    color: #E14545;
 }
