@@ -36,9 +36,9 @@ export class SignupView extends EvenEmitter {
             this._parent = parent;
             this._model = model;
         }
-        this._model.subscribe(this._model.errSigninEvent, () => {
-            console.log('view', this._view);
-            this.showErrServer(true, 'Неправильный логин или пароль!');
+        this._model.subscribe(this._model.errSignupEvent, () => {
+            // вывести ошибку регистрации
+            // TODO:
         })
 
         let page = document.getElementById('page');
@@ -83,36 +83,6 @@ export class SignupView extends EvenEmitter {
             const pass2 = passInput2.value.trim();
             this.trigger('signup', { login: login, password1: pass1, password2: pass2 });
         });
-
-
-    }
-    showErrLogin(isErr, errstr = '') {
-        let h3 = document.getElementById('errLogin');
-        h3.textContent = errstr;
-        if (isErr) {
-            h3.className = 'errorLine';
-        } else {
-            h3.className = 'dontErrorLine';
-        }
-
-    }
-    showErrPassword(isErr, errstr = '') {
-        let h3 = document.getElementById('errPassword');
-        h3.textContent = errstr;
-        if (isErr) {
-            h3.className = 'errorLine';
-        } else {
-            h3.className = 'dontErrorLine';
-        }
-    }
-    showErrServer(isErr, errstr = '') {
-        let h3 = document.getElementById('errServ');
-        h3.textContent = errstr;
-        if (isErr) {
-            h3.className = 'errorLine';
-        } else {
-            h3.className = 'dontErrorLine';
-        }
     }
 }
 
@@ -128,7 +98,10 @@ export class SignupModel extends EvenEmitter {
             this._user = modelUser;
         }
         this._user.subscribe(this._user.updateEvent, () => {
-            if (this._user.isAuth && this.requested) {
+            if (!this.requested) {
+                return;
+            }
+            if (this._user.isAuth) {
                 document.location.href = "#/profile";
                 return;
             } else {

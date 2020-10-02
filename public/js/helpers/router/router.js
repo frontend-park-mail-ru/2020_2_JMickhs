@@ -23,7 +23,6 @@ export default class Router {
     }
 
     parseLocation() {
-        console.log(location.pathname, 'path');
         return location.hash.slice(1).toLowerCase() || '/';
     }
 

@@ -14,9 +14,7 @@ export default class UserModel extends EvenEmitter {
         let response = Net.getCurrUser();
         response.then((response) => {
             let status = response.status;
-            let body = response.body;
-            console.log(status, 'cookie');
-            console.log(body, 'cookie');
+            let body = response.body; // TODO:
             if (status == 200) {
                 this.isAuth = true;
                 this.trigger(this.updateEvent);
