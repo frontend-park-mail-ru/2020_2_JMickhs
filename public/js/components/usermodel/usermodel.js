@@ -18,16 +18,13 @@ export default class UserModel extends EvenEmitter {
             console.log(status, 'cookie');
             console.log(body, 'cookie');
             if (status == 200) {
-                alert('пользователь по кукам найден');
                 this.isAuth = true;
                 this.trigger(this.updateEvent);
-            } else {
-                alert('ошибки нет, но пользовательно по кукам не найден');
             }
         });
-        response.catch((status, err) => {
-            alert('ошибка работа с куками', status, err);
-        });
+        // response.catch((status, err) => {
+        //     alert('ошибка работа с куками', status, err);
+        // });
     }
     signin(username, password) {
         let response = Net.signin(username, password);
