@@ -23,7 +23,7 @@ export default class Router {
     }
 
     parseLocation() {
-        //console.log(location.pathname)
+        console.log(location.pathname, 'path');
         return location.hash.slice(1).toLowerCase() || '/';
     }
 
@@ -32,7 +32,8 @@ export default class Router {
         // gm - это многострочный текст парни (вроде как)
     }
 
-    async route() {
+    async route(evt) {
+        evt.preventDefault();
         const path = this.parseLocation();
         const { controller } = this.findComponentByPath(path) || { controller: ErrorPage };
         controller.activate();
@@ -41,5 +42,6 @@ export default class Router {
     start() {
         window.addEventListener('hashchange', this.route.bind(this));
         window.addEventListener('load', this.route.bind(this));
+        window.addEventListener('onload', this.route.bind(this));
     }
 }
