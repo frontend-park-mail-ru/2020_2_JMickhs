@@ -38,5 +38,17 @@ export default class UserModel extends EvenEmitter {
             this.trigger(this.updateEvent)
         });
     }
+    signup(username, password) {
+        let response = Net.signup(username, password);
+        response.then((status) => {
+            if (status != 200) {
+                this.trigger(this.updateEvent)
+                return;
+            }
+            this.isAuth = true;
+            this.login = username;
+            this.trigger(this.updateEvent)
+        });
+    }
 
 }

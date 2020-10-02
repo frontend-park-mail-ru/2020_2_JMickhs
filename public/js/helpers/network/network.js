@@ -33,6 +33,22 @@ export default class Net {
             return response.status;
         });
     }
+    static signup(username, password) {
+        return fetch('http://www.hostelscan.ru:8080/api/v1/signup', {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            }),
+        }).then((response) => {
+            return response.status;
+        });
+    }
     static getHotels() {
         let statusCode
         return fetch('http://www.hostelscan.ru:8080/api/v1/hotels', {

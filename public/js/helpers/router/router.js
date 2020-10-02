@@ -42,6 +42,5 @@ export default class Router {
     start() {
         window.addEventListener('hashchange', this.route.bind(this));
         window.addEventListener('load', this.route.bind(this));
-        window.addEventListener('onload', this.route.bind(this));
     }
 }

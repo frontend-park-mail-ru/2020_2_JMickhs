@@ -137,7 +137,10 @@ export class SigninModel extends EvenEmitter {
             this._user = modelUser;
         }
         this._user.subscribe(this._user.updateEvent, () => {
-            if (this._user.isAuth && this.requested) {
+            if (this.requested === false) {
+                return;
+            }
+            if (this._user.isAuth) {
                 document.location.href = "#/profile";
                 return;
             } else {
@@ -147,6 +150,7 @@ export class SigninModel extends EvenEmitter {
         });
     }
     signin(username, password) {
+        this.requested = true;
         this._user.signin(username, password);
     }
     isAuth() {
