@@ -19,6 +19,8 @@ export default class UserModel extends EvenEmitter {
             console.log(body, 'cookie');
             if (status == 200) {
                 alert('пользователь по кукам найден');
+                this.isAuth = true;
+                this.trigger(this.updateEvent);
             } else {
                 alert('ошибки нет, но пользовательно по кукам не найден');
             }

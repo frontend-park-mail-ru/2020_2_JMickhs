@@ -10,10 +10,6 @@ ul {
     width: 100%;
 }
 
-.errorLine {
-    color: #E14545;
-}
-
 .btn {
     position: relative;
     display: flex;
@@ -60,6 +56,7 @@ ul {
 }
 
 .btn:after {
+    margin-top: 30;
     transition: .4s ease-in .3s;
 }
 
@@ -192,7 +189,8 @@ nav {
 
 .form-row {
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    margin-top: 40px;
 }
 
 .form-row input {
@@ -313,4 +311,18 @@ nav {
 .text-first {
     text-align: center;
     margin-top: 100px;
+}
+
+.dontErrorLine {
+    color:  #EFF6FA;
+    text-align: center;
+    margin-bottom: 35px;
+    margin-top: 20px;
+}
+
+.errorLine {
+    color: #E14545;
+    text-align: center;
+    margin-bottom: 35px;
+    margin-top: 20px;
 }

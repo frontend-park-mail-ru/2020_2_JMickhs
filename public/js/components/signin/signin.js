@@ -8,7 +8,24 @@ export class SigninController {
             this._model = model;
         }
         this._view.subscribe(this._view.submitEvent, (arg) => {
-            this._model.signin(arg.login, arg.password);
+            let { login, password } = arg;
+            let canSend = true;
+            if (login === '') {
+                this._view.showErrLogin(true, 'Введите логин!');
+                canSend = false;
+            } else {
+                this._view.showErrLogin(false);
+            }
+            if (password === '') {
+                this._view.showErrPassword(true, 'Введите пароль!');
+                canSend = false;
+            } else {
+                this._view.showErrPassword(false);
+            }
+
+            if (canSend) {
+                this._model.signin(arg.login, arg.password);
+            }
         });
     }
     activate() {
@@ -28,6 +45,11 @@ export class SigninView extends EvenEmitter {
             this._parent = parent;
             this._model = model;
         }
+        this._model.subscribe(this._model.errSigninEvent, () => {
+            console.log('view', this._view);
+            this.showErrServer(true, 'Неправильный логин или пароль!');
+        })
+
         let page = document.getElementById('page');
         if (page === null) {
             page = document.createElement('div');
@@ -44,19 +66,25 @@ export class SigninView extends EvenEmitter {
             <div class="form-row">
                 <input type="text" id="login"><label for="login">Логин</label>
             </div>
-            <div class="form-row">
+            <h3 class="dontErrorLine" id="errLogin">...</h3>
+            <div class="form-row"">
                 <input type="password" id="password"><label for="password">Пароль</label>
             </div>
+            <h3 class="dontErrorLine" id="errPassword">...</h3>
             <span class="psw">Нету аккаунта? 
                 <a href="#/signup">Регистрация</a>
             </span>
-            <button class="btn" type="submit" id="btnsignin">Вход</button>
+            <div class="form-row"">
+                <button class="btn" type="submit" id="btnsignin">Вход</button>
+            </div>
+            <h3 class="dontErrorLine" id="errServ">...</h3>
+            
         </form>
         </div>
         `;
-        let form = document.getElementById('signinform')
-        let loginInput = document.getElementById('login')
-        let passInput = document.getElementById('password')
+        let form = document.getElementById('signinform');
+        let loginInput = document.getElementById('login');
+        let passInput = document.getElementById('password');
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -64,13 +92,44 @@ export class SigninView extends EvenEmitter {
             const password = passInput.value.trim();
             this.trigger(this.submitEvent, { login: login, password: password });
         });
+
+
+    }
+    showErrLogin(isErr, errstr = '...') {
+        let h3 = document.getElementById('errLogin');
+        h3.textContent = errstr;
+        if (isErr) {
+            h3.className = 'errorLine';
+        } else {
+            h3.className = 'dontErrorLine';
+        }
+
+    }
+    showErrPassword(isErr, errstr = '...') {
+        let h3 = document.getElementById('errPassword');
+        h3.textContent = errstr;
+        if (isErr) {
+            h3.className = 'errorLine';
+        } else {
+            h3.className = 'dontErrorLine';
+        }
+    }
+    showErrServer(isErr, errstr = '...') {
+        let h3 = document.getElementById('errServ');
+        h3.textContent = errstr;
+        if (isErr) {
+            h3.className = 'errorLine';
+        } else {
+            h3.className = 'dontErrorLine';
+        }
     }
 }
 
 export class SigninModel extends EvenEmitter {
     constructor(modelUser) {
         super();
-        this.updateEvent = 'updateEvent';
+
+        this.errSigninEvent = 'errSigin';
 
         if (modelUser instanceof UserModel) {
             this._user = modelUser;
@@ -79,7 +138,7 @@ export class SigninModel extends EvenEmitter {
             if (this._user.isAuth) {
                 document.location.href = "#/profile";
             } else {
-                document.location.href = "#/error";
+                this.trigger(this.errSigninEvent);
             }
 
         });
