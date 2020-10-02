@@ -15,9 +15,9 @@ export default class UserModel extends EventEmitter {
         response.then((response) => {
             let status = response.status;
             let body = response.body; // TODO:
-            console.log(body);
             if (status == 200) {
                 this.isAuth = true;
+                this.login = body.username;
                 this.trigger(this.updateEvent);
             }
         });
