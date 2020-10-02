@@ -1,5 +1,5 @@
 import EvenEmitter from '../../helpers/prototypes/eventemitter'
-import UserModel from '../usermodel/usermodel'
+import UserModel from '../profile/usermodel'
 
 export class SigninController {
     constructor(view, model) {
@@ -136,6 +136,7 @@ export class SigninModel extends EvenEmitter {
             this._user = modelUser;
         }
         this._user.subscribe(this._user.updateEvent, () => {
+
             if (this.requested === false) {
                 return;
             }
@@ -145,7 +146,6 @@ export class SigninModel extends EvenEmitter {
             } else {
                 this.trigger(this.errSigninEvent);
             }
-
         });
     }
     signin(username, password) {

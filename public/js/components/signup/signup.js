@@ -1,5 +1,5 @@
 import EvenEmitter from '../../helpers/prototypes/eventemitter'
-import UserModel from '../usermodel/usermodel'
+import UserModel from '../profile/usermodel'
 
 export class SignupController {
     constructor(view, model) {

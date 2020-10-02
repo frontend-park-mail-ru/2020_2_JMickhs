@@ -3,7 +3,8 @@ import { HomeController } from './components/home/home'
 import { NavbarController, NavbarView, NavbarModel } from './components/navbar/navbar'
 import { SigninController, SigninView, SigninModel } from './components/signin/signin'
 import { SignupController, SignupView, SignupModel } from './components/signup/signup'
-import UserModel from './components/usermodel/usermodel'
+import { ProfileController, ProfileView } from './components/profile/profile'
+import UserModel from './components/profile/usermodel'
 import { LisController, ListView, ListModel } from './components/list/list'
 
 let application = document.getElementById('app');
@@ -27,13 +28,17 @@ const signupModel = new SignupModel(userModel);
 const signupView = new SignupView(application, signupModel);
 const signupController = new SignupController(signupView, signupModel);
 
+const profileView = new ProfileView(application, userModel);
+const profileController = new ProfileController(profileView, userModel);
+
 const listModel = new ListModel();
 const listView = new ListView(application, listModel);
-const lisController = new LisController(listView, listModel);
+const listController = new LisController(listView, listModel);
 
 const router = new Router();
 router.append('/', homeController);
 router.append('/signin', signinController);
 router.append('/signup', signupController);
-router.append('/list', lisController);
+router.append('/profile', profileController);
+router.append('/list', listController);
 router.start();

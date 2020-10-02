@@ -1,7 +1,7 @@
-import EvenEmitter from '../../helpers/prototypes/eventemitter'
+import EventEmitter from '../../helpers/prototypes/eventemitter'
 import Net from '../../helpers/network/network'
 
-export default class UserModel extends EvenEmitter {
+export default class UserModel extends EventEmitter {
     constructor() {
         super();
         this.login = ''
@@ -39,7 +39,6 @@ export default class UserModel extends EvenEmitter {
     signup(username, password) {
         let response = Net.signup(username, password);
         response.then((status) => {
-            console.log(status, 'signup');
             if (status != 200) {
                 this.trigger(this.updateEvent)
                 return;

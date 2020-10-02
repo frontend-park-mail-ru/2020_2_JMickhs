@@ -1,5 +1,5 @@
-import EvenEmitter from '../../helpers/prototypes/eventemitter'
-import UserModel from '../usermodel/usermodel'
+import EventEmitter from '../../helpers/prototypes/eventemitter'
+import UserModel from '../profile/usermodel'
 
 export class NavbarController {
     constructor(view, model) {
@@ -13,7 +13,7 @@ export class NavbarController {
     }
 }
 
-export class NavbarView extends EvenEmitter {
+export class NavbarView extends EventEmitter {
     constructor(parent, model) {
         super();
         if (parent instanceof HTMLElement && model instanceof NavbarModel) {
@@ -48,7 +48,7 @@ export class NavbarView extends EvenEmitter {
     }
 }
 
-export class NavbarModel extends EvenEmitter {
+export class NavbarModel extends EventEmitter {
     constructor(userModel) {
         super();
         this.el1 = { text: 'HostelScan', ref: '#/' };
