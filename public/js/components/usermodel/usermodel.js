@@ -39,6 +39,7 @@ export default class UserModel extends EvenEmitter {
     signup(username, password) {
         let response = Net.signup(username, password);
         response.then((status) => {
+            console.log(status, 'signup');
             if (status != 200) {
                 this.trigger(this.updateEvent)
                 return;
