@@ -131,12 +131,15 @@ export class SigninModel extends EvenEmitter {
 
         this.errSigninEvent = 'errSigin';
 
+        this.requested = false;
+
         if (modelUser instanceof UserModel) {
             this._user = modelUser;
         }
         this._user.subscribe(this._user.updateEvent, () => {
-            if (this._user.isAuth) {
+            if (this._user.isAuth && this.requested) {
                 document.location.href = "#/profile";
+                return;
             } else {
                 this.trigger(this.errSigninEvent);
             }
