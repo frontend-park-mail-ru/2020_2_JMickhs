@@ -56,7 +56,6 @@ ul {
 }
 
 .btn:after {
-    margin-top: 30;
     transition: .4s ease-in .3s;
 }
 

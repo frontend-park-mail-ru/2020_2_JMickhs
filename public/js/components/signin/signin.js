@@ -95,7 +95,7 @@ export class SigninView extends EvenEmitter {
 
 
     }
-    showErrLogin(isErr, errstr = '...') {
+    showErrLogin(isErr, errstr = '') {
         let h3 = document.getElementById('errLogin');
         h3.textContent = errstr;
         if (isErr) {
@@ -105,7 +105,7 @@ export class SigninView extends EvenEmitter {
         }
 
     }
-    showErrPassword(isErr, errstr = '...') {
+    showErrPassword(isErr, errstr = '') {
         let h3 = document.getElementById('errPassword');
         h3.textContent = errstr;
         if (isErr) {
@@ -114,7 +114,7 @@ export class SigninView extends EvenEmitter {
             h3.className = 'dontErrorLine';
         }
     }
-    showErrServer(isErr, errstr = '...') {
+    showErrServer(isErr, errstr = '') {
         let h3 = document.getElementById('errServ');
         h3.textContent = errstr;
         if (isErr) {

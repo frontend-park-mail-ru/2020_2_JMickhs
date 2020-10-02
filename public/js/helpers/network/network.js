@@ -33,4 +33,19 @@ export default class Net {
             return response.status;
         });
     }
+    static getHotels() {
+        let statusCode
+        return fetch('http://www.hostelscan.ru:8080/api/v1/hotels', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+        }).then((response) => {
+            statusCode = response.status;
+            return response.json();
+        }).then((json) => {
+            return { status: statusCode, body: json };
+        }).catch(err => {
+            return { status: statusCode, error: err };
+        })
+    }
 }
