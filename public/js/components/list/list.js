@@ -21,7 +21,7 @@ export class ListView extends EvenEmitter {
             this._model = model;
         }
 
-        const page = document.getElementById('page');
+        let page = document.getElementById('page');
         if (page === null) {
             page = document.createElement('div');
             page.id = 'page';

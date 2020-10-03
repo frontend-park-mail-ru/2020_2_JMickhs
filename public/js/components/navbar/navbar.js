@@ -9,7 +9,7 @@ export class NavbarController {
         }
     }
     activate() {
-        this._view.show();
+        this._view.render();
     }
 }
 
@@ -21,7 +21,7 @@ export class NavbarView extends EventEmitter {
             this._model = model;
         }
 
-        this._model.subscribe(this._model.updateNavEvent, this.show.bind(this));
+        this._model.subscribe(this._model.updateNavEvent, this.render.bind(this));
 
         let nav = document.getElementById('navbar');
         if (nav == null) {
@@ -31,7 +31,7 @@ export class NavbarView extends EventEmitter {
         }
         this.navbar = nav;
     }
-    show() {
+    render() {
         this.navbar.innerHTML = `
         <ul class="menu-main">
         <li>

@@ -11,7 +11,7 @@ export class ProfileController {
     activate() {
 
         if (this._model.isAuth) {
-            this._view.show();
+            this._view.render();
             return;
         }
         document.location.href = "#/signin"
@@ -36,7 +36,7 @@ export class ProfileView extends EventEmitter {
         this.page = page;
     }
 
-    show() {
+    render() {
         let username = this._model.login;
 
         this.page.innerHTML = `
