@@ -25,6 +25,9 @@ const server = http.createServer((req, res) => {
     });
 });
 
-server.listen(80);
-
-console.log('Node server started!!')
+try{
+    server.listen(80);
+    console.log('Node server started!!')
+} catch (err) {
+    console.log(err);
+}
