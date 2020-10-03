@@ -1,53 +1,14 @@
-import EvenEmitter from '../../helpers/prototypes/eventemitter'
-import UserModel from '../profile/usermodel'
+import SigninModel from './signinModel'
 
-export class SigninController {
-    constructor(view, model) {
-        if (view instanceof SigninView && model instanceof SigninModel) {
-            this._view = view;
-            this._model = model;
-        }
-        this._view.subscribe(this._view.submitEvent, (arg) => {
-            let { login, password } = arg;
-            let canSend = true;
-            if (login === '') {
-                this._view.renderErrLogin(true, 'Введите логин!');
-                canSend = false;
-            } else {
-                this._view.renderErrLogin(false);
-            }
-            if (password === '') {
-                this._view.renderErrPassword(true, 'Введите пароль!');
-                canSend = false;
-            } else {
-                this._view.renderErrPassword(false);
-            }
-
-            if (canSend) {
-                this._model.signin(arg.login, arg.password);
-            }
-        });
-    }
-    activate() {
-        if (this._model.isAuth()) {
-            document.location.href = "#/profile";
-            return;
-        }
-        this._view.render();
-    }
-}
-
-export class SigninView extends EvenEmitter {
+export default class SigninView {
     constructor(parent, model) {
-        super();
-        this.submitEvent = 'submitEvent';
         if (parent instanceof HTMLElement && model instanceof SigninModel) {
             this._parent = parent;
             this._model = model;
         }
-        this._model.subscribe(this._model.errSigninEvent, () => {
+        EventBus.subscribe('errorSignin', () => {
             this.renderErrServer(true, 'Неправильный логин или пароль!');
-        })
+        });
 
         let page = document.getElementById('page');
         if (page === null) {
@@ -89,9 +50,8 @@ export class SigninView extends EvenEmitter {
             evt.preventDefault();
             const login = loginInput.value.trim();
             const password = passInput.value.trim();
-            this.trigger(this.submitEvent, { login: login, password: password });
+            EventBus.trigger('submitSignin', { login: login, password: password })
         });
-
 
     }
     renderErrLogin(isErr, errstr = '') {
@@ -121,37 +81,5 @@ export class SigninView extends EvenEmitter {
         } else {
             h3.className = 'dont-error-line';
         }
-    }
-}
-
-export class SigninModel extends EvenEmitter {
-    constructor(modelUser) {
-        super();
-
-        this.errSigninEvent = 'errSigin';
-
-        this.requested = false;
-
-        if (modelUser instanceof UserModel) {
-            this._user = modelUser;
-        }
-        this._user.subscribe(this._user.updateEvent, () => {
-
-            if (this.requested === false) {
-                return;
-            }
-            if (this._user.isAuth) {
-                document.location.href = "#/profile";
-            } else {
-                this.trigger(this.errSigninEvent);
-            }
-        });
-    }
-    signin(username, password) {
-        this.requested = true;
-        this._user.signin(username, password);
-    }
-    isAuth() {
-        return this._user.isAuth;
     }
 }

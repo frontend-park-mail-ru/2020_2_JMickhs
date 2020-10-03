@@ -1,21 +1,7 @@
-import EvenEmitter from '../../helpers/prototypes/eventemitter'
-import Net from '../../helpers/network/network'
+import ListModel from './listModel'
 
-export class ListController {
-    constructor(view, model) {
-        if (view instanceof ListView && model instanceof ListModel) {
-            this._view = view;
-            this._model = model;
-        }
-    }
-    activate() {
-        this._model.getInfo();
-    }
-}
-
-export class ListView extends EvenEmitter {
+export default class ListView {
     constructor(parent, model) {
-        super();
         if (parent instanceof HTMLElement && model instanceof ListModel) {
             this._parent = parent;
             this._model = model;
@@ -29,11 +15,9 @@ export class ListView extends EvenEmitter {
         this._parent.appendChild(page);
         this.page = page;
 
-        this._model.subscribe(this._model.updateEvent, () => {
+        EventBus.subscribe('loadHostels', () => {
             this.render();
-        })
-
-
+        });
     }
     render() {
         let strRes = '';
@@ -57,24 +41,5 @@ export class ListView extends EvenEmitter {
             strRes += tmp;
         });
         this.page.innerHTML = strRes;
-    }
-}
-
-export class ListModel extends EvenEmitter {
-    constructor() {
-        super();
-        this.haveInfo = false;
-        this.updateEvent = 'update';
-        this.hostels = [];
-    }
-    getInfo() {
-        let response = Net.getHotels();
-        response.then(result => {
-            if (result.status == 200) {
-                this.haveInfo = true;
-                this.hostels = result.body;
-                this.trigger(this.updateEvent)
-            }
-        })
     }
 }

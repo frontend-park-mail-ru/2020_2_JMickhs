@@ -1,4 +1,4 @@
-# HotelScanner
+# HostelScan
 
 Веб сервис, который помогает найти подходящий отель в поездку
 
@@ -6,8 +6,8 @@
 
 * **Константин Павлов** - *Бэкендер* - [Kostikans](https://github.com/Kostikans)
 * **Сергей Алексеев** - *Фронтендер* - [serenehet](https://github.com/serenehet)
-* **Николай Манзеев** - *Фронтендер* - [Alkirys](https://github.com/Alkirys)
-* **Никита Щелканов** - *-* - [n-shch](https://github.com/n-shch')
+* **Николай Манзеев** - *Фуллстек* - [Alkirys](https://github.com/Alkirys)
+* **Никита Щелканов** - *Фуллстек* - [n-shch](https://github.com/n-shch')
 
 
 ## Менторы

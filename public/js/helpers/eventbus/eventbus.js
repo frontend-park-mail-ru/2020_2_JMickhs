@@ -1,11 +1,10 @@
 /**
  * класс эмитирущий евенты, наследоваться от него!!
  */
-export default class EventEmitter {
+export default class EventBus {
     constructor() {
         this.events = {}; // храним евенты
     }
-
     //добавляем евенты
     subscribe(evt, listener) {
         (this.events[evt] || (this.events[evt] = [])).push(listener);

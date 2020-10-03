@@ -1,5 +1,5 @@
-//заглушка
-export class HomeView {
+
+export default class HomeView {
     constructor(parent) {
         if (parent instanceof HTMLElement) {
             this._parent = parent;
@@ -18,14 +18,5 @@ export class HomeView {
         <p class="text">На главной странице должен быть поиск</p>
         <p class="text">На первом этапе без поиска не очень понятно, что тут будет</p>
         `;
-    }
-}
-
-export class HomeController {
-    constructor(view) {
-        this._view = view;
-    }
-    activate() {
-        this._view.render()
     }
 }

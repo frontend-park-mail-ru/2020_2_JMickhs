@@ -1,11 +1,14 @@
 import Router from './helpers/router/router'
-import { HomeController, HomeView } from './components/home/home'
-import { NavbarController, NavbarView, NavbarModel } from './components/navbar/navbar'
-import { SigninController, SigninView, SigninModel } from './components/signin/signin'
-import { SignupController, SignupView, SignupModel } from './components/signup/signup'
-import { ProfileController, ProfileView } from './components/profile/profile'
+import EventBus from './helpers/eventbus/eventbus'
+import HomeController from './components/home/homeController'
 import UserModel from './components/profile/usermodel'
-import { ListController, ListView, ListModel } from './components/list/list'
+import NavbarController from './components/navbar/navbarController'
+import ListController from './components/list/listController'
+import SigninController from './components/signin/signinController'
+import SignupController from './components/signup/signupController'
+import ProfileController from './components/profile/profileController'
+
+globalThis.EventBus = new EventBus();
 
 const application = document.getElementById('app');
 
@@ -13,28 +16,14 @@ const userModel = new UserModel();
 
 userModel.cookieUser();
 
-const navbarModel = new NavbarModel(userModel);
-const navbarView = new NavbarView(application, navbarModel);
-const navbarController = new NavbarController(navbarView, navbarModel);
+const navbarController = new NavbarController(application, userModel);
 navbarController.activate();
 
-const homeView = new HomeView(application);
-const homeController = new HomeController(homeView)
-
-const signinModel = new SigninModel(userModel);
-const signinView = new SigninView(application, signinModel);
-const signinController = new SigninController(signinView, signinModel);
-
-const signupModel = new SignupModel(userModel);
-const signupView = new SignupView(application, signupModel);
-const signupController = new SignupController(signupView, signupModel);
-
-const profileView = new ProfileView(application, userModel);
-const profileController = new ProfileController(profileView, userModel);
-
-const listModel = new ListModel();
-const listView = new ListView(application, listModel);
-const listController = new ListController(listView, listModel);
+const homeController = new HomeController(application);
+const listController = new ListController(application);
+const signinController = new SigninController(application, userModel);
+const signupController = new SignupController(application, userModel);
+const profileController = new ProfileController(application, userModel);
 
 const router = new Router();
 router.append('/', homeController);

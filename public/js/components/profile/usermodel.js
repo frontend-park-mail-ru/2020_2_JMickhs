@@ -1,14 +1,12 @@
-import EventEmitter from '../../helpers/prototypes/eventemitter'
 import Net from '../../helpers/network/network'
 
-export default class UserModel extends EventEmitter {
+export default class UserModel {
     constructor() {
-        super();
         this.login = ''
         this.id = -1;
         this.isAuth = false;
 
-        this.updateEvent = 'updateEvent';
+        this.updateEvent = 'updateUser';
     }
     cookieUser() {
         let response = Net.getCurrUser();
@@ -18,35 +16,36 @@ export default class UserModel extends EventEmitter {
             if (status == 200) {
                 this.isAuth = true;
                 this.login = body.username;
-                this.trigger(this.updateEvent);
+                EventBus.trigger('updateUser');
             }
         });
-        // response.catch((status, err) => {
-        //     alert('ошибка работа с куками', status, err);
-        // });
     }
     signin(username, password) {
         let response = Net.signin(username, password);
         response.then((status) => {
             if (status != 200) {
-                this.trigger(this.updateEvent)
+                EventBus.trigger('updateUser');
+                EventBus.trigger('signinUser');
                 return;
             }
             this.isAuth = true;
             this.login = username;
-            this.trigger(this.updateEvent)
+            EventBus.trigger('updateUser');
+            EventBus.trigger('signinUser');
         });
     }
     signup(username, password) {
         let response = Net.signup(username, password);
         response.then((status) => {
             if (status != 200) {
-                this.trigger(this.updateEvent)
+                EventBus.trigger('updateUser');
+                EventBus.trigger('signupUser');
                 return;
             }
             this.isAuth = true;
             this.login = username;
-            this.trigger(this.updateEvent)
+            EventBus.trigger('updateUser');
+            EventBus.trigger('signupUser');
         });
     }
 

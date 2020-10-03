@@ -1,31 +1,11 @@
-import EventEmitter from '../../helpers/prototypes/eventemitter'
-import UserModel from '../profile/usermodel'
+import UserModel from './usermodel'
 
-export class ProfileController {
-    constructor(view, model) {
-        if (view instanceof ProfileView && model instanceof UserModel) {
-            this._view = view;
-            this._model = model;
-        }
-    }
-    activate() {
-
-        if (this._model.isAuth) {
-            this._view.render();
-            return;
-        }
-        document.location.href = "#/signin"
-    }
-}
-
-export class ProfileView extends EventEmitter {
+export default class ProfileView {
     constructor(parent, model) {
-        super();
         if (model instanceof UserModel && parent instanceof HTMLElement) {
             this._model = model;
             this._parent = parent;
         }
-
 
         let page = document.getElementById('page');
         if (page === null) {
@@ -64,6 +44,5 @@ export class ProfileView extends EventEmitter {
         </form>
         </div>
         `;
-
     }
 }
