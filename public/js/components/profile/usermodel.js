@@ -23,13 +23,10 @@ export default class UserModel {
     signin(username, password) {
         let response = Net.signin(username, password);
         response.then((status) => {
-            if (status != 200) {
-                EventBus.trigger('updateUser');
-                EventBus.trigger('signinUser');
-                return;
+            if (status == 200) {
+                this.isAuth = true;
+                this.login = username;
             }
-            this.isAuth = true;
-            this.login = username;
             EventBus.trigger('updateUser');
             EventBus.trigger('signinUser');
         });
