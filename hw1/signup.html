@@ -24,28 +24,22 @@
     </nav>
 
     <div class="container"></div>
-    <form action="" class="ui-form">
+    <form action="" class="ui-form" id="signupform">
         <h2>Заполните поля для регистрации</h2>
         <div class="form-row">
-            <input type="text" required autocomplete="off"><label for="email">ФИО</label>
+            <input type="text" id="login"><label for="login">Логин</label>
         </div>
         <div class="form-row">
-            <input type="text" id="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required autocomplete="off"><label for="email">Email</label>
+            <input type="password" id="password1"><label for="password">Пароль</label>
         </div>
         <div class="form-row">
-            <input type="tel" id="tel" pattern="(\+?\d[- .]*){7,13}" required autocomplete="off"><label for="email">Телефон</label>
+            <input type="password" id="password2"><label for="password">Повторите пароль</label>
         </div>
-        <div class="form-row">
-            <input type="password" id="password" required autocomplete="off"><label for="password">Пароль</label>
-        </div>
-        <div class="form-row">
-            <input type="password" id="password" required autocomplete="off"><label for="password">Повторите пароль</label>
-        </div>
-        <span class="psw">     Есть аккаунт?
-            <a href="/signin.html">Войдите</a>
+        <span class="psw"> Есть аккаунт?
+            <a href="#/signin">Войдите</a>
         </span>
+        <button class="btn">Регистрация</button>
     </form>
-    <button class="btn" href="/profile.html">Регистрация</button>
     </div>
 </body>
 

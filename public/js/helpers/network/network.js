@@ -1,10 +1,11 @@
 
 
 export default class Net {
-
+    static domen = 'http://www.hostelscan.ru';
+    static port = ':8080';
     static getCurrUser() {
         let statusCode;
-        return fetch('http://www.hostelscan.ru:8080/api/v1/get_current_user', {
+        return fetch(domen + port + '/api/v1/get_current_user', {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',
@@ -18,7 +19,7 @@ export default class Net {
         })
     }
     static signin(username, password) {
-        return fetch('http://www.hostelscan.ru:8080/api/v1/signin', {
+        return fetch(domen + port + '/api/v1/signin', {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
@@ -34,7 +35,7 @@ export default class Net {
         });
     }
     static signup(username, password) {
-        return fetch('http://www.hostelscan.ru:8080/api/v1/signup', {
+        return fetch(domen + port + '/api/v1/signup', {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
@@ -51,7 +52,7 @@ export default class Net {
     }
     static getHotels() {
         let statusCode = -1;
-        return fetch('http://www.hostelscan.ru:8080/api/v1/hotels', {
+        return fetch(domen + port + '/api/v1/hotels', {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',

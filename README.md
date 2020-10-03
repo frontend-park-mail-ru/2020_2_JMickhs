@@ -4,10 +4,11 @@
 
 ## Авторы
 
-* **Константин Павлов** - *Фулстек* - [Kostikans](https://github.com/Kostikans)
-* **Николай Манзеев** - *Фулстек* - [Alkirys](https://github.com/Alkirys)
-* **Никита Щелканов** - *Фулстек* - [n-shch](https://github.com/n-shch')
-* **Сергей Алексеев** - *Фулстек* - [serenehet](https://github.com/serenehet)
+* **Константин Павлов** - *Бэкендер* - [Kostikans](https://github.com/Kostikans)
+* **Сергей Алексеев** - *Фронтендер* - [serenehet](https://github.com/serenehet)
+* **Николай Манзеев** - *Фронтендер* - [Alkirys](https://github.com/Alkirys)
+* **Никита Щелканов** - *-* - [n-shch](https://github.com/n-shch')
+
 
 ## Менторы
 * **Наташа Климова** - *Ментор по фронтенду* - [Tataklim](https://github.com/Tataklim)

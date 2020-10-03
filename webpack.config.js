@@ -1,4 +1,5 @@
 const path = require('path');
+let webpack = require("webpack");
 
 module.exports = {
     mode: 'development',
@@ -6,5 +7,5 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './public')
-    }
+    },
 }

@@ -70,7 +70,7 @@ export class SigninView extends EvenEmitter {
                 <input type="password" id="password"><label for="password">Пароль</label>
             </div>
             <h3 class="dontErrorLine" id="errPassword">...</h3>
-            <span class="psw">Нету аккаунта? 
+            <span class="psw">Нет аккаунта? 
                 <a href="#/signup">Регистрация</a>
             </span>
             <div class="form-row"">

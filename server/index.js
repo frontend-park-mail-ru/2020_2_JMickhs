@@ -3,6 +3,7 @@ const http = require('http');
 const debug = require('debug')('http')
 
 const server = http.createServer((req, res) => {
+
     debug('requested', req.url);
     debug('req', req.headers)
     const path = `./public${req.url === '/' ? '/index.html' : req.url}`;
@@ -27,3 +28,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(80);
+
+console.log('Node server started!!')
