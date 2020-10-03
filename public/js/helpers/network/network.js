@@ -6,7 +6,7 @@ export default class Net {
         return ':8080';
     }
     static getCurrUser() {
-        let statusCode;
+        let statusCode = -1;
         return fetch(this.domen + this.port + '/api/v1/get_current_user', {
             method: 'GET',
             mode: 'cors',
@@ -21,6 +21,17 @@ export default class Net {
         })
     }
     static signin(username, password) {
+        let statusCode = -1;
+        let json;
+        try {
+            json = JSON.stringify({
+                username: username,
+                password: password
+            });
+        } catch (err) {
+            return Promise.reject({ status : statusCode, error : err});
+        }
+
         return fetch(this.domen + this.port + '/api/v1/signin', {
             method: 'POST',
             mode: 'cors',
@@ -28,15 +39,26 @@ export default class Net {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            }),
+            body: json,
         }).then((response) => {
-            return response.status;
+            statusCode = response.status;
+            return statusCode;
+        }).catch(err => {
+            return { status: statusCode, error: err };
         });
     }
     static signup(username, password) {
+        let statusCode = -1;
+        let json;
+        try {
+            json = JSON.stringify({
+                username: username,
+                password: password
+            });
+        } catch (err) {
+            return Promise.reject({ status : statusCode, error : err});
+        }
+
         return fetch(this.domen + this.port + '/api/v1/signup', {
             method: 'POST',
             mode: 'cors',
@@ -44,12 +66,12 @@ export default class Net {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            }),
+            body: json,
         }).then((response) => {
-            return response.status;
+            statusCode = response.status;
+            return statusCode;
+        }).catch(err => {
+            return { status: statusCode, error: err };
         });
     }
     static getHotels() {
@@ -65,6 +87,6 @@ export default class Net {
             return { status: statusCode, body: json };
         }).catch(err => {
             return { status: statusCode, error: err };
-        })
+        });
     }
 }
