@@ -24,7 +24,7 @@ export class SignupController {
             document.location.href = "#/profile";
             return;
         }
-        this._view.show();
+        this._view.render();
     }
 }
 
@@ -49,7 +49,7 @@ export class SignupView extends EvenEmitter {
         }
         this.page = page;
     }
-    show() {
+    render() {
         this.page.innerHTML = `
         <div class="container"></div>
         <form action="" class="ui-form" id="signupform">

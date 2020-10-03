@@ -142,7 +142,6 @@ export class SigninModel extends EvenEmitter {
             }
             if (this._user.isAuth) {
                 document.location.href = "#/profile";
-                return;
             } else {
                 this.trigger(this.errSigninEvent);
             }
