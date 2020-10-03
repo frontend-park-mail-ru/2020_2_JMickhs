@@ -12,6 +12,8 @@
         "@babel/preset-env": "^7.11.5",
         "babel-loader": "^8.1.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
+        "html-webpack-plugin": "^4.5.0",
+        "html-webpack-root-plugin": "^0.10.0",
         "webpack": "^4.44.2",
         "webpack-cli": "^3.3.12"
     },

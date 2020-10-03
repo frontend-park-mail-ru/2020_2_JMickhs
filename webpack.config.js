@@ -1,11 +1,23 @@
 const path = require('path');
-let webpack = require("webpack");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { Template } = require('webpack');
+
 
 module.exports = {
     mode: 'development',
-    entry: './public/js/app.js',
+    entry: './public/js/app.js',    
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, './public')
+        path: path.resolve(__dirname, './public'),
+        filename: 'bundle.js'
     },
-}
+    plugins: [
+        new HtmlWebpackPlugin({
+          title: 'HostelScan',
+          filename: './index.html',
+          template: './public/template.html',
+          entryPoint: 'app',
+          css: "styles.css"
+        })
+    ]
+};
