@@ -1,7 +1,7 @@
 import EvenEmitter from '../../helpers/prototypes/eventemitter'
 import Net from '../../helpers/network/network'
 
-export class LisController {
+export class ListController {
     constructor(view, model) {
         if (view instanceof ListView && model instanceof ListModel) {
             this._view = view;
@@ -21,21 +21,21 @@ export class ListView extends EvenEmitter {
             this._model = model;
         }
 
-        let page = document.getElementById('page');
+        const page = document.getElementById('page');
         if (page === null) {
             page = document.createElement('div');
             page.id = 'page';
-            this._parent.appendChild(page);
         }
+        this._parent.appendChild(page);
         this.page = page;
 
         this._model.subscribe(this._model.updateEvent, () => {
-            this.show();
+            this.render();
         })
 
 
     }
-    show() {
+    render() {
         let strRes = '';
         this._model.hostels.forEach((hostel) => {
             let tmp = `

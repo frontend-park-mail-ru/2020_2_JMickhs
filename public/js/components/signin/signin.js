@@ -11,16 +11,16 @@ export class SigninController {
             let { login, password } = arg;
             let canSend = true;
             if (login === '') {
-                this._view.showErrLogin(true, 'Введите логин!');
+                this._view.renderErrLogin(true, 'Введите логин!');
                 canSend = false;
             } else {
-                this._view.showErrLogin(false);
+                this._view.renderErrLogin(false);
             }
             if (password === '') {
-                this._view.showErrPassword(true, 'Введите пароль!');
+                this._view.renderErrPassword(true, 'Введите пароль!');
                 canSend = false;
             } else {
-                this._view.showErrPassword(false);
+                this._view.renderErrPassword(false);
             }
 
             if (canSend) {
@@ -33,7 +33,7 @@ export class SigninController {
             document.location.href = "#/profile";
             return;
         }
-        this._view.show();
+        this._view.render();
     }
 }
 
@@ -46,7 +46,7 @@ export class SigninView extends EvenEmitter {
             this._model = model;
         }
         this._model.subscribe(this._model.errSigninEvent, () => {
-            this.showErrServer(true, 'Неправильный логин или пароль!');
+            this.renderErrServer(true, 'Неправильный логин или пароль!');
         })
 
         let page = document.getElementById('page');
@@ -57,7 +57,7 @@ export class SigninView extends EvenEmitter {
         }
         this.page = page;
     }
-    show() {
+    render() {
         this.page.innerHTML = `
         <div class="container"></div>
         <form action="" class="ui-form" id="signinform">
@@ -94,7 +94,7 @@ export class SigninView extends EvenEmitter {
 
 
     }
-    showErrLogin(isErr, errstr = '') {
+    renderErrLogin(isErr, errstr = '') {
         let h3 = document.getElementById('errLogin');
         h3.textContent = errstr;
         if (isErr) {
@@ -104,7 +104,7 @@ export class SigninView extends EvenEmitter {
         }
 
     }
-    showErrPassword(isErr, errstr = '') {
+    renderErrPassword(isErr, errstr = '') {
         let h3 = document.getElementById('errPassword');
         h3.textContent = errstr;
         if (isErr) {
@@ -113,7 +113,7 @@ export class SigninView extends EvenEmitter {
             h3.className = 'dontErrorLine';
         }
     }
-    showErrServer(isErr, errstr = '') {
+    renderErrServer(isErr, errstr = '') {
         let h3 = document.getElementById('errServ');
         h3.textContent = errstr;
         if (isErr) {

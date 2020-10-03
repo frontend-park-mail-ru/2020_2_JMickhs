@@ -1,5 +1,5 @@
 //заглушка
-export class HomeController {
+export class HomeView {
     constructor(parent) {
         if (parent instanceof HTMLElement) {
             this._parent = parent;
@@ -12,11 +12,20 @@ export class HomeController {
         }
         this.page = page;
     }
-    activate() {
+    render() {
         this.page.innerHTML = `
         <p class="text-first">Главная страница для отработки всех других, и позже роутера</p>
         <p class="text">На главной странице должен быть поиск</p>
         <p class="text">На первом этапе без поиска не очень понятно, что тут будет</p>
         `;
+    }
+}
+
+export class HomeController {
+    constructor(view) {
+        this._view = view;
+    }
+    activate() {
+        this._view.render()
     }
 }
