@@ -49,4 +49,10 @@ export default class UserModel {
         });
     }
 
+    updatePassword(password){
+        let response = Net.updatePassword(this.id, password);
+        response.then((status) => {
+            EventBus.trigger('update2Password');
+        });
+    }
 }
