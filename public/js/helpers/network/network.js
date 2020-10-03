@@ -87,7 +87,7 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': sessionStorage.fetItem('csrf'),
+                'X-Csrf-Token': sessionStorage.getItem('csrf'),
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
