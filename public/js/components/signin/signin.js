@@ -65,18 +65,18 @@ export class SigninView extends EvenEmitter {
             <div class="form-row">
                 <input type="text" id="login"><label for="login">Логин</label>
             </div>
-            <h3 class="dontErrorLine" id="errLogin">...</h3>
+            <h3 class="dont-error-line" id="errLogin">...</h3>
             <div class="form-row"">
                 <input type="password" id="password"><label for="password">Пароль</label>
             </div>
-            <h3 class="dontErrorLine" id="errPassword">...</h3>
+            <h3 class="dont-error-line" id="errPassword">...</h3>
             <span class="psw">Нет аккаунта? 
                 <a href="#/signup">Регистрация</a>
             </span>
             <div class="form-row"">
                 <button class="btn" type="submit" id="btnsignin">Вход</button>
             </div>
-            <h3 class="dontErrorLine" id="errServ">...</h3>
+            <h3 class="dont-error-line" id="errServ">...</h3>
             
         </form>
         </div>
@@ -98,9 +98,9 @@ export class SigninView extends EvenEmitter {
         let h3 = document.getElementById('errLogin');
         h3.textContent = errstr;
         if (isErr) {
-            h3.className = 'errorLine';
+            h3.className = 'error-line';
         } else {
-            h3.className = 'dontErrorLine';
+            h3.className = 'dont-error-line';
         }
 
     }
@@ -108,18 +108,18 @@ export class SigninView extends EvenEmitter {
         let h3 = document.getElementById('errPassword');
         h3.textContent = errstr;
         if (isErr) {
-            h3.className = 'errorLine';
+            h3.className = 'error-line';
         } else {
-            h3.className = 'dontErrorLine';
+            h3.className = 'dont-error-line';
         }
     }
     renderErrServer(isErr, errstr = '') {
         let h3 = document.getElementById('errServ');
         h3.textContent = errstr;
         if (isErr) {
-            h3.className = 'errorLine';
+            h3.className = 'error-line';
         } else {
-            h3.className = 'dontErrorLine';
+            h3.className = 'dont-error-line';
         }
     }
 }
