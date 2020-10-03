@@ -26,6 +26,7 @@ export default class Net {
     }
 
     static signin(username, password) {
+        let statusCode;
         return fetch(this.domen + this.port + '/api/v1/signin', {
             method: 'POST',
             mode: 'cors',
@@ -39,12 +40,18 @@ export default class Net {
             }),
         }).then((response) => {
             let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf)
-            return response.status;
-        });
+            sessionStorage.setItem('csrf', csrf);
+            statusCode = response.status;
+            return response.json();
+        }).then((json) => {
+            return {status: statusCode, body: json};
+        }).catch(err => {
+            return {status: statusCode, error: err};
+        })
     }
 
     static signup(username, password) {
+        let statusCode;
         return fetch(this.domen + this.port + '/api/v1/signup', {
             method: 'POST',
             mode: 'cors',
@@ -58,9 +65,14 @@ export default class Net {
             }),
         }).then((response) => {
             let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf)
-            return response.status;
-        });
+            sessionStorage.setItem('csrf', csrf);
+            statusCode = response.status;
+            return response.json();
+        }).then((json) => {
+            return {status: statusCode, body: json};
+        }).catch(err => {
+            return {status: statusCode, error: err};
+        })
     }
 
     static getHotels() {
