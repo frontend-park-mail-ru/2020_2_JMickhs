@@ -48,8 +48,8 @@ export default class SigninView {
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            const login = loginInput.value.trim();
-            const password = passInput.value.trim();
+            const login = loginInput.value;
+            const password = passInput.value;
             EventBus.trigger('submitSignin', { login: login, password: password });
         });
 
