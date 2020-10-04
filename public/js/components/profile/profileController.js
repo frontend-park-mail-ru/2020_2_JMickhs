@@ -1,11 +1,9 @@
-import UserModel from './usermodel';
+import ProfileModel from './profileModel';
 import ProfileView from './profileView';
 
 export default class ProfileController {
-    constructor(parent, userModel) {
-        if (userModel instanceof UserModel) {
-            this._model = userModel;
-        }
+    constructor(parent) {
+        this._model = ProfileModel.instance;
         this._view = new ProfileView(parent, this._model);
 
         EventBus.subscribe('updatePassword', (arg) => {

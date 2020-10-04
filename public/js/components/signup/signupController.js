@@ -2,8 +2,8 @@ import SignupModel from './signupModel';
 import SignupView from './signupView';
 
 export default class SignupController {
-    constructor(parent, userModel) {
-        this._model = new SignupModel(userModel);
+    constructor(parent) {
+        this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
         EventBus.subscribe('submitSignup', (arg) => {
             let pass1 = arg.password1;

@@ -1,12 +1,12 @@
 import Router from './helpers/router/router';
 import EventBus from './helpers/eventbus/eventbus';
 import HomeController from './components/home/homeController';
-import UserModel from './components/profile/usermodel';
 import NavbarController from './components/navbar/navbarController';
 import ListController from './components/list/listController';
 import SigninController from './components/signin/signinController';
 import SignupController from './components/signup/signupController';
 import ProfileController from './components/profile/profileController';
+import ProfileModel from './components/profile/profileModel';
 
 // старт нашего приложения
 (function main() {
@@ -14,17 +14,17 @@ import ProfileController from './components/profile/profileController';
 
     const application = document.getElementById('app');
 
-    const userModel = new UserModel();
+    const userModel = ProfileModel.instance;
     userModel.getCurrUser();
 
-    const navbarController = new NavbarController(application, userModel);
+    const navbarController = new NavbarController(application);
     navbarController.activate();
 
     const homeController = new HomeController(application);
     const listController = new ListController(application);
     const signinController = new SigninController(application, userModel);
     const signupController = new SignupController(application, userModel);
-    const profileController = new ProfileController(application, userModel);
+    const profileController = new ProfileController(application);
 
     const router = new Router();
     router.append('/', homeController);

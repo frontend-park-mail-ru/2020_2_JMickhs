@@ -1,14 +1,12 @@
-import UserModel from '../profile/usermodel';
+import ProfileModel from '../profile/profileModel';
 
 export default class NavbarModel {
-    constructor(userModel) {
+    constructor() {
         this.el1 = { text: 'HostelScan', ref: '#/' };
         this.el2 = { text: 'Список отелей', ref: '#/list' };
         this.el3 = { text: 'Авторизация', ref: '#/signin' };
 
-        if (userModel instanceof UserModel) {
-            this._user = userModel;
-        }
+        this._user = ProfileModel.instance;
 
         EventBus.subscribe('updateUser', () => {
             if (this._user.isAuth) {

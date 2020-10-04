@@ -1,6 +1,6 @@
 import Net from '../../helpers/network/network';
 
-export default class UserModel {
+class UserModel {
     constructor() {
         this.login = '';
         this.id = -1;
@@ -10,7 +10,7 @@ export default class UserModel {
         let response = Net.getCurrUser();
         response.then((response) => {
             let status = response.status;
-            let body = response.body; // TODO:
+            let body = response.body;
             if (status === 200) {
                 this.isAuth = true;
                 this.login = body.username;
@@ -50,10 +50,16 @@ export default class UserModel {
         });
     }
 
-    updatePassword(password){
+    updatePassword(password) {
         let response = Net.updatePassword(this.id, password);
         response.then((status) => {
             EventBus.trigger('getNewPassword');
         });
+    }
+}
+
+export default class ProfileModel {
+    static get instance() {
+        return this._instance || (this._instance = new UserModel());
     }
 }
