@@ -230,16 +230,6 @@ nav {
     color: #F77A52;
 }
 
-.ui-form input[type="submit"] {
-    width: 100%;
-    padding: 0;
-    line-height: 42px;
-    background: #4a90e2;
-    border-width: 0;
-    color: #EFF6FA;
-    font-size: 20px;
-}
-
 .ui-form p {
     margin: 0;
     padding-top: 10px;

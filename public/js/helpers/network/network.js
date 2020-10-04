@@ -11,7 +11,6 @@ export default class Net {
 
     static updateAvatar(data) {
         let statusCode = -1;
-        console.log(sessionStorage.getItem('csrf'), 'csf');
         return fetch(this.domen + this.port + '/api/v1/updateAvatar', {
             method: 'PUT',
             mode: 'cors',

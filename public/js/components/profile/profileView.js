@@ -83,7 +83,6 @@ export default class ProfileView {
             evt.preventDefault();
             let response = Net.updateAvatar(new FormData(formAvatar));
             response.then((response) => {
-                console.log(response);
             });
         });
 

@@ -7,7 +7,7 @@ export default class SigninController {
         this._view = new SigninView(parent, this._model);
 
         EventBus.subscribe('submitSignin', (arg) => {
-            let canSend = this.validate(arg)
+            let canSend = this.validate(arg);
             if (canSend) {
                 this._model.signin(arg.login, arg.password);
             }
