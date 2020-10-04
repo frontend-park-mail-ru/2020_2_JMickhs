@@ -1,10 +1,8 @@
-import UserModel from '../profile/usermodel';
+import ProfileModel from '../profile/profileModel';
 
 export default class SigninModel {
-    constructor(modelUser) {
-        if (modelUser instanceof UserModel) {
-            this._user = modelUser;
-        }
+    constructor() {
+        this._user = ProfileModel.instance;
         EventBus.subscribe('signinUser', () => {
             if (this._user.isAuth) {
                 document.location.href = '#/profile';
