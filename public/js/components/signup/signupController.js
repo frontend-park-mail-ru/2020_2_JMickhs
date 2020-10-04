@@ -9,11 +9,13 @@ export default class SignupController {
             let pass1 = arg.password1;
             let pass2 = arg.password2;
             let login = arg.login;
-            if (pass1 != pass2) {
-                alert('пароли не равны');
-                return;
+            if (login === '' || pass1 === '') {
+                this._view.renderError('Заполните все поля');
+            } else if (pass1 !== pass2) {
+                this._view.renderError('Пароли не совпадают');
+            } else {
+                this._model.signup(login, pass1);
             }
-            this._model.signup(login, pass1);
         });
     }
     activate() {

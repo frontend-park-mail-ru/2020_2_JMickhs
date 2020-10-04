@@ -7,9 +7,8 @@ export default class SignupView {
             this._parent = parent;
             this._model = model;
         }
-        EventBus.subscribe('errorSignup', () => {
-            // TODO:
-            // вывести ошибку регистрации
+        EventBus.subscribe('errorSignup', (arg) => {
+            this.renderError(arg);
         });
 
         let page = document.getElementById('page');
@@ -54,5 +53,20 @@ export default class SignupView {
             const pass2 = passInput2.value;
             EventBus.trigger('submitSignup', { login: login, password1: pass1, password2: pass2 });
         });
+    }
+
+    renderError(errstr = '') {
+        let tmpErr = document.getElementById('error-line');
+        if (tmpErr !== null){
+            this.page.removeChild(tmpErr);
+        }
+
+        let errLine = document.createElement('div');
+        errLine.setAttribute('class', 'error');
+        errLine.setAttribute('id', 'error-line');
+        errLine.innerHTML = `<h3>${errstr}</h3>`;
+
+        let form = document.getElementById('signupform');
+        this.page.appendChild(errLine);
     }
 }

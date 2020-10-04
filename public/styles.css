@@ -325,3 +325,9 @@ nav {
     margin-bottom: 35px;
     margin-top: 20px;
 }
+
+.error {
+    /*color: #F77A52;*/
+    color: #6f001f;
+    text-align: center;
+}

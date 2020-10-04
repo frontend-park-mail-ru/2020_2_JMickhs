@@ -42,11 +42,13 @@ export default class UserModel {
                 this.id = response.body.id;
                 this.isAuth = true;
                 this.login = username;
+                EventBus.trigger('updateUser');
+                EventBus.trigger('signupUser');
+            } else {
+                EventBus.trigger('errorSignup', `Server response has status ${status}`);
             }
-            EventBus.trigger('updateUser');
-            EventBus.trigger('signupUser');
         }).catch(err => {
-            EventBus.trigger('errorSignup');
+            EventBus.trigger('errorSignup', err);
         });
     }
 

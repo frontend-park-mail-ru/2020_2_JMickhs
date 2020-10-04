@@ -8,9 +8,8 @@ export default class SignupModel {
         EventBus.subscribe('signupUser', () => {
             if (this._user.isAuth) {
                 document.location.href = '#/profile';
-                return;
             } else {
-                EventBus.trigger('errorSignup');
+                EventBus.trigger('errorSignup', 'You are not authenticated');
             }
         });
     }
