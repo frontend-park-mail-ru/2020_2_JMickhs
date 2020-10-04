@@ -2,6 +2,7 @@ const fs = require('fs');
 const http = require('http');
 
 const server = http.createServer((req, res) => {
+
     console.log('requested', req.url);
     console.log('req', req.headers)
     const path = `./public${req.url === '/' ? '/index.html' : req.url}`;

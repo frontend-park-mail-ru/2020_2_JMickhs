@@ -8,6 +8,9 @@ export default class ProfileController {
         }
         this._view = new ProfileView(parent, this._model);
 
+        EventBus.subscribe('updatePassword', (arg) => {
+            this._model.updatePassword(arg.password);
+        });
     }
     activate() {
         if (this._model.isAuth) {

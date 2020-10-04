@@ -14,6 +14,10 @@ export default class ProfileView {
             this._parent.appendChild(page);
         }
         this.page = page;
+
+        EventBus.subscribe('update2Password', () => {
+            alert(sessionStorage.getItem('csrf'));
+        })
     }
 
     render() {
@@ -40,9 +44,17 @@ export default class ProfileView {
             <div class="form-row">
                 <input type="password" id="password2"><label for="password">Новый пароль</label>
             </div>
-            <button class="btn" href="/profile.html">Сохранить</button>
+            <button class="btn" id="button-save" href="/profile.html">Сохранить</button>
         </form>
         </div>
         `;
+
+        let btn = document.getElementById('button-save');
+        let pass = document.getElementById('password2')
+        btn.addEventListener('click', evt => {
+            evt.preventDefault();
+            const password = pass.value.trim();
+            EventBus.trigger('updatePassword', {password: password});
+        });
     }
 }
