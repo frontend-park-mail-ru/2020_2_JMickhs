@@ -1,9 +1,8 @@
-import UserModel from './usermodel';
-
 export default class ProfileView {
     constructor(parent, model) {
-        if (model instanceof UserModel && parent instanceof HTMLElement) {
-            this._model = model;
+        this._model = model;
+
+        if (parent instanceof HTMLElement) {
             this._parent = parent;
         }
 

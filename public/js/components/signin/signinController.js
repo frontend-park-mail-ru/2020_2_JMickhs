@@ -2,9 +2,8 @@ import SigninModel from './signinModel';
 import SigninView from './signinView';
 
 export default class SigninController {
-    constructor(parent, userModel) {
-
-        this._model = new SigninModel(userModel);
+    constructor(parent) {
+        this._model = new SigninModel();
         this._view = new SigninView(parent, this._model);
 
         EventBus.subscribe('submitSignin', (arg) => {
