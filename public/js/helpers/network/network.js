@@ -17,8 +17,7 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': sessionStorage.getItem('csrf'),
-                'Content-Type': 'multipart/form-data'
+                'X-Csrf-Token': sessionStorage.getItem('csrf')
             },
             body: data
         }).then((response) => {
