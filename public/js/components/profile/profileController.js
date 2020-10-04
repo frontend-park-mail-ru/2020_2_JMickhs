@@ -15,6 +15,8 @@ export default class ProfileController {
             this._view.render();
             return;
         }
-        document.location.href = '#/signin';
+        EventBus.subscribe('haventUser', () => {
+            document.location.href = '#/signin';
+        });
     }
 }
