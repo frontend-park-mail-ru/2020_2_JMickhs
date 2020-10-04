@@ -8,6 +8,28 @@ export default class Net {
     static getUrlImage(path) {
         return this.domen + this.port + '/' + path;
     }
+
+    static updateAvatar(data) {
+        let statusCode = -1;
+        console.log(sessionStorage.getItem('csrf'), 'csf');
+        return fetch(this.domen + this.port + '/api/v1/updateAvatar', {
+            method: 'PUT',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'X-Csrf-Token': sessionStorage.getItem('csrf'),
+                'Content-Type': 'form/multipart'
+            },
+            body: data
+        }).then((response) => {
+            let csrf = response.headers.get('csrf');
+            sessionStorage.setItem('csrf', csrf);
+            statusCode = response.status;
+            return statusCode;
+        }).catch(err => {
+            return err;
+        });
+    }
     static getCurrUser() {
         let statusCode = -1;
         return fetch(this.domen + this.port + '/api/v1/get_current_user', {

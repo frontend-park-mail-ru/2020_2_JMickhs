@@ -1,3 +1,5 @@
+import Net from '../../helpers/network/network';
+
 export default class ProfileView {
     constructor(parent, model) {
         this._model = model;
@@ -31,6 +33,16 @@ export default class ProfileView {
                     <b>Login: ${username}</b>
                 </h3>
             </div>
+            <form id="avatar-form">
+            <div>
+              <label >Выберите изображение для новой аватарки</label>
+              <input type="file" id="profile_pic" name="avatar"
+                    accept=".jpg, .jpeg, .png">
+            </div>
+            <br>
+            <br>
+            <div id="btn-reload"></div>
+          </form>
         </div>
         <form action="" class="ui-form">
             <h2>Изменить данные</h2>
@@ -55,5 +67,25 @@ export default class ProfileView {
             const password = pass.value.trim();
             EventBus.trigger('updatePassword', { password: password });
         });
+
+        let inputFile = document.getElementById('profile_pic');
+        let btnReload = document.getElementById('btn-reload');
+        let formAvatar = document.getElementById('avatar-form');
+
+        inputFile.addEventListener('change', () => {
+            btnReload.innerHTML = `            
+            <div>
+                <button class="btn">Обновить аватарку</button>
+            </div>
+            `;
+        });
+        btnReload.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            let response = Net.updateAvatar(new FormData(formAvatar));
+            response.then((response) => {
+                console.log(response);
+            });
+        });
+
     }
 }
