@@ -9,14 +9,13 @@ import SignupController from './components/signup/signupController'
 import ProfileController from './components/profile/profileController'
 
 // старт нашего приложения
-(function () {
+(function main() {
     globalThis.EventBus = new EventBus();
 
     const application = document.getElementById('app');
 
     const userModel = new UserModel();
-
-    userModel.cookieUser();
+    userModel.getCurrUser();
 
     const navbarController = new NavbarController(application, userModel);
     navbarController.activate();

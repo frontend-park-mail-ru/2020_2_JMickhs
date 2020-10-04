@@ -7,6 +7,7 @@ export default class ProfileController {
             this._model = userModel;
         }
         this._view = new ProfileView(parent, this._model);
+
     }
     activate() {
         if (this._model.isAuth) {

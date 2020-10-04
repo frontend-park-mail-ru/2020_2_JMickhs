@@ -8,7 +8,7 @@ export default class UserModel {
 
         this.updateEvent = 'updateUser';
     }
-    cookieUser() {
+    getCurrUser() {
         let response = Net.getCurrUser();
         response.then((response) => {
             let status = response.status;
