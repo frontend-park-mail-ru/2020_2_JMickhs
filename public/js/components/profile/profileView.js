@@ -15,7 +15,7 @@ export default class ProfileView {
         }
         this.page = page;
 
-        EventBus.subscribe('update2Password', () => {
+        EventBus.subscribe('getNewPassword', () => {
             alert(sessionStorage.getItem('csrf'));
         })
     }

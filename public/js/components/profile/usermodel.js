@@ -5,8 +5,6 @@ export default class UserModel {
         this.login = '';
         this.id = -1;
         this.isAuth = false;
-
-        this.updateEvent = 'updateUser';
     }
     getCurrUser() {
         let response = Net.getCurrUser();
@@ -55,7 +53,7 @@ export default class UserModel {
     updatePassword(password){
         let response = Net.updatePassword(this.id, password);
         response.then((status) => {
-            EventBus.trigger('update2Password');
+            EventBus.trigger('getNewPassword');
         });
     }
 }
