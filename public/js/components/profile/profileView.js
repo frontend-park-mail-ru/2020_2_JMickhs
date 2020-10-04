@@ -16,7 +16,7 @@ export default class ProfileView {
         this.page = page;
 
         EventBus.subscribe('getNewPassword', () => {
-            alert(sessionStorage.getItem('csrf'));
+            alert('Вы успешно поменяли пароль');
         });
     }
 
