@@ -18,6 +18,9 @@ class UserModel {
                 this.id = body.id;
                 this.avatar = body.avatar;
                 EventBus.trigger('updateUser');
+                EventBus.trigger('profileUser');
+            } else {
+                EventBus.trigger('haventUser');
             }
         });
     }

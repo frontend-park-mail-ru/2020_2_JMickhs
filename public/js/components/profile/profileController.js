@@ -18,5 +18,8 @@ export default class ProfileController {
         EventBus.subscribe('haventUser', () => {
             document.location.href = '#/signin';
         });
+        EventBus.subscribe('profileUser', () => {
+            this._view.render();
+        });
     }
 }
