@@ -13,14 +13,14 @@ export default class Net {
             credentials: 'include',
         }).then((response) => {
             let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf)
+            sessionStorage.setItem('csrf', csrf);
             statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return {status: statusCode, body: json};
+            return { status: statusCode, body: json };
         }).catch(err => {
-            return {status: statusCode, error: err};
-        })
+            return { status: statusCode, error: err };
+        });
     }
 
     static signin(username, password) {
@@ -49,10 +49,10 @@ export default class Net {
             statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return {status: statusCode, body: json};
+            return { status: statusCode, body: json };
         }).catch(err => {
-            return {status: statusCode, error: err};
-        })
+            return { status: statusCode, error: err };
+        });
     }
     static signup(username, password) {
         let statusCode = -1;
@@ -80,10 +80,10 @@ export default class Net {
             statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return {status: statusCode, body: json};
+            return { status: statusCode, body: json };
         }).catch(err => {
-            return {status: statusCode, error: err};
-        })
+            return { status: statusCode, error: err };
+        });
     }
     static getHotels() {
         let statusCode = -1;
@@ -94,13 +94,13 @@ export default class Net {
         }).then((response) => {
             statusCode = response.status;
             let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf)
+            sessionStorage.setItem('csrf', csrf);
             return response.json();
         }).then((json) => {
-            return {status: statusCode, body: json};
+            return { status: statusCode, body: json };
         }).catch(err => {
-            return {status: statusCode, error: err};
-        })
+            return { status: statusCode, error: err };
+        });
     }
 
     static updatePassword(id, password) {
@@ -118,7 +118,7 @@ export default class Net {
             }),
         }).then((response) => {
             let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf)
+            sessionStorage.setItem('csrf', csrf);
             return response.status;
         });
     }
