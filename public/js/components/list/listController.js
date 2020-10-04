@@ -1,5 +1,5 @@
-import ListModel from './listModel'
-import ListView from './listView'
+import ListModel from './listModel';
+import ListView from './listView';
 
 export default class ListController {
     constructor(parent) {

@@ -1,6 +1,6 @@
 import UserModel from '../profile/usermodel';
-import NavbarModel from './navbarModel'
-import NavbarView from './navbarView'
+import NavbarModel from './navbarModel';
+import NavbarView from './navbarView';
 
 export default class NavbarController {
     constructor(parent, userModel) {

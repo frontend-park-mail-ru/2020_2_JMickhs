@@ -1,5 +1,5 @@
-import UserModel from './usermodel'
-import ProfileView from './profileView'
+import UserModel from './usermodel';
+import ProfileView from './profileView';
 
 export default class ProfileController {
     constructor(parent, userModel) {
@@ -14,6 +14,6 @@ export default class ProfileController {
             this._view.render();
             return;
         }
-        document.location.href = "#/signin"
+        document.location.href = '#/signin';
     }
 }

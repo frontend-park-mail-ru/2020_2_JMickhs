@@ -1,4 +1,4 @@
-import SignupModel from './signupModel'
+import SignupModel from './signupModel';
 
 export default class SignupView {
     constructor(parent, model) {
@@ -10,7 +10,7 @@ export default class SignupView {
         EventBus.subscribe('errorSignup', () => {
             // TODO:
             // вывести ошибку регистрации
-        })
+        });
 
         let page = document.getElementById('page');
         if (page === null) {
@@ -42,10 +42,10 @@ export default class SignupView {
         </div>
         `;
 
-        let form = document.getElementById('signupform')
-        let loginInput = document.getElementById('login')
-        let passInput1 = document.getElementById('password1')
-        let passInput2 = document.getElementById('password2')
+        let form = document.getElementById('signupform');
+        let loginInput = document.getElementById('login');
+        let passInput1 = document.getElementById('password1');
+        let passInput2 = document.getElementById('password2');
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();

@@ -1,8 +1,8 @@
-import Net from '../../helpers/network/network'
+import Net from '../../helpers/network/network';
 
 export default class UserModel {
     constructor() {
-        this.login = ''
+        this.login = '';
         this.id = -1;
         this.isAuth = false;
 

@@ -1,4 +1,4 @@
-import SigninModel from './signinModel'
+import SigninModel from './signinModel';
 
 export default class SigninView {
     constructor(parent, model) {
@@ -50,7 +50,7 @@ export default class SigninView {
             evt.preventDefault();
             const login = loginInput.value.trim();
             const password = passInput.value.trim();
-            EventBus.trigger('submitSignin', { login: login, password: password })
+            EventBus.trigger('submitSignin', { login: login, password: password });
         });
 
     }

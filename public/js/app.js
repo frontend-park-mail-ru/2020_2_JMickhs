@@ -1,12 +1,12 @@
-import Router from './helpers/router/router'
-import EventBus from './helpers/eventbus/eventbus'
-import HomeController from './components/home/homeController'
-import UserModel from './components/profile/usermodel'
-import NavbarController from './components/navbar/navbarController'
-import ListController from './components/list/listController'
-import SigninController from './components/signin/signinController'
-import SignupController from './components/signup/signupController'
-import ProfileController from './components/profile/profileController'
+import Router from './helpers/router/router';
+import EventBus from './helpers/eventbus/eventbus';
+import HomeController from './components/home/homeController';
+import UserModel from './components/profile/usermodel';
+import NavbarController from './components/navbar/navbarController';
+import ListController from './components/list/listController';
+import SigninController from './components/signin/signinController';
+import SignupController from './components/signup/signupController';
+import ProfileController from './components/profile/profileController';
 
 // старт нашего приложения
 (function main() {

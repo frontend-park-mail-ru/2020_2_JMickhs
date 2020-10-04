@@ -1,4 +1,4 @@
-import UserModel from './usermodel'
+import UserModel from './usermodel';
 
 export default class ProfileView {
     constructor(parent, model) {

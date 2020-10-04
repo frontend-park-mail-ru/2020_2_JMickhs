@@ -1,4 +1,4 @@
-import UserModel from '../profile/usermodel'
+import UserModel from '../profile/usermodel';
 
 export default class NavbarModel {
     constructor(userModel) {
@@ -15,6 +15,6 @@ export default class NavbarModel {
                 this.el3 = { text: this._user.login, ref: '#/profile' };
                 EventBus.trigger('updateNavbar');
             }
-        })
+        });
     }
 }

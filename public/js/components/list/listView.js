@@ -1,4 +1,4 @@
-import ListModel from './listModel'
+import ListModel from './listModel';
 
 export default class ListView {
     constructor(parent, model) {

@@ -1,4 +1,4 @@
-import Net from '../../helpers/network/network'
+import Net from '../../helpers/network/network';
 
 export default class ListModel {
     constructor() {
@@ -11,8 +11,8 @@ export default class ListModel {
             if (result.status == 200) {
                 this.haveInfo = true;
                 this.hostels = result.body;
-                EventBus.trigger('loadHostels')
+                EventBus.trigger('loadHostels');
             }
-        })
+        });
     }
 }

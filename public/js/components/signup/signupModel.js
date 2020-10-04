@@ -1,4 +1,4 @@
-import UserModel from '../profile/usermodel'
+import UserModel from '../profile/usermodel';
 
 export default class SignupModel {
     constructor(modelUser) {
@@ -7,7 +7,7 @@ export default class SignupModel {
         }
         EventBus.subscribe('signupUser', () => {
             if (this._user.isAuth) {
-                document.location.href = "#/profile";
+                document.location.href = '#/profile';
                 return;
             } else {
                 EventBus.trigger('errorSignup');

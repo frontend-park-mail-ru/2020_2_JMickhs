@@ -10,7 +10,7 @@ const ErrorPage = {
         </section>
       `;
     }
-}
+};
 
 
 export default class Router {

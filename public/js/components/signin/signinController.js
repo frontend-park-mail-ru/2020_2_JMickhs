@@ -1,5 +1,5 @@
-import SigninModel from './signinModel'
-import SigninView from './signinView'
+import SigninModel from './signinModel';
+import SigninView from './signinView';
 
 export default class SigninController {
     constructor(parent, userModel) {
@@ -30,7 +30,7 @@ export default class SigninController {
     }
     activate() {
         if (this._model.isAuth()) {
-            document.location.href = "#/profile";
+            document.location.href = '#/profile';
             return;
         }
         this._view.render();
