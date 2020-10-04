@@ -17,7 +17,7 @@ export default class ProfileView {
 
         EventBus.subscribe('update2Password', () => {
             alert(sessionStorage.getItem('csrf'));
-        })
+        });
     }
 
     render() {
@@ -50,11 +50,11 @@ export default class ProfileView {
         `;
 
         let btn = document.getElementById('button-save');
-        let pass = document.getElementById('password2')
+        let pass = document.getElementById('password2');
         btn.addEventListener('click', evt => {
             evt.preventDefault();
             const password = pass.value.trim();
-            EventBus.trigger('updatePassword', {password: password});
+            EventBus.trigger('updatePassword', { password: password });
         });
     }
 }
