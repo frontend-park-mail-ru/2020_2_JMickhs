@@ -18,7 +18,7 @@ export default class Net {
             credentials: 'include',
             headers: {
                 'X-Csrf-Token': sessionStorage.getItem('csrf'),
-                'Content-Type': 'form/multipart'
+                'Content-Type': 'multipart/form-data'
             },
             body: data
         }).then((response) => {
