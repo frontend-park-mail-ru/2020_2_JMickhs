@@ -49,9 +49,9 @@ export default class SignupView {
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            const login = loginInput.value.trim();
-            const pass1 = passInput1.value.trim();
-            const pass2 = passInput2.value.trim();
+            const login = loginInput.value;
+            const pass1 = passInput1.value;
+            const pass2 = passInput2.value;
             EventBus.trigger('submitSignup', { login: login, password1: pass1, password2: pass2 });
         });
     }
