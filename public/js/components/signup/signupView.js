@@ -58,7 +58,8 @@ export default class SignupView {
     renderError(errstr = '') {
         let tmpErr = document.getElementById('error-line');
         if (tmpErr !== null){
-            this.page.removeChild(tmpErr);
+            tmpErr.innerHTML = `<h3>${errstr}</h3>`;
+            return;
         }
 
         let errLine = document.createElement('div');
