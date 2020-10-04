@@ -22,8 +22,8 @@ import ProfileModel from './components/profile/profileModel';
 
     const homeController = new HomeController(application);
     const listController = new ListController(application);
-    const signinController = new SigninController(application, userModel);
-    const signupController = new SignupController(application, userModel);
+    const signinController = new SigninController(application);
+    const signupController = new SignupController(application);
     const profileController = new ProfileController(application);
 
     const router = new Router();
