@@ -5,6 +5,7 @@ class UserModel {
         this.login = '';
         this.id = -1;
         this.isAuth = false;
+        this.avatar = '';
     }
     getCurrUser() {
         let response = Net.getCurrUser();
@@ -15,6 +16,7 @@ class UserModel {
                 this.isAuth = true;
                 this.login = body.username;
                 this.id = body.id;
+                this.avatar = body.avatar;
                 EventBus.trigger('updateUser');
             }
         });
@@ -23,8 +25,10 @@ class UserModel {
         let response = Net.signin(username, password);
         response.then((response) => {
             let status = response.status;
+            const body = response.body;
             if (status === 200) {
-                this.id = response.body.id;
+                this.id = body.id;
+                this.avatar = body.avatar;
                 this.isAuth = true;
                 this.login = username;
             }
@@ -38,8 +42,10 @@ class UserModel {
         let response = Net.signup(username, password);
         response.then((response) => {
             let status = response.status;
+            const body = response.body;
             if (status === 200) {
-                this.id = response.body.id;
+                this.id = body.id;
+                this.avatar = body.avatar;
                 this.isAuth = true;
                 this.login = username;
                 EventBus.trigger('updateUser');

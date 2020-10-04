@@ -27,7 +27,7 @@ export default class ProfileView {
         this.page.innerHTML = `
         <div class="container">
         <div class="card">
-            <img class="avatar" src="https://cs5.pikabu.ru/images/big_size_comm/2015-10_4/1445372410115880547.png" alt="Avatar">
+            <img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">
             <div class="cnt">
                 <h3>
                     <b>Login: ${username}</b>

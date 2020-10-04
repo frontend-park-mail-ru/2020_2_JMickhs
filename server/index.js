@@ -4,7 +4,7 @@ const http = require('http');
 const server = http.createServer((req, res) => {
 
     console.log('requested', req.url);
-    console.log('req', req.headers)
+    console.log('req', req.headers);
     const path = `./public${req.url === '/' ? '/index.html' : req.url}`;
 
     const ip = res.socket.remoteAddress;
@@ -28,7 +28,7 @@ const server = http.createServer((req, res) => {
 
 try{
     server.listen(80);
-    console.log('Node server started!!')
+    console.log('Node server started!!');
 } catch (err) {
     console.log(err);
 }
