@@ -5,6 +5,9 @@ export default class Net {
     static get port() {
         return ':8080';
     }
+    static getUrlImage(path) {
+        return this.domen + this.port + '/' + path;
+    }
     static getCurrUser() {
         let statusCode = -1;
         return fetch(this.domen + this.port + '/api/v1/get_current_user', {
