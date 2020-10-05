@@ -77,6 +77,7 @@ class UserModel {
     signout() {
         let response = Net.signout();
         response.then((status) => {
+            console.log(status);
             if (status === 200) {
                 this.id = -1;
                 this.username = '';

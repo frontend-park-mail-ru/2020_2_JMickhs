@@ -44,7 +44,6 @@ export default class Router {
             evt.preventDefault();
         }
         const path = location.pathname;
-        console.log(path, 'path');
         const { controller } = this._findComponentByPath(path) || { controller: ErrorPage };
         controller.activate();
     }
