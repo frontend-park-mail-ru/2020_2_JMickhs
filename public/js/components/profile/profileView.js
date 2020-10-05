@@ -116,6 +116,5 @@ export default class ProfileView {
         btnExit.addEventListener('click', () => {
             this._model.signout();
         });
-
     }
 }

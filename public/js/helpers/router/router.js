@@ -29,7 +29,6 @@ export default class Router {
                 evt.preventDefault();
                  this.pushState(target.href);
             }
-
          });
     }
 
@@ -64,7 +63,7 @@ export default class Router {
         if (evt !== null) { 
             evt.preventDefault();
         }
-        const path = location.pathname;
+        const path = '/' + location.pathname.split('/')[1];
         const { controller } = this._findComponentByPath(path) || { controller: ErrorPage };
         controller.activate();
     }
