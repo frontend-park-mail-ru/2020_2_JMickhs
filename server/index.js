@@ -4,7 +4,7 @@ const http = require('http');
 const server = http.createServer((req, res) => {
 
     console.log('requested', req.url);
-    //console.log('req', req.headers);
+    console.log('req', req.headers);
 
     let path;
     if (req.url.endsWith('css') || req.url.endsWith('js')) {

@@ -32,6 +32,6 @@ import ProfileModel from './components/profile/profileModel';
     router.append('/signup', signupController);
     router.append('/profile', profileController);
     router.append('/list', listController);
-    router.start();
+    router.start(application);
 }());
 

@@ -32,7 +32,7 @@ export default class SigninView {
             </div>
             <h3 class="dont-error-line" id="errPassword">...</h3>
             <span class="psw">Нет аккаунта? 
-                <a href="" id="btn-signup">Регистрация</a>
+                <a href="/signup">Регистрация</a>
             </span>
             <div class="form-row"">
                 <button class="btn-green" type="submit" id="btnsignin">Вход</button>
@@ -42,12 +42,6 @@ export default class SigninView {
         </form>
         </div>
         `;
-        let btnSignup = document.getElementById('btn-signup');
-
-        btnSignup.addEventListener('click', (evt) => {
-            evt.preventDefault();
-            router.pushState('/signup');
-        });
 
         let form = document.getElementById('signinform');
         let loginInput = document.getElementById('login');
