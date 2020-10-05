@@ -57,7 +57,7 @@ export default class ProfileView {
             <div class="form-row">
                 <input type="password" id="password2"><label for="password">Новый пароль</label>
             </div>
-            <button class="btn-green" id="button-save" href="/profile.html">Сохранить</button>
+            <button class="btn-green" id="button-save" href="">Сохранить</button>
         </form>
         </div>
         `;
@@ -85,6 +85,11 @@ export default class ProfileView {
             evt.preventDefault();
             let response = Net.updateAvatar(new FormData(formAvatar));
             response.then((response) => {
+                if (response.status !== 200) {
+                    alert('Аватарку обновить не получилось!');
+                    return;
+                }
+                this._model.getCurrUser(); // чтобы загрузить автарку и отобразить её
             });
         });
 
