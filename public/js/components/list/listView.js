@@ -36,7 +36,7 @@ export default class ListView {
                          <b>Тип: Отель</b>
                      </h3>
                  </div>
-                 <button class="btn">Подробнее</button>
+                 <button class="btn-green">Подробнее</button>
                  </div>
              </div>
          `;

@@ -36,7 +36,7 @@ export default class SignupView {
             <span class="psw">     Есть аккаунт?
                 <a href="#/signin">Войдите</a>
             </span>
-            <button class="btn">Регистрация</button>
+            <button class="btn-green">Регистрация</button>
         </form>
         </div>
         `;

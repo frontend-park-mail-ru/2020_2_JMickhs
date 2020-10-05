@@ -10,65 +10,6 @@ ul {
     width: 100%;
 }
 
-.btn {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    left: 48%;
-    transform: translate(-50%, 0);
-    overflow: hidden;
-    z-index: 1;
-    padding: 10px 40px;
-    margin: 0 20px;
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-weight: 600;
-    line-height: 30px;
-    color: white;
-    font-size: 15px;
-    text-transform: uppercase;
-    background: #f5b08f;
-    border-width: 0;
-    box-shadow: 5px 5px 0 #532831;
-    outline: none;
-    cursor: pointer;
-    transition: 1.5s;
-    text-align: center;
-}
-
-.btn:before,
-.btn:after {
-    content: "";
-    position: absolute;
-    height: 200px;
-    left: -50%;
-    margin-top: -100px;
-    top: 50%;
-    width: 200px;
-    border-radius: 50%;
-    opacity: 0.3;
-    z-index: -1;
-    transform: scale(0);
-}
-
-.btn:before {
-    background: #ffeede;
-    transition: .8s ease-out;
-}
-
-.btn:after {
-    transition: .4s ease-in .3s;
-}
-
-.btn:hover {
-    color: #532831;
-}
-
-.btn:hover:before,
-.btn:hover:after {
-    opacity: 1;
-    transform: scale(4);
-}
-
 .card .container .btn {
     height: 30%;
     position: relative;
@@ -357,6 +298,8 @@ nav {
 
 
 .btn-green {
+    width: 150px;
+    height: 35px;
     text-decoration: none;
     outline: none;
     display: inline-block;

@@ -35,7 +35,7 @@ export default class SigninView {
                 <a href="#/signup">Регистрация</a>
             </span>
             <div class="form-row"">
-                <button class="btn" type="submit" id="btnsignin">Вход</button>
+                <button class="btn-green" type="submit" id="btnsignin">Вход</button>
             </div>
             <h3 class="dont-error-line" id="errServ">...</h3>
             

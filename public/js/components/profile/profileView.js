@@ -57,7 +57,7 @@ export default class ProfileView {
             <div class="form-row">
                 <input type="password" id="password2"><label for="password">Новый пароль</label>
             </div>
-            <button class="btn" id="button-save" href="/profile.html">Сохранить</button>
+            <button class="btn-green" id="button-save" href="/profile.html">Сохранить</button>
         </form>
         </div>
         `;
