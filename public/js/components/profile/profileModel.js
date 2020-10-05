@@ -83,6 +83,9 @@ class UserModel {
                 this.isAuth = false;
                 this.avatar = '';
                 EventBus.trigger('signout');
+            } else {
+                alert('Сервер умер?');
+                console.log(status);
             }
         });
     }
