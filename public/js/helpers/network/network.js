@@ -8,7 +8,22 @@ export default class Net {
     static getUrlImage(path) {
         return this.domen + this.port + '/' + path;
     }
-
+    static signout() {
+        return fetch(this.domen + this.port + '/api/v1/signout', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'X-Csrf-Token': sessionStorage.getItem('csrf')
+            },
+        }).then((response) => {
+            let csrf = response.headers.get('csrf');
+            sessionStorage.setItem('csrf', csrf);
+            return response.status;
+        }).catch(err => {
+            return err;
+        });
+    }
     static updateAvatar(data) {
         let statusCode = -1;
         return fetch(this.domen + this.port + '/api/v1/updateAvatar', {

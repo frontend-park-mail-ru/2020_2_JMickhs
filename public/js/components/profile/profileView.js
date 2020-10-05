@@ -40,9 +40,11 @@ export default class ProfileView {
                     accept=".jpg, .jpeg, .png">
             </div>
             <br>
-            <br>
-            <div id="btn-reload"></div>
           </form>
+          <div class="container">
+            <button class="btn-red" id="btn-exit">Выйти</button>
+            <div id="btn-reload"></div>
+          </div>
         </div>
         <form action="" class="ui-form">
             <h2>Изменить данные</h2>
@@ -75,7 +77,7 @@ export default class ProfileView {
         inputFile.addEventListener('change', () => {
             btnReload.innerHTML = `            
             <div>
-                <button class="btn">Обновить аватарку</button>
+                <button class="btn-green">Обновить аватарку</button>
             </div>
             `;
         });
@@ -84,6 +86,11 @@ export default class ProfileView {
             let response = Net.updateAvatar(new FormData(formAvatar));
             response.then((response) => {
             });
+        });
+
+        let btnExit = document.getElementById('btn-exit');
+        btnExit.addEventListener('click', () => {
+            this._model.signout();
         });
 
     }

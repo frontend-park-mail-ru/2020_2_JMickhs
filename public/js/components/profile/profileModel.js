@@ -60,7 +60,18 @@ class UserModel {
             EventBus.trigger('errorSignup', err);
         });
     }
-
+    signout() {
+        let response = Net.signout();
+        response.then((status) => {
+            if (status === 200) {
+                this.id = -1;
+                this.username = '';
+                this.isAuth = false;
+                this.avatar = '';
+                EventBus.trigger('signout');
+            }
+        });
+    }
     updatePassword(password) {
         let response = Net.updatePassword(this.id, password);
         response.then((status) => {
