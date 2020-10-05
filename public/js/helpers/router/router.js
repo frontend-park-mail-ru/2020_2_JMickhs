@@ -24,9 +24,12 @@ export default class Router {
         window.addEventListener('popstate', this._route.bind(this));
         window.addEventListener('load', this._route.bind(this));
         window.addEventListener('click', (evt) => {
-            evt.preventDefault();
             const {target} = evt;
-            this._checkAnchor(target, evt);
+            if (target instanceof HTMLAnchorElement) {
+                evt.preventDefault();
+                 this.pushState(target.href);
+            }
+
          });
     }
 
@@ -36,9 +39,10 @@ export default class Router {
             this.pushState(target.href);
             return;
         }
-        for (let i = 0; i < target.childNodes.length; i++) {
-            this._checkAnchor(target.childNodes[i], evt);
+        if (target === window) {
+            return;
         }
+        this._checkAnchor(target, evt);
         return;
     }
 
