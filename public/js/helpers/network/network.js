@@ -10,7 +10,7 @@ export default class Net {
     }
     static signout() {
         return fetch(this.domen + this.port + '/api/v1/signout', {
-            method: 'GET',
+            method: 'POST',
             mode: 'cors',
             credentials: 'include',
             headers: {
