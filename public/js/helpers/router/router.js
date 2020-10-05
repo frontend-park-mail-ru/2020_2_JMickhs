@@ -20,24 +20,26 @@ export default class Router {
         this.routes[this.routes.length] = { path: path, controller: controller };
     }
 
-    start(application) {
+    start() {
         window.addEventListener('popstate', this._route.bind(this));
         window.addEventListener('load', this._route.bind(this));
-
-        application.addEventListener('click', (evt) => {
+        window.addEventListener('click', (evt) => {
+            evt.preventDefault();
             const {target} = evt;
-            this._checkAnchor(target);
+            this._checkAnchor(target, evt);
          });
     }
 
-    _checkAnchor(target) {
+    _checkAnchor(target, evt) {
         if (target instanceof HTMLAnchorElement) {
+            evt.preventDefault();
             this.pushState(target.href);
             return;
         }
         for (let i = 0; i < target.childNodes.length; i++) {
-            this._checkAnchor(target.childNodes[i]);
+            this._checkAnchor(target.childNodes[i], evt);
         }
+        return;
     }
 
     pushState(url = '/', state = {}) {

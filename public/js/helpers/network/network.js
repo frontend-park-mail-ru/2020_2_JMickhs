@@ -1,4 +1,8 @@
+
+
+
 export default class Net {
+    
     static get domen() {
         return 'http://www.hostelscan.ru';
     }
