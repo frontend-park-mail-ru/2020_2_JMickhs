@@ -85,7 +85,7 @@ export default class ProfileView {
             evt.preventDefault();
             let response = Net.updateAvatar(new FormData(formAvatar));
             response.then((response) => {
-                if (response.status !== 200) {
+                if (response !== 200) {
                     alert('Аватарку обновить не получилось!');
                     return;
                 }
