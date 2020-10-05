@@ -34,12 +34,19 @@ export default class SignupView {
                 <input type="password" id="password2"><label for="password">Повторите пароль</label>
             </div>
             <span class="psw">     Есть аккаунт?
-                <a href="#/signin">Войдите</a>
+                <a href="" id="btn-signin">Войдите</a>
             </span>
             <button class="btn-green">Регистрация</button>
         </form>
         </div>
         `;
+
+        let btnSignup = document.getElementById('btn-signin');
+
+        btnSignup.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            router.pushState('/signin');
+        });
 
         let form = document.getElementById('signupform');
         let loginInput = document.getElementById('login');

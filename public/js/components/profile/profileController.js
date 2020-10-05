@@ -22,7 +22,7 @@ export default class ProfileController {
             this._view.render();
         });
         EventBus.subscribe('signout', () => {
-            document.location.href = '#/signin';
+            router.pushState('/signin');
         });
     }
 }

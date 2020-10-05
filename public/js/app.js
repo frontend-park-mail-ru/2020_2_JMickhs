@@ -26,7 +26,7 @@ import ProfileModel from './components/profile/profileModel';
     const signupController = new SignupController(application);
     const profileController = new ProfileController(application);
 
-    const router = new Router();
+    globalThis.router = new Router();
     router.append('/', homeController);
     router.append('/signin', signinController);
     router.append('/signup', signupController);

@@ -1,3 +1,4 @@
+import Router from '../../helpers/router/router';
 import NavbarModel from './navbarModel';
 
 export default class NavbarView {
@@ -21,15 +22,29 @@ export default class NavbarView {
         this.navbar.innerHTML = `
         <ul class="menu-main">
         <li>
-            <a href="${this._model.el1.ref}">${this._model.el1.text}</a>
+            <a href="" id="nav1">${this._model.el1.text}</a>
         </li>
         <li>
-            <a href="${this._model.el2.ref}">${this._model.el2.text}</a>
+            <a href="" id="nav2">${this._model.el2.text}</a>
         </li>
         <li>
-            <a href="${this._model.el3.ref}">${this._model.el3.text}</a>    
+            <a href="" id="nav3">${this._model.el3.text}</a>    
         </li>
         </ul>
         `;
+        let nav1 = document.getElementById('nav1');
+        nav1.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            router.pushState(this._model.el1.ref);
+        });
+        let nav2 = document.getElementById('nav2');
+        nav2.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            router.pushState(this._model.el2.ref);
+        });
+        nav3.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            router.pushState(this._model.el3.ref);
+        });
     }
 }
