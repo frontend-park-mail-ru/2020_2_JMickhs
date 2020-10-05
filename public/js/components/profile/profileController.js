@@ -22,6 +22,7 @@ export default class ProfileController {
             this._view.render();
         });
         EventBus.subscribe('signout', () => {
+            console.log('here2');
             router.pushState('/signin');
         });
     }
