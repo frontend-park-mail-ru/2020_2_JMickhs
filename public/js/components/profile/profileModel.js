@@ -24,6 +24,20 @@ class UserModel {
             }
         });
     }
+    updateAvatar() {
+        let response = Net.getCurrUser();
+        response.then((response) => {
+            let status = response.status;
+            let body = response.body;
+            if (status === 200) {
+                this.isAuth = true;
+                this.login = body.username;
+                this.id = body.id;
+                this.avatar = body.avatar;
+                EventBus.trigger('updateAvatar');
+            }
+        });
+    }
     signin(username, password) {
         let response = Net.signin(username, password);
         response.then((response) => {

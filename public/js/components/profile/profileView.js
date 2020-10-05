@@ -27,7 +27,9 @@ export default class ProfileView {
         this.page.innerHTML = `
         <div class="container">
         <div class="card">
-            <img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">
+            <div id="avatar-img">
+                <img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">
+            </div>
             <div class="cnt">
                 <h3>
                     <b>Login: ${username}</b>
@@ -62,6 +64,11 @@ export default class ProfileView {
         </div>
         `;
 
+        EventBus.subscribe('updateAvatar', () => {
+            let img = document.getElementById('avatar-img');
+            img.innerHTML = `<img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">`;
+        });
+
         let btn = document.getElementById('button-save');
         let pass = document.getElementById('password2');
         btn.addEventListener('click', evt => {
@@ -81,15 +88,18 @@ export default class ProfileView {
             </div>
             `;
         });
+
+
+
         btnReload.addEventListener('click', (evt) => {
             evt.preventDefault();
             let response = Net.updateAvatar(new FormData(formAvatar));
-            response.then((response) => {
-                if (response !== 200) {
+            response.then((status) => {
+                if (status !== 200) {
                     alert('Аватарку обновить не получилось!');
                     return;
                 }
-                this._model.getCurrUser(); // чтобы загрузить автарку и отобразить её
+                this._model.updateAvatar();
             });
         });
 
