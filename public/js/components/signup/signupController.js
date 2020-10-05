@@ -21,7 +21,7 @@ export default class SignupController {
     }
     activate() {
         if (this._model.isAuth()) {
-            document.location.href = '#/profile';
+            router.pushState('/profile');
             return;
         }
         this._view.render();

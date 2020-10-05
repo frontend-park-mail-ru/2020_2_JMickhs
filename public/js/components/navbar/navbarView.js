@@ -1,3 +1,4 @@
+import Router from '../../helpers/router/router';
 import NavbarModel from './navbarModel';
 
 export default class NavbarView {
@@ -31,5 +32,6 @@ export default class NavbarView {
         </li>
         </ul>
         `;
+        
     }
 }

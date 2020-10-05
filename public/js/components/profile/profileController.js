@@ -17,6 +17,9 @@ export default class ProfileController {
             }
         });
 
+        EventBus.subscribe('signout', () => {
+            router.pushState('/signin');
+        });
     }
     activate() {
         if (this._model.isAuth) {
@@ -24,13 +27,10 @@ export default class ProfileController {
             return;
         }
         EventBus.subscribe('haventUser', () => {
-            document.location.href = '#/signin';
+            router.pushState('/signin');
         });
         EventBus.subscribe('profileUser', () => {
             this._view.render();
-        });
-        EventBus.subscribe('signout', () => {
-            document.location.href = '#/signin';
         });
     }
 }

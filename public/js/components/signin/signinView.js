@@ -31,7 +31,7 @@ export default class SigninView {
                 <input type="password" id="password"><label for="password">Пароль</label>
             </div>
             <span class="psw">Нет аккаунта? 
-                <a href="#/signup">Регистрация</a>
+                <a href="/signup">Регистрация</a>
             </span>
             <div class="form-row"">
                 <button class="btn-green" type="submit" id="btnsignin">Вход</button>
@@ -40,6 +40,7 @@ export default class SigninView {
         </form>
         </div>
         `;
+
         let form = document.getElementById('signinform');
         let loginInput = document.getElementById('login');
         let passInput = document.getElementById('password');

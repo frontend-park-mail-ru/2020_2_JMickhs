@@ -19,7 +19,7 @@ export default class SigninController {
     }
     activate() {
         if (this._model.isAuth()) {
-            document.location.href = '#/profile';
+            router.pushState('/profile');
             return;
         }
         this._view.render();

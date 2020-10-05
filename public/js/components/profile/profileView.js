@@ -30,7 +30,9 @@ export default class ProfileView {
         this.page.innerHTML = `
         <div class="container">
         <div class="card">
-            <img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">
+            <div id="avatar-img">
+                <img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">
+            </div>
             <div class="cnt">
                 <h3>
                     <b>Login: ${username}</b>
@@ -58,9 +60,16 @@ export default class ProfileView {
                 <input type="password" id="password2"><label for="password">Новый пароль</label>
             </div>
             <button class="btn-green" id="button-save" href="">Сохранить</button>
+            </div>
+            <h3 class="dont-error-line" id="errServ">...</h3>
         </form>
         </div>
         `;
+
+        EventBus.subscribe('updateAvatar', () => {
+            let img = document.getElementById('avatar-img');
+            img.innerHTML = `<img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">`;
+        });
 
         let btn = document.getElementById('button-save');
         let newPass = document.getElementById('password2');
@@ -83,15 +92,25 @@ export default class ProfileView {
             </div>
             `;
         });
+
+
+
         btnReload.addEventListener('click', (evt) => {
             evt.preventDefault();
             let response = Net.updateAvatar(new FormData(formAvatar));
-            response.then((response) => {
-                if (response !== 200) {
-                    alert('Аватарку обновить не получилось!');
+            response.then((status) => {
+                if (status !== 200) {
+                    let err =  document.getElementById('errServ');
+                    err.textContent = 'Аватарку обновить не получилось!';
+                    err.className = 'error-line';
                     return;
                 }
-                this._model.getCurrUser(); // чтобы загрузить автарку и отобразить её
+                this._model.updateAvatar();
+            });
+            response.catch(err => {
+                let errLine =  document.getElementById('errServ');
+                errLine.textContent = `Аватарку обновить не получилось! ${err}`;
+                errLine.className = 'error-line';
             });
         });
 
@@ -99,7 +118,6 @@ export default class ProfileView {
         btnExit.addEventListener('click', () => {
             this._model.signout();
         });
-
     }
 
     renderError(errstr = '') {

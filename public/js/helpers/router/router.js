@@ -4,10 +4,8 @@
 const ErrorPage = {
     activate: () => {
         document.getElementById('page').innerHTML = `
-        <section>
-          <h1>Error</h1>
-          <p>Error Error Error</p>
-        </section>
+        <p class="text-first">Уупс, произошла ошибка!</p>
+        <p class="text">Такой страницы не существует</p>
       `;
     }
 };
@@ -22,24 +20,52 @@ export default class Router {
         this.routes[this.routes.length] = { path: path, controller: controller };
     }
 
-    parseLocation() {
-        return location.hash.slice(1).toLowerCase() || '/';
+    start() {
+        window.addEventListener('popstate', this._route.bind(this));
+        window.addEventListener('load', this._route.bind(this));
+        window.addEventListener('click', (evt) => {
+            const {target} = evt;
+            if (target instanceof HTMLAnchorElement) {
+                evt.preventDefault();
+                 this.pushState(target.href);
+            }
+         });
     }
 
-    findComponentByPath(path) {
-        return this.routes.find(r => r.path.match(new RegExp(`^\\${path}$`, 'gm'))) || undefined;
+    _checkAnchor(target, evt) {
+        if (target instanceof HTMLAnchorElement) {
+            evt.preventDefault();
+            this.pushState(target.href);
+            return;
+        }
+        if (target === window) {
+            return;
+        }
+        this._checkAnchor(target, evt);
+        return;
+    }
+
+    pushState(url = '/', state = {}) {
+        if (url !== location.pathname) {
+            history.pushState(state, document.title, url);
+        } else {
+            history.replaceState(state, document.title, url);
+        }
+        this._route();
+    }
+
+    _findComponentByPath(path) {
+        return this.routes.find(r => r.path.match(new RegExp(`^\\${path}$`, 'gm')));
         // gm - это многострочный текст парни (вроде как)
     }
 
-    async route(evt) {
-        evt.preventDefault();
-        const path = this.parseLocation();
-        const { controller } = this.findComponentByPath(path) || { controller: ErrorPage };
+    _route(evt = null) {
+        if (evt !== null) { 
+            evt.preventDefault();
+        }
+        const path = '/' + location.pathname.split('/')[1];
+        const { controller } = this._findComponentByPath(path) || { controller: ErrorPage };
         controller.activate();
     }
 
-    start() {
-        window.addEventListener('hashchange', this.route.bind(this));
-        window.addEventListener('load', this.route.bind(this));
-    }
 }

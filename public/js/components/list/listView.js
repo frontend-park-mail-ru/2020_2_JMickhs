@@ -23,6 +23,7 @@ export default class ListView {
     render() {
         let strRes = '';
         this._model.hostels.forEach((hostel) => {
+            const id = hostel.ID;
             let urlImage = Net.getUrlImage(hostel.Image);
             let tmp = `
             <div class="card">
@@ -36,7 +37,7 @@ export default class ListView {
                          <b>Тип: Отель</b>
                      </h3>
                  </div>
-                 <button class="btn-green">Подробнее</button>
+                 <a class="btn-green" href="/hostel/${id}">Подробнее</a>
                  </div>
              </div>
          `;

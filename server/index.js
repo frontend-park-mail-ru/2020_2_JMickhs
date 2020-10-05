@@ -5,11 +5,13 @@ const server = http.createServer((req, res) => {
 
     console.log('requested', req.url);
     console.log('req', req.headers);
-    const path = `./public${req.url === '/' ? '/index.html' : req.url}`;
 
-    const ip = res.socket.remoteAddress;
-    const port = res.socket.remotePort;
-    console.log(`Your IP address is ${ip} and your source port is ${port}.`);
+    let path;
+    if (req.url.endsWith('css') || req.url.endsWith('js')) {
+        path = `./public${req.url}`;
+    } else {
+        path = './public/index.html';
+    }
 
     fs.readFile(path, (err, file) => {
         if (err) {
