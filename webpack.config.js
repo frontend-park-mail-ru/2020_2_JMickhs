@@ -15,6 +15,6 @@ module.exports = {
             template: './public/template.html',
             entryPoint: 'app',
             css: 'styles.css'
-        })
+        }),
     ]
 };

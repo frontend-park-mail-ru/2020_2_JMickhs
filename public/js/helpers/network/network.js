@@ -1,7 +1,4 @@
-
-
-
-export default class Net {
+export default class Net {    
     
     static get domen() {
         return 'http://www.hostelscan.ru';
@@ -18,11 +15,10 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': sessionStorage.getItem('csrf')
+                'X-Csrf-Token': this._csrf
             },
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             return response.status;
         }).catch(err => {
             return err;
@@ -35,12 +31,11 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': sessionStorage.getItem('csrf')
+                'X-Csrf-Token': this._csrf
             },
             body: data
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return statusCode;
         }).catch(err => {
@@ -54,8 +49,7 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return response.json();
         }).then((json) => {
@@ -86,8 +80,7 @@ export default class Net {
             },
             body: json,
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return response.json();
         }).then((json) => {
@@ -117,8 +110,7 @@ export default class Net {
             },
             body: json,
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return response.json();
         }).then((json) => {
@@ -135,8 +127,7 @@ export default class Net {
             credentials: 'include',
         }).then((response) => {
             statusCode = response.status;
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             return response.json();
         }).then((json) => {
             return { status: statusCode, body: json };
@@ -162,13 +153,12 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': sessionStorage.getItem('csrf'),
+                'X-Csrf-Token': this._csrf,
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: json,
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return statusCode;
         }).catch(err => {
