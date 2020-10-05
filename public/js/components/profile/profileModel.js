@@ -34,11 +34,15 @@ class UserModel {
                 this.avatar = body.avatar;
                 this.isAuth = true;
                 this.login = username;
+                EventBus.trigger('updateUser');
+                EventBus.trigger('signinUser');
+            } else if (status === 401) {
+                EventBus.trigger('errorSignin', 'Вы ввели неправильный логин или пароль');
+            } else {
+                EventBus.trigger('errorSignin', `Server response has status ${status}`);
             }
-            EventBus.trigger('updateUser');
-            EventBus.trigger('signinUser');
         }).catch(err => {
-            EventBus.trigger('errorSignup');
+            EventBus.trigger('errorSignin');
         });
     }
     signup(username, password) {
@@ -72,10 +76,14 @@ class UserModel {
             }
         });
     }
-    updatePassword(password) {
-        let response = Net.updatePassword(this.id, password);
+    updatePassword(oldPassword, password) {
+        let response = Net.updatePassword(oldPassword, password);
         response.then((status) => {
-            EventBus.trigger('getNewPassword');
+            if (status === 409) {
+                EventBus.trigger('passwordUpdateError', 'Вы ввели неврный пароль');
+            } else {
+                EventBus.trigger('getNewPassword');
+            }
         });
     }
 }

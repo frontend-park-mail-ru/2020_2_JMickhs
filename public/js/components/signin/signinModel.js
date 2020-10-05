@@ -7,7 +7,7 @@ export default class SigninModel {
             if (this._user.isAuth) {
                 document.location.href = '#/profile';
             } else {
-                EventBus.trigger('errorSignin');
+                EventBus.trigger('errorSignin', 'You are not authenticated');
             }
         });
     }

@@ -1,5 +1,6 @@
 import SignupModel from './signupModel';
 import SignupView from './signupView';
+import {validate} from '../../helpers/validation/validation'
 
 export default class SignupController {
     constructor(parent) {
@@ -9,11 +10,11 @@ export default class SignupController {
             let pass1 = arg.password1;
             let pass2 = arg.password2;
             let login = arg.login;
-            if (login === '' || pass1 === '') {
+            if (login === '' || pass1 === '' || pass2 === '') {
                 this._view.renderError('Заполните все поля');
             } else if (pass1 !== pass2) {
                 this._view.renderError('Пароли не совпадают');
-            } else {
+            } else if (validate({login: login, password: pass1}, this._view)) {
                 this._model.signup(login, pass1);
             }
         });

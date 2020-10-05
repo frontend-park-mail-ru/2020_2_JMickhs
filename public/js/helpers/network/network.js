@@ -141,13 +141,13 @@ export default class Net {
         });
     }
 
-    static updatePassword(id, password) {
+    static updatePassword(oldPassword, password) {
         let statusCode = -1;
         let json;
         try {
             json = JSON.stringify({
-                id: id,
-                password: password
+                newpassword: password,
+                oldpassword: oldPassword,
             });
         } catch (err) {
             return Promise.reject({ status: statusCode, error: err });
@@ -165,6 +165,7 @@ export default class Net {
         }).then((response) => {
             let csrf = response.headers.get('csrf');
             sessionStorage.setItem('csrf', csrf);
+            console.log('Hello from UpdatePassword');
             statusCode = response.status;
             return statusCode;
         }).catch(err => {

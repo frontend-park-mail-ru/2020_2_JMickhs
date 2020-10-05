@@ -6,8 +6,8 @@ export default class SigninView {
             this._parent = parent;
             this._model = model;
         }
-        EventBus.subscribe('errorSignin', () => {
-            this.renderErrServer(true, 'Неправильный логин или пароль!');
+        EventBus.subscribe('errorSignin', (arg) => {
+            this.renderError(arg);
         });
 
         let page = document.getElementById('page');
@@ -30,14 +30,12 @@ export default class SigninView {
             <div class="form-row"">
                 <input type="password" id="password"><label for="password">Пароль</label>
             </div>
-            <h3 class="dont-error-line" id="errPassword">...</h3>
             <span class="psw">Нет аккаунта? 
                 <a href="#/signup">Регистрация</a>
             </span>
             <div class="form-row"">
                 <button class="btn-green" type="submit" id="btnsignin">Вход</button>
             </div>
-            <h3 class="dont-error-line" id="errServ">...</h3>
             
         </form>
         </div>
@@ -54,32 +52,20 @@ export default class SigninView {
         });
 
     }
-    renderErrLogin(isErr, errstr = '') {
-        let h3 = document.getElementById('errLogin');
-        h3.textContent = errstr;
-        if (isErr) {
-            h3.className = 'error-line';
-        } else {
-            h3.className = 'dont-error-line';
+
+    renderError(errstr = '') {
+        let tmpErr = document.getElementById('error-line');
+        if (tmpErr !== null){
+            tmpErr.innerHTML = `<h3>${errstr}</h3>`;
+            return;
         }
 
-    }
-    renderErrPassword(isErr, errstr = '') {
-        let h3 = document.getElementById('errPassword');
-        h3.textContent = errstr;
-        if (isErr) {
-            h3.className = 'error-line';
-        } else {
-            h3.className = 'dont-error-line';
-        }
-    }
-    renderErrServer(isErr, errstr = '') {
-        let h3 = document.getElementById('errServ');
-        h3.textContent = errstr;
-        if (isErr) {
-            h3.className = 'error-line';
-        } else {
-            h3.className = 'dont-error-line';
-        }
+        let errLine = document.createElement('div');
+        errLine.setAttribute('class', 'error');
+        errLine.setAttribute('id', 'error-line');
+        errLine.innerHTML = `<h3>${errstr}</h3>`;
+
+        let form = document.getElementById('signinform');
+        this.page.appendChild(errLine);
     }
 }

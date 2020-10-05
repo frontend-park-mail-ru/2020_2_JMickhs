@@ -19,6 +19,9 @@ export default class ProfileView {
         EventBus.subscribe('getNewPassword', () => {
             alert('Вы успешно поменяли пароль');
         });
+        EventBus.subscribe('passwordUpdateError', (arg) => {
+            this.renderError(arg);
+        });
     }
 
     render() {
@@ -46,11 +49,8 @@ export default class ProfileView {
             <div id="btn-reload"></div>
           </div>
         </div>
-        <form action="" class="ui-form">
+        <form action="" class="ui-form" id="change-data-form">
             <h2>Изменить данные</h2>
-            <div class="form-row">
-                <input type="text" id="email"><label for="password">Login</label>
-            </div>
             <div class="form-row">
                 <input type="password" id="password1"><label for="password">Старый пароль</label>
             </div>
@@ -63,11 +63,13 @@ export default class ProfileView {
         `;
 
         let btn = document.getElementById('button-save');
-        let pass = document.getElementById('password2');
+        let newPass = document.getElementById('password2');
+        let oldPass = document.getElementById('password1');
         btn.addEventListener('click', evt => {
             evt.preventDefault();
-            const password = pass.value.trim();
-            EventBus.trigger('updatePassword', { password: password });
+            const newPassword = newPass.value.trim();
+            const oldPassword = oldPass.value.trim();
+            EventBus.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword });
         });
 
         let inputFile = document.getElementById('profile_pic');
@@ -98,5 +100,21 @@ export default class ProfileView {
             this._model.signout();
         });
 
+    }
+
+    renderError(errstr = '') {
+        let tmpErr = document.getElementById('error-line');
+        if (tmpErr !== null){
+            tmpErr.innerHTML = `<h3>${errstr}</h3>`;
+            return;
+        }
+
+        let errLine = document.createElement('div');
+        errLine.setAttribute('class', 'error');
+        errLine.setAttribute('id', 'error-line');
+        errLine.innerHTML = `<h3>${errstr}</h3>`;
+
+        let form = document.getElementById('change-data-form');
+        form.appendChild(errLine);
     }
 }
