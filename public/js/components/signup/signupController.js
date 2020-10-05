@@ -24,5 +24,6 @@ export default class SignupController {
             return;
         }
         this._view.render();
+        EventBus.trigger('pageSignup');
     }
 }

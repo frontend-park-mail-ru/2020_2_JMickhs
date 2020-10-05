@@ -14,5 +14,13 @@ export default class NavbarModel {
                 EventBus.trigger('updateNavbar');
             }
         });
+        EventBus.subscribe('pageSignup', () => {
+            this.el3 = { text: 'Регистрация', ref: '#/signup' };
+            EventBus.trigger('updateNavbar');
+        });
+        EventBus.subscribe('pageSignin', () => {
+            this.el3 = { text: 'Авторизация', ref: '#/signin' };
+            EventBus.trigger('updateNavbar');
+        });
     }
 }

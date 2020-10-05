@@ -19,6 +19,7 @@ export default class SigninController {
             return;
         }
         this._view.render();
+        EventBus.trigger('pageSignin');
     }
 
     validate(arg) {
