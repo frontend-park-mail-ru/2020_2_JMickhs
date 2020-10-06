@@ -15,10 +15,6 @@ export let validate = (arg, view) => {
     ];
 
     let passwordTable = [
-        // {
-        //     regExp: new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)$'),
-        //     strErr: 'Пароль должен содержать хотя бы одну цифру, строчную и заглавную букву'
-        // },
         {
             regExp: new RegExp('^[a-zA-Z0-9]*$'),
             strErr: 'Пароль может включать только буквы английского алфавита'

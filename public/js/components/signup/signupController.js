@@ -1,6 +1,6 @@
 import SignupModel from './signupModel';
 import SignupView from './signupView';
-import validate from '../../helpers/validation/validation';
+import {validate} from '../../helpers/validation/validation';
 
 export default class SignupController {
     constructor(parent) {
