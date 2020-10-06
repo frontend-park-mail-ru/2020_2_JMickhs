@@ -1,3 +1,4 @@
+
 /* кнопки */
 
 body {
@@ -359,6 +360,7 @@ nav {
 .btn-green {
     width: 200px;
     height: 40px;
+    text-align: center;
     text-decoration: none;
     outline: none;
     display: inline-block;
@@ -372,6 +374,7 @@ nav {
     color: #008000;
     transition: .2s ease-in-out;
   }
+
   .btn-green:before {
     content: "";
     background: linear-gradient(90deg, rgba(255,255,255,.1), rgba(255,255,255,.5));
@@ -390,4 +393,37 @@ nav {
     left: 150px;
     transition: .5s ease-in-out;
   }
-  
+
+
+/* страничка отеля */
+
+.hotel-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 40px;
+}
+.hotel-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+}
+
+.hotel-card-title {
+    color: #f5b08f;
+
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 23px;
+}
+.hotel-card-text {
+    color: #6996D3;
+
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+}
