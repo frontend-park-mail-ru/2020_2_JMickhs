@@ -5,8 +5,8 @@ import Events from './../../helpers/eventbus/eventbus';
 export default class NavbarView {
   /**
      * Инициализация класса
-     * @param {*} parent - родительский элемент html-страницы
-     * @param {*} model - модель
+     * @param {HTMLElement} parent - родительский элемент html-страницы
+     * @param {any} model - модель
      */
   constructor(parent, model) {
     if (parent instanceof HTMLElement && model instanceof NavbarModel) {

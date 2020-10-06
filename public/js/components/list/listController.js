@@ -5,7 +5,7 @@ import ListView from './listView';
 export default class ListController {
   /**
      * Инициализация класса
-     * @param {*} parent - родительский элемент html-страницы
+     * @param {HTMLElement} parent - родительский элемент html-страницы
      */
   constructor(parent) {
     this._model = new ListModel();
