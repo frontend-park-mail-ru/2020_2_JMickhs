@@ -1,5 +1,6 @@
 import ListModel from './listModel';
 import Net from '../../helpers/network/network';
+import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для страницы списка отелей */
 export default class ListView {
@@ -22,7 +23,7 @@ export default class ListView {
         this._parent.appendChild(page);
         this.page = page;
 
-        EventBus.subscribe('loadHostels', () => {
+        Events.subscribe('loadHostels', () => {
             this.render();
         });
     }

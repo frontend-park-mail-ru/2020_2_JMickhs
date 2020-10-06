@@ -1,41 +1,36 @@
-/** Функция валидации входных данных
- * @param {Object} arg - объект с данными для валидации
- * @param {string} evtName - наименование ивента, который нужно стригеррить для отображения ошибки
- * @return {boolean} true, если ошибок не обнаружено
- */
 export const validate = (arg, evtName) => {
     const loginTable = [
         {
             regExp: new RegExp('^[a-zA-Zа-яА-Я].*$'),
-            strErr: 'Логин должен начинаться с буквы'
+            strErr: 'Логин должен начинаться с буквы',
         },
         {
-            regExp: new RegExp('^[a-zA-Zа-яА-я0-9_\.-]*$'),
-            strErr: 'Логин может включать только буквы, цифры и символы _ - .'
+            regExp: new RegExp('^[a-zA-Zа-яА-я0-9_.-]*$'),
+            strErr: 'Логин может включать только буквы, цифры и символы _ - .',
         },
         {
             regExp: new RegExp('^.{3,15}$'),
-            strErr: 'Длинна логина должна быть в пределе от 3 до 15 символов'
-        }
+            strErr: 'Длинна логина должна быть в пределе от 3 до 15 символов',
+        },
     ];
 
     const passwordTable = [
         {
             regExp: new RegExp('^[a-zA-Z0-9]*$'),
-            strErr: 'Пароль может включать только буквы английского алфавита'
+            strErr: 'Пароль может включать только буквы английского алфавита',
         },
         {
             regExp: new RegExp('^.{8,20}$'),
-            strErr: 'Длинна пароля должна быть в пределах от 8 до 20 символов'
-        }
+            strErr: 'Длинна пароля должна быть в пределах от 8 до 20 символов',
+        },
     ];
 
-    const { login, password } = arg;
+    const {login, password} = arg;
 
     if (login !== '') {
-        for (let i = 0; i < loginTable.length; i++){
+        for (let i = 0; i < loginTable.length; i++) {
             if (!loginTable[i].regExp.exec(login)) {
-                EventBus.trigger(evtName, loginTable[i].strErr);
+                Events.trigger(evtName, loginTable[i].strErr);
                 return false;
             }
         }
@@ -44,7 +39,7 @@ export const validate = (arg, evtName) => {
     if (password !== '') {
         for (let i = 0; i < passwordTable.length; i++) {
             if (!passwordTable[i].regExp.exec(password)) {
-                EventBus.trigger(evtName, passwordTable[i].strErr);
+                Events.trigger(evtName, passwordTable[i].strErr);
                 return false;
             }
         }

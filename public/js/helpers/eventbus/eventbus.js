@@ -1,7 +1,7 @@
 /**
  * Eventbus
  */
-export default class EventBus {
+class EventBus {
     /**
      * Создает экземпляр EvenBus
      */
@@ -23,6 +23,9 @@ export default class EventBus {
      * @param {object?} arg - контекст события
      */
     trigger(evt, arg = null) {
-        (this.events[evt] || []).slice().forEach(lsn => lsn(arg));
+        (this.events[evt] || []).slice().forEach((lsn) => lsn(arg));
     }
 }
+
+const Events = new EventBus;
+export default Events;

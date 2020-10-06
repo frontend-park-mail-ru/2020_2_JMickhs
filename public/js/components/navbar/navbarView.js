@@ -1,5 +1,5 @@
-import Router from '../../helpers/router/router';
 import NavbarModel from './navbarModel';
+import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для навбара */
 export default class NavbarView {
@@ -14,7 +14,7 @@ export default class NavbarView {
             this._model = model;
         }
 
-        EventBus.subscribe('updateNavbar', this.render.bind(this));
+        Events.subscribe('updateNavbar', this.render.bind(this));
 
         let nav = document.getElementById('navbar');
         if (nav == null) {

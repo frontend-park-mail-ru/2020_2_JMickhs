@@ -1,8 +1,9 @@
+// eslint-disable-next-line no-undef
 const fs = require('fs');
+// eslint-disable-next-line no-undef
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-
     console.log('requested', req.url);
     console.log('req', req.headers);
 
@@ -11,8 +12,7 @@ const server = http.createServer((req, res) => {
         path = `./public${req.url}`;
     } else {
         path = './public/index.html';
-    }
-
+    } 
     fs.readFile(path, (err, file) => {
         if (err) {
             console.log('file read error', path, err);
@@ -26,8 +26,8 @@ const server = http.createServer((req, res) => {
     });
 });
 
-try{
-    server.listen(3000);
+try {
+    server.listen(80);
     console.log('Node server started!!');
 } catch (err) {
     console.log(err);

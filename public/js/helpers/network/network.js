@@ -29,12 +29,12 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': this._csrf
+                'X-Csrf-Token': this._csrf,
             },
         }).then((response) => {
             this._csrf = response.headers.get('csrf');
             return response.status;
-        }).catch(err => {
+        }).catch((err) => {
             return err;
         });
     }
@@ -50,14 +50,14 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': this._csrf
+                'X-Csrf-Token': this._csrf,
             },
-            body: data
+            body: data,
         }).then((response) => {
             this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return statusCode;
-        }).catch(err => {
+        }).catch((err) => {
             return err;
         });
     }
@@ -76,9 +76,9 @@ export default class Net {
             statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return { status: statusCode, body: json };
-        }).catch(err => {
-            return { status: statusCode, error: err };
+            return {status: statusCode, body: json};
+        }).catch((err) => {
+            return {status: statusCode, error: err};
         });
     }
     /**
@@ -93,10 +93,10 @@ export default class Net {
         try {
             json = JSON.stringify({
                 username: username,
-                password: password
+                password: password,
             });
         } catch (err) {
-            return Promise.reject({ status: statusCode, error: err });
+            return Promise.reject({status: statusCode, error: err});
         }
 
         return fetch(this.domen + this.port + '/api/v1/signin', {
@@ -104,7 +104,7 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
             },
             body: json,
         }).then((response) => {
@@ -112,9 +112,9 @@ export default class Net {
             statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return { status: statusCode, body: json };
-        }).catch(err => {
-            return { status: statusCode, error: err };
+            return {status: statusCode, body: json};
+        }).catch((err) => {
+            return {status: statusCode, error: err};
         });
     }
     /**
@@ -129,10 +129,10 @@ export default class Net {
         try {
             json = JSON.stringify({
                 username: username,
-                password: password
+                password: password,
             });
         } catch (err) {
-            return Promise.reject({ status: statusCode, error: err });
+            return Promise.reject({status: statusCode, error: err});
         }
 
         return fetch(this.domen + this.port + '/api/v1/signup', {
@@ -140,7 +140,7 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
             },
             body: json,
         }).then((response) => {
@@ -148,9 +148,9 @@ export default class Net {
             statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return { status: statusCode, body: json };
-        }).catch(err => {
-            return { status: statusCode, error: err };
+            return {status: statusCode, body: json};
+        }).catch((err) => {
+            return {status: statusCode, error: err};
         });
     }
     /**
@@ -168,9 +168,9 @@ export default class Net {
             this._csrf = response.headers.get('csrf');
             return response.json();
         }).then((json) => {
-            return { status: statusCode, body: json };
-        }).catch(err => {
-            return { status: statusCode, error: err };
+            return {status: statusCode, body: json};
+        }).catch((err) => {
+            return {status: statusCode, error: err};
         });
     }
     /**
@@ -186,7 +186,7 @@ export default class Net {
                 oldpassword: oldPassword,
             });
         } catch (err) {
-            return Promise.reject({ status: statusCode, error: err });
+            return Promise.reject({status: statusCode, error: err});
         }
 
         return fetch(this.domen + this.port + '/api/v1/updatePassword', {
@@ -195,15 +195,15 @@ export default class Net {
             credentials: 'include',
             headers: {
                 'X-Csrf-Token': this._csrf,
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
             },
             body: json,
         }).then((response) => {
             this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return statusCode;
-        }).catch(err => {
-            return { status: statusCode, error: err };
+        }).catch((err) => {
+            return {status: statusCode, error: err};
         });
     }
     /**
@@ -222,9 +222,9 @@ export default class Net {
             this._csrf = response.headers.get('csrf');
             return response.json();
         }).then((json) => {
-            return { status: statusCode, body: json };
-        }).catch(err => {
-            return { status: statusCode, error: err };
+            return {status: statusCode, body: json};
+        }).catch((err) => {
+            return {status: statusCode, error: err};
         });
     }
 }

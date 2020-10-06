@@ -6,7 +6,7 @@ const ErrorPage = {
         <p class="text-first">Уупс, произошла ошибка!</p>
         <p class="text">Такой страницы не существует</p>
       `;
-    }
+    },
 };
 
 /** Роутер, определяющий контроллер страницы */
@@ -23,7 +23,7 @@ export default class Router {
      * @param {any} controller - контроллер, обязан иметь метод activate
      */
     append(path, controller) {
-        this.routes[this.routes.length] = { path: path, controller: controller };
+        this.routes[this.routes.length] = {path: path, controller: controller};
     }
     /**
      * Стартует роутер
@@ -72,20 +72,20 @@ export default class Router {
      * @param {string} path - ключ, по которому ищется контроллер
      */
     _findComponentByPath(path) {
-        return this.routes.find(r => r.path.match(new RegExp(`^\\${path}$`, 'gm')));
-        // gm - это многострочный текст парни (вроде как)
+        return this.routes.find((r) => r.path.match(new RegExp(`^\\${path}$`, 'gm')));
+    // gm - это многострочный текст парни (вроде как)
     }
     /**
      * переключает контроллер при вызове на нужный
      * @param {Event} evt - евент
      */
     _route(evt = null) {
-        if (evt !== null) { 
+        if (evt !== null) {
             evt.preventDefault();
         }
         const path = '/' + location.pathname.split('/')[1];
         const arg = location.pathname.split('/')[2];
-        const { controller } = this._findComponentByPath(path) || { controller: ErrorPage };
+        const {controller} = this._findComponentByPath(path) || {controller: ErrorPage};
         controller.activate(arg);
     }
 }

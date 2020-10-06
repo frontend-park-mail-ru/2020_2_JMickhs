@@ -1,5 +1,6 @@
 import SignupModel from './signupModel';
 import SignupView from './signupView';
+import Events from './../../helpers/eventbus/eventbus';
 import {validate} from '../../helpers/validation/validation';
 
 /** Класс контроллера для страницы регистрации */
@@ -11,7 +12,7 @@ export default class SignupController {
     constructor(parent) {
         this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
-        EventBus.subscribe('submitSignup', (arg) => {
+        Events.subscribe('submitSignup', (arg) => {
             const pass1 = arg.password1;
             const pass2 = arg.password2;
             const login = arg.login;
@@ -21,7 +22,7 @@ export default class SignupController {
                 this._view.renderError('Пароли не совпадают');
             } else if (validate({login: login, password: pass1}, 'logRenderError')) {
                 this._model.signup(login, pass1);
-            }
+            }     
         });
     }
     /**
@@ -29,10 +30,10 @@ export default class SignupController {
      */
     activate() {
         if (this._model.isAuth()) {
-            router.pushState('/profile');
+            Events.trigger('redirect', {url: '/profile'});
             return;
         }
         this._view.render();
-        EventBus.trigger('pageSignup');
+        Events.trigger('pageSignup');
     }
 }

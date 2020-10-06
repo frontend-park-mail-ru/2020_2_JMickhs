@@ -1,5 +1,4 @@
 import Router from './helpers/router/router';
-import EventBus from './helpers/eventbus/eventbus';
 import HomeController from './components/home/homeController';
 import NavbarController from './components/navbar/navbarController';
 import ListController from './components/list/listController';
@@ -8,13 +7,12 @@ import SignupController from './components/signup/signupController';
 import ProfileController from './components/profile/profileController';
 import ProfileModel from './components/profile/profileModel';
 import HostelController from './components/hostel/hostelController';
+import Events from './helpers/eventbus/eventbus';
 
 /**
  * Главная функция приложения
  */
-(function main() {
-    globalThis.EventBus = new EventBus();
-
+(() => {
     const application = document.getElementById('app');
 
     const userModel = ProfileModel.instance;
@@ -30,13 +28,17 @@ import HostelController from './components/hostel/hostelController';
     const profileController = new ProfileController(application);
     const hostelController = new HostelController(application);
 
-    globalThis.router = new Router();
+    const router = new Router();
     router.append('/', homeController);
     router.append('/signin', signinController);
     router.append('/signup', signupController);
     router.append('/profile', profileController);
     router.append('/list', listController);
     router.append('/hostel', hostelController);
-    router.start(application);
-}());
+    router.start();
+    Events.subscribe('redirect', (arg) => {
+        const {url} = arg;
+        router.pushState(url);
+    });
+})();
 

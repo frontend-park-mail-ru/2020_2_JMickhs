@@ -1,4 +1,5 @@
 import Net from '../../helpers/network/network';
+import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для страницы отеля */
 export default class HostelView {
@@ -21,7 +22,7 @@ export default class HostelView {
             this._parent.appendChild(page);
         }
         this.page = page;
-        EventBus.subscribe('updateHostel', () => {
+        Events.subscribe('updateHostel', () => {
             this.render();
         });
     }

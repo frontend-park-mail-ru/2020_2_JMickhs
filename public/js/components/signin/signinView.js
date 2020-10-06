@@ -1,4 +1,5 @@
 import SigninModel from './signinModel';
+import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView {
@@ -12,7 +13,7 @@ export default class SigninView {
             this._parent = parent;
             this._model = model;
         }
-        EventBus.subscribe('errorSignin', (arg) => {
+        Events.subscribe('errorSignin', (arg) => {
             this.renderError(arg);
         });
 
@@ -24,7 +25,7 @@ export default class SigninView {
         }
         this.page = page;
 
-        EventBus.subscribe('authRenderError', (arg) => {
+        Events.subscribe('authRenderError', (arg) => {
             this.renderError(arg);
         });
     }
@@ -60,7 +61,7 @@ export default class SigninView {
             evt.preventDefault();
             const login = loginInput.value;
             const password = passInput.value;
-            EventBus.trigger('submitSignin', { login: login, password: password });
+            Events.trigger('submitSignin', { login: login, password: password });
         });
     }
     /**
