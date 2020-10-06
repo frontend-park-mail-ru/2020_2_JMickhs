@@ -1,3 +1,9 @@
+/**
+ * Валидация для пароля и/или логина
+ * @param {Object} arg - объект с логином и паролем
+ * @param {string} evtName - тип события, которое нужно стригеррить при ошибке
+ * @return {boolean} true, если ошибок не обнаружено
+ */
 export const validate = (arg, evtName) => {
     const loginTable = [
         {
