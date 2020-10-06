@@ -1,5 +1,5 @@
 export let validate = (arg, view) => {
-    let loginTable = [
+    const loginTable = [
         {
             regExp: new RegExp('^[a-zA-Zа-яА-Я].*$'),
             strErr: 'Логин должен начинаться с буквы'
@@ -14,7 +14,7 @@ export let validate = (arg, view) => {
         }
     ];
 
-    let passwordTable = [
+    const passwordTable = [
         {
             regExp: new RegExp('^[a-zA-Z0-9]*$'),
             strErr: 'Пароль может включать только буквы английского алфавита'
@@ -25,7 +25,7 @@ export let validate = (arg, view) => {
         }
     ];
 
-    let { login, password } = arg;
+    const { login, password } = arg;
 
     if (login !==  '') {
         for (let i = 0; i < loginTable.length; i++){
