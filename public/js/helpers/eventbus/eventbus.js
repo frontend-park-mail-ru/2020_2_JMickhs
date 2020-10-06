@@ -20,7 +20,7 @@ class EventBus {
     /**
      * Вызывает обработчиков события
      * @param {string} evt - имя события
-     * @param {object?} arg - контекст события
+     * @param {Object?} arg - контекст события
      */
     trigger(evt, arg = null) {
         (this.events[evt] || []).slice().forEach((lsn) => lsn(arg));

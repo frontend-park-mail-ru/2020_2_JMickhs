@@ -317,6 +317,11 @@ nav {
 }
 
 .notice {
+    color: #6996D3;
+    text-align: center;
+}
+
+.error {
     color: #e32636;
     text-align: center;
 }

@@ -130,40 +130,50 @@ export default class ProfileView {
         });
     }
     /**
-     * Отрисовка сообщения об ошибке или подтверждения действия
+     * Отрисовка уведомления
+     * @param {string} [errstr=''] - текст уведомления
+     * @param {boolean} [typeMessageFlag=false] - тип уведомления(false - ошибка)
      */
     renderMessage(errstr = '', typeMessageFlag = false) {
-        if (this._model.timerId !== -1) {
-            clearTimeout(this._model.timerId);
-            const tmpNotice = document.getElementById('notice-line');
-            tmpNotice.innerHTML = `<h3>${errstr}</h3>`;
-            if (typeMessageFlag) {
-                tmpNotice.style.color = '#6996D3';
-            } else {
-                tmpNotice.style.color = '#e32636';
-            }
-
-            this._model.timerId = setTimeout(() => {
-                const form = document.getElementById('change-data-form');
-                form.removeChild(tmpNotice);
-                this._model.timerId = -1;
-            }, 5000);
-            return;
-        }
-
-        const noticeLine = document.createElement('div');
-        noticeLine.setAttribute('class', 'notice');
-        noticeLine.setAttribute('id', 'notice-line');
+        const form = document.getElementById('change-data-form');
+        let noticeLine, errLine;
         if (typeMessageFlag) {
-            noticeLine.style.color = '#6996D3';
+            noticeLine = document.getElementById('notice-line');
+            errLine = document.getElementById('error-line');
         } else {
-            noticeLine.style.color = '#e32636';
+            noticeLine = document.getElementById('error-line');
+            errLine = document.getElementById('notice-line');
         }
+        if (noticeLine === null) {
+            noticeLine = document.createElement('div');
+            if (this._model.timerId !== -1) {
+                clearTimeout(this._model.timerId);
+                form.removeChild(errLine);
+            }
+        } else {
+            clearTimeout(this._model.timerId);
+            if (errLine !== null) {
+                form.removeChild(errLine);
+            }
+        }
+
+        if (typeMessageFlag){
+            noticeLine.setAttribute('class', 'notice');
+            noticeLine.setAttribute('id', 'notice-line');
+        }
+        else {
+            noticeLine.setAttribute('class', 'error');
+            noticeLine.setAttribute('id', 'error-line');
+        }
+
+        // if (typeMessageFlag) {
+        //     noticeLine.style.color = '#6996D3';
+        // } else {
+        //     noticeLine.style.color = '#e32636';
+        // }
         noticeLine.innerHTML = `<h3>${errstr}</h3>`;
 
-        const form = document.getElementById('change-data-form');
         form.appendChild(noticeLine);
-
 
         this._model.timerId = setTimeout(() => {
             form.removeChild(noticeLine);

@@ -57,7 +57,7 @@ export default class Router {
     /**
      * изменяет url
      * @param {string} url - новый url
-     * @param {object} state - объект состояния
+     * @param {Object} state - объект состояния
      */
     pushState(url = '/', state = {}) {
         if (url !== location.pathname) {
