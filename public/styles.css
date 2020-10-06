@@ -264,7 +264,7 @@ nav {
     width: 30%;
     border-radius: 5px;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 100px;
 }
 
 .card:hover {
@@ -393,7 +393,7 @@ nav {
     width: 30%;
     border-radius: 5px;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 100px;
 }
 .hotel-card-block {
     display: flex;

@@ -6,7 +6,7 @@ export default class ListModel {
         this.hostels = [];
     }
     getInfo() {
-        let response = Net.getHotels();
+        const response = Net.getHotels();
         response.then(result => {
             if (result.status == 200) {
                 this.haveInfo = true;
