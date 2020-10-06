@@ -2,16 +2,26 @@
  * Eventbus
  */
 export default class EventBus {
+    /**
+     * Создает экземпляр EvenBus
+     */
     constructor() {
         this.events = {}; // храним евенты
     }
-    //добавляем евенты
+    /**
+     * Подписка на событие
+     * @param {string} evt - имя события
+     * @param {function} listener - функция, которая вызовется при событии
+     */
     subscribe(evt, listener) {
         (this.events[evt] || (this.events[evt] = [])).push(listener);
         return this;
     }
-
-    //триггерим выполнение евентов
+    /**
+     * Вызывает обработчиков события
+     * @param {string} evt - имя события
+     * @param {object?} arg - контекст события
+     */
     trigger(evt, arg = null) {
         (this.events[evt] || []).slice().forEach(lsn => lsn(arg));
     }

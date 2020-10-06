@@ -202,7 +202,7 @@ nav {
     width: 100%;
     padding: 0 10px;
     line-height: 40px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu Condensed', sans-serif;
     background: none;
     border-width: 0;
     border-bottom: 2px solid #4a90e2;
@@ -331,7 +331,7 @@ nav {
   overflow: hidden;
   border: 2px solid #fe6637;
   border-radius: 8px;
-  font-family: 'Montserrat', sans-serif; 
+  font-family: 'Ubuntu Condensed', sans-serif; 
   color: #fe6637;
   transition: .2s ease-in-out;
 }
@@ -368,7 +368,7 @@ nav {
     overflow: hidden;
     border: 2px solid #41cf41;
     border-radius: 8px;
-    font-family: 'Montserrat', sans-serif; 
+    font-family: 'Ubuntu Condensed', sans-serif; 
     color: #41cf41;
     transition: .2s ease-in-out;
   }
