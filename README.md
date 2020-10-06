@@ -16,3 +16,6 @@
 
 ## Репозиторий с бэкендом
 [Ссылка](https://github.com/go-park-mail-ru/2020_2_JMickhs)
+
+## Ссылка на сайт проекта
+[HostelScan](http://www.hostelscan.ru/)
