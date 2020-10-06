@@ -1,18 +1,18 @@
 import ListModel from './listModel';
 import ListView from './listView';
 
-/** Class representing a controller for listHotel */
+/** Класс контроллера для страницы списка отелей */
 export default class ListController {
     /**
-     * Initialize intance with model and view 
-     * @param {*} parent - parent  
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
      */
     constructor(parent) {
         this._model = new ListModel();
         this._view = new ListView(parent, this._model);
     }
     /**
-     * Set the model data from net
+     * Заполнение данных модели с сервера
      */
     activate() {
         this._model.getInfo();

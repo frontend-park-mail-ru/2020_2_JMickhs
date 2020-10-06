@@ -2,7 +2,12 @@ import ProfileModel from './profileModel';
 import ProfileView from './profileView';
 import {validate} from '../../helpers/validation/validation';
 
+/** Класс контроллера для страницы профиля */
 export default class ProfileController {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     */
     constructor(parent) {
         this._model = ProfileModel.instance;
         this._view = new ProfileView(parent, this._model);
@@ -21,6 +26,9 @@ export default class ProfileController {
             router.pushState('/signin');
         });
     }
+    /**
+     * Отрисовка страницы профиля и дальнейшего роутинга
+     */
     activate() {
         if (this._model.isAuth) {
             this._view.render();

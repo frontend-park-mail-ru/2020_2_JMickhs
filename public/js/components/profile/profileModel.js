@@ -1,6 +1,10 @@
 import Net from '../../helpers/network/network';
 
+/** Класс модели пользователя */
 class UserModel {
+    /**
+     * Инициализация класса
+     */
     constructor() {
         this.login = '';
         this.id = -1;
@@ -8,6 +12,9 @@ class UserModel {
         this.avatar = '';
         this.timerId = -1;
     }
+    /**
+     * Запросить с сервера информацию о пользователе
+     */
     getCurrUser() {
         const response = Net.getCurrUser();
         response.then((response) => {
@@ -25,6 +32,9 @@ class UserModel {
             }
         });
     }
+    /**
+     * Обновить аватар(и все сведения о пользователе)
+     */
     updateAvatar() {
         const response = Net.getCurrUser();
         response.then((response) => {
@@ -39,6 +49,11 @@ class UserModel {
             }
         });
     }
+    /**
+     * Авторизация пользователя
+     * @param {string} username - логин пользователя
+     * @param {string} password - пароль пользователя
+     */
     signin(username, password) {
         const response = Net.signin(username, password);
         response.then((response) => {
@@ -60,6 +75,11 @@ class UserModel {
             EventBus.trigger('errorSignin');
         });
     }
+    /**
+     * Регистрация пользователя
+     * @param {string} username - логин пользователя
+     * @param {string} password - пароль пользователя
+     */
     signup(username, password) {
         const response = Net.signup(username, password);
         response.then((response) => {
@@ -81,6 +101,9 @@ class UserModel {
             EventBus.trigger('errorSignup', err);
         });
     }
+    /**
+     * Деавторизация пользователя
+     */
     signout() {
         const response = Net.signout();
         response.then((status) => {
@@ -93,6 +116,11 @@ class UserModel {
             }
         });
     }
+    /**
+     * Смена пароля
+     * @param {string} oldPassword - старый пароль
+     * @param {string} password - новый пароль
+     */
     updatePassword(oldPassword, password) {
         const response = Net.updatePassword(oldPassword, password);
         response.then((status) => {
@@ -105,7 +133,11 @@ class UserModel {
     }
 }
 
+/** Класс модели для страницы профиля */
 export default class ProfileModel {
+    /**
+     * Создание singleton-объекта модели пользователя
+     */
     static get instance() {
         return this._instance || (this._instance = new UserModel());
     }

@@ -1,3 +1,8 @@
+/** Функция валидации входных данных
+ * @param {Object} arg - объект с данными для валидации
+ * @param {string} evtName - наименование ивента, который нужно стригеррить для отображения ошибки
+ * @return {boolean} true, если ошибок не обнаружено
+ */
 export const validate = (arg, evtName) => {
     const loginTable = [
         {

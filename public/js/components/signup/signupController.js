@@ -2,7 +2,12 @@ import SignupModel from './signupModel';
 import SignupView from './signupView';
 import {validate} from '../../helpers/validation/validation';
 
+/** Класс контроллера для страницы регистрации */
 export default class SignupController {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     */
     constructor(parent) {
         this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
@@ -19,6 +24,9 @@ export default class SignupController {
             }
         });
     }
+    /**
+     * Отрисовка страницы регистрации и дальнейшего роутинга
+     */
     activate() {
         if (this._model.isAuth()) {
             router.pushState('/profile');

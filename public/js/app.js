@@ -9,7 +9,9 @@ import ProfileController from './components/profile/profileController';
 import ProfileModel from './components/profile/profileModel';
 import HostelController from './components/hostel/hostelController';
 
-// старт нашего приложения
+/**
+ * Главная функция приложения
+ */
 (function main() {
     globalThis.EventBus = new EventBus();
 

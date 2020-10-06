@@ -1,5 +1,9 @@
-
+/** Класс представления для домашней страницы */
 export default class HomeView {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     */
     constructor(parent) {
         if (parent instanceof HTMLElement) {
             this._parent = parent;
@@ -12,6 +16,9 @@ export default class HomeView {
         }
         this.page = page;
     }
+    /**
+     * Отрисовка домашней страницы
+     */
     render() {
         this.page.innerHTML = `
         <p class="text-first">Главная страница для отработки всех других, и позже роутера</p>

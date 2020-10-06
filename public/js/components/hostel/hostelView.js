@@ -1,6 +1,12 @@
 import Net from '../../helpers/network/network';
 
+/** Класс представления для страницы отеля */
 export default class HostelView {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     * @param {*} model - модель
+     */
     constructor(parent, model) {
         this._model = model;
 
@@ -19,6 +25,9 @@ export default class HostelView {
             this.render();
         });
     }
+    /**
+     * Отрисовка страницы отеля
+     */
     render() {
         const urlImg = Net.getUrlFile(this._model.image);
         this.page.innerHTML = `

@@ -1,6 +1,12 @@
 import SigninModel from './signinModel';
 
+/** Класс представления для страницы авторизации */
 export default class SigninView {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     * @param {*} model - модель
+     */
     constructor(parent, model) {
         if (parent instanceof HTMLElement && model instanceof SigninModel) {
             this._parent = parent;
@@ -22,6 +28,9 @@ export default class SigninView {
             this.renderError(arg);
         });
     }
+    /**
+     * Отрисовка страницы авторизации
+     */
     render() {
         this.page.innerHTML = `
         <div class="container"></div>
@@ -53,9 +62,10 @@ export default class SigninView {
             const password = passInput.value;
             EventBus.trigger('submitSignin', { login: login, password: password });
         });
-
     }
-
+    /**
+     * Отрисовка сообщения об ошибке
+     */
     renderError(errstr = '') {
         if (this._model.timerId !== -1){
             clearTimeout(this._model.timerId);
@@ -78,7 +88,7 @@ export default class SigninView {
         const form = document.getElementById('signinform');
         form.appendChild(errLine);
 
-        this._model.timerId = setTimeout( () => {
+        this._model.timerId = setTimeout(() => {
             form.removeChild(errLine);
             this._model.timerId = -1;
         }, 5000);

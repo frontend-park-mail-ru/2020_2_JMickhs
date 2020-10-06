@@ -1,7 +1,13 @@
 import Router from '../../helpers/router/router';
 import NavbarModel from './navbarModel';
 
+/** Класс представления для навбара */
 export default class NavbarView {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     * @param {*} model - модель
+     */
     constructor(parent, model) {
         if (parent instanceof HTMLElement && model instanceof NavbarModel) {
             this._parent = parent;
@@ -18,6 +24,9 @@ export default class NavbarView {
         }
         this.navbar = nav;
     }
+    /**
+     * Отрисовка навбара
+     */
     render() {
         this.navbar.innerHTML = `
         <ul class="menu-main">
@@ -32,6 +41,5 @@ export default class NavbarView {
         </li>
         </ul>
         `;
-        
     }
 }

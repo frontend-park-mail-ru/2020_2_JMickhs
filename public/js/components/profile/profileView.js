@@ -1,6 +1,12 @@
 import Net from '../../helpers/network/network';
 
+/** Класс представления для страницы профиля */
 export default class ProfileView {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     * @param {*} model - модель
+     */
     constructor(parent, model) {
         this._model = model;
 
@@ -26,7 +32,9 @@ export default class ProfileView {
             this.renderMessage(arg);
         });
     }
-
+    /**
+     * Отрисовка страницы профиля
+     */
     render() {
         const username = this._model.login;
 
@@ -117,7 +125,9 @@ export default class ProfileView {
             this._model.signout();
         });
     }
-
+    /**
+     * Отрисовка сообщения об ошибке или подтверждения действия
+     */
     renderMessage(errstr = '', typeMessageFlag = false) {
         if (this._model.timerId !== -1){
             clearTimeout(this._model.timerId);

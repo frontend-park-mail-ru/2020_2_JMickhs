@@ -1,7 +1,13 @@
 import ListModel from './listModel';
 import Net from '../../helpers/network/network';
 
+/** Класс представления для страницы списка отелей */
 export default class ListView {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     * @param {*} model - модель
+     */
     constructor(parent, model) {
         if (parent instanceof HTMLElement && model instanceof ListModel) {
             this._parent = parent;
@@ -20,6 +26,9 @@ export default class ListView {
             this.render();
         });
     }
+    /**
+     * Отрисовка страницы списка отелей
+     */
     render() {
         let strRes = '';
         this._model.hostels.forEach((hostel) => {

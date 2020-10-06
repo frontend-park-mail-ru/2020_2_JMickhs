@@ -1,6 +1,12 @@
 import SignupModel from './signupModel';
 
+/** Класс представления для страницы регистрации */
 export default class SignupView {
+    /**
+     * Инициализация класса
+     * @param {*} parent - родительский элемент html-страницы
+     * @param {*} model - модель
+     */
     constructor(parent, model) {
         this.submitEvent = 'submitEvent';
         if (parent instanceof HTMLElement && model instanceof SignupModel) {
@@ -23,6 +29,9 @@ export default class SignupView {
             this.renderError(arg);
         });
     }
+    /**
+     * Отрисовка страницы регистрации
+     */
     render() {
         this.page.innerHTML = `
         <div class="container"></div>
@@ -58,7 +67,9 @@ export default class SignupView {
             EventBus.trigger('submitSignup', { login: login, password1: pass1, password2: pass2 });
         });
     }
-
+    /**
+     * Отрисовка сообщения об ошибке
+     */
     renderError(errstr = '') {
         if (this._model.timerId !== -1){
             clearTimeout(this._model.timerId);
@@ -84,6 +95,6 @@ export default class SignupView {
         this._model.timerId = setTimeout(() => {
             form.removeChild(errLine);
             this._model.timerId = -1;
-        }, 5000);
+        },5000);
     }
 }
