@@ -1,0 +1,44 @@
+{
+    "name": "frontend",
+    "version": "1.0.0",
+    "description": "Веб сервис, который помогает найти подходящий отель в поездку",
+    "main": "index.js",
+    "dependencies": {
+        "babel-preset-env": "^1.7.0",
+        "debug": "^4.2.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.11.6",
+        "@babel/plugin-proposal-class-properties": "^7.10.4",
+        "@babel/preset-env": "^7.11.5",
+        "babel-loader": "^8.1.0",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "eslint": "^7.10.0",
+        "eslint-config-google": "^0.14.0",
+        "eslint-config-prettier": "^6.12.0",
+        "eslint-plugin-prettier": "^3.1.4",
+        "html-webpack-plugin": "^4.5.0",
+        "html-webpack-root-plugin": "^0.10.0",
+        "husky": "^4.3.0",
+        "lint-staged": "^10.4.0",
+        "prettier": "^2.1.2",
+        "webpack": "^4.44.2",
+        "webpack-cli": "^3.3.12"
+    },
+    "scripts": {
+        "start": "node server/",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "npx webpack",
+        "eslint": "eslint public/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/frontend-park-mail-ru/2020_2_JMickhs.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/frontend-park-mail-ru/2020_2_JMickhs/issues"
+    },
+    "homepage": "https://github.com/frontend-park-mail-ru/2020_2_JMickhs#readme"
+}

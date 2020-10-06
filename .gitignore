@@ -1,0 +1,11 @@
+node_modules/
+package-lock.json
+
+*/.DS_Store
+.DS_Store
+
+.idea
+.vscode
+public/bundle.js
+public/index.html
+docs
