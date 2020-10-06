@@ -38,12 +38,12 @@ export default class ProfileView {
                 <img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">
             </div>
             <div class="cnt">
-                <h3>
-                    <b>Login: ${username}</b>
+                <h3 style="margin-left: 20px;">
+                    <b>Пользователь: ${username}</b>
                 </h3>
             </div>
             <form id="avatar-form">
-            <div>
+            <div style="margin-left: 20px;">
               <label >Выберите изображение для новой аватарки</label>
               <input type="file" id="profile_pic" name="avatar"
                     accept=".jpg, .jpeg, .png">
