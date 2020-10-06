@@ -122,7 +122,7 @@ export default class ProfileView {
     }
 
     renderMessage(errstr = '', typeMessageFlag = false) {
-        let tmpNotice = document.getElementById('notice-line');
+        const tmpNotice = document.getElementById('notice-line');
         if (tmpNotice !== null){
             tmpNotice.innerHTML = `<h3>${errstr}</h3>`;
             if (typeMessageFlag) {
@@ -133,7 +133,7 @@ export default class ProfileView {
             return;
         }
 
-        let noticeLine = document.createElement('div');
+        const noticeLine = document.createElement('div');
         noticeLine.setAttribute('class', 'notice');
         noticeLine.setAttribute('id', 'notice-line');
         if (typeMessageFlag) {
@@ -143,7 +143,7 @@ export default class ProfileView {
         }
         noticeLine.innerHTML = `<h3>${errstr}</h3>`;
 
-        let form = document.getElementById('change-data-form');
+        const form = document.getElementById('change-data-form');
         form.appendChild(noticeLine);
     }
 }
