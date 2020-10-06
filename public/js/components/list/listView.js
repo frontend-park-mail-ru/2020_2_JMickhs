@@ -24,8 +24,8 @@ export default class ListView {
         let strRes = '';
         this._model.hostels.forEach((hostel) => {
             const id = hostel.id;
-            let urlImage = Net.getUrlFile(hostel.image);
-            let tmp = `
+            const urlImage = Net.getUrlFile(hostel.image);
+            const tmp = `
             <div class="card">
                  <img class="avatar" src="${urlImage}" alt="Avatar">
                  <h3>

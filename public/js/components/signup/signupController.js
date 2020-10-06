@@ -7,9 +7,9 @@ export default class SignupController {
         this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
         EventBus.subscribe('submitSignup', (arg) => {
-            let pass1 = arg.password1;
-            let pass2 = arg.password2;
-            let login = arg.login;
+            const pass1 = arg.password1;
+            const pass2 = arg.password2;
+            const login = arg.login;
             if (login === '' || pass1 === '' || pass2 === '') {
                 this._view.renderError('Заполните все поля');
             } else if (pass1 !== pass2) {

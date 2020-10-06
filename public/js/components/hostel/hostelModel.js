@@ -8,7 +8,7 @@ export default class HostelModel {
         this.name = '';
     }
     fillModel(id) {
-        let response = Net.getHostel(id);
+        const response = Net.getHostel(id);
         response.then(response => {
             if (response.status !== 200) {
                 EventBus.trigger('errorHostel');

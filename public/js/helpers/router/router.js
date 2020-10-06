@@ -61,7 +61,7 @@ export default class Router {
             evt.preventDefault();
         }
         const path = '/' + location.pathname.split('/')[1];
-        let arg = location.pathname.split('/')[2];
+        const arg = location.pathname.split('/')[2];
         const { controller } = this._findComponentByPath(path) || { controller: ErrorPage };
         controller.activate(arg);
     }

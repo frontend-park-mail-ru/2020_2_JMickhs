@@ -20,9 +20,7 @@ const server = http.createServer((req, res) => {
             res.end();
             return;
         }
-
         console.log('file read', path);
-
         res.write(file);
         res.end();
     });

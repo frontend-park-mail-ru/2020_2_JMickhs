@@ -114,25 +114,25 @@ export default class ProfileView {
             });
         });
 
-        let btnExit = document.getElementById('btn-exit');
+        const btnExit = document.getElementById('btn-exit');
         btnExit.addEventListener('click', () => {
             this._model.signout();
         });
     }
 
     renderError(errstr = '') {
-        let tmpErr = document.getElementById('error-line');
+        const tmpErr = document.getElementById('error-line');
         if (tmpErr !== null){
             tmpErr.innerHTML = `<h3>${errstr}</h3>`;
             return;
         }
 
-        let errLine = document.createElement('div');
+        const errLine = document.createElement('div');
         errLine.setAttribute('class', 'error');
         errLine.setAttribute('id', 'error-line');
         errLine.innerHTML = `<h3>${errstr}</h3>`;
 
-        let form = document.getElementById('change-data-form');
+        const form = document.getElementById('change-data-form');
         form.appendChild(errLine);
     }
 }
