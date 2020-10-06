@@ -1,36 +1,47 @@
 import ProfileModel from './profileModel';
 import ProfileView from './profileView';
+import Events from './../../helpers/eventbus/eventbus';
 import {validate} from '../../helpers/validation/validation';
 
+/** Класс контроллера для страницы профиля */
 export default class ProfileController {
-    constructor(parent) {
-        this._model = ProfileModel.instance;
-        this._view = new ProfileView(parent, this._model);
+  /**
+     * Инициализация класса
+     * @param {HTMLElement} parent - родительский элемент html-страницы
+     */
+  constructor(parent) {
+    this._model = ProfileModel.instance;
+    this._view = new ProfileView(parent, this._model);
 
-        EventBus.subscribe('updatePassword', (arg) => {
-            if (arg.oldPassword === '' || arg.newPassword === '') {
-                this._view.renderError('Заполните все поля');
-                return;
-            }
-            if (validate({login: arg.login, password: arg.newPassword}, this._view)) {
-                this._model.updatePassword(arg.oldPassword, arg.newPassword);
-            }
-        });
+    Events.subscribe('updatePassword', (arg) => {
+      if (arg.oldPassword === '' || arg.newPassword === '') {
+        this._view.renderMessage('Заполните все поля');
+      } else if (arg.oldPassword === arg.newPassword) {
+        this._view.renderMessage('Вы ввели одинаковые пароли');
+      } else if (
+        validate({login: '', password: arg.newPassword}, 'profileRenderError')
+      ) {
+        this._model.updatePassword(arg.oldPassword, arg.newPassword);
+      }
+    });
 
-        EventBus.subscribe('signout', () => {
-            router.pushState('/signin');
-        });
+    Events.subscribe('signout', () => {
+      Events.trigger('redirect', {url: '/signin'});
+    });
+  }
+  /**
+     * Активация работы контроллера
+     */
+  activate() {
+    if (this._model.isAuth) {
+      this._view.render();
+      return;
     }
-    activate() {
-        if (this._model.isAuth) {
-            this._view.render();
-            return;
-        }
-        EventBus.subscribe('haventUser', () => {
-            router.pushState('/signin');
-        });
-        EventBus.subscribe('profileUser', () => {
-            this._view.render();
-        });
-    }
+    Events.subscribe('haventUser', () => {
+      Events.trigger('redirect', {url: '/signin'});
+    });
+    Events.subscribe('profileUser', () => {
+      this._view.render();
+    });
+  }
 }

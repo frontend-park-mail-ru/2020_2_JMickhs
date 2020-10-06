@@ -1,3 +1,4 @@
+
 /* кнопки */
 
 body {
@@ -8,6 +9,10 @@ ul {
     position: fixed;
     top: 0;
     width: 100%;
+}
+
+img {
+    object-fit: cover;
 }
 
 .btn {
@@ -197,7 +202,7 @@ nav {
     width: 100%;
     padding: 0 10px;
     line-height: 40px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu Condensed', sans-serif;
     background: none;
     border-width: 0;
     border-bottom: 2px solid #4a90e2;
@@ -217,6 +222,14 @@ nav {
 .form-row input:focus {
     outline: 0;
     border-color: #F77A52;
+}
+
+.refer {
+    border-color: #F77A52;
+    color: #F77A52;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 19px;
 }
 
 .form-row input:focus+label,
@@ -259,7 +272,7 @@ nav {
     width: 30%;
     border-radius: 5px;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 100px;
 }
 
 .card:hover {
@@ -290,6 +303,7 @@ nav {
 
 .avatar {
     width: 100%;
+    max-height: 400px;
 }
 
 .text {
@@ -302,23 +316,13 @@ nav {
     margin-top: 100px;
 }
 
-.dont-error-line {
-    color:  #EFF6FA;
+.notice {
+    color: #6996D3;
     text-align: center;
-    margin-bottom: 35px;
-    margin-top: 20px;
-}
-
-.error-line {
-    color: #B22222;
-    text-align: center;
-    margin-bottom: 35px;
-    margin-top: 20px;
 }
 
 .error {
-    /*color: #F77A52;*/
-    color: #B22222;
+    color: #e32636;
     text-align: center;
 }
 
@@ -332,7 +336,7 @@ nav {
   overflow: hidden;
   border: 2px solid #fe6637;
   border-radius: 8px;
-  font-family: 'Montserrat', sans-serif; 
+  font-family: 'Ubuntu Condensed', sans-serif; 
   color: #fe6637;
   transition: .2s ease-in-out;
 }
@@ -348,7 +352,7 @@ nav {
 }
 .btn-red:hover {
   background: #fe6637;
-  color: #fff;
+  color: #EFF6FA;
 }
 .btn-red:hover:before {
   left: 150px;
@@ -359,6 +363,7 @@ nav {
 .btn-green {
     width: 200px;
     height: 40px;
+    text-align: center;
     text-decoration: none;
     outline: none;
     display: inline-block;
@@ -366,12 +371,13 @@ nav {
     margin: 10px 20px;
     position: relative;
     overflow: hidden;
-    border: 2px solid #008000;
+    border: 2px solid #41cf41;
     border-radius: 8px;
-    font-family: 'Montserrat', sans-serif; 
-    color: #008000;
+    font-family: 'Ubuntu Condensed', sans-serif; 
+    color: #41cf41;
     transition: .2s ease-in-out;
   }
+
   .btn-green:before {
     content: "";
     background: linear-gradient(90deg, rgba(255,255,255,.1), rgba(255,255,255,.5));
@@ -383,11 +389,42 @@ nav {
     transform: skewX(-45deg);
   }
   .btn-green:hover {
-    background:#008000;
-    color: #fff;
+    background:#41cf41;
+    color: #EFF6FA;
   }
   .btn-green:hover:before {
     left: 150px;
     transition: .5s ease-in-out;
   }
-  
+
+
+/* страничка отеля */
+
+.hotel-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 100px;
+}
+.hotel-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+}
+
+.hotel-card-title {
+    color: #f5b08f;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 23px;
+}
+.hotel-card-text {
+    color: #6996D3;
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+}

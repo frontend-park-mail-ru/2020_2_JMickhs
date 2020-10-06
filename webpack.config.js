@@ -6,7 +6,7 @@ module.exports = {
     entry: './public/js/app.js',
     output: {
         path: path.resolve(__dirname, './public'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -14,7 +14,7 @@ module.exports = {
             filename: './index.html',
             template: './public/template.html',
             entryPoint: 'app',
-            css: 'styles.css'
+            css: 'styles.css',
         }),
     ]
 };
