@@ -23,15 +23,15 @@ export default class ListView {
     render() {
         let strRes = '';
         this._model.hostels.forEach((hostel) => {
-            const id = hostel.ID;
-            let urlImage = Net.getUrlFile(hostel.Image);
+            const id = hostel.id;
+            let urlImage = Net.getUrlFile(hostel.image);
             let tmp = `
             <div class="card">
                  <img class="avatar" src="${urlImage}" alt="Avatar">
                  <div class="container">
                  <div class="cnt">
                      <h3>
-                         <b>${hostel.Name}</b>
+                         <b>${hostel.name}</b>
                      </h3>
                      <h3>
                          <b>Тип: Отель</b>

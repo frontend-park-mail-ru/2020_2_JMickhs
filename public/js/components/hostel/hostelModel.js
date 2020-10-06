@@ -15,10 +15,10 @@ export default class HostelModel {
                 return;
             }
             const body = response.body;
-            this.description = body.Description;
-            this.id = body.ID;
-            this.name = body.Name;
-            this.image = body.Image;
+            this.description = body.description;
+            this.id = body.id;
+            this.name = body.name;
+            this.image = body.image;
             EventBus.trigger('updateHostel');
         });
     }
