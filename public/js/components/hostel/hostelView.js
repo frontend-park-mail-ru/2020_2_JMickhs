@@ -20,7 +20,7 @@ export default class HostelView {
         });
     }
     render() {
-        let urlImg = Net.getUrlImage(this._model.image);
+        let urlImg = Net.getUrlFile(this._model.image);
         this.page.innerHTML = `
         <div class="card">
         <img class="avatar" src="${urlImg}" alt="Avatar">

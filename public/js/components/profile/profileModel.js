@@ -53,7 +53,7 @@ class UserModel {
             } else if (status === 401) {
                 EventBus.trigger('errorSignin', 'Вы ввели неправильный логин или пароль');
             } else {
-                EventBus.trigger('errorSignin', `Server response has status ${status}`);
+                EventBus.trigger('errorSignin', `Ошибка сервера: статус - ${status}`);
             }
         }).catch(err => {
             EventBus.trigger('errorSignin');
@@ -71,8 +71,10 @@ class UserModel {
                 this.login = username;
                 EventBus.trigger('updateUser');
                 EventBus.trigger('signupUser');
+            } else if(status === 500) {
+                EventBus.trigger('errorSignup', 'Пользователь с таким логином уже существует!');
             } else {
-                EventBus.trigger('errorSignup', `Server response has status ${status}`);
+                EventBus.trigger('errorSignup', `Ошибка сервера: статус ${status}`);
             }
         }).catch(err => {
             EventBus.trigger('errorSignup', err);
@@ -94,7 +96,7 @@ class UserModel {
         let response = Net.updatePassword(oldPassword, password);
         response.then((status) => {
             if (status === 409) {
-                EventBus.trigger('passwordUpdateError', 'Вы ввели неврный пароль');
+                EventBus.trigger('passwordUpdateError', 'Вы ввели неверный пароль');
             } else {
                 EventBus.trigger('getNewPassword');
             }

@@ -6,8 +6,7 @@ export default class HotelController {
         this._model = new HostelModel();
         this._view = new HostelView(parent, this._model);
     }
-    activate() {
-        let id = location.pathname.split('/')[2];
+    activate(id) {
         if (id === undefined || !Number.isInteger(+id)) {
             router.pushState('/error');
             return;

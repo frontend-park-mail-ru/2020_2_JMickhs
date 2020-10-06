@@ -5,7 +5,7 @@ export default class Net {
     static get port() {
         return ':8080';
     }
-    static getUrlImage(path) {
+    static getUrlFile(path) {
         return this.domen + this.port + '/' + path;
     }
     static signout() {

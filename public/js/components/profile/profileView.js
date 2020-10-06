@@ -31,7 +31,7 @@ export default class ProfileView {
         <div class="container">
         <div class="card">
             <div id="avatar-img">
-                <img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">
+                <img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">
             </div>
             <div class="cnt">
                 <h3>
@@ -76,8 +76,8 @@ export default class ProfileView {
         let oldPass = document.getElementById('password1');
         btn.addEventListener('click', evt => {
             evt.preventDefault();
-            const newPassword = newPass.value.trim();
-            const oldPassword = oldPass.value.trim();
+            const newPassword = newPass.value;
+            const oldPassword = oldPass.value;
             EventBus.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword });
         });
 

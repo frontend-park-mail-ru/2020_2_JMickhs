@@ -12,7 +12,7 @@ export let validate = (arg, view) => {
             regExp: new RegExp('^.{3,15}$'),
             strErr: 'Длинна логина должна быть в пределе от 3 до 15 символов'
         }
-    ]
+    ];
 
     let passwordTable = [
         // {
@@ -27,7 +27,7 @@ export let validate = (arg, view) => {
             regExp: new RegExp('^.{3,20}$'),
             strErr: 'Длинна пароля должна быть в пределах от 8 до 20 символов'
         }
-    ]
+    ];
 
     let { login, password } = arg;
 
@@ -50,4 +50,4 @@ export let validate = (arg, view) => {
     }
 
     return true;
-}
+};

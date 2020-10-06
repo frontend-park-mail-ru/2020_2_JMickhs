@@ -1,6 +1,6 @@
 import ProfileModel from './profileModel';
 import ProfileView from './profileView';
-import {validate} from '../../helpers/validation/validation'
+import {validate} from '../../helpers/validation/validation';
 
 export default class ProfileController {
     constructor(parent) {

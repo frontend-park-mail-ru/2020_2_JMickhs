@@ -19,7 +19,6 @@ export default class HostelModel {
             this.id = body.ID;
             this.name = body.Name;
             this.image = body.Image;
-            console.log(this);
             EventBus.trigger('updateHostel');
         });
     }
