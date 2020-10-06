@@ -68,7 +68,7 @@ export default class ProfileView {
 
         EventBus.subscribe('updateAvatar', () => {
             let img = document.getElementById('avatar-img');
-            img.innerHTML = `<img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">`;
+            img.innerHTML = `<img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">`;
         });
 
         let btn = document.getElementById('button-save');

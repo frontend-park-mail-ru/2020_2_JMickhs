@@ -25,20 +25,21 @@ export default class Router {
         window.addEventListener('load', this._route.bind(this));
         window.addEventListener('click', (evt) => {
             const {target} = evt;
-            this._checkAnchor(target, evt);
+            this._checkAnchor(target, evt, 4);
          });
     }
 
-    _checkAnchor(target, evt) {
+    _checkAnchor(target, evt, n) {
         if (target instanceof HTMLAnchorElement) {
             evt.preventDefault();
             this.pushState(target.href);
             return;
         }
-        if (target === window) {
+        if (target === window || n === 0) {
             return;
         }
-        this._checkAnchor(target, evt);
+        n = n - 1;
+        this._checkAnchor(target, evt, n);
     }
 
     pushState(url = '/', state = {}) {
