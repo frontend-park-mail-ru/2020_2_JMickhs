@@ -78,7 +78,7 @@ export default class SigninView {
         const form = document.getElementById('signinform');
         form.appendChild(errLine);
 
-        this._model.timerId = setTimeout(() => {
+        this._model.timerId = setTimeout( () => {
             form.removeChild(errLine);
             this._model.timerId = -1;
         }, 5000);

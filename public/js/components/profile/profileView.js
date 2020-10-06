@@ -38,11 +38,11 @@ export default class ProfileView {
             </div>
             <div class="cnt">
                 <h3>
-                    <b>Login: ${username}</b>
+                    <b style="margin-left: 20px;">Пользователь: ${username}</b>
                 </h3>
             </div>
             <form id="avatar-form">
-            <div>
+            <div style="margin-left: 20px;">
               <label >Выберите изображение для новой аватарки</label>
               <input type="file" id="profile_pic" name="avatar"
                     accept=".jpg, .jpeg, .png">
@@ -119,14 +119,21 @@ export default class ProfileView {
     }
 
     renderMessage(errstr = '', typeMessageFlag = false) {
-        const tmpNotice = document.getElementById('notice-line');
-        if (tmpNotice !== null){
+        if (this._model.timerId !== -1){
+            clearTimeout(this._model.timerId);
+            const tmpNotice = document.getElementById('notice-line');
             tmpNotice.innerHTML = `<h3>${errstr}</h3>`;
             if (typeMessageFlag) {
                 tmpNotice.style.color = '#6996D3';
             } else {
-                tmpNotice.style.color = '#B22222';
+                tmpNotice.style.color = '#e32636';
             }
+
+            this._model.timerId = setTimeout(() => {
+                const form = document.getElementById('change-data-form');
+                form.removeChild(tmpNotice);
+                this._model.timerId = -1;
+            }, 5000);
             return;
         }
 
@@ -142,5 +149,11 @@ export default class ProfileView {
 
         const form = document.getElementById('change-data-form');
         form.appendChild(noticeLine);
+
+
+        this._model.timerId = setTimeout(() => {
+            form.removeChild(noticeLine);
+            this._model.timerId = -1;
+        }, 5000);
     }
 }
