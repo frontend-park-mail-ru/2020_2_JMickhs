@@ -28,7 +28,7 @@ export default class ProfileView {
     }
 
     render() {
-        let username = this._model.login;
+        const username = this._model.login;
 
         this.page.innerHTML = `
         <div class="container">
@@ -69,13 +69,13 @@ export default class ProfileView {
         `;
 
         EventBus.subscribe('updateAvatar', () => {
-            let img = document.getElementById('avatar-img');
+            const img = document.getElementById('avatar-img');
             img.innerHTML = `<img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">`;
         });
 
-        let btn = document.getElementById('button-save');
-        let newPass = document.getElementById('password2');
-        let oldPass = document.getElementById('password1');
+        const btn = document.getElementById('button-save');
+        const newPass = document.getElementById('password2');
+        const oldPass = document.getElementById('password1');
         btn.addEventListener('click', evt => {
             evt.preventDefault();
             const newPassword = newPass.value;
@@ -83,9 +83,9 @@ export default class ProfileView {
             EventBus.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword });
         });
 
-        let inputFile = document.getElementById('profile_pic');
-        let btnReload = document.getElementById('btn-reload');
-        let formAvatar = document.getElementById('avatar-form');
+        const inputFile = document.getElementById('profile_pic');
+        const btnReload = document.getElementById('btn-reload');
+        const formAvatar = document.getElementById('avatar-form');
 
         inputFile.addEventListener('change', () => {
             btnReload.innerHTML = `            
@@ -95,14 +95,12 @@ export default class ProfileView {
             `;
         });
 
-
-
         btnReload.addEventListener('click', (evt) => {
             evt.preventDefault();
-            let response = Net.updateAvatar(new FormData(formAvatar));
+            const response = Net.updateAvatar(new FormData(formAvatar));
             response.then((status) => {
                 if (status !== 200) {
-                    let err =  document.getElementById('errServ');
+                    const err = document.getElementById('errServ');
                     err.textContent = 'Аватарку обновить не получилось!';
                     err.className = 'error-line';
                     return;
@@ -110,7 +108,7 @@ export default class ProfileView {
                 this._model.updateAvatar();
             });
             response.catch(err => {
-                let errLine =  document.getElementById('errServ');
+                const errLine = document.getElementById('errServ');
                 errLine.textContent = `Аватарку обновить не получилось! ${err}`;
                 errLine.className = 'error-line';
             });
