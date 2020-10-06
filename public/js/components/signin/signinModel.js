@@ -7,7 +7,7 @@ export default class SigninModel {
             if (this._user.isAuth) {
                 router.pushState('/profile');
             } else {
-                EventBus.trigger('errorSignin', 'You are not authenticated');
+                EventBus.trigger('errorSignin', 'Неверный логин или пароль!');
             }
         });
     }
