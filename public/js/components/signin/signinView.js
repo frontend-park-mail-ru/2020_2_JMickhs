@@ -39,7 +39,6 @@ export default class SigninView {
             <div class="form-row"">
                 <button class="btn-green" type="submit" id="btnsignin">Вход</button>
             </div>
-            
         </form>
         </div>
         `;

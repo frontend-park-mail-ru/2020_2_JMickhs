@@ -65,6 +65,7 @@ export default class ProfileView {
             <button class="btn-green" id="button-save" href="">Сохранить</button>
             </div>
         </form>
+        
         </div>
         `;
 
@@ -101,17 +102,13 @@ export default class ProfileView {
             const response = Net.updateAvatar(new FormData(formAvatar));
             response.then((status) => {
                 if (status !== 200) {
-                    const err = document.getElementById('errServ');
-                    err.textContent = 'Аватарку обновить не получилось!';
-                    err.className = 'error-line';
+                    this.renderMessage('Аватарку обновить не получилось!', false);
                     return;
                 }
                 this._model.updateAvatar();
             });
             response.catch(err => {
-                const errLine = document.getElementById('errServ');
-                errLine.textContent = `Аватарку обновить не получилось! ${err}`;
-                errLine.className = 'error-line';
+                this.renderMessage('Аватарку обновить не получилось!', false);
             });
         });
 
