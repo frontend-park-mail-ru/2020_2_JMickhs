@@ -57,9 +57,16 @@ export default class SigninView {
     }
 
     renderError(errstr = '') {
-        const tmpErr = document.getElementById('notice-line');
-        if (tmpErr !== null){
+        if (this._model.timerId !== -1){
+            clearTimeout(this._model.timerId);
+            const tmpErr = document.getElementById('notice-line');
             tmpErr.innerHTML = `<h3>${errstr}</h3>`;
+
+            this._model.timerId = setTimeout(() => {
+                const form = document.getElementById('signinform');
+                form.removeChild(tmpErr);
+                this._model.timerId = -1;
+            }, 5000);
             return;
         }
 
@@ -70,5 +77,10 @@ export default class SigninView {
 
         const form = document.getElementById('signinform');
         form.appendChild(errLine);
+
+        this._model.timerId = setTimeout(() => {
+            form.removeChild(errLine);
+            this._model.timerId = -1;
+        }, 5000);
     }
 }

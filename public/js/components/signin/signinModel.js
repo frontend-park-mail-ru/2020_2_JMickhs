@@ -3,6 +3,7 @@ import ProfileModel from '../profile/profileModel';
 export default class SigninModel {
     constructor() {
         this._user = ProfileModel.instance;
+        this.timerId = -1;
         EventBus.subscribe('signinUser', () => {
             if (this._user.isAuth) {
                 router.pushState('/profile');

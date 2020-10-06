@@ -6,6 +6,7 @@ class UserModel {
         this.id = -1;
         this.isAuth = false;
         this.avatar = '';
+        this.timerId = -1;
     }
     getCurrUser() {
         const response = Net.getCurrUser();

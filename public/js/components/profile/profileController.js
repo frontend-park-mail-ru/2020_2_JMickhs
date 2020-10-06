@@ -10,9 +10,9 @@ export default class ProfileController {
         EventBus.subscribe('updatePassword', (arg) => {
             if (arg.oldPassword === '' || arg.newPassword === '') {
                 this._view.renderMessage('Заполните все поля');
-                return;
-            }
-            if (validate({login: '', password: arg.newPassword}, 'profileRenderError')) {
+            } else if (arg.oldPassword === arg.newPassword) {
+                this._view.renderMessage('Вы ввели одинаковые пароли');
+            } else if (validate({login: '', password: arg.newPassword}, 'profileRenderError')) {
                 this._model.updatePassword(arg.oldPassword, arg.newPassword);
             }
         });
