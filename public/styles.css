@@ -310,7 +310,7 @@ nav {
 }
 
 .error-line {
-    color: #E14545;
+    color: #B22222;
     text-align: center;
     margin-bottom: 35px;
     margin-top: 20px;
@@ -318,6 +318,76 @@ nav {
 
 .error {
     /*color: #F77A52;*/
-    color: #6f001f;
+    color: #B22222;
     text-align: center;
 }
+
+.btn-red {
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  padding: 10px 30px;
+  margin: 10px 20px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #fe6637;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif; 
+  color: #fe6637;
+  transition: .2s ease-in-out;
+}
+.btn-red:before {
+  content: "";
+  background: linear-gradient(90deg, rgba(255,255,255,.1), rgba(255,255,255,.5));
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: -8px;
+  left: -75px;
+  transform: skewX(-45deg);
+}
+.btn-red:hover {
+  background: #fe6637;
+  color: #fff;
+}
+.btn-red:hover:before {
+  left: 150px;
+  transition: .5s ease-in-out;
+}
+
+
+.btn-green {
+    width: 200px;
+    height: 40px;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    padding: 10px 30px;
+    margin: 10px 20px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #008000;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif; 
+    color: #008000;
+    transition: .2s ease-in-out;
+  }
+  .btn-green:before {
+    content: "";
+    background: linear-gradient(90deg, rgba(255,255,255,.1), rgba(255,255,255,.5));
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: -8px;
+    left: -75px;
+    transform: skewX(-45deg);
+  }
+  .btn-green:hover {
+    background:#008000;
+    color: #fff;
+  }
+  .btn-green:hover:before {
+    left: 150px;
+    transition: .5s ease-in-out;
+  }
+  

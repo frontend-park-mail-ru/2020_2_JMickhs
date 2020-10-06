@@ -19,6 +19,9 @@ export default class ProfileView {
         EventBus.subscribe('getNewPassword', () => {
             alert('Вы успешно поменяли пароль');
         });
+        EventBus.subscribe('passwordUpdateError', (arg) => {
+            this.renderError(arg);
+        });
     }
 
     render() {
@@ -27,7 +30,9 @@ export default class ProfileView {
         this.page.innerHTML = `
         <div class="container">
         <div class="card">
-            <img class="avatar" src="https://cs5.pikabu.ru/images/big_size_comm/2015-10_4/1445372410115880547.png" alt="Avatar">
+            <div id="avatar-img">
+                <img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">
+            </div>
             <div class="cnt">
                 <h3>
                     <b>Login: ${username}</b>
@@ -40,32 +45,40 @@ export default class ProfileView {
                     accept=".jpg, .jpeg, .png">
             </div>
             <br>
-            <br>
-            <div id="btn-reload"></div>
           </form>
+          <div class="container">
+            <button class="btn-red" id="btn-exit">Выйти</button>
+            <div id="btn-reload"></div>
+          </div>
         </div>
-        <form action="" class="ui-form">
+        <form action="" class="ui-form" id="change-data-form">
             <h2>Изменить данные</h2>
-            <div class="form-row">
-                <input type="text" id="email"><label for="password">Login</label>
-            </div>
             <div class="form-row">
                 <input type="password" id="password1"><label for="password">Старый пароль</label>
             </div>
             <div class="form-row">
                 <input type="password" id="password2"><label for="password">Новый пароль</label>
             </div>
-            <button class="btn" id="button-save" href="/profile.html">Сохранить</button>
+            <button class="btn-green" id="button-save" href="">Сохранить</button>
+            </div>
+            <h3 class="dont-error-line" id="errServ">...</h3>
         </form>
         </div>
         `;
 
+        EventBus.subscribe('updateAvatar', () => {
+            let img = document.getElementById('avatar-img');
+            img.innerHTML = `<img class="avatar" src="${Net.getUrlImage(this._model.avatar)}" alt="Avatar">`;
+        });
+
         let btn = document.getElementById('button-save');
-        let pass = document.getElementById('password2');
+        let newPass = document.getElementById('password2');
+        let oldPass = document.getElementById('password1');
         btn.addEventListener('click', evt => {
             evt.preventDefault();
-            const password = pass.value.trim();
-            EventBus.trigger('updatePassword', { password: password });
+            const newPassword = newPass.value;
+            const oldPassword = oldPass.value;
+            EventBus.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword });
         });
 
         let inputFile = document.getElementById('profile_pic');
@@ -75,16 +88,51 @@ export default class ProfileView {
         inputFile.addEventListener('change', () => {
             btnReload.innerHTML = `            
             <div>
-                <button class="btn">Обновить аватарку</button>
+                <button class="btn-green">Обновить аватарку</button>
             </div>
             `;
         });
+
+
+
         btnReload.addEventListener('click', (evt) => {
             evt.preventDefault();
             let response = Net.updateAvatar(new FormData(formAvatar));
-            response.then((response) => {
+            response.then((status) => {
+                if (status !== 200) {
+                    let err =  document.getElementById('errServ');
+                    err.textContent = 'Аватарку обновить не получилось!';
+                    err.className = 'error-line';
+                    return;
+                }
+                this._model.updateAvatar();
+            });
+            response.catch(err => {
+                let errLine =  document.getElementById('errServ');
+                errLine.textContent = `Аватарку обновить не получилось! ${err}`;
+                errLine.className = 'error-line';
             });
         });
 
+        let btnExit = document.getElementById('btn-exit');
+        btnExit.addEventListener('click', () => {
+            this._model.signout();
+        });
+    }
+
+    renderError(errstr = '') {
+        let tmpErr = document.getElementById('error-line');
+        if (tmpErr !== null){
+            tmpErr.innerHTML = `<h3>${errstr}</h3>`;
+            return;
+        }
+
+        let errLine = document.createElement('div');
+        errLine.setAttribute('class', 'error');
+        errLine.setAttribute('id', 'error-line');
+        errLine.innerHTML = `<h3>${errstr}</h3>`;
+
+        let form = document.getElementById('change-data-form');
+        form.appendChild(errLine);
     }
 }

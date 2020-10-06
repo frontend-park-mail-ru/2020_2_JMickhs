@@ -5,10 +5,24 @@ export default class Net {
     static get port() {
         return ':8080';
     }
-    static getUrlImage(path) {
+    static getUrlFile(path) {
         return this.domen + this.port + '/' + path;
     }
-
+    static signout() {
+        return fetch(this.domen + this.port + '/api/v1/signout', {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'X-Csrf-Token': this._csrf
+            },
+        }).then((response) => {
+            this._csrf = response.headers.get('csrf');
+            return response.status;
+        }).catch(err => {
+            return err;
+        });
+    }
     static updateAvatar(data) {
         let statusCode = -1;
         return fetch(this.domen + this.port + '/api/v1/updateAvatar', {
@@ -16,12 +30,11 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': sessionStorage.getItem('csrf')
+                'X-Csrf-Token': this._csrf
             },
             body: data
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return statusCode;
         }).catch(err => {
@@ -35,8 +48,7 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return response.json();
         }).then((json) => {
@@ -67,8 +79,7 @@ export default class Net {
             },
             body: json,
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return response.json();
         }).then((json) => {
@@ -98,8 +109,7 @@ export default class Net {
             },
             body: json,
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return response.json();
         }).then((json) => {
@@ -116,8 +126,7 @@ export default class Net {
             credentials: 'include',
         }).then((response) => {
             statusCode = response.status;
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             return response.json();
         }).then((json) => {
             return { status: statusCode, body: json };
@@ -126,13 +135,13 @@ export default class Net {
         });
     }
 
-    static updatePassword(id, password) {
+    static updatePassword(oldPassword, password) {
         let statusCode = -1;
         let json;
         try {
             json = JSON.stringify({
-                id: id,
-                password: password
+                newpassword: password,
+                oldpassword: oldPassword,
             });
         } catch (err) {
             return Promise.reject({ status: statusCode, error: err });
@@ -143,15 +152,30 @@ export default class Net {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'X-Csrf-Token': sessionStorage.getItem('csrf'),
+                'X-Csrf-Token': this._csrf,
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: json,
         }).then((response) => {
-            let csrf = response.headers.get('csrf');
-            sessionStorage.setItem('csrf', csrf);
+            this._csrf = response.headers.get('csrf');
             statusCode = response.status;
             return statusCode;
+        }).catch(err => {
+            return { status: statusCode, error: err };
+        });
+    }
+    static getHostel(id) {
+        let statusCode = -1;
+        return fetch(this.domen + this.port + `/api/v1/hotel/${id}`, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+        }).then((response) => {
+            statusCode = response.status;
+            this._csrf = response.headers.get('csrf');
+            return response.json();
+        }).then((json) => {
+            return { status: statusCode, body: json };
         }).catch(err => {
             return { status: statusCode, error: err };
         });

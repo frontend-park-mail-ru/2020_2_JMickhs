@@ -9,6 +9,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.11.6",
+        "@babel/plugin-proposal-class-properties": "^7.10.4",
         "@babel/preset-env": "^7.11.5",
         "babel-loader": "^8.1.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
@@ -22,7 +23,8 @@
         "start": "node server/",
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npx webpack",
-        "eslint": "eslint"
+        "eslint": "eslint",
+        "generate-docs": "jsdoc -c conf.json"
     },
     "repository": {
         "type": "git",

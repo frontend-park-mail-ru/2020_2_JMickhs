@@ -5,7 +5,7 @@ export default class SignupModel {
         this._user = ProfileModel.instance;
         EventBus.subscribe('signupUser', () => {
             if (this._user.isAuth) {
-                document.location.href = '#/profile';
+                router.pushState('/profile');
             } else {
                 EventBus.trigger('errorSignup', 'You are not authenticated');
             }

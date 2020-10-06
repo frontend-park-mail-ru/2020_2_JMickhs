@@ -5,9 +5,9 @@ export default class SigninModel {
         this._user = ProfileModel.instance;
         EventBus.subscribe('signinUser', () => {
             if (this._user.isAuth) {
-                document.location.href = '#/profile';
+                router.pushState('/profile');
             } else {
-                EventBus.trigger('errorSignin');
+                EventBus.trigger('errorSignin', 'Неверный логин или пароль!');
             }
         });
     }

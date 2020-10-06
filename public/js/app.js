@@ -7,6 +7,7 @@ import SigninController from './components/signin/signinController';
 import SignupController from './components/signup/signupController';
 import ProfileController from './components/profile/profileController';
 import ProfileModel from './components/profile/profileModel';
+import HostelController from './components/hostel/hostelController';
 
 // старт нашего приложения
 (function main() {
@@ -25,13 +26,15 @@ import ProfileModel from './components/profile/profileModel';
     const signinController = new SigninController(application);
     const signupController = new SignupController(application);
     const profileController = new ProfileController(application);
+    const hostelController = new HostelController(application);
 
-    const router = new Router();
+    globalThis.router = new Router();
     router.append('/', homeController);
     router.append('/signin', signinController);
     router.append('/signup', signupController);
     router.append('/profile', profileController);
     router.append('/list', listController);
-    router.start();
+    router.append('/hostel', hostelController);
+    router.start(application);
 }());
 

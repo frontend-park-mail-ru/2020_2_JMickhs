@@ -5,6 +5,7 @@ class UserModel {
         this.login = '';
         this.id = -1;
         this.isAuth = false;
+        this.avatar = '';
     }
     getCurrUser() {
         let response = Net.getCurrUser();
@@ -15,7 +16,25 @@ class UserModel {
                 this.isAuth = true;
                 this.login = body.username;
                 this.id = body.id;
+                this.avatar = body.avatar;
                 EventBus.trigger('updateUser');
+                EventBus.trigger('profileUser');
+            } else {
+                EventBus.trigger('haventUser');
+            }
+        });
+    }
+    updateAvatar() {
+        let response = Net.getCurrUser();
+        response.then((response) => {
+            let status = response.status;
+            let body = response.body;
+            if (status === 200) {
+                this.isAuth = true;
+                this.login = body.username;
+                this.id = body.id;
+                this.avatar = body.avatar;
+                EventBus.trigger('updateAvatar');
             }
         });
     }
@@ -23,39 +42,64 @@ class UserModel {
         let response = Net.signin(username, password);
         response.then((response) => {
             let status = response.status;
+            const body = response.body;
             if (status === 200) {
-                this.id = response.body.id;
+                this.id = body.id;
+                this.avatar = body.avatar;
                 this.isAuth = true;
                 this.login = username;
+                EventBus.trigger('updateUser');
+                EventBus.trigger('signinUser');
+            } else if (status === 401) {
+                EventBus.trigger('errorSignin', 'Вы ввели неправильный логин или пароль');
+            } else {
+                EventBus.trigger('errorSignin', `Ошибка сервера: статус - ${status}`);
             }
-            EventBus.trigger('updateUser');
-            EventBus.trigger('signinUser');
         }).catch(err => {
-            EventBus.trigger('errorSignup');
+            EventBus.trigger('errorSignin');
         });
     }
     signup(username, password) {
         let response = Net.signup(username, password);
         response.then((response) => {
             let status = response.status;
+            const body = response.body;
             if (status === 200) {
-                this.id = response.body.id;
+                this.id = body.id;
+                this.avatar = body.avatar;
                 this.isAuth = true;
                 this.login = username;
                 EventBus.trigger('updateUser');
                 EventBus.trigger('signupUser');
+            } else if(status === 500) {
+                EventBus.trigger('errorSignup', 'Пользователь с таким логином уже существует!');
             } else {
-                EventBus.trigger('errorSignup', `Server response has status ${status}`);
+                EventBus.trigger('errorSignup', `Ошибка сервера: статус ${status}`);
             }
         }).catch(err => {
             EventBus.trigger('errorSignup', err);
         });
     }
-
-    updatePassword(password) {
-        let response = Net.updatePassword(this.id, password);
+    signout() {
+        let response = Net.signout();
         response.then((status) => {
-            EventBus.trigger('getNewPassword');
+            if (status === 200) {
+                this.id = -1;
+                this.username = '';
+                this.isAuth = false;
+                this.avatar = '';
+                EventBus.trigger('signout');
+            }
+        });
+    }
+    updatePassword(oldPassword, password) {
+        let response = Net.updatePassword(oldPassword, password);
+        response.then((status) => {
+            if (status === 409) {
+                EventBus.trigger('passwordUpdateError', 'Вы ввели неверный пароль');
+            } else {
+                EventBus.trigger('getNewPassword');
+            }
         });
     }
 }

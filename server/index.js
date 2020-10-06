@@ -4,12 +4,14 @@ const http = require('http');
 const server = http.createServer((req, res) => {
 
     console.log('requested', req.url);
-    console.log('req', req.headers)
-    const path = `./public${req.url === '/' ? '/index.html' : req.url}`;
+    console.log('req', req.headers);
 
-    const ip = res.socket.remoteAddress;
-    const port = res.socket.remotePort;
-    console.log(`Your IP address is ${ip} and your source port is ${port}.`);
+    let path;
+    if (req.url.endsWith('css') || req.url.endsWith('js')) {
+        path = `./public${req.url}`;
+    } else {
+        path = './public/index.html';
+    }
 
     fs.readFile(path, (err, file) => {
         if (err) {
@@ -28,7 +30,7 @@ const server = http.createServer((req, res) => {
 
 try{
     server.listen(80);
-    console.log('Node server started!!')
+    console.log('Node server started!!');
 } catch (err) {
     console.log(err);
 }

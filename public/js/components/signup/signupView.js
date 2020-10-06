@@ -34,9 +34,9 @@ export default class SignupView {
                 <input type="password" id="password2"><label for="password">Повторите пароль</label>
             </div>
             <span class="psw">     Есть аккаунт?
-                <a href="#/signin">Войдите</a>
+                <a href="signin">Войдите</a>
             </span>
-            <button class="btn">Регистрация</button>
+            <button class="btn-green">Регистрация</button>
         </form>
         </div>
         `;
