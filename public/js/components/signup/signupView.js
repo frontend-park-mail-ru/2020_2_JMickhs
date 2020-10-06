@@ -60,9 +60,16 @@ export default class SignupView {
     }
 
     renderError(errstr = '') {
-        const tmpErr = document.getElementById('notice-line');
-        if (tmpErr !== null){
+        if (this._model.timerId !== -1){
+            clearTimeout(this._model.timerId);
+            const tmpErr = document.getElementById('notice-line');
             tmpErr.innerHTML = `<h3>${errstr}</h3>`;
+
+            this._model.timerId = setTimeout( () => {
+                const form = document.getElementById('signupform');
+                form.removeChild(tmpErr);
+                this._model.timerId = -1;
+            }, 5000);
             return;
         }
 
@@ -72,6 +79,11 @@ export default class SignupView {
         errLine.innerHTML = `<h3>${errstr}</h3>`;
 
         const form = document.getElementById('signupform');
-        this.page.appendChild(errLine);
+        form.appendChild(errLine);
+
+        this._model.timerId = setTimeout( () => {
+            form.removeChild(errLine);
+            this._model.timerId = -1;
+        }, 5000);
     }
 }
