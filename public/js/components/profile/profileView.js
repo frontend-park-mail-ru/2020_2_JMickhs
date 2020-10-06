@@ -36,9 +36,9 @@ export default class ProfileView {
             <div id="avatar-img">
                 <img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">
             </div>
-            <div class="cnt" style="text-align: center;">
+            <div class="cnt" style="margin-left: 20px;">
                 <h3>
-                    <b class="refer">Login: ${username}</b>
+                    <b class="refer">Пользователь: ${username}</b>
                 </h3>
             <form id="avatar-form">
             </div>
