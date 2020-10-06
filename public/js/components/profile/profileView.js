@@ -1,4 +1,5 @@
 import Net from '../../helpers/network/network';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class ProfileView {
     constructor(parent, model) {
@@ -16,13 +17,13 @@ export default class ProfileView {
         }
         this.page = page;
 
-        EventBus.subscribe('getNewPassword', () => {
+        Events.subscribe('getNewPassword', () => {
             this.renderMessage('Вы успешно поменяли пароль', true);
         });
-        EventBus.subscribe('passwordUpdateError', (arg) => {
+        Events.subscribe('passwordUpdateError', (arg) => {
             this.renderMessage(arg);
         });
-        EventBus.subscribe('profileRenderError', (arg) => {
+        Events.subscribe('profileRenderError', (arg) => {
             this.renderMessage(arg);
         });
     }
@@ -69,7 +70,7 @@ export default class ProfileView {
         </div>
         `;
 
-        EventBus.subscribe('updateAvatar', () => {
+        Events.subscribe('updateAvatar', () => {
             const img = document.getElementById('avatar-img');
             img.innerHTML = `<img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">`;
             this.renderMessage('Аватар успешно изменен', true);
@@ -78,11 +79,11 @@ export default class ProfileView {
         const btn = document.getElementById('button-save');
         const newPass = document.getElementById('password2');
         const oldPass = document.getElementById('password1');
-        btn.addEventListener('click', evt => {
+        btn.addEventListener('click', (evt) => {
             evt.preventDefault();
             const newPassword = newPass.value;
             const oldPassword = oldPass.value;
-            EventBus.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword });
+            Events.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword});
         });
 
         const inputFile = document.getElementById('profile_pic');
@@ -107,7 +108,7 @@ export default class ProfileView {
                 }
                 this._model.updateAvatar();
             });
-            response.catch(err => {
+            response.catch((err) => {
                 this.renderMessage('Аватарку обновить не получилось!', false);
             });
         });
@@ -119,7 +120,7 @@ export default class ProfileView {
     }
 
     renderMessage(errstr = '', typeMessageFlag = false) {
-        if (this._model.timerId !== -1){
+        if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
             const tmpNotice = document.getElementById('notice-line');
             tmpNotice.innerHTML = `<h3>${errstr}</h3>`;

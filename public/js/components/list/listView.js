@@ -1,5 +1,6 @@
 import ListModel from './listModel';
 import Net from '../../helpers/network/network';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class ListView {
     constructor(parent, model) {
@@ -16,7 +17,7 @@ export default class ListView {
         this._parent.appendChild(page);
         this.page = page;
 
-        EventBus.subscribe('loadHostels', () => {
+        Events.subscribe('loadHostels', () => {
             this.render();
         });
     }

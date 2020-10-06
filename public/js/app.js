@@ -1,5 +1,4 @@
 import Router from './helpers/router/router';
-import EventBus from './helpers/eventbus/eventbus';
 import HomeController from './components/home/homeController';
 import NavbarController from './components/navbar/navbarController';
 import ListController from './components/list/listController';
@@ -10,9 +9,7 @@ import ProfileModel from './components/profile/profileModel';
 import HostelController from './components/hostel/hostelController';
 
 // старт нашего приложения
-(function main() {
-    globalThis.EventBus = new EventBus();
-
+(() => {
     const application = document.getElementById('app');
 
     const userModel = ProfileModel.instance;
@@ -36,5 +33,5 @@ import HostelController from './components/hostel/hostelController';
     router.append('/list', listController);
     router.append('/hostel', hostelController);
     router.start(application);
-}());
+})();
 

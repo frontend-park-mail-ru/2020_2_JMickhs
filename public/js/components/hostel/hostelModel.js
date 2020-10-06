@@ -1,4 +1,5 @@
 import Net from '../../helpers/network/network';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class HostelModel {
     constructor() {
@@ -9,9 +10,9 @@ export default class HostelModel {
     }
     fillModel(id) {
         const response = Net.getHostel(id);
-        response.then(response => {
+        response.then((response) => {
             if (response.status !== 200) {
-                EventBus.trigger('errorHostel');
+                Events.trigger('errorHostel');
                 return;
             }
             const body = response.body;
@@ -19,7 +20,7 @@ export default class HostelModel {
             this.id = body.id;
             this.name = body.name;
             this.image = body.image;
-            EventBus.trigger('updateHostel');
+            Events.trigger('updateHostel');
         });
     }
 }

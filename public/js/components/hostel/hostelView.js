@@ -1,4 +1,5 @@
 import Net from '../../helpers/network/network';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class HostelView {
     constructor(parent, model) {
@@ -15,7 +16,7 @@ export default class HostelView {
             this._parent.appendChild(page);
         }
         this.page = page;
-        EventBus.subscribe('updateHostel', () => {
+        Events.subscribe('updateHostel', () => {
             this.render();
         });
     }

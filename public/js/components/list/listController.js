@@ -4,8 +4,8 @@ import ListView from './listView';
 /** Class representing a controller for listHotel */
 export default class ListController {
     /**
-     * Initialize intance with model and view 
-     * @param {*} parent - parent  
+     * Initialize intance with model and view
+     * @param {*} parent - parent
      */
     constructor(parent) {
         this._model = new ListModel();

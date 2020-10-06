@@ -1,14 +1,15 @@
 import ProfileModel from '../profile/profileModel';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class SignupModel {
     constructor() {
         this._user = ProfileModel.instance;
         this.timerId = -1;
-        EventBus.subscribe('signupUser', () => {
+        Events.subscribe('signupUser', () => {
             if (this._user.isAuth) {
                 router.pushState('/profile');
             } else {
-                EventBus.trigger('errorSignup', 'You are not authenticated');
+                Events.trigger('errorSignup', 'You are not authenticated');
             }
         });
     }

@@ -1,5 +1,6 @@
 import ProfileModel from './profileModel';
 import ProfileView from './profileView';
+import Events from './../../helpers/eventbus/eventbus';
 import {validate} from '../../helpers/validation/validation';
 
 export default class ProfileController {
@@ -7,7 +8,7 @@ export default class ProfileController {
         this._model = ProfileModel.instance;
         this._view = new ProfileView(parent, this._model);
 
-        EventBus.subscribe('updatePassword', (arg) => {
+        Events.subscribe('updatePassword', (arg) => {
             if (arg.oldPassword === '' || arg.newPassword === '') {
                 this._view.renderMessage('Заполните все поля');
             } else if (arg.oldPassword === arg.newPassword) {
@@ -17,7 +18,7 @@ export default class ProfileController {
             }
         });
 
-        EventBus.subscribe('signout', () => {
+        Events.subscribe('signout', () => {
             router.pushState('/signin');
         });
     }
@@ -26,10 +27,10 @@ export default class ProfileController {
             this._view.render();
             return;
         }
-        EventBus.subscribe('haventUser', () => {
+        Events.subscribe('haventUser', () => {
             router.pushState('/signin');
         });
-        EventBus.subscribe('profileUser', () => {
+        Events.subscribe('profileUser', () => {
             this._view.render();
         });
     }

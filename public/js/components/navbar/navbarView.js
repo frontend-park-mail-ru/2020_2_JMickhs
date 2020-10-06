@@ -1,5 +1,5 @@
-import Router from '../../helpers/router/router';
 import NavbarModel from './navbarModel';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class NavbarView {
     constructor(parent, model) {
@@ -8,7 +8,7 @@ export default class NavbarView {
             this._model = model;
         }
 
-        EventBus.subscribe('updateNavbar', this.render.bind(this));
+        Events.subscribe('updateNavbar', this.render.bind(this));
 
         let nav = document.getElementById('navbar');
         if (nav == null) {
@@ -32,6 +32,5 @@ export default class NavbarView {
         </li>
         </ul>
         `;
-        
     }
 }

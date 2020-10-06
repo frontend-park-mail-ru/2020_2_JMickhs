@@ -1,14 +1,15 @@
 import ProfileModel from '../profile/profileModel';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class SigninModel {
     constructor() {
         this._user = ProfileModel.instance;
         this.timerId = -1;
-        EventBus.subscribe('signinUser', () => {
+        Events.subscribe('signinUser', () => {
             if (this._user.isAuth) {
                 router.pushState('/profile');
             } else {
-                EventBus.trigger('errorSignin', 'Неверный логин или пароль!');
+                Events.trigger('errorSignin', 'Неверный логин или пароль!');
             }
         });
     }

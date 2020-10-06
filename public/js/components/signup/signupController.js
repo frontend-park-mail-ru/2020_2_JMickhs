@@ -1,12 +1,13 @@
 import SignupModel from './signupModel';
 import SignupView from './signupView';
+import Events from './../../helpers/eventbus/eventbus';
 import {validate} from '../../helpers/validation/validation';
 
 export default class SignupController {
     constructor(parent) {
         this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
-        EventBus.subscribe('submitSignup', (arg) => {
+        Events.subscribe('submitSignup', (arg) => {
             const pass1 = arg.password1;
             const pass2 = arg.password2;
             const login = arg.login;
@@ -25,6 +26,6 @@ export default class SignupController {
             return;
         }
         this._view.render();
-        EventBus.trigger('pageSignup');
+        Events.trigger('pageSignup');
     }
 }

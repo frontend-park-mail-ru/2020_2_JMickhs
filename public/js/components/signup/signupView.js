@@ -1,4 +1,5 @@
 import SignupModel from './signupModel';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class SignupView {
     constructor(parent, model) {
@@ -7,7 +8,7 @@ export default class SignupView {
             this._parent = parent;
             this._model = model;
         }
-        EventBus.subscribe('errorSignup', (arg) => {
+        Events.subscribe('errorSignup', (arg) => {
             this.renderError(arg);
         });
 
@@ -19,7 +20,7 @@ export default class SignupView {
         }
         this.page = page;
 
-        EventBus.subscribe('logRenderError', (arg) => {
+        Events.subscribe('logRenderError', (arg) => {
             this.renderError(arg);
         });
     }
@@ -55,12 +56,12 @@ export default class SignupView {
             const login = loginInput.value;
             const pass1 = passInput1.value;
             const pass2 = passInput2.value;
-            EventBus.trigger('submitSignup', { login: login, password1: pass1, password2: pass2 });
+            Events.trigger('submitSignup', {login: login, password1: pass1, password2: pass2});
         });
     }
 
     renderError(errstr = '') {
-        if (this._model.timerId !== -1){
+        if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
             const tmpErr = document.getElementById('notice-line');
             tmpErr.innerHTML = `<h3>${errstr}</h3>`;

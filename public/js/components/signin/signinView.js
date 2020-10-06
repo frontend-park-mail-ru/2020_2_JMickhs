@@ -1,4 +1,5 @@
 import SigninModel from './signinModel';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class SigninView {
     constructor(parent, model) {
@@ -6,7 +7,7 @@ export default class SigninView {
             this._parent = parent;
             this._model = model;
         }
-        EventBus.subscribe('errorSignin', (arg) => {
+        Events.subscribe('errorSignin', (arg) => {
             this.renderError(arg);
         });
 
@@ -18,7 +19,7 @@ export default class SigninView {
         }
         this.page = page;
 
-        EventBus.subscribe('authRenderError', (arg) => {
+        Events.subscribe('authRenderError', (arg) => {
             this.renderError(arg);
         });
     }
@@ -51,7 +52,7 @@ export default class SigninView {
             evt.preventDefault();
             const login = loginInput.value;
             const password = passInput.value;
-            EventBus.trigger('submitSignin', { login: login, password: password });
+            Events.trigger('submitSignin', { login: login, password: password });
         });
 
     }
@@ -78,7 +79,7 @@ export default class SigninView {
         const form = document.getElementById('signinform');
         form.appendChild(errLine);
 
-        this._model.timerId = setTimeout( () => {
+        this._model.timerId = setTimeout(() => {
             form.removeChild(errLine);
             this._model.timerId = -1;
         }, 5000);
