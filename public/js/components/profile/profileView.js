@@ -100,10 +100,10 @@ export default class ProfileView {
 
         btnReload.addEventListener('click', (evt) => {
             evt.preventDefault();
-            btnReload.innerHTML = '';
-            inputFile.value = '';
             const response = Net.updateAvatar(new FormData(formAvatar));
             response.then((status) => {
+                btnReload.innerHTML = '';
+                inputFile.value = '';
                 if (status !== 200) {
                     this.renderMessage('Аватарку обновить не получилось!', false);
                     return;
