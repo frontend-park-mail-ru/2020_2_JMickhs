@@ -39,13 +39,13 @@ export default class ProfileView {
             </div>
             <div class="cnt">
                 <h3>
-                    <b style="margin-left: 20px;">Пользователь: ${username}</b>
+                    <b>Login: ${username}</b>
                 </h3>
             </div>
             <form id="avatar-form">
-            <div style="margin-left: 20px;">
+            <div>
               <label >Выберите изображение для новой аватарки</label>
-              <input type="file" id="profile-pic" name="avatar"
+              <input type="file" id="profile_pic" name="avatar"
                     accept=".jpg, .jpeg, .png">
             </div>
             <br>
@@ -86,7 +86,7 @@ export default class ProfileView {
             Events.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword});
         });
 
-        const inputFile = document.getElementById('profile-pic');
+        const inputFile = document.getElementById('profile_pic');
         const btnReload = document.getElementById('btn-reload');
         const formAvatar = document.getElementById('avatar-form');
 
