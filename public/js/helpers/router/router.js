@@ -26,10 +26,6 @@ export default class Router {
         window.addEventListener('click', (evt) => {
             const {target} = evt;
             this._checkAnchor(target, evt);
-            if (target instanceof HTMLAnchorElement) {
-                evt.preventDefault();
-                this.pushState(target.href);
-            }
          });
     }
 
