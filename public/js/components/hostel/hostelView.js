@@ -3,35 +3,35 @@ import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для страницы отеля */
 export default class HostelView {
-    /**
+  /**
      * Инициализация класса
      * @param {*} parent - родительский элемент html-страницы
      * @param {*} model - модель
      */
-    constructor(parent, model) {
-        this._model = model;
+  constructor(parent, model) {
+    this._model = model;
 
-        if (parent instanceof HTMLElement) {
-            this._parent = parent;
-        }
-
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
-        Events.subscribe('updateHostel', () => {
-            this.render();
-        });
+    if (parent instanceof HTMLElement) {
+      this._parent = parent;
     }
-    /**
+
+    let page = document.getElementById('page');
+    if (page === null) {
+      page = document.createElement('div');
+      page.id = 'page';
+      this._parent.appendChild(page);
+    }
+    this.page = page;
+    Events.subscribe('updateHostel', () => {
+      this.render();
+    });
+  }
+  /**
      * Отрисовка страницы отеля
      */
-    render() {
-        const urlImg = Net.getUrlFile(this._model.image);
-        this.page.innerHTML = `
+  render() {
+    const urlImg = Net.getUrlFile(this._model.image);
+    this.page.innerHTML = `
         <div class="hotel-card">
         <img class="avatar" src="${urlImg}" alt="Avatar">
             <h3>
@@ -42,5 +42,5 @@ export default class HostelView {
             </h3>
         </div>
         `;
-    }
+  }
 }
