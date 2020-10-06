@@ -58,15 +58,15 @@ export default class SigninView {
     }
 
     renderError(errstr = '') {
-        const tmpErr = document.getElementById('error-line');
+        const tmpErr = document.getElementById('notice-line');
         if (tmpErr !== null){
             tmpErr.innerHTML = `<h3>${errstr}</h3>`;
             return;
         }
 
         const errLine = document.createElement('div');
-        errLine.setAttribute('class', 'error');
-        errLine.setAttribute('id', 'error-line');
+        errLine.setAttribute('class', 'notice');
+        errLine.setAttribute('id', 'notice-line');
         errLine.innerHTML = `<h3>${errstr}</h3>`;
 
         const form = document.getElementById('signinform');
