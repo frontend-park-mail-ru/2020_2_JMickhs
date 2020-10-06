@@ -119,21 +119,14 @@ export default class ProfileView {
     }
 
     renderMessage(errstr = '', typeMessageFlag = false) {
-        if (this._model.timerId !== -1){
-            clearTimeout(this._model.timerId);
-            const tmpNotice = document.getElementById('notice-line');
+        const tmpNotice = document.getElementById('notice-line');
+        if (tmpNotice !== null){
             tmpNotice.innerHTML = `<h3>${errstr}</h3>`;
             if (typeMessageFlag) {
                 tmpNotice.style.color = '#6996D3';
             } else {
-                tmpNotice.style.color = '#e32636';
+                tmpNotice.style.color = '#B22222';
             }
-
-            this._model.timerId = setTimeout( () => {
-                const form = document.getElementById('change-data-form');
-                form.removeChild(tmpNotice);
-                this._model.timerId = -1;
-            }, 5000);
             return;
         }
 
@@ -149,11 +142,5 @@ export default class ProfileView {
 
         const form = document.getElementById('change-data-form');
         form.appendChild(noticeLine);
-
-
-        this._model.timerId = setTimeout( () => {
-            form.removeChild(noticeLine);
-            this._model.timerId = -1;
-        }, 5000);
     }
 }
