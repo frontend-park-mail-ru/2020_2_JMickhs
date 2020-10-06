@@ -22,6 +22,9 @@ export default class ProfileView {
         EventBus.subscribe('passwordUpdateError', (arg) => {
             this.renderError(arg);
         });
+        EventBus.subscribe('profileRenderError', (arg) => {
+            this.renderError(arg);
+        });
     }
 
     render() {
@@ -61,7 +64,6 @@ export default class ProfileView {
             </div>
             <button class="btn-green" id="button-save" href="">Сохранить</button>
             </div>
-            <h3 class="dont-error-line" id="errServ">...</h3>
         </form>
         </div>
         `;

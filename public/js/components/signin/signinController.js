@@ -12,7 +12,7 @@ export default class SigninController {
                 this._view.renderError('Заполните все поля');
                 return;
             }
-            if (validate(arg, this._view)) {
+            if (validate(arg, 'authRenderError')) {
                 this._model.signin(arg.login, arg.password);
             }
         });

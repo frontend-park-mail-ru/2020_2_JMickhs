@@ -14,7 +14,7 @@ export default class SignupController {
                 this._view.renderError('Заполните все поля');
             } else if (pass1 !== pass2) {
                 this._view.renderError('Пароли не совпадают');
-            } else if (validate({login: login, password: pass1}, this._view)) {
+            } else if (validate({login: login, password: pass1}, 'logRenderError')) {
                 this._model.signup(login, pass1);
             }
         });

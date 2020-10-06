@@ -17,6 +17,10 @@ export default class SigninView {
             this._parent.appendChild(page);
         }
         this.page = page;
+
+        EventBus.subscribe('authRenderError', (arg) => {
+            this.renderError(arg);
+        });
     }
     render() {
         this.page.innerHTML = `
@@ -26,7 +30,6 @@ export default class SigninView {
             <div class="form-row">
                 <input type="text" id="login"><label for="login">Логин</label>
             </div>
-            <h3 class="dont-error-line" id="errLogin">...</h3>
             <div class="form-row"">
                 <input type="password" id="password"><label for="password">Пароль</label>
             </div>
@@ -67,6 +70,6 @@ export default class SigninView {
         errLine.innerHTML = `<h3>${errstr}</h3>`;
 
         let form = document.getElementById('signinform');
-        this.page.appendChild(errLine);
+        form.appendChild(errLine);
     }
 }

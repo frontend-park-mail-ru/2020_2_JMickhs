@@ -12,7 +12,7 @@ export default class ProfileController {
                 this._view.renderError('Заполните все поля');
                 return;
             }
-            if (validate({login: arg.login, password: arg.newPassword}, this._view)) {
+            if (validate({login: '', password: arg.newPassword}, 'profileRenderError')) {
                 this._model.updatePassword(arg.oldPassword, arg.newPassword);
             }
         });

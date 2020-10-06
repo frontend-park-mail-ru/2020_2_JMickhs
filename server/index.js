@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
 });
 
 try{
-    server.listen(80);
+    server.listen(3000);
     console.log('Node server started!!');
 } catch (err) {
     console.log(err);

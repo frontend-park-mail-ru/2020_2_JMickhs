@@ -1,4 +1,4 @@
-export let validate = (arg, view) => {
+export let validate = (arg, evtName) => {
     const loginTable = [
         {
             regExp: new RegExp('^[a-zA-Zа-яА-Я].*$'),
@@ -20,7 +20,7 @@ export let validate = (arg, view) => {
             strErr: 'Пароль может включать только буквы английского алфавита'
         },
         {
-            regExp: new RegExp('^.{3,20}$'),
+            regExp: new RegExp('^.{8,20}$'),
             strErr: 'Длинна пароля должна быть в пределах от 8 до 20 символов'
         }
     ];
@@ -30,7 +30,7 @@ export let validate = (arg, view) => {
     if (login !==  '') {
         for (let i = 0; i < loginTable.length; i++){
             if (!loginTable[i].regExp.exec(login)) {
-                view.renderError(loginTable[i].strErr);
+                EventBus.trigger(evtName, loginTable[i].strErr);
                 return false;
             }
         }
@@ -39,7 +39,7 @@ export let validate = (arg, view) => {
     if (password !==  '') {
         for (let i = 0; i < passwordTable.length; i++) {
             if (!passwordTable[i].regExp.exec(password)) {
-                view.renderError(passwordTable[i].strErr);
+                EventBus.trigger(evtName, passwordTable[i].strErr);
                 return false;
             }
         }

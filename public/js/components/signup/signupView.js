@@ -18,6 +18,10 @@ export default class SignupView {
             this._parent.appendChild(page);
         }
         this.page = page;
+
+        EventBus.subscribe('logRenderError', (arg) => {
+            this.renderError(arg);
+        });
     }
     render() {
         this.page.innerHTML = `
