@@ -96,7 +96,7 @@ export default class Net {
         password: password,
       });
     } catch (err) {
-      return Promise.reject({status: statusCode, error: err});
+      return Promise.reject(new Error('invalid json'));
     }
 
     return fetch(this.domen + this.port + '/api/v1/signin', {
@@ -132,7 +132,7 @@ export default class Net {
         password: password,
       });
     } catch (err) {
-      return Promise.reject({status: statusCode, error: err});
+      return Promise.reject(new Error('invalid json'));
     }
 
     return fetch(this.domen + this.port + '/api/v1/signup', {
@@ -188,7 +188,7 @@ export default class Net {
         oldpassword: oldPassword,
       });
     } catch (err) {
-      return Promise.reject({status: statusCode, error: err});
+      return Promise.reject(new Error('invalid json'));
     }
 
     return fetch(this.domen + this.port + '/api/v1/updatePassword', {
