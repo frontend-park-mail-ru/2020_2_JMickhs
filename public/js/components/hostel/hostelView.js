@@ -22,13 +22,13 @@ export default class HostelView {
     render() {
         let urlImg = Net.getUrlFile(this._model.image);
         this.page.innerHTML = `
-        <div class="card">
+        <div class="hotel-card">
         <img class="avatar" src="${urlImg}" alt="Avatar">
             <h3>
-                <b>${this._model.name}</b>
+                <p class="hotel-card-title">${this._model.name}</p>
             </h3>
             <h3>
-                <b>${this._model.description}</b>
+                <p class="hotel-card-text">${this._model.description}</p>
             </h3>
         </div>
         `;

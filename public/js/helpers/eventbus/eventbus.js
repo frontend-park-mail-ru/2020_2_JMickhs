@@ -1,5 +1,5 @@
 /**
- * класс эмитирущий евенты, наследоваться от него!!
+ * Eventbus
  */
 export default class EventBus {
     constructor() {

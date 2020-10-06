@@ -28,17 +28,13 @@ export default class ListView {
             let tmp = `
             <div class="card">
                  <img class="avatar" src="${urlImage}" alt="Avatar">
-                 <div class="container">
-                 <div class="cnt">
-                     <h3>
-                         <b>${hostel.name}</b>
-                     </h3>
-                     <h3>
-                         <b>Тип: Отель</b>
-                     </h3>
-                 </div>
-                 <a class="btn-green" href="/hostel/${id}">Подробнее</a>
-                 </div>
+                 <h3>
+                    <p class="hotel-card-title" href="/hostel/${id}">${hostel.name}
+                    </p>
+                 </h3>
+                  <p class="hotel-card-block">
+                    <a class="btn-green" href="/hostel/${id}">Подробнее</a>
+                  </p>      
              </div>
          `;
             strRes += tmp;
