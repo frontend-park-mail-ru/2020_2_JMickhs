@@ -1,4 +1,6 @@
+// eslint-disable-next-line no-undef
 const fs = require('fs');
+// eslint-disable-next-line no-undef
 const http = require('http');
 
 const server = http.createServer((req, res) => {

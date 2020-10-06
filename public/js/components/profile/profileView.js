@@ -45,7 +45,7 @@ export default class ProfileView {
             <form id="avatar-form">
             <div style="margin-left: 20px;">
               <label >Выберите изображение для новой аватарки</label>
-              <input type="file" id="profile_pic" name="avatar"
+              <input type="file" id="profile-pic" name="avatar"
                     accept=".jpg, .jpeg, .png">
             </div>
             <br>
@@ -86,7 +86,7 @@ export default class ProfileView {
             Events.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword});
         });
 
-        const inputFile = document.getElementById('profile_pic');
+        const inputFile = document.getElementById('profile-pic');
         const btnReload = document.getElementById('btn-reload');
         const formAvatar = document.getElementById('avatar-form');
 
@@ -100,12 +100,15 @@ export default class ProfileView {
 
         btnReload.addEventListener('click', (evt) => {
             evt.preventDefault();
+            btnReload.innerHTML = '';
+            inputFile.value = '';
             const response = Net.updateAvatar(new FormData(formAvatar));
             response.then((status) => {
                 if (status !== 200) {
                     this.renderMessage('Аватарку обновить не получилось!', false);
                     return;
                 }
+                
                 this._model.updateAvatar();
             });
             response.catch(() => {
