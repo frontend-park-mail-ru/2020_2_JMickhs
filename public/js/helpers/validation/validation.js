@@ -1,4 +1,4 @@
-export let validate = (arg, evtName) => {
+export const validate = (arg, evtName) => {
     const loginTable = [
         {
             regExp: new RegExp('^[a-zA-Zа-яА-Я].*$'),
@@ -27,7 +27,7 @@ export let validate = (arg, evtName) => {
 
     const { login, password } = arg;
 
-    if (login !==  '') {
+    if (login !== '') {
         for (let i = 0; i < loginTable.length; i++){
             if (!loginTable[i].regExp.exec(login)) {
                 EventBus.trigger(evtName, loginTable[i].strErr);
@@ -36,7 +36,7 @@ export let validate = (arg, evtName) => {
         }
     }
 
-    if (password !==  '') {
+    if (password !== '') {
         for (let i = 0; i < passwordTable.length; i++) {
             if (!passwordTable[i].regExp.exec(password)) {
                 EventBus.trigger(evtName, passwordTable[i].strErr);

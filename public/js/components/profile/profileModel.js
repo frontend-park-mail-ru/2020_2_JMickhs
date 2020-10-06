@@ -8,10 +8,10 @@ class UserModel {
         this.avatar = '';
     }
     getCurrUser() {
-        let response = Net.getCurrUser();
+        const response = Net.getCurrUser();
         response.then((response) => {
-            let status = response.status;
-            let body = response.body;
+            const status = response.status;
+            const body = response.body;
             if (status === 200) {
                 this.isAuth = true;
                 this.login = body.username;
@@ -25,10 +25,10 @@ class UserModel {
         });
     }
     updateAvatar() {
-        let response = Net.getCurrUser();
+        const response = Net.getCurrUser();
         response.then((response) => {
-            let status = response.status;
-            let body = response.body;
+            const status = response.status;
+            const body = response.body;
             if (status === 200) {
                 this.isAuth = true;
                 this.login = body.username;
@@ -39,9 +39,9 @@ class UserModel {
         });
     }
     signin(username, password) {
-        let response = Net.signin(username, password);
+        const response = Net.signin(username, password);
         response.then((response) => {
-            let status = response.status;
+            const status = response.status;
             const body = response.body;
             if (status === 200) {
                 this.id = body.id;
@@ -60,9 +60,9 @@ class UserModel {
         });
     }
     signup(username, password) {
-        let response = Net.signup(username, password);
+        const response = Net.signup(username, password);
         response.then((response) => {
-            let status = response.status;
+            const status = response.status;
             const body = response.body;
             if (status === 200) {
                 this.id = body.id;
@@ -81,7 +81,7 @@ class UserModel {
         });
     }
     signout() {
-        let response = Net.signout();
+        const response = Net.signout();
         response.then((status) => {
             if (status === 200) {
                 this.id = -1;
@@ -93,7 +93,7 @@ class UserModel {
         });
     }
     updatePassword(oldPassword, password) {
-        let response = Net.updatePassword(oldPassword, password);
+        const response = Net.updatePassword(oldPassword, password);
         response.then((status) => {
             if (status === 409) {
                 EventBus.trigger('passwordUpdateError', 'Вы ввели неверный пароль');

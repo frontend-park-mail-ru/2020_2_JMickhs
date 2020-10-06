@@ -44,9 +44,9 @@ export default class SigninView {
         </div>
         `;
 
-        let form = document.getElementById('signinform');
-        let loginInput = document.getElementById('login');
-        let passInput = document.getElementById('password');
+        const form = document.getElementById('signinform');
+        const loginInput = document.getElementById('login');
+        const passInput = document.getElementById('password');
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -58,18 +58,18 @@ export default class SigninView {
     }
 
     renderError(errstr = '') {
-        let tmpErr = document.getElementById('notice-line');
+        const tmpErr = document.getElementById('notice-line');
         if (tmpErr !== null){
             tmpErr.innerHTML = `<h3>${errstr}</h3>`;
             return;
         }
 
-        let errLine = document.createElement('div');
+        const errLine = document.createElement('div');
         errLine.setAttribute('class', 'notice');
         errLine.setAttribute('id', 'notice-line');
         errLine.innerHTML = `<h3>${errstr}</h3>`;
 
-        let form = document.getElementById('signinform');
+        const form = document.getElementById('signinform');
         form.appendChild(errLine);
     }
 }

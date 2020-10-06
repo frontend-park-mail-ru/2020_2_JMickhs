@@ -45,10 +45,10 @@ export default class SignupView {
         </div>
         `;
 
-        let form = document.getElementById('signupform');
-        let loginInput = document.getElementById('login');
-        let passInput1 = document.getElementById('password1');
-        let passInput2 = document.getElementById('password2');
+        const form = document.getElementById('signupform');
+        const loginInput = document.getElementById('login');
+        const passInput1 = document.getElementById('password1');
+        const passInput2 = document.getElementById('password2');
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -60,18 +60,18 @@ export default class SignupView {
     }
 
     renderError(errstr = '') {
-        let tmpErr = document.getElementById('notice-line');
+        const tmpErr = document.getElementById('notice-line');
         if (tmpErr !== null){
             tmpErr.innerHTML = `<h3>${errstr}</h3>`;
             return;
         }
 
-        let errLine = document.createElement('div');
+        const errLine = document.createElement('div');
         errLine.setAttribute('class', 'notice');
         errLine.setAttribute('id', 'notice-line');
         errLine.innerHTML = `<h3>${errstr}</h3>`;
 
-        let form = document.getElementById('signupform');
+        const form = document.getElementById('signupform');
         this.page.appendChild(errLine);
     }
 }

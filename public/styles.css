@@ -11,6 +11,10 @@ ul {
     width: 100%;
 }
 
+img {
+    object-fit: cover;
+}
+
 .btn {
     position: relative;
     display: flex;

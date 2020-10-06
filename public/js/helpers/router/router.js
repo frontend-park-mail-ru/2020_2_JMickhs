@@ -26,7 +26,7 @@ export default class Router {
         window.addEventListener('click', (evt) => {
             const {target} = evt;
             this._checkAnchor(target, evt, 4);
-         });
+        });
     }
 
     _checkAnchor(target, evt, n) {
@@ -61,7 +61,7 @@ export default class Router {
             evt.preventDefault();
         }
         const path = '/' + location.pathname.split('/')[1];
-        let arg = location.pathname.split('/')[2];
+        const arg = location.pathname.split('/')[2];
         const { controller } = this._findComponentByPath(path) || { controller: ErrorPage };
         controller.activate(arg);
     }
