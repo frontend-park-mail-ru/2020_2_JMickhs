@@ -66,26 +66,27 @@ export default class SigninView {
   }
   /**
      * Отрисовка сообщения об ошибке
+     * @param {string} errstr - ощибка, которую нужно отобразить
      */
-    renderError(errstr = '') {
-        const form = document.getElementById('signinform');
-        let errLine;
+  renderError(errstr = '') {
+    const form = document.getElementById('signinform');
+    let errLine;
 
-        if (this._model.timerId !== -1) {
-            clearTimeout(this._model.timerId);
-            errLine = document.getElementById('error-line');
-            errLine.innerHTML = `<h3>${errstr}</h3>`;
-        } else {
-            errLine = document.createElement('div');
-            errLine.setAttribute('class', 'error');
-            errLine.setAttribute('id', 'error-line');
-            errLine.innerHTML = `<h3>${errstr}</h3>`;
-            form.appendChild(errLine);
-        }
-
-        this._model.timerId = setTimeout(() => {
-            form.removeChild(errLine);
-            this._model.timerId = -1;
-        },5000);
+    if (this._model.timerId !== -1) {
+      clearTimeout(this._model.timerId);
+      errLine = document.getElementById('error-line');
+      errLine.innerHTML = `<h3>${errstr}</h3>`;
+    } else {
+      errLine = document.createElement('div');
+      errLine.setAttribute('class', 'error');
+      errLine.setAttribute('id', 'error-line');
+      errLine.innerHTML = `<h3>${errstr}</h3>`;
+      form.appendChild(errLine);
     }
+
+    this._model.timerId = setTimeout(() => {
+      form.removeChild(errLine);
+      this._model.timerId = -1;
+    }, 5000);
+  }
 }

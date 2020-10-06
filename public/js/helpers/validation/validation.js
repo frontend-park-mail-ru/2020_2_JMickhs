@@ -1,4 +1,4 @@
-import Events from '../eventbus/eventbus'
+import Events from '../eventbus/eventbus';
 /**
  * Валидация для пароля и/или логина
  * @param {Object} arg - объект с логином и паролем

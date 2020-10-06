@@ -19,12 +19,15 @@ export default class SigninModel {
   }
   /**
      * Авторизация пользователя
+     * @param {string} username - логин
+     * @param {string} password - пароль
      */
   signin(username, password) {
     this._user.signin(username, password);
   }
   /**
      * Проверка на то, авторизован ли пользователь
+     * @return {boolean} Авторизован ли пользователь
      */
   isAuth() {
     return this._user.isAuth;

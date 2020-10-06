@@ -39,7 +39,8 @@ export default class Router {
   /**
      * Проверяет, является ли елемент <a>, причем рекурсивно
      * @param {HTMLElement} target - проверяемый элемент
-     * @param {Event} evt - евент, к которому примениться preventDefault в случае нахождения
+     * @param {Event}
+     * evt - евент, к которому примениться preventDefault в случае нахождения
      * @param {number} n - максимальная глубина рекурсии
      */
   _checkAnchor(target, evt, n) {
@@ -70,9 +71,12 @@ export default class Router {
   /**
      * ищет контроллер по путю
      * @param {string} path - ключ, по которому ищется контроллер
+      * @return {any} Возвращает контроллер
      */
   _findComponentByPath(path) {
-    return this.routes.find((r) => r.path.match(new RegExp(`^\\${path}$`, 'gm')));
+    return this.routes.find(
+        (r) => r.path.match(new RegExp(`^\\${path}$`, 'gm')),
+    );
     // gm - это многострочный текст парни (вроде как)
   }
   /**

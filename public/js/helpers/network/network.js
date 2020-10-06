@@ -85,7 +85,7 @@ export default class Net {
      * Авторизация
      * @param {string} username - логин
      * @param {string} password - пароль
-     * @return {Promise<{number, json}|{number, Error}>} number - statusCode, json - ответ
+     * @return {Promise} number - statusCode, json - ответ
      */
   static signin(username, password) {
     let statusCode = -1;
@@ -175,8 +175,9 @@ export default class Net {
   }
   /**
      * Обновление пароля
-     * @return {Promise<number|{number, Error}>} 
-     * number - statusCode
+     * @param {string} oldPassword - старый пароль
+     * @param {string} password - новый пароль
+     * @return {Promise<number|{number, Error}>}
      */
   static updatePassword(oldPassword, password) {
     let statusCode = -1;
@@ -210,7 +211,7 @@ export default class Net {
   /**
      * Получение определнных отелей
      * @param {number} id - id отеля
-     * @return {Promise<{number, json}|{number, Error}>} 
+     * @return {Promise<{number, json}|{number, Error}>}
      * number - statusCode, json - ответ
      */
   static getHostel(id) {

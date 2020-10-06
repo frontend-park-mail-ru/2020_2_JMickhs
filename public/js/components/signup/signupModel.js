@@ -19,12 +19,15 @@ export default class SignupModel {
   }
   /**
      * Регистрация пользователя
+     * @param {string} username - логин
+     * @param {string} password - пароль
      */
   signup(username, password) {
     this._user.signup(username, password);
   }
   /**
      * Проверка на то, авторизован ли пользователь
+     * @return {boolean} Авторизован ли пользователь
      */
   isAuth() {
     return this._user.isAuth;

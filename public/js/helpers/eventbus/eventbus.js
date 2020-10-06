@@ -15,7 +15,6 @@ class EventBus {
      */
   subscribe(evt, listener) {
     (this.events[evt] || (this.events[evt] = [])).push(listener);
-    return this;
   }
   /**
      * Вызывает обработчиков события

@@ -124,60 +124,59 @@ export default class ProfileView {
       });
     });
 
-        const btnExit = document.getElementById('btn-exit');
-        btnExit.addEventListener('click', () => {
-            this._model.signout();
-        });
-    }
-    /**
+    const btnExit = document.getElementById('btn-exit');
+    btnExit.addEventListener('click', () => {
+      this._model.signout();
+    });
+  }
+  /**
      * Отрисовка уведомления
      * @param {string} [errstr=''] - текст уведомления
      * @param {boolean} [typeMessageFlag=false] - тип уведомления(false - ошибка)
      */
-    renderMessage(errstr = '', typeMessageFlag = false) {
-        const form = document.getElementById('change-data-form');
-        let noticeLine, errLine;
-        if (typeMessageFlag) {
-            noticeLine = document.getElementById('notice-line');
-            errLine = document.getElementById('error-line');
-        } else {
-            noticeLine = document.getElementById('error-line');
-            errLine = document.getElementById('notice-line');
-        }
-        if (noticeLine === null) {
-            noticeLine = document.createElement('div');
-            if (this._model.timerId !== -1) {
-                clearTimeout(this._model.timerId);
-                form.removeChild(errLine);
-            }
-        } else {
-            clearTimeout(this._model.timerId);
-            if (errLine !== null) {
-                form.removeChild(errLine);
-            }
-        }
-
-        if (typeMessageFlag){
-            noticeLine.setAttribute('class', 'notice');
-            noticeLine.setAttribute('id', 'notice-line');
-        }
-        else {
-            noticeLine.setAttribute('class', 'error');
-            noticeLine.setAttribute('id', 'error-line');
-        }
-
-        // if (typeMessageFlag) {
-        //     noticeLine.style.color = '#6996D3';
-        // } else {
-        //     noticeLine.style.color = '#e32636';
-        // }
-        noticeLine.innerHTML = `<h3>${errstr}</h3>`;
-
-        form.appendChild(noticeLine);
-
-        this._model.timerId = setTimeout(() => {
-            form.removeChild(noticeLine);
-            this._model.timerId = -1;
-        }, 5000);
+  renderMessage(errstr = '', typeMessageFlag = false) {
+    const form = document.getElementById('change-data-form');
+    let noticeLine; let errLine;
+    if (typeMessageFlag) {
+      noticeLine = document.getElementById('notice-line');
+      errLine = document.getElementById('error-line');
+    } else {
+      noticeLine = document.getElementById('error-line');
+      errLine = document.getElementById('notice-line');
     }
+    if (noticeLine === null) {
+      noticeLine = document.createElement('div');
+      if (this._model.timerId !== -1) {
+        clearTimeout(this._model.timerId);
+        form.removeChild(errLine);
+      }
+    } else {
+      clearTimeout(this._model.timerId);
+      if (errLine !== null) {
+        form.removeChild(errLine);
+      }
+    }
+
+    if (typeMessageFlag) {
+      noticeLine.setAttribute('class', 'notice');
+      noticeLine.setAttribute('id', 'notice-line');
+    } else {
+      noticeLine.setAttribute('class', 'error');
+      noticeLine.setAttribute('id', 'error-line');
+    }
+
+    // if (typeMessageFlag) {
+    //     noticeLine.style.color = '#6996D3';
+    // } else {
+    //     noticeLine.style.color = '#e32636';
+    // }
+    noticeLine.innerHTML = `<h3>${errstr}</h3>`;
+
+    form.appendChild(noticeLine);
+
+    this._model.timerId = setTimeout(() => {
+      form.removeChild(noticeLine);
+      this._model.timerId = -1;
+    }, 5000);
+  }
 }
