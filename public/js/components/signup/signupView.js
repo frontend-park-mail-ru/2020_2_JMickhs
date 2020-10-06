@@ -60,15 +60,15 @@ export default class SignupView {
     }
 
     renderError(errstr = '') {
-        let tmpErr = document.getElementById('error-line');
+        let tmpErr = document.getElementById('notice-line');
         if (tmpErr !== null){
             tmpErr.innerHTML = `<h3>${errstr}</h3>`;
             return;
         }
 
         let errLine = document.createElement('div');
-        errLine.setAttribute('class', 'error');
-        errLine.setAttribute('id', 'error-line');
+        errLine.setAttribute('class', 'notice');
+        errLine.setAttribute('id', 'notice-line');
         errLine.innerHTML = `<h3>${errstr}</h3>`;
 
         let form = document.getElementById('signupform');

@@ -17,13 +17,13 @@ export default class ProfileView {
         this.page = page;
 
         EventBus.subscribe('getNewPassword', () => {
-            alert('Вы успешно поменяли пароль');
+            this.renderMessage('Вы успешно поменяли пароль', true);
         });
         EventBus.subscribe('passwordUpdateError', (arg) => {
-            this.renderError(arg);
+            this.renderMessage(arg);
         });
         EventBus.subscribe('profileRenderError', (arg) => {
-            this.renderError(arg);
+            this.renderMessage(arg);
         });
     }
 
@@ -71,6 +71,7 @@ export default class ProfileView {
         EventBus.subscribe('updateAvatar', () => {
             let img = document.getElementById('avatar-img');
             img.innerHTML = `<img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">`;
+            this.renderMessage('Аватар успешно изменен', true);
         });
 
         let btn = document.getElementById('button-save');
@@ -122,19 +123,29 @@ export default class ProfileView {
         });
     }
 
-    renderError(errstr = '') {
-        let tmpErr = document.getElementById('error-line');
-        if (tmpErr !== null){
-            tmpErr.innerHTML = `<h3>${errstr}</h3>`;
+    renderMessage(errstr = '', typeMessageFlag = false) {
+        let tmpNotice = document.getElementById('notice-line');
+        if (tmpNotice !== null){
+            tmpNotice.innerHTML = `<h3>${errstr}</h3>`;
+            if (typeMessageFlag) {
+                tmpNotice.style.color = '#6996D3';
+            } else {
+                tmpNotice.style.color = '#B22222';
+            }
             return;
         }
 
-        let errLine = document.createElement('div');
-        errLine.setAttribute('class', 'error');
-        errLine.setAttribute('id', 'error-line');
-        errLine.innerHTML = `<h3>${errstr}</h3>`;
+        let noticeLine = document.createElement('div');
+        noticeLine.setAttribute('class', 'notice');
+        noticeLine.setAttribute('id', 'notice-line');
+        if (typeMessageFlag) {
+            noticeLine.style.color = '#6996D3';
+        } else {
+            noticeLine.style.color = '#B22222';
+        }
+        noticeLine.innerHTML = `<h3>${errstr}</h3>`;
 
         let form = document.getElementById('change-data-form');
-        form.appendChild(errLine);
+        form.appendChild(noticeLine);
     }
 }

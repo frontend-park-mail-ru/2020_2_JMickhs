@@ -9,7 +9,7 @@ export default class ProfileController {
 
         EventBus.subscribe('updatePassword', (arg) => {
             if (arg.oldPassword === '' || arg.newPassword === '') {
-                this._view.renderError('Заполните все поля');
+                this._view.renderMessage('Заполните все поля');
                 return;
             }
             if (validate({login: '', password: arg.newPassword}, 'profileRenderError')) {
