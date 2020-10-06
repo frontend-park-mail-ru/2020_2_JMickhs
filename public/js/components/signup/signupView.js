@@ -37,9 +37,9 @@ export default class SignupView {
             <div class="form-row">
                 <input type="password" id="password2"><label for="password">Повторите пароль</label>
             </div>
-            <span class="psw">     Есть аккаунт?
-                <a href="signin">Войдите</a>
-            </span>
+            <p class="hotel-card-text">Есть аккаунт?
+                <a href="/signin" class="refer">Авторизация</a>
+            </p>
             <button class="btn-green">Регистрация</button>
         </form>
         </div>

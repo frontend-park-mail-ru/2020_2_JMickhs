@@ -29,8 +29,7 @@ export default class ListView {
             <div class="card">
                  <img class="avatar" src="${urlImage}" alt="Avatar">
                  <h3>
-                    <p class="hotel-card-title" href="/hostel/${id}">${hostel.name}
-                    </p>
+                 <p class="hotel-card-title">${hostel.name}</p>
                  </h3>
                   <p class="hotel-card-block">
                     <a class="btn-green" href="/hostel/${id}">Подробнее</a>

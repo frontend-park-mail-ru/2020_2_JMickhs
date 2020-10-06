@@ -224,6 +224,14 @@ nav {
     border-color: #F77A52;
 }
 
+.refer {
+    border-color: #F77A52;
+    color: #F77A52;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 19px;
+}
+
 .form-row input:focus+label,
 .form-row input:valid+label {
     transform: translateY(-60px);
@@ -309,7 +317,7 @@ nav {
 }
 
 .notice {
-    color: #B22222;
+    color: #e32636;
     text-align: center;
 }
 
@@ -339,7 +347,7 @@ nav {
 }
 .btn-red:hover {
   background: #fe6637;
-  color: #fff;
+  color: #EFF6FA;
 }
 .btn-red:hover:before {
   left: 150px;
@@ -358,10 +366,10 @@ nav {
     margin: 10px 20px;
     position: relative;
     overflow: hidden;
-    border: 2px solid #008000;
+    border: 2px solid #41cf41;
     border-radius: 8px;
     font-family: 'Montserrat', sans-serif; 
-    color: #008000;
+    color: #41cf41;
     transition: .2s ease-in-out;
   }
 
@@ -376,8 +384,8 @@ nav {
     transform: skewX(-45deg);
   }
   .btn-green:hover {
-    background:#008000;
-    color: #fff;
+    background:#41cf41;
+    color: #EFF6FA;
   }
   .btn-green:hover:before {
     left: 150px;
@@ -405,14 +413,12 @@ nav {
 
 .hotel-card-title {
     color: #f5b08f;
-
     text-align: center;
     letter-spacing: 2px;
     font-size: 23px;
 }
 .hotel-card-text {
     color: #6996D3;
-
     margin: auto;
     width: 90%;
     padding: 10px;

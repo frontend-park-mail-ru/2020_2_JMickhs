@@ -33,9 +33,9 @@ export default class SigninView {
             <div class="form-row"">
                 <input type="password" id="password"><label for="password">Пароль</label>
             </div>
-            <span class="psw">Нет аккаунта? 
-                <a href="/signup">Регистрация</a>
-            </span>
+            <p class="hotel-card-text">Нет аккаунта? 
+                <a href="/signup" class="refer">Регистрация</a>
+            </p>
             <div class="form-row"">
                 <button class="btn-green" type="submit" id="btnsignin">Вход</button>
             </div>

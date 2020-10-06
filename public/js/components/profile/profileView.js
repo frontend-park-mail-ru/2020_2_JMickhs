@@ -136,7 +136,7 @@ export default class ProfileView {
         if (typeMessageFlag) {
             noticeLine.style.color = '#6996D3';
         } else {
-            noticeLine.style.color = '#B22222';
+            noticeLine.style.color = '#e32636';
         }
         noticeLine.innerHTML = `<h3>${errstr}</h3>`;
 
