@@ -1,3 +1,5 @@
+import Events from '../eventbus/eventbus';
+
 export const validate = (arg, evtName) => {
     const loginTable = [
         {
@@ -5,7 +7,7 @@ export const validate = (arg, evtName) => {
             strErr: 'Логин должен начинаться с буквы',
         },
         {
-            regExp: new RegExp('^[a-zA-Zа-яА-я0-9_\.-]*$'),
+            regExp: new RegExp('^[a-zA-Zа-яА-я0-9_.-]*$'),
             strErr: 'Логин может включать только буквы, цифры и символы _ - .',
         },
         {
@@ -30,7 +32,7 @@ export const validate = (arg, evtName) => {
     if (login !== '') {
         for (let i = 0; i < loginTable.length; i++) {
             if (!loginTable[i].regExp.exec(login)) {
-                EventBus.trigger(evtName, loginTable[i].strErr);
+                Events.trigger(evtName, loginTable[i].strErr);
                 return false;
             }
         }
@@ -39,7 +41,7 @@ export const validate = (arg, evtName) => {
     if (password !== '') {
         for (let i = 0; i < passwordTable.length; i++) {
             if (!passwordTable[i].regExp.exec(password)) {
-                EventBus.trigger(evtName, passwordTable[i].strErr);
+                Events.trigger(evtName, passwordTable[i].strErr);
                 return false;
             }
         }

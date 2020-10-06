@@ -108,7 +108,7 @@ export default class ProfileView {
                 }
                 this._model.updateAvatar();
             });
-            response.catch((err) => {
+            response.catch(() => {
                 this.renderMessage('Аватарку обновить не получилось!', false);
             });
         });

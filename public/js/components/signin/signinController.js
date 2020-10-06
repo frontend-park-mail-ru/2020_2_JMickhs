@@ -20,7 +20,7 @@ export default class SigninController {
     }
     activate() {
         if (this._model.isAuth()) {
-            router.pushState('/profile');
+            Events.trigger('redirect', {url: '/profile'});
             return;
         }
         this._view.render();

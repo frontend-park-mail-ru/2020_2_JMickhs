@@ -17,12 +17,12 @@ export default class SignupController {
                 this._view.renderError('Пароли не совпадают');
             } else if (validate({login: login, password: pass1}, 'logRenderError')) {
                 this._model.signup(login, pass1);
-            }
+            }     
         });
     }
     activate() {
         if (this._model.isAuth()) {
-            router.pushState('/profile');
+            Events.trigger('redirect', {url: '/profile'});
             return;
         }
         this._view.render();

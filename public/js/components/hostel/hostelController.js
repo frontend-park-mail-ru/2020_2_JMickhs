@@ -1,5 +1,6 @@
 import HostelModel from './hostelModel';
 import HostelView from './hostelView';
+import Events from './../../helpers/eventbus/eventbus';
 
 export default class HotelController {
     constructor(parent) {
@@ -8,7 +9,7 @@ export default class HotelController {
     }
     activate(id) {
         if (id === undefined || !Number.isInteger(+id)) {
-            router.pushState('/error');
+            Events.trigger('redirect', {url: '/error'});
             return;
         }
         this._model.fillModel(id);

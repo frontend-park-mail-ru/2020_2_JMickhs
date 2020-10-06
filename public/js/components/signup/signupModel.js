@@ -7,7 +7,7 @@ export default class SignupModel {
         this.timerId = -1;
         Events.subscribe('signupUser', () => {
             if (this._user.isAuth) {
-                router.pushState('/profile');
+                Events.trigger('redirect', {url: '/profile'});
             } else {
                 Events.trigger('errorSignup', 'You are not authenticated');
             }

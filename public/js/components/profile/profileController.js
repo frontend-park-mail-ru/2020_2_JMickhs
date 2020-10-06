@@ -19,7 +19,7 @@ export default class ProfileController {
         });
 
         Events.subscribe('signout', () => {
-            router.pushState('/signin');
+            Events.trigger('redirect', {url: '/signin'});
         });
     }
     activate() {
@@ -28,7 +28,7 @@ export default class ProfileController {
             return;
         }
         Events.subscribe('haventUser', () => {
-            router.pushState('/signin');
+            Events.trigger('redirect', {url: '/signin'});
         });
         Events.subscribe('profileUser', () => {
             this._view.render();

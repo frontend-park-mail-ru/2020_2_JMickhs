@@ -7,7 +7,7 @@ export default class SigninModel {
         this.timerId = -1;
         Events.subscribe('signinUser', () => {
             if (this._user.isAuth) {
-                router.pushState('/profile');
+                Events.trigger('redirect', {url: '/profile'});
             } else {
                 Events.trigger('errorSignin', 'Неверный логин или пароль!');
             }
