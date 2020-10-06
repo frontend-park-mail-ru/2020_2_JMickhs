@@ -4,38 +4,38 @@ import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для страницы списка отелей */
 export default class ListView {
-    /**
+  /**
      * Инициализация класса
      * @param {*} parent - родительский элемент html-страницы
      * @param {*} model - модель
      */
-    constructor(parent, model) {
-        if (parent instanceof HTMLElement && model instanceof ListModel) {
-            this._parent = parent;
-            this._model = model;
-        }
-
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-        }
-        this._parent.appendChild(page);
-        this.page = page;
-
-        Events.subscribe('loadHostels', () => {
-            this.render();
-        });
+  constructor(parent, model) {
+    if (parent instanceof HTMLElement && model instanceof ListModel) {
+      this._parent = parent;
+      this._model = model;
     }
-    /**
+
+    let page = document.getElementById('page');
+    if (page === null) {
+      page = document.createElement('div');
+      page.id = 'page';
+    }
+    this._parent.appendChild(page);
+    this.page = page;
+
+    Events.subscribe('loadHostels', () => {
+      this.render();
+    });
+  }
+  /**
      * Отрисовка страницы списка отелей
      */
-    render() {
-        let strRes = '';
-        this._model.hostels.forEach((hostel) => {
-            const id = hostel.id;
-            const urlImage = Net.getUrlFile(hostel.image);
-            const tmp = `
+  render() {
+    let strRes = '';
+    this._model.hostels.forEach((hostel) => {
+      const id = hostel.id;
+      const urlImage = Net.getUrlFile(hostel.image);
+      const tmp = `
             <div class="card">
                  <img class="avatar" src="${urlImage}" alt="Avatar">
                  <h3>
@@ -46,8 +46,8 @@ export default class ListView {
                   </p>      
              </div>
          `;
-            strRes += tmp;
-        });
-        this.page.innerHTML = strRes;
-    }
+      strRes += tmp;
+    });
+    this.page.innerHTML = strRes;
+  }
 }

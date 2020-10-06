@@ -3,37 +3,37 @@ import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView {
-    /**
+  /**
      * Инициализация класса
      * @param {*} parent - родительский элемент html-страницы
      * @param {*} model - модель
      */
-    constructor(parent, model) {
-        if (parent instanceof HTMLElement && model instanceof SigninModel) {
-            this._parent = parent;
-            this._model = model;
-        }
-        Events.subscribe('errorSignin', (arg) => {
-            this.renderError(arg);
-        });
-
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
-
-        Events.subscribe('authRenderError', (arg) => {
-            this.renderError(arg);
-        });
+  constructor(parent, model) {
+    if (parent instanceof HTMLElement && model instanceof SigninModel) {
+      this._parent = parent;
+      this._model = model;
     }
-    /**
+    Events.subscribe('errorSignin', (arg) => {
+      this.renderError(arg);
+    });
+
+    let page = document.getElementById('page');
+    if (page === null) {
+      page = document.createElement('div');
+      page.id = 'page';
+      this._parent.appendChild(page);
+    }
+    this.page = page;
+
+    Events.subscribe('authRenderError', (arg) => {
+      this.renderError(arg);
+    });
+  }
+  /**
      * Отрисовка страницы авторизации
      */
-    render() {
-        this.page.innerHTML = `
+  render() {
+    this.page.innerHTML = `
         <div class="container"></div>
         <form action="" class="ui-form" id="signinform">
             <h2>Вход в аккаунт</h2>
@@ -53,20 +53,19 @@ export default class SigninView {
         </div>
         `;
 
-        const form = document.getElementById('signinform');
-        const loginInput = document.getElementById('login');
-        const passInput = document.getElementById('password');
+    const form = document.getElementById('signinform');
+    const loginInput = document.getElementById('login');
+    const passInput = document.getElementById('password');
 
-        form.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            const login = loginInput.value;
-            const password = passInput.value;
-            Events.trigger('submitSignin', { login: login, password: password });
-        });
-    }
-    /**
+    form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      const login = loginInput.value;
+      const password = passInput.value;
+      Events.trigger('submitSignin', {login: login, password: password});
+    });
+  }
+  /**
      * Отрисовка сообщения об ошибке
-     * @param {string} [errstr=''] - текст ошибки
      */
     renderError(errstr = '') {
         const form = document.getElementById('signinform');
