@@ -28,10 +28,10 @@ export default class SignupView {
                 <input type="text" id="login"><label for="login">Логин</label>
             </div>
             <div class="form-row">
-                <input type="password" id="password1"><label for="password">Пароль</label>
+                <input type="text" id="password1"><label for="password">Пароль</label>
             </div>
             <div class="form-row">
-                <input type="password" id="password2"><label for="password">Повторите пароль</label>
+                <input type="text" id="password2"><label for="password">Повторите пароль</label>
             </div>
             <span class="psw">     Есть аккаунт?
                 <a href="signin">Войдите</a>

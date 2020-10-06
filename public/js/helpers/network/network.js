@@ -1,5 +1,4 @@
-export default class Net {    
-    
+export default class Net {
     static get domen() {
         return 'http://www.hostelscan.ru';
     }
@@ -136,13 +135,13 @@ export default class Net {
         });
     }
 
-    static updatePassword(id, password) {
+    static updatePassword(oldPassword, password) {
         let statusCode = -1;
         let json;
         try {
             json = JSON.stringify({
-                id: id,
-                password: password
+                newpassword: password,
+                oldpassword: oldPassword,
             });
         } catch (err) {
             return Promise.reject({ status: statusCode, error: err });
