@@ -25,9 +25,10 @@ export default class Router {
         window.addEventListener('load', this._route.bind(this));
         window.addEventListener('click', (evt) => {
             const {target} = evt;
+            this._checkAnchor(target, evt);
             if (target instanceof HTMLAnchorElement) {
                 evt.preventDefault();
-                 this.pushState(target.href);
+                this.pushState(target.href);
             }
          });
     }
@@ -42,7 +43,6 @@ export default class Router {
             return;
         }
         this._checkAnchor(target, evt);
-        return;
     }
 
     pushState(url = '/', state = {}) {
