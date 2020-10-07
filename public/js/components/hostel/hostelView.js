@@ -5,8 +5,8 @@ import Events from './../../helpers/eventbus/eventbus';
 export default class HostelView {
   /**
      * Инициализация класса
-     * @param {*} parent - родительский элемент html-страницы
-     * @param {*} model - модель
+     * @param {HTMLElement} parent - родительский элемент html-страницы
+     * @param {any} model - модель
      */
   constructor(parent, model) {
     this._model = model;

@@ -5,7 +5,7 @@ import NavbarView from './navbarView';
 export default class NavbarController {
   /**
      * Инициализация класса
-     * @param {*} parent - родительский элемент html-страницы
+     * @param {HTMLElement} parent - родительский элемент html-страницы
      */
   constructor(parent) {
     this._model = new NavbarModel();
