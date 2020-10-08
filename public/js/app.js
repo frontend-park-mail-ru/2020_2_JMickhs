@@ -10,7 +10,7 @@ import HostelController from './components/hostel/hostelController';
 import Events from './helpers/eventbus/eventbus';
 
 /**
- * Главная функция приложения
+ *  Старт нашего приложения =)
  */
 (() => {
   const application = document.getElementById('app');
@@ -28,17 +28,16 @@ import Events from './helpers/eventbus/eventbus';
   const profileController = new ProfileController(application);
   const hostelController = new HostelController(application);
 
-  const router = new Router();
-  router.append('/', homeController);
-  router.append('/signin', signinController);
-  router.append('/signup', signupController);
-  router.append('/profile', profileController);
-  router.append('/list', listController);
-  router.append('/hostel', hostelController);
-  router.start();
+  Router.append('/', homeController);
+  Router.append('/signin', signinController);
+  Router.append('/signup', signupController);
+  Router.append('/profile', profileController);
+  Router.append('/list', listController);
+  Router.append('/hostel', hostelController);
+  Router.start();
   Events.subscribe('redirect', (arg) => {
     const {url} = arg;
-    router.pushState(url);
+    Router.pushState(url);
   });
 })();
 

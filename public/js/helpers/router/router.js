@@ -10,7 +10,7 @@ const ErrorPage = {
 };
 
 /** Роутер, определяющий контроллер страницы */
-export default class Router {
+class RouterCustom {
   /**
      * Создает экземпляр
      */
@@ -93,3 +93,6 @@ export default class Router {
     controller.activate(arg);
   }
 }
+
+const Router = new RouterCustom;
+export default Router;
