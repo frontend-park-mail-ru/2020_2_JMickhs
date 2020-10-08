@@ -164,12 +164,6 @@ export default class ProfileView {
       noticeLine.setAttribute('class', 'error');
       noticeLine.setAttribute('id', 'error-line');
     }
-
-    // if (typeMessageFlag) {
-    //     noticeLine.style.color = '#6996D3';
-    // } else {
-    //     noticeLine.style.color = '#e32636';
-    // }
     noticeLine.innerHTML = `<h3>${errstr}</h3>`;
 
     form.appendChild(noticeLine);
