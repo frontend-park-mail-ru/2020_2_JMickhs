@@ -32,28 +32,16 @@ class RouterCustom {
     window.addEventListener('popstate', this._route.bind(this));
     window.addEventListener('load', this._route.bind(this));
     window.addEventListener('click', (evt) => {
-      const {target} = evt;
-      this._checkAnchor(target, evt, 4);
+      let {target} = evt;
+      while (target.parentNode) {
+        if (target instanceof HTMLAnchorElement) {
+          evt.preventDefault();
+          this.pushState(target.href);
+          return;
+        }
+        target = target.parentNode;
+      }
     });
-  }
-  /**
-     * Проверяет, является ли елемент <a>, причем рекурсивно
-     * @param {HTMLElement} target - проверяемый элемент
-     * @param {Event}
-     * evt - евент, к которому примениться preventDefault в случае нахождения
-     * @param {number} n - максимальная глубина рекурсии
-     */
-  _checkAnchor(target, evt, n) {
-    if (target instanceof HTMLAnchorElement) {
-      evt.preventDefault();
-      this.pushState(target.href);
-      return;
-    }
-    if (target === window || n === 0) {
-      return;
-    }
-    n = n - 1;
-    this._checkAnchor(target, evt, n);
   }
   /**
      * изменяет url
