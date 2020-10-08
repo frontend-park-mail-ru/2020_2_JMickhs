@@ -7,6 +7,7 @@ import SignupController from './components/signup/signupController';
 import ProfileController from './components/profile/profileController';
 import ProfileModel from './components/profile/profileModel';
 import HostelController from './components/hostel/hostelController';
+import ErrorController from './components/pageError/error';
 import Events from './helpers/eventbus/eventbus';
 
 /**
@@ -27,6 +28,7 @@ import Events from './helpers/eventbus/eventbus';
   const signupController = new SignupController(application);
   const profileController = new ProfileController(application);
   const hostelController = new HostelController(application);
+  const errorController = new ErrorController(application);
 
   Router.append('/', homeController);
   Router.append('/signin', signinController);
@@ -34,6 +36,7 @@ import Events from './helpers/eventbus/eventbus';
   Router.append('/profile', profileController);
   Router.append('/list', listController);
   Router.append('/hostel', hostelController);
+  Router.errorController = errorController;
   Router.start();
   Events.subscribe('redirect', (arg) => {
     const {url} = arg;

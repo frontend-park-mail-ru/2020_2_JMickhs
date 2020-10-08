@@ -1,14 +1,3 @@
-
-/** Заглушка для страницы ошибки */
-const ErrorPage = {
-  activate: () => {
-    document.getElementById('page').innerHTML = `
-        <p class="text-first">Уупс, произошла ошибка!</p>
-        <p class="text">Такой страницы не существует</p>
-      `;
-  },
-};
-
 /** Роутер, определяющий контроллер страницы */
 class RouterCustom {
   /**
@@ -24,6 +13,13 @@ class RouterCustom {
      */
   append(path, controller) {
     this.routes[this.routes.length] = {path: path, controller: controller};
+  }
+  /**
+     * Добавляет контроллер и путь, по которому он должен срабатывать
+     * @param {any} controller - контроллер, обязан иметь метод activate, обрабатываеюший ошибки
+     */
+  set errorController(controller) {
+    this._errorController = controller;
   }
   /**
      * Стартует роутер
@@ -77,7 +73,7 @@ class RouterCustom {
     }
     const path = '/' + location.pathname.split('/')[1];
     const arg = location.pathname.split('/')[2];
-    const {controller} = this._findComponentByPath(path) || {controller: ErrorPage};
+    const {controller} = this._findComponentByPath(path) || {controller: this._errorController};
     controller.activate(arg);
   }
 }
