@@ -1,4 +1,3 @@
-import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для страницы отеля */
@@ -30,10 +29,9 @@ export default class HostelView {
      * Отрисовка страницы отеля
      */
     render() {
-        const urlImg = Net.getUrlFile(this._model.image);
         this.page.innerHTML = `
         <div class="hotel-card">
-        <img class="avatar" src="${urlImg}" alt="Avatar">
+        <img class="avatar" src="${this._model.image}" alt="Avatar">
             <h3>
                 <p class="hotel-card-title">${this._model.name}</p>
             </h3>

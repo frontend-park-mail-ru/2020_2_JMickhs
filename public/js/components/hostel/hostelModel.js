@@ -29,7 +29,7 @@ export default class HostelModel {
             this.description = data.description;
             this.id = data.id;
             this.name = data.name;
-            this.image = data.image;
+            this.image = Net.getUrlFile(data.image);
             Events.trigger('updateHostel');
         });
     }

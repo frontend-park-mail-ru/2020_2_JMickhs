@@ -23,7 +23,7 @@ class Network {
      * универсальный модуль request
      * @param {string} method
      * @param {string} url
-     * @param {Object} body
+     * @param {Object|FormData} body
      * @param {Object.<string, string>} headers
      * @return {Promise}
      */
