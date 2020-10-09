@@ -137,11 +137,11 @@ class UserModel {
         response.then((r) => {
             const err = r.error;
             const status = r.status;
-            if (status === 200 && err === undefined) {
+            if (status == 200 && err.code == undefined) {
                 Events.trigger('getNewPassword');
-            } else {
-                Events.trigger('passwordUpdateError', 'Вы ввели неверный пароль');
+                return;
             }
+            Events.trigger('passwordUpdateError', 'Вы ввели неверный пароль');
         });
     }
 }
