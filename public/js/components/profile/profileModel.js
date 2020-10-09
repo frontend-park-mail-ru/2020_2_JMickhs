@@ -21,7 +21,7 @@ class UserModel {
         response.then((response) => {
             const status = response.status;
             const data = response.data;
-            const err = response.err;
+            const err = response.error;
             console.log(status, data, err);
             console.log(err == undefined && status == 200);
             if (err == undefined && status == 200) {
