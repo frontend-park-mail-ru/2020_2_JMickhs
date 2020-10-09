@@ -46,7 +46,7 @@ class Network {
         }).then((json) => {
             return {status: statusCode, data: json.data, error: json.error};
         }).catch((err) => {
-            return {error: err};
+            return {status: statusCode, error: err};
         });
     }
     /**

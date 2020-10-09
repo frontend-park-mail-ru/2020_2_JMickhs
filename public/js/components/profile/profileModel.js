@@ -118,10 +118,7 @@ class UserModel {
         const response = Net.signout();
         response.then((r) => {
             const status = r.status;
-            const err = r.error;
-            console.log(status, err);
-            if (status == 200 && err == undefined) {
-                console.log('here');
+            if (status == 200) {
                 this.id = -1;
                 this.username = '';
                 this.isAuth = false;
