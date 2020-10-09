@@ -28,16 +28,16 @@ class Network {
      * @return {Promise}
      */
     _ajax(method, url, body = null, headers = {}) {
-        let json = null;
-        if (body != null) {
-            json = JSON.stringify(body); // TODO: сделать проверку
+        let reqBody = body;
+        if (body != null && !(body instanceof FormData)) {
+            reqBody = JSON.stringify(body); // TODO: сделать проверку
         }
         let statusCode = -1;
         return fetch(this.domain + this.port + url, {
             method: method,
             mode: 'cors',
             credentials: 'include',
-            body: json,
+            body: reqBody,
             headers: headers,
         }).then((response) => {
             this._csrf = response.headers.get('csrf');
