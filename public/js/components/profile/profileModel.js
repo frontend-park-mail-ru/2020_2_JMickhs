@@ -22,7 +22,7 @@ class UserModel {
             const status = response.status;
             const data = response.data;
             const err = response.err;
-            console(status, data, err);
+            console.log(status, data, err);
             console.log(err == undefined && status == 200);
             if (err == undefined && status == 200) {
                 this.isAuth = true;
