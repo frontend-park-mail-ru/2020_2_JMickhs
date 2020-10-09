@@ -92,7 +92,7 @@ class UserModel {
             const status = response.status;
             const err = response.error;
             const data = response.data;
-            if (status === 200 && err === undefined) {
+            if (status == 200 && err == undefined) {
                 this.id = data.id;
                 this.avatar = data.avatar;
                 this.isAuth = true;
@@ -119,7 +119,7 @@ class UserModel {
         response.then((r) => {
             const status = r.status;
             const err = r.error;
-            if (status === 200 && err === undefined) {
+            if (status == 200 && err == undefined) {
                 this.id = -1;
                 this.username = '';
                 this.isAuth = false;
