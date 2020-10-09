@@ -108,14 +108,16 @@ export default class ProfileView {
         btnReload.addEventListener('click', (evt) => {
             evt.preventDefault();
             const response = Net.updateAvatar(new FormData(formAvatar));
-            response.then((status) => {
+            response.then((r) => {
+                const status = r.status;
+                const err = r.error;
                 btnReload.innerHTML = '';
                 inputFile.value = '';
-                if (status !== 200) {
+                console.log(status != 200 || err != undefined);
+                if (status != 200 || err != undefined) {
                     this.renderMessage('Аватарку обновить не получилось!', false);
                     return;
                 }
-
                 this._model.updateAvatar();
             });
             response.catch(() => {

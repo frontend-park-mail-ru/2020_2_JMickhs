@@ -43,7 +43,7 @@ class UserModel {
             const status = response.status;
             const data = response.data;
             const err = response.error;
-            if (status === 200 && err === undefined) {
+            if (status == 200 && err == undefined) {
                 this.isAuth = true;
                 this.login = data.username;
                 this.id = data.id;
