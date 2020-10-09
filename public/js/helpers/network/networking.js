@@ -138,22 +138,6 @@ class Network {
             'X-Csrf-Token': this._csrf,
         };
         return this._ajax('PUT', '/api/v1/user/avatar', formData, headers);
-        // let statusCode = -1;
-        // return fetch(this.domain + this.port + '/api/v1/user/avatar', {
-        //     method: 'PUT',
-        //     mode: 'cors',
-        //     credentials: 'include',
-        //     headers: {
-        //         'X-Csrf-Token': this._csrf,
-        //     },
-        //     body: formData,
-        // }).then((response) => {
-        //     this._csrf = response.headers.get('csrf');
-        //     statusCode = response.status;
-        //     return {status: statusCode};
-        // }).catch((err) => {
-        //     return {error: err};
-        // });
     }
 }
 

@@ -113,6 +113,7 @@ export default class ProfileView {
                 const err = r.error;
                 btnReload.innerHTML = '';
                 inputFile.value = '';
+                console.log(status, err);
                 if (status != 200 || err != undefined) {
                     this.renderMessage('Аватарку обновить не получилось!', false);
                     return;
