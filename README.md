@@ -12,7 +12,7 @@
 
 ## Менторы
 * **Наташа Климова** - *Ментор по фронтенду* - [Tataklim](https://github.com/Tataklim)
-* **Дмитрий Рыбаков** - *Ментор по бэкенду* -[bulletmys](https://github.com/bulletmys)
+* **Дмитрий Рыбаков** - *Ментор по бэкенду* - [bulletmys](https://github.com/bulletmys)
 
 ## Репозиторий с бэкендом
 [Ссылка](https://github.com/go-park-mail-ru/2020_2_JMickhs)

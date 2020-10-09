@@ -339,6 +339,7 @@ nav {
   font-family: 'Ubuntu Condensed', sans-serif; 
   color: #fe6637;
   transition: .2s ease-in-out;
+  cursor: pointer;
 }
 .btn-red:before {
   content: "";
@@ -376,6 +377,7 @@ nav {
     font-family: 'Ubuntu Condensed', sans-serif; 
     color: #41cf41;
     transition: .2s ease-in-out;
+    cursor: pointer;
   }
 
   .btn-green:before {
