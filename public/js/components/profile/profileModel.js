@@ -119,7 +119,9 @@ class UserModel {
         response.then((r) => {
             const status = r.status;
             const err = r.error;
+            console.log(status, err);
             if (status == 200 && err == undefined) {
+                console.log('here');
                 this.id = -1;
                 this.username = '';
                 this.isAuth = false;
