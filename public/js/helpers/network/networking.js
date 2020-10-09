@@ -135,7 +135,7 @@ class Network {
      */
     updateAvatar(formData) {
         let statusCode = -1;
-        return fetch(this.domen + this.port + '/api/v1/user/avatar', {
+        return fetch(this.domain + this.port + '/api/v1/user/avatar', {
             method: 'PUT',
             mode: 'cors',
             credentials: 'include',
