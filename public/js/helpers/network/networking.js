@@ -134,6 +134,7 @@ class Network {
      * @return {Promise} Возвращает статус ответа или ошибку
      */
     updateAvatar(formData) {
+        console.log(formData);
         const headers = {
             'X-Csrf-Token': this._csrf,
         };
