@@ -133,11 +133,13 @@ class UserModel {
      */
     updatePassword(oldPassword, password) {
         const response = Net.updatePassword(oldPassword, password);
-        response.then((status) => {
-            if (status === 409) {
-                Events.trigger('passwordUpdateError', 'Вы ввели неверный пароль');
-            } else {
+        response.then((r) => {
+            const err = r.error;
+            const status = r.status;
+            if (status === 200 && err === undefined) {
                 Events.trigger('getNewPassword');
+            } else {
+                Events.trigger('passwordUpdateError', 'Вы ввели неверный пароль');
             }
         });
     }
