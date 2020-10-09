@@ -137,7 +137,7 @@ class Network {
         const headers = {
             'X-Csrf-Token': this._csrf,
         };
-        return this._ajax('PUT', '/api/v1/user/avatar', null, headers);
+        return this._ajax('PUT', '/api/v1/user/avatar', formData, headers);
     }
 }
 
