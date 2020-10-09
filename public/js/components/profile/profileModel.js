@@ -76,10 +76,6 @@ class UserModel {
                 Events.trigger('errorSignin', `Ошибка сервера: статус - ${err.code}`);
             }
         });
-
-        // .catch((err) => {
-        //     Events.trigger('errorSignin', err);
-        // });
     }
     /**
      * Регистрация пользователя
@@ -106,10 +102,6 @@ class UserModel {
                 Events.trigger('errorSignup', `Ошибка сервера: статус ${status}`);
             }
         });
-
-        // .catch((err) => {
-        //     Events.trigger('errorSignup', err);
-        // });
     }
     /**
      * Деавторизация пользователя
@@ -137,9 +129,7 @@ class UserModel {
         response.then((r) => {
             const err = r.error;
             const status = r.status;
-            console.log(err);
-            console.log(status, status == 200 && err.code == undefined);
-            if (status == 200 && err.code == undefined) {
+            if (status === 200 && err.code === undefined) {
                 Events.trigger('getNewPassword');
                 return;
             }
