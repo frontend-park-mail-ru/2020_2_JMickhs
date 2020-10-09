@@ -43,7 +43,7 @@ class UserModel {
             const status = response.status;
             const data = response.data;
             const err = response.error;
-            if (status == 200 && err == undefined) {
+            if (status === 200 && err === undefined) {
                 this.isAuth = true;
                 this.login = data.username;
                 this.id = data.id;
@@ -92,7 +92,7 @@ class UserModel {
             const status = response.status;
             const err = response.error;
             const data = response.data;
-            if (status == 200 && err == undefined) {
+            if (status === 200 && err === undefined) {
                 this.id = data.id;
                 this.avatar = data.avatar;
                 this.isAuth = true;
@@ -118,7 +118,7 @@ class UserModel {
         const response = Net.signout();
         response.then((r) => {
             const status = r.status;
-            if (status == 200) {
+            if (status === 200) {
                 this.id = -1;
                 this.username = '';
                 this.isAuth = false;
@@ -137,6 +137,8 @@ class UserModel {
         response.then((r) => {
             const err = r.error;
             const status = r.status;
+            console.log(err);
+            console.log(status, status == 200 && err.code == undefined);
             if (status == 200 && err.code == undefined) {
                 Events.trigger('getNewPassword');
                 return;
