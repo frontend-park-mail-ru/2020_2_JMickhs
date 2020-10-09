@@ -4,17 +4,17 @@ export default class ErrorPage {
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
-  constructor(parent) {
-    this._parent = parent;
-  }
-  /**
+    constructor(parent) {
+        this._parent = parent;
+    }
+    /**
      * Активация работы контроллера
      * @param {string} type - тип ошибки
      */
-  activate(type) {
-    document.getElementById('page').innerHTML = `
+    activate(type) {
+        document.getElementById('page').innerHTML = `
     <p class="text-first">Уупс, произошла ошибка!</p>
     <p class="text">Такой страницы не существует</p>
     `;
-  }
+    }
 }

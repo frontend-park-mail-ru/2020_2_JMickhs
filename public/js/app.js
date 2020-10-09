@@ -14,33 +14,33 @@ import Events from './helpers/eventbus/eventbus';
  *  Старт нашего приложения =)
  */
 (() => {
-  const application = document.getElementById('app');
+    const application = document.getElementById('app');
 
-  const userModel = ProfileModel.instance;
-  userModel.getCurrUser();
+    const userModel = ProfileModel.instance;
+    userModel.getCurrUser();
 
-  const navbarController = new NavbarController(application);
-  navbarController.activate();
+    const navbarController = new NavbarController(application);
+    navbarController.activate();
 
-  const homeController = new HomeController(application);
-  const listController = new ListController(application);
-  const signinController = new SigninController(application);
-  const signupController = new SignupController(application);
-  const profileController = new ProfileController(application);
-  const hostelController = new HostelController(application);
-  const errorController = new ErrorController(application);
+    const homeController = new HomeController(application);
+    const listController = new ListController(application);
+    const signinController = new SigninController(application);
+    const signupController = new SignupController(application);
+    const profileController = new ProfileController(application);
+    const hostelController = new HostelController(application);
+    const errorController = new ErrorController(application);
 
-  Router.append('/', homeController);
-  Router.append('/signin', signinController);
-  Router.append('/signup', signupController);
-  Router.append('/profile', profileController);
-  Router.append('/list', listController);
-  Router.append('/hostel', hostelController);
-  Router.errorController = errorController;
-  Router.start();
-  Events.subscribe('redirect', (arg) => {
-    const {url} = arg;
-    Router.pushState(url);
-  });
+    Router.append('/', homeController);
+    Router.append('/signin', signinController);
+    Router.append('/signup', signupController);
+    Router.append('/profile', profileController);
+    Router.append('/list', listController);
+    Router.append('/hostel', hostelController);
+    Router.errorController = errorController;
+    Router.start();
+    Events.subscribe('redirect', (arg) => {
+        const {url} = arg;
+        Router.pushState(url);
+    });
 })();
 

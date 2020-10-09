@@ -1,26 +1,29 @@
-import Net from '../../helpers/network/network';
+import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс модели для страницы списка отелей */
 export default class ListModel {
-  /**
+    /**
      * Инициализация класса
      */
-  constructor() {
-    this.haveInfo = false;
-    this.hostels = [];
-  }
-  /**
+    constructor() {
+        this.haveInfo = false;
+        this.hostels = [];
+    }
+    /**
      * Получить список отелей с сервера
      */
-  getInfo() {
-    const response = Net.getHotels();
-    response.then((result) => {
-      if (result.status === 200) {
-        this.haveInfo = true;
-        this.hostels = result.body;
-        Events.trigger('loadHostels');
-      }
-    });
-  }
+    getInfo() {
+        const response = Net.getHostels();
+        response.then((response) => {
+            const err = response.error;
+            const data = response.data;
+            const status = response.status;
+            if (status === 200 && err === undefined) {
+                this.haveInfo = true;
+                this.hostels = data;
+                Events.trigger('loadHostels');
+            }
+        });
+    }
 }
