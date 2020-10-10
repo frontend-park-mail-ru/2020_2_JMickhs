@@ -78,5 +78,4 @@ class RouterCustom {
     }
 }
 
-const Router = new RouterCustom;
-export default Router;
+export default new RouterCustom();

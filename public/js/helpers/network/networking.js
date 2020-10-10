@@ -141,5 +141,4 @@ class Network {
     }
 }
 
-const Net = new Network;
-export default Net;
+export default new Network();
