@@ -1,4 +1,6 @@
 import Events from './../../helpers/eventbus/eventbus';
+// eslint-disable-next-line no-undef
+const hostelTemplate = require('./hostelTemplate.hbs');
 
 /** Класс представления для страницы отеля */
 export default class HostelView {
@@ -29,16 +31,7 @@ export default class HostelView {
      * Отрисовка страницы отеля
      */
     render() {
-        this.page.innerHTML = `
-        <div class="hotel-card">
-        <img class="avatar" src="${this._model.image}" alt="Avatar">
-            <h3>
-                <p class="hotel-card-title">${this._model.name}</p>
-            </h3>
-            <h3>
-                <p class="hotel-card-text">${this._model.description}</p>
-            </h3>
-        </div>
-        `;
+        // const urlImg = Net.getUrlFile(this._model.image);
+        this.page.innerHTML = hostelTemplate(this._model);
     }
 }

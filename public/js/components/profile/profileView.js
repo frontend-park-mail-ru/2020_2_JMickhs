@@ -1,6 +1,9 @@
 import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 
+var profileTemplate = require('./profileTemplate.hbs');
+var profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
+var profileButtonTemplate = require('./profileButtonTemplate.hbs');
 /** Класс представления для страницы профиля */
 export default class ProfileView {
     /**
@@ -38,48 +41,11 @@ export default class ProfileView {
      */
     render() {
         const username = this._model.login;
-        this.page.innerHTML = `
-        <div class="container">
-        <div class="card">
-            <div id="avatar-img">
-                <img class="avatar" id="img-profile" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">
-            </div>
-            <div class="cnt">
-                <h3 style="margin-left: 20px;">
-                    <b>Пользователь: ${username}</b>
-                </h3>
-            </div>
-            <form id="avatar-form">
-            <div style="margin-left: 20px;">
-              <label >Выберите изображение для новой аватарки</label>
-              <input type="file" id="profile_pic" name="avatar"
-                    accept=".jpg, .jpeg, .png">
-            </div>
-            <br>
-          </form>
-          <div class="container">
-            <button class="btn-red" id="btn-exit">Выйти</button>
-            <div id="btn-reload"></div>
-          </div>
-        </div>
-        <form action="" class="ui-form" id="change-data-form">
-            <h2>Изменить данные</h2>
-            <div class="form-row">
-                <input type="password" id="password1"><label for="password">Старый пароль</label>
-            </div>
-            <div class="form-row">
-                <input type="password" id="password2"><label for="password">Новый пароль</label>
-            </div>
-            <button class="btn-green" id="button-save" href="">Сохранить</button>
-            </div>
-        </form>
-        
-        </div>
-        `;
+        this.page.innerHTML = profileTemplate(this._model);
 
         Events.subscribe('updateAvatar', () => {
             const img = document.getElementById('avatar-img');
-            img.innerHTML = `<img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">`;
+            img.innerHTML = profileAvatarTemplate(this._model);
             this.renderMessage('Аватар успешно изменен', true);
         });
 
@@ -111,6 +77,8 @@ export default class ProfileView {
                 img.src = event.target.result;
             };
             reader.readAsDataURL(file);
+        inputFile.addEventListener('change', () => {
+            btnReload.innerHTML = profileButtonTemplate();
         });
 
         btnReload.addEventListener('click', (evt) => {
