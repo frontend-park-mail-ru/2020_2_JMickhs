@@ -1,4 +1,5 @@
 import NavbarModel from './navbarModel';
+var navbarTemplate = require('./navbarTemplate.hbs');
 import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для навбара */
@@ -28,18 +29,6 @@ export default class NavbarView {
      * Отрисовка навбара
      */
     render() {
-        this.navbar.innerHTML = `
-        <ul class="menu-main">
-        <li>
-            <a href="${this._model.el1.ref}">${this._model.el1.text}</a>
-        </li>
-        <li>
-            <a href="${this._model.el2.ref}">${this._model.el2.text}</a>
-        </li>
-        <li>
-            <a href="${this._model.el3.ref}">${this._model.el3.text}</a>    
-        </li>
-        </ul>
-        `;
+        this.navbar.innerHTML = navbarTemplate(this._model);
     }
 }

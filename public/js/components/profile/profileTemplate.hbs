@@ -1,0 +1,35 @@
+<div class="container">
+        <div class="card">
+            <div id="avatar-img">
+                <img class="avatar" src="{{avatar}}"" alt="Avatar">
+            </div>
+            <div class="cnt">
+                <h3>
+                    <b>Login: {{username}}</b>
+                </h3>
+            </div>
+            <form id="avatar-form">
+            <div>
+              <label >Выберите изображение для новой аватарки</label>
+              <input type="file" id="profile_pic" name="avatar"
+                    accept=".jpg, .jpeg, .png">
+            </div>
+            <br>
+          </form>
+          <div class="container">
+            <button class="btn-red" id="btn-exit">Выйти</button>
+            <div id="btn-reload"></div>
+          </div>
+        </div>
+        <form action="" class="ui-form" id="change-data-form">
+            <h2>Изменить данные</h2>
+            <div class="form-row">
+                <input type="password" id="password1"><label for="password">Старый пароль</label>
+            </div>
+            <div class="form-row">
+                <input type="password" id="password2"><label for="password">Новый пароль</label>
+            </div>
+            <button class="btn-green" id="button-save" href="">Сохранить</button>
+            </div>
+        </form>
+        </div>

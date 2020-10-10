@@ -18,10 +18,14 @@ export default class ListView {
         }
 
         let page = document.getElementById('page');
+
         if (page === null) {
             page = document.createElement('div');
             page.id = 'page';
+
         }
+            page.className = 'page-wrap'
+
         this._parent.appendChild(page);
         this.page = page;
 
@@ -29,36 +33,8 @@ export default class ListView {
             this.render();
         });
     }
-    // render() {
-    //     let strRes = '';
 
-    //     this._model.hostels.forEach((hostel) => {
-    //         const id = hostel.id;
-    //         const urlImage = Net.getUrlFile(hostel.image);
-    //         const tmp = `
-    //         <div class="card">
-    //              <img class="avatar" src="${urlImage}" alt="Avatar">
-    //              <h3>
-    //                 <p class="hotel-card-title" href="/hostel/${id}">${hostel.name}
-    //                 </p>
-    //              </h3>
-    //               <p class="hotel-card-block">
-    //                 <a class="btn-green" href="/hostel/${id}">Подробнее</a>
-    //               </p>
-    //          </div>
-    //      `;
-    //         strRes += tmp;
-    //     });
-    //     this.page.innerHTML = strRes;
-    // }
-
-    /**
-     * Отрисовка страницы списка отелей
-     */
     render() {
-        // console.log("fwefwefwefwefef")
-        // console.log(this._model.hostels);
-        // this.page.innerHTML.appendChild
         console.log("hotels : ")
         console.log(this._model.hostels)
         const urlImg = Net.getUrlFile(this._model.image);
