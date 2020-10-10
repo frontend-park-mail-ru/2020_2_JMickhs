@@ -37,7 +37,7 @@ export default class ListView {
     render() {
         console.log("hotels : ")
         console.log(this._model.hostels)
-        const urlImg = Net.getUrlFile(this._model.image);
+        // const urlImg = Net.getUrlFile(this._model.image);
         this.page.innerHTML = myTemplate(this._model.hostels);
     }
 }
