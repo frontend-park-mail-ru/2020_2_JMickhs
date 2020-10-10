@@ -1,9 +1,12 @@
 import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 
-var profileTemplate = require('./profileTemplate.hbs');
-var profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
-var profileButtonTemplate = require('./profileButtonTemplate.hbs');
+// eslint-disable-next-line no-undef
+const profileTemplate = require('./profileTemplate.hbs');
+// eslint-disable-next-line no-undef
+const profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
+// eslint-disable-next-line no-undef
+const profileButtonTemplate = require('./profileButtonTemplate.hbs');
 /** Класс представления для страницы профиля */
 export default class ProfileView {
     /**
@@ -40,7 +43,6 @@ export default class ProfileView {
      * Отрисовка страницы профиля
      */
     render() {
-        const username = this._model.login;
         this.page.innerHTML = profileTemplate(this._model);
 
         Events.subscribe('updateAvatar', () => {
@@ -77,8 +79,9 @@ export default class ProfileView {
                 img.src = event.target.result;
             };
             reader.readAsDataURL(file);
-        inputFile.addEventListener('change', () => {
-            btnReload.innerHTML = profileButtonTemplate();
+            inputFile.addEventListener('change', () => {
+                btnReload.innerHTML = profileButtonTemplate();
+            });
         });
 
         btnReload.addEventListener('click', (evt) => {
@@ -112,7 +115,8 @@ export default class ProfileView {
      */
     renderMessage(errstr = '', typeMessageFlag = false) {
         const form = document.getElementById('change-data-form');
-        let noticeLine; let errLine;
+        let noticeLine;
+        let errLine;
         if (typeMessageFlag) {
             noticeLine = document.getElementById('notice-line');
             errLine = document.getElementById('error-line');
