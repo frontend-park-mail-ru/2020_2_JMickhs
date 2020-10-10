@@ -7,6 +7,8 @@ const profileTemplate = require('./profileTemplate.hbs');
 const profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
 // eslint-disable-next-line no-undef
 const profileButtonTemplate = require('./profileButtonTemplate.hbs');
+
+
 /** Класс представления для страницы профиля */
 export default class ProfileView {
     /**
