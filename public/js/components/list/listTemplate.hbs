@@ -1,14 +1,12 @@
 {{#each this}}
-  <div class="hotel">
-    <div class="hotel-photo-column">
-      <img src="{{image}}">
-    </div>
-
-    <div class="hotel-info-column">
-      <h2>{{name}} </h2>
-
-      <p>About: {{description}}</p>
-
-    </div>
-  </div>
+             <div class="card">
+                  <img class="avatar" src="{{getUrlFile image}}" alt="Avatar">
+                  <h3>
+                     <p class="hotel-card-title" href="/hostel/{{id}}">{{name}}
+                     </p>
+                 </h3>
+                   <p class="hotel-card-block">
+                     <a class="btn-green" href="/hostel/{{id}}">Подробнее</a>
+                   </p>      
+              </div>
 {{/each}}
