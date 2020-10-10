@@ -42,7 +42,7 @@ export default class ProfileView {
         <div class="container">
         <div class="card">
             <div id="avatar-img">
-                <img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">
+                <img class="avatar" id="img-profile" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">
             </div>
             <div class="cnt">
                 <h3 style="margin-left: 20px;">
@@ -97,12 +97,20 @@ export default class ProfileView {
         const btnReload = document.getElementById('btn-reload');
         const formAvatar = document.getElementById('avatar-form');
 
-        inputFile.addEventListener('change', () => {
+        inputFile.addEventListener('change', (evt) => {
             btnReload.innerHTML = `            
             <div>
                 <button class="btn-green">Обновить аватарку</button>
             </div>
             `;
+            const file = evt.target.files[0];
+            const reader = new FileReader();
+            const img = document.getElementById('img-profile');
+            img.title = file.name;
+            reader.onload = function(event) {
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
         });
 
         btnReload.addEventListener('click', (evt) => {
