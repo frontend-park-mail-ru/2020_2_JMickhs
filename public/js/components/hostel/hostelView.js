@@ -1,6 +1,6 @@
 import Events from './../../helpers/eventbus/eventbus';
-// import Net from '../../helpers/network/network';
-var hostelTemplate = require('./hostelTemplate.hbs');
+// eslint-disable-next-line no-undef
+const hostelTemplate = require('./hostelTemplate.hbs');
 
 /** Класс представления для страницы отеля */
 export default class HostelView {

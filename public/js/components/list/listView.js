@@ -1,8 +1,8 @@
 import ListModel from './listModel';
-import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 
-var myTemplate = require('./listTemplate.hbs');
+// eslint-disable-next-line no-undef
+const myTemplate = require('./listTemplate.hbs');
 
 /** Класс представления для страницы списка отелей */
 export default class ListView {
@@ -22,9 +22,8 @@ export default class ListView {
         if (page === null) {
             page = document.createElement('div');
             page.id = 'page';
-
         }
-            page.className = 'page-wrap'
+        page.className = 'page-wrap';
 
         this._parent.appendChild(page);
         this.page = page;
@@ -33,11 +32,10 @@ export default class ListView {
             this.render();
         });
     }
-
+    /**
+     * Отрисовка страницы отеля
+     */
     render() {
-        console.log("hotels : ")
-        console.log(this._model.hostels)
-        // const urlImg = Net.getUrlFile(this._model.image);
         this.page.innerHTML = myTemplate(this._model.hostels);
     }
 }

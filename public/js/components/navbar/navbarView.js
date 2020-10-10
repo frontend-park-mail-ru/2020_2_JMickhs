@@ -1,5 +1,6 @@
 import NavbarModel from './navbarModel';
-var navbarTemplate = require('./navbarTemplate.hbs');
+// eslint-disable-next-line no-undef
+const navbarTemplate = require('./navbarTemplate.hbs');
 import Events from './../../helpers/eventbus/eventbus';
 
 /** Класс представления для навбара */
