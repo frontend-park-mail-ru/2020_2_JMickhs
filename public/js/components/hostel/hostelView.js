@@ -31,7 +31,7 @@ export default class HostelView {
      * Отрисовка страницы отеля
      */
     render() {
-        const urlImg = Net.getUrlFile(this._model.image);
+        // const urlImg = Net.getUrlFile(this._model.image);
         this.page.innerHTML = hostelTemplate(this._model);
     }
 }
