@@ -7,6 +7,8 @@ const profileTemplate = require('./profileTemplate.hbs');
 const profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
 // eslint-disable-next-line no-undef
 const profileButtonTemplate = require('./profileButtonTemplate.hbs');
+
+
 /** Класс представления для страницы профиля */
 export default class ProfileView {
     /**
@@ -66,11 +68,7 @@ export default class ProfileView {
         const formAvatar = document.getElementById('avatar-form');
 
         inputFile.addEventListener('change', (evt) => {
-            btnReload.innerHTML = `            
-            <div>
-                <button class="btn-green">Обновить аватарку</button>
-            </div>
-            `;
+            btnReload.innerHTML = profileButtonTemplate();
             const file = evt.target.files[0];
             const reader = new FileReader();
             const img = document.getElementById('img-profile');
