@@ -43,6 +43,7 @@ export default class ProfileView {
      * Отрисовка страницы профиля
      */
     render() {
+
         this.page.innerHTML = profileTemplate(this._model);
 
         Events.subscribe('updateAvatar', () => {
