@@ -68,23 +68,8 @@ export default class ProfileView {
         const btnReload = document.getElementById('btn-reload');
         const formAvatar = document.getElementById('avatar-form');
 
-        inputFile.addEventListener('change', (evt) => {
-            btnReload.innerHTML = `            
-            <div>
-                <button class="btn-green">Обновить аватарку</button>
-            </div>
-            `;
-            const file = evt.target.files[0];
-            const reader = new FileReader();
-            const img = document.getElementById('img-profile');
-            img.title = file.name;
-            reader.onload = function(event) {
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-            inputFile.addEventListener('change', () => {
-                btnReload.innerHTML = profileButtonTemplate();
-            });
+        inputFile.addEventListener('change', () => {
+            btnReload.innerHTML = profileButtonTemplate();
         });
 
         btnReload.addEventListener('click', (evt) => {
