@@ -3,6 +3,7 @@ import Events from './../../helpers/eventbus/eventbus';
 
 var profileTemplate = require('./profileTemplate.hbs');
 var profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
+var profileButtonTemplate = require('./profileButtonTemplate.hbs');
 /** Класс представления для страницы профиля */
 export default class ProfileView {
     /**
@@ -45,7 +46,7 @@ export default class ProfileView {
 
         Events.subscribe('updateAvatar', () => {
             const img = document.getElementById('avatar-img');
-            img.innerHTML = profileAvatarTemplate;
+            img.innerHTML = profileAvatarTemplate(this._model);
             this.renderMessage('Аватар успешно изменен', true);
         });
 
@@ -64,11 +65,7 @@ export default class ProfileView {
         const formAvatar = document.getElementById('avatar-form');
 
         inputFile.addEventListener('change', () => {
-            btnReload.innerHTML = `            
-            <div>
-                <button class="btn-green">Обновить аватарку</button>
-            </div>
-            `;
+            btnReload.innerHTML = profileButtonTemplate();
         });
 
         btnReload.addEventListener('click', (evt) => {
