@@ -2,6 +2,7 @@ import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 
 var profileTemplate = require('./profileTemplate.hbs');
+var profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
 /** Класс представления для страницы профиля */
 export default class ProfileView {
     /**
@@ -44,7 +45,7 @@ export default class ProfileView {
 
         Events.subscribe('updateAvatar', () => {
             const img = document.getElementById('avatar-img');
-            img.innerHTML = `<img class="avatar" src="${Net.getUrlFile(this._model.avatar)}" alt="Avatar">`;
+            img.innerHTML = profileAvatarTemplate;
             this.renderMessage('Аватар успешно изменен', true);
         });
 
