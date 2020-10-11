@@ -15,10 +15,15 @@ export default class SigninController {
 
         Events.subscribe('submitSignin', (arg) => {
             if (arg.login === '' || arg.password === '') {
-                this._view.renderError('Заполните все поля');
+                if (arg.login === '') {
+                    Events.trigger('errLogin', 'Заполните все поля');
+                }
+                if (arg.password === '') {
+                    Events.trigger('errPassword', 'Заполните все поля');
+                }
                 return;
             }
-            if (validate(arg, 'authRenderError')) {
+            if (validate(arg, 'errLogin', 'errPassword')) {
                 this._model.signin(arg.login, arg.password);
             }
         });

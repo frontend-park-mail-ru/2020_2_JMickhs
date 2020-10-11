@@ -1,0 +1,83 @@
+nav ul {
+    z-index: 2;
+}
+
+nav {
+    height: 60px
+}
+
+ul {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.menu-main {
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 25px 0 5px;
+    text-align: center;
+    background: #EFF6FA;
+}
+
+.menu-main li {
+    display: inline-block;
+}
+
+.menu-main li:after {
+    content: "|";
+    color: #4a90e2;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.menu-main li:last-child:after {
+    content: none;
+}
+
+.menu-main a {
+    text-decoration: none;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 20px;
+    margin: 0 34px 0 30px;
+    font-size: 17px;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: color 0.2ms;
+}
+
+.menu-main a,
+.menu-main a:visited {
+    color: #4a90e2;
+}
+
+.menu-main a.current,
+.menu-main a:hover {
+    color: #F77A52;
+}
+
+.menu-main a:before,
+.menu-main a:after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    top: auto;
+    right: 50%;
+    bottom: -5px;
+    left: 50%;
+    background: #F77A52;
+    transition: .8s;
+}
+
+.menu-main a:hover:before,
+.menu-main .current:before {
+    left: 0;
+}
+
+.menu-main a:hover:after,
+.menu-main .current:after {
+    right: 0;
+}

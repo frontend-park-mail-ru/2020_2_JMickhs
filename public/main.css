@@ -1,0 +1,11 @@
+body {
+    background: #EFF6FA;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    object-fit: cover;
+}
