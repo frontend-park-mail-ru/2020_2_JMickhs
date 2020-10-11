@@ -3,6 +3,8 @@ import Events from './../../helpers/eventbus/eventbus';
 
 // eslint-disable-next-line no-undef
 const signupTemplate = require('./templateSignup.hbs');
+// eslint-disable-next-line no-undef
+const promtTemplate = require('./tempalatePromt.hbs');
 
 /** Класс представления для страницы регистрации */
 export default class SignupView {
@@ -39,6 +41,41 @@ export default class SignupView {
         const loginInput = document.getElementById('login');
         const passInput1 = document.getElementById('password1');
         const passInput2 = document.getElementById('password2');
+
+        loginInput.addEventListener('click', () => {
+            if (document.getElementById('login-promt')) {
+                return;
+            }
+            const passPromt = document.getElementById('pass-promt');
+            if (passPromt) {
+                form.removeChild(passPromt);
+            }
+            const promts = [];
+            promts.push({text: 'Логин должен начинаться с буквы'});
+            promts.push({text: 'Логин может включать только буквы, цифры и символы _ - .'});
+            promts.push({text: 'Длинна логина должна быть в пределе от 3 до 15 символов'});
+            const promt = document.createElement('div');
+            promt.id = 'login-promt';
+            promt.innerHTML = promtTemplate(promts);
+            form.insertBefore(promt, loginInput);
+        });
+
+        passInput1.addEventListener('click', () => {
+            if (document.getElementById('pass-promt')) {
+                return;
+            }
+            const loginPromt = document.getElementById('login-promt');
+            if (loginPromt) {
+                form.removeChild(loginPromt);
+            }
+            const promts = [];
+            promts.push({text: 'Пароль может включать только буквы английского алфавита'});
+            promts.push({text: 'Длинна пароля должна быть в пределах от 8 до 20 символов'});
+            const promt = document.createElement('div');
+            promt.id = 'pass-promt';
+            promt.innerHTML = promtTemplate(promts);
+            form.insertBefore(promt, passInput1);
+        });
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
