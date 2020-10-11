@@ -27,10 +27,6 @@ export default class SigninView {
             this._parent.appendChild(page);
         }
         this.page = page;
-
-        Events.subscribe('authRenderError', (arg) => {
-            this.renderError(arg);
-        });
     }
     /**
      * Отрисовка страницы авторизации
