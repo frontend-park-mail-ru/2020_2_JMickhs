@@ -1,5 +1,6 @@
 import ListModel from './listModel';
 import ListView from './listView';
+import Events from '../../helpers/eventbus/eventbus';
 
 /** Класс контроллера для страницы списка отелей */
 export default class ListController {
@@ -15,6 +16,7 @@ export default class ListController {
      * Заполнение данных модели с сервера
      */
     activate() {
+        Events.trigger('navbarActive', 2);
         this._model.getInfo();
     }
 }

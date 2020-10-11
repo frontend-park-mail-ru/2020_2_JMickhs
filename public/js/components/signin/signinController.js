@@ -16,14 +16,14 @@ export default class SigninController {
         Events.subscribe('submitSignin', (arg) => {
             if (arg.login === '' || arg.password === '') {
                 if (arg.login === '') {
-                    Events.trigger('errLogin', 'Заполните все поля');
+                    Events.trigger('errLoginSignin', 'Заполните все поля');
                 }
                 if (arg.password === '') {
-                    Events.trigger('errPassword', 'Заполните все поля');
+                    Events.trigger('errPasswordSignin', 'Заполните все поля');
                 }
                 return;
             }
-            if (validate(arg, 'errLogin', 'errPassword')) {
+            if (validate(arg, 'errLoginSignin', 'errPasswordSignin')) {
                 this._model.signin(arg.login, arg.password);
             }
         });
@@ -32,11 +32,12 @@ export default class SigninController {
      * Активация работы контроллера
      */
     activate() {
+        Events.trigger('pageSignin');
+        Events.trigger('navbarActive', 3);
         if (this._model.isAuth()) {
             Events.trigger('redirect', {url: '/profile'});
             return;
         }
         this._view.render();
-        Events.trigger('pageSignin');
     }
 }

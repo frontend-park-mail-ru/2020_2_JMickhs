@@ -47,11 +47,11 @@ export default class SigninView {
             Events.trigger('submitSignin', {login: login, password: password});
         });
 
-        Events.subscribe('errLogin', (arg) => {
+        Events.subscribe('errLoginSignin', (arg) => {
             document.getElementById('login').className = 'input-error';
             this.renderError(arg);
         });
-        Events.subscribe('errPassword', (arg) => {
+        Events.subscribe('errPasswordSignin', (arg) => {
             document.getElementById('password').className = 'input-error';
             this.renderError(arg);
         });

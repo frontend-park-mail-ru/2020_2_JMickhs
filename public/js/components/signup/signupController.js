@@ -23,12 +23,13 @@ export default class SignupController {
      * Активация работы контроллера
      */
     activate() {
+        Events.trigger('pageSignup');
+        Events.trigger('navbarActive', 3);
         if (this._model.isAuth()) {
             Events.trigger('redirect', {url: '/profile'});
             return;
         }
         this._view.render();
-        Events.trigger('pageSignup');
     }
 
     /**
@@ -40,19 +41,19 @@ export default class SignupController {
     validate(login, pass1, pass2) {
         if (login === '' || pass1 === '' || pass2 === '') {
             if (login === '') {
-                Events.trigger('errLogin', 'Заполните все поля');
+                Events.trigger('errLoginSignup', 'Заполните все поля');
             }
             if (pass1 === '') {
-                Events.trigger('errPassword1', 'Заполните все поля');
+                Events.trigger('errPassword1Signup', 'Заполните все поля');
             }
             if (pass2 === '') {
-                Events.trigger('errPassword2', 'Заполните все поля');
+                Events.trigger('errPassword2Signup', 'Заполните все поля');
             }
             return;
         } else if (pass1 !== pass2) {
-            Events.trigger('errPassword1', 'Пароли не совпадают');
-            Events.trigger('errPassword2', 'Пароли не совпадают');
-        } else if (validate({login: login, password: pass1}, 'errLogin', 'errPassword')) {
+            Events.trigger('errPassword1Signup', 'Пароли не совпадают');
+            Events.trigger('errPassword2Signup', 'Пароли не совпадают');
+        } else if (validate({login: login, password: pass1}, 'errLoginSignup', 'errPasswordSignup')) {
             this._model.signup(login, pass1);
         }
     }

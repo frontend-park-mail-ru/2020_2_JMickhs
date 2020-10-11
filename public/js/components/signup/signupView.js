@@ -51,19 +51,19 @@ export default class SignupView {
             Events.trigger('submitSignup', {login: login, password1: pass1, password2: pass2});
         });
 
-        Events.subscribe('errLogin', (arg) => {
+        Events.subscribe('errLoginSignup', (arg) => {
             document.getElementById('login').className = 'input-error';
             this.renderError(arg);
         });
-        Events.subscribe('errPassword1', (arg) => {
+        Events.subscribe('errPassword1Signup', (arg) => {
             document.getElementById('password1').className = 'input-error';
             this.renderError(arg);
         });
-        Events.subscribe('errPassword2', (arg) => {
+        Events.subscribe('errPassword2Signup', (arg) => {
             document.getElementById('password2').className = 'input-error';
             this.renderError(arg);
         });
-        Events.subscribe('errPassword', (arg) => {
+        Events.subscribe('errPasswordSignup', (arg) => {
             document.getElementById('password1').className = 'input-error';
             document.getElementById('password2').className = 'input-error';
             this.renderError(arg);
