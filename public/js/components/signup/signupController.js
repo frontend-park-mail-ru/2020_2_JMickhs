@@ -17,10 +17,20 @@ export default class SignupController {
             const pass2 = arg.password2;
             const login = arg.login;
             if (login === '' || pass1 === '' || pass2 === '') {
-                this._view.renderError('Заполните все поля');
+                if (login === '') {
+                    Events.trigger('errLogin', 'Заполните все поля');
+                }
+                if (pass1 === '') {
+                    Events.trigger('errPassword1', 'Заполните все поля');
+                }
+                if (pass2 === '') {
+                    Events.trigger('errPassword2', 'Заполните все поля');
+                }
+                return;
             } else if (pass1 !== pass2) {
-                this._view.renderError('Пароли не совпадают');
-            } else if (validate({login: login, password: pass1}, 'logRenderError')) {
+                Events.trigger('errPassword1', 'Пароли не совпадают');
+                Events.trigger('errPassword2', 'Пароли не совпадают');
+            } else if (validate({login: login, password: pass1}, 'errLogin', 'errPassword')) {
                 this._model.signup(login, pass1);
             }
         });
