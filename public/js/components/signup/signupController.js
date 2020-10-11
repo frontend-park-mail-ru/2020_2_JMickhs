@@ -16,23 +16,7 @@ export default class SignupController {
             const pass1 = arg.password1;
             const pass2 = arg.password2;
             const login = arg.login;
-            if (login === '' || pass1 === '' || pass2 === '') {
-                if (login === '') {
-                    Events.trigger('errLogin', 'Заполните все поля');
-                }
-                if (pass1 === '') {
-                    Events.trigger('errPassword1', 'Заполните все поля');
-                }
-                if (pass2 === '') {
-                    Events.trigger('errPassword2', 'Заполните все поля');
-                }
-                return;
-            } else if (pass1 !== pass2) {
-                Events.trigger('errPassword1', 'Пароли не совпадают');
-                Events.trigger('errPassword2', 'Пароли не совпадают');
-            } else if (validate({login: login, password: pass1}, 'errLogin', 'errPassword')) {
-                this._model.signup(login, pass1);
-            }
+            this.validate(login, pass1, pass2);
         });
     }
     /**
@@ -45,5 +29,31 @@ export default class SignupController {
         }
         this._view.render();
         Events.trigger('pageSignup');
+    }
+
+    /**
+     * Валидация формы
+     * @param {string} login - родительский элемент html-страницы
+     * @param {string} pass1 - родительский элемент html-страницы
+     * @param {string} pass2 - родительский элемент html-страницы
+     */
+    validate(login, pass1, pass2) {
+        if (login === '' || pass1 === '' || pass2 === '') {
+            if (login === '') {
+                Events.trigger('errLogin', 'Заполните все поля');
+            }
+            if (pass1 === '') {
+                Events.trigger('errPassword1', 'Заполните все поля');
+            }
+            if (pass2 === '') {
+                Events.trigger('errPassword2', 'Заполните все поля');
+            }
+            return;
+        } else if (pass1 !== pass2) {
+            Events.trigger('errPassword1', 'Пароли не совпадают');
+            Events.trigger('errPassword2', 'Пароли не совпадают');
+        } else if (validate({login: login, password: pass1}, 'errLogin', 'errPassword')) {
+            this._model.signup(login, pass1);
+        }
     }
 }
