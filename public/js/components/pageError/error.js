@@ -16,8 +16,8 @@ export default class ErrorPage {
     activate(type) {
         Events.trigger('navbarActive', -1);
         document.getElementById('page').innerHTML = `
-    <p class="text-first">Уупс, произошла ошибка!</p>
-    <p class="text">Такой страницы не существует</p>
-    `;
+            <p class="text-first">Уупс, произошла ошибка!</p>
+            <p class="text">Такой страницы не существует</p>
+            `;
     }
 }
