@@ -33,6 +33,7 @@ export default class ProfileController {
      * Активация работы контроллера
      */
     activate() {
+        Events.trigger('navbarActive', 3);
         if (this._model.isAuth) {
             this._view.render();
             return;

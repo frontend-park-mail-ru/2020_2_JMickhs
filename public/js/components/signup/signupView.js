@@ -1,6 +1,9 @@
 import SignupModel from './signupModel';
 import Events from './../../helpers/eventbus/eventbus';
 
+// eslint-disable-next-line no-undef
+const signupTemplate = require('./templateSignup.hbs');
+
 /** Класс представления для страницы регистрации */
 export default class SignupView {
     /**
@@ -25,35 +28,12 @@ export default class SignupView {
             this._parent.appendChild(page);
         }
         this.page = page;
-
-        Events.subscribe('logRenderError', (arg) => {
-            this.renderError(arg);
-        });
     }
     /**
      * Отрисовка страницы регистрации
      */
     render() {
-        this.page.innerHTML = `
-        <div class="container"></div>
-        <form action="" class="ui-form" id="signupform">
-            <h2>Заполните поля для регистрации</h2>
-            <div class="form-row">
-                <input type="text" id="login"><label for="login">Логин</label>
-            </div>
-            <div class="form-row">
-                <input type="password" id="password1"><label for="password">Пароль</label>
-            </div>
-            <div class="form-row">
-                <input type="password" id="password2"><label for="password">Повторите пароль</label>
-            </div>
-            <p class="hotel-card-text">Есть аккаунт?
-                <a href="/signin" class="refer">Авторизация</a>
-            </p>
-            <button class="btn-green">Регистрация</button>
-        </form>
-        </div>
-        `;
+        this.page.innerHTML = signupTemplate();
 
         const form = document.getElementById('signupform');
         const loginInput = document.getElementById('login');
@@ -65,7 +45,28 @@ export default class SignupView {
             const login = loginInput.value;
             const pass1 = passInput1.value;
             const pass2 = passInput2.value;
+            document.getElementById('login').className = 'input-sign';
+            document.getElementById('password1').className = 'input-sign';
+            document.getElementById('password2').className = 'input-sign';
             Events.trigger('submitSignup', {login: login, password1: pass1, password2: pass2});
+        });
+
+        Events.subscribe('errLoginSignup', (arg) => {
+            document.getElementById('login').className = 'input-error';
+            this.renderError(arg);
+        });
+        Events.subscribe('errPassword1Signup', (arg) => {
+            document.getElementById('password1').className = 'input-error';
+            this.renderError(arg);
+        });
+        Events.subscribe('errPassword2Signup', (arg) => {
+            document.getElementById('password2').className = 'input-error';
+            this.renderError(arg);
+        });
+        Events.subscribe('errPasswordSignup', (arg) => {
+            document.getElementById('password1').className = 'input-error';
+            document.getElementById('password2').className = 'input-error';
+            this.renderError(arg);
         });
     }
     /**
@@ -73,23 +74,17 @@ export default class SignupView {
      * @param {string} [errstr=''] - текст ошибки
      */
     renderError(errstr = '') {
-        const form = document.getElementById('signupform');
-        let errLine;
-
         if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
-            errLine = document.getElementById('error-line');
-            errLine.innerHTML = `<h3>${errstr}</h3>`;
-        } else {
-            errLine = document.createElement('div');
-            errLine.setAttribute('class', 'error');
-            errLine.setAttribute('id', 'error-line');
-            errLine.innerHTML = `<h3>${errstr}</h3>`;
-            form.appendChild(errLine);
         }
+        const errLine = document.getElementById('text-error');
+        errLine.textContent = errstr;
 
         this._model.timerId = setTimeout(() => {
-            form.removeChild(errLine);
+            errLine.textContent = '';
+            document.getElementById('login').className = 'input-sign';
+            document.getElementById('password1').className = 'input-sign';
+            document.getElementById('password2').className = 'input-sign';
             this._model.timerId = -1;
         }, 5000);
     }

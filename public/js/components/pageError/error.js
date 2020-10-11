@@ -1,3 +1,5 @@
+import Events from '../../helpers/eventbus/eventbus';
+
 /** Класс заглушка контроллера для навбара */
 export default class ErrorPage {
 /**
@@ -12,6 +14,7 @@ export default class ErrorPage {
      * @param {string} type - тип ошибки
      */
     activate(type) {
+        Events.trigger('navbarActive', -1);
         document.getElementById('page').innerHTML = `
     <p class="text-first">Уупс, произошла ошибка!</p>
     <p class="text">Такой страницы не существует</p>

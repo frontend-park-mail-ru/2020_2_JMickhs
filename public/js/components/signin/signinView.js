@@ -1,6 +1,9 @@
 import SigninModel from './signinModel';
 import Events from './../../helpers/eventbus/eventbus';
 
+// eslint-disable-next-line no-undef
+const signinTemplate = require('./templateSignin.hbs');
+
 /** Класс представления для страницы авторизации */
 export default class SigninView {
     /**
@@ -24,34 +27,12 @@ export default class SigninView {
             this._parent.appendChild(page);
         }
         this.page = page;
-
-        Events.subscribe('authRenderError', (arg) => {
-            this.renderError(arg);
-        });
     }
     /**
      * Отрисовка страницы авторизации
      */
     render() {
-        this.page.innerHTML = `
-        <div class="container"></div>
-        <form action="" class="ui-form" id="signinform">
-            <h2>Вход в аккаунт</h2>
-            <div class="form-row">
-                <input type="text" id="login"><label for="login">Логин</label>
-            </div>
-            <div class="form-row"">
-                <input type="password" id="password"><label for="password">Пароль</label>
-            </div>
-            <p class="hotel-card-text">Нет аккаунта? 
-                <a href="/signup" class="refer">Регистрация</a>
-            </p>
-            <div class="form-row"">
-                <button class="btn-green" type="submit" id="btnsignin">Вход</button>
-            </div>
-        </form>
-        </div>
-        `;
+        this.page.innerHTML = signinTemplate();
 
         const form = document.getElementById('signinform');
         const loginInput = document.getElementById('login');
@@ -61,7 +42,18 @@ export default class SigninView {
             evt.preventDefault();
             const login = loginInput.value;
             const password = passInput.value;
+            document.getElementById('login').className = 'input-sign';
+            document.getElementById('password').className = 'input-sign';
             Events.trigger('submitSignin', {login: login, password: password});
+        });
+
+        Events.subscribe('errLoginSignin', (arg) => {
+            document.getElementById('login').className = 'input-error';
+            this.renderError(arg);
+        });
+        Events.subscribe('errPasswordSignin', (arg) => {
+            document.getElementById('password').className = 'input-error';
+            this.renderError(arg);
         });
     }
     /**
@@ -69,23 +61,16 @@ export default class SigninView {
      * @param {string} errstr - ощибка, которую нужно отобразить
      */
     renderError(errstr = '') {
-        const form = document.getElementById('signinform');
-        let errLine;
-
         if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
-            errLine = document.getElementById('error-line');
-            errLine.innerHTML = `<h3>${errstr}</h3>`;
-        } else {
-            errLine = document.createElement('div');
-            errLine.setAttribute('class', 'error');
-            errLine.setAttribute('id', 'error-line');
-            errLine.innerHTML = `<h3>${errstr}</h3>`;
-            form.appendChild(errLine);
         }
+        const errLine = document.getElementById('text-error');
+        errLine.textContent = errstr;
 
         this._model.timerId = setTimeout(() => {
-            form.removeChild(errLine);
+            errLine.textContent = '';
+            document.getElementById('login').className = 'input-sign';
+            document.getElementById('password').className = 'input-sign';
             this._model.timerId = -1;
         }, 5000);
     }

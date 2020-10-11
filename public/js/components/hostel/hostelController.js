@@ -17,6 +17,7 @@ export default class HotelController {
      * @param {number} id - id отеля
      */
     activate(id) {
+        Events.trigger('navbarActive', 2);
         if (id === undefined || !Number.isInteger(+id)) {
             Events.trigger('redirect', {url: '/error'});
             return;

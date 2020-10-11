@@ -2,10 +2,11 @@ import Events from '../eventbus/eventbus';
 /**
  * Валидация для пароля и/или логина
  * @param {Object} arg - объект с логином и паролем
- * @param {string} evtName - тип события, которое нужно стригеррить при ошибке
+ * @param {string} evtErrLogin - тип события, которое нужно стригеррить при ошибке логина
+ * @param {string} evtErrPsw - тип события, которое нужно стригеррить при ошибке пароля
  * @return {boolean} true, если ошибок не обнаружено
  */
-export const validate = (arg, evtName) => {
+export const validate = (arg, evtErrLogin, evtErrPsw) => {
     const loginTable = [
         {
             regExp: new RegExp('^[a-zA-Zа-яА-Я].*$'),
@@ -37,7 +38,7 @@ export const validate = (arg, evtName) => {
     if (login !== '') {
         for (let i = 0; i < loginTable.length; i++) {
             if (!loginTable[i].regExp.exec(login)) {
-                Events.trigger(evtName, loginTable[i].strErr);
+                Events.trigger(evtErrLogin, loginTable[i].strErr);
                 return false;
             }
         }
@@ -46,7 +47,7 @@ export const validate = (arg, evtName) => {
     if (password !== '') {
         for (let i = 0; i < passwordTable.length; i++) {
             if (!passwordTable[i].regExp.exec(password)) {
-                Events.trigger(evtName, passwordTable[i].strErr);
+                Events.trigger(evtErrPsw, passwordTable[i].strErr);
                 return false;
             }
         }
