@@ -1,3 +1,6 @@
+// eslint-disable-next-line no-undef
+const homeTemplate = require('./templateHome.hbs');
+
 /** Класс представления для домашней страницы */
 export default class HomeView {
     /**
@@ -20,16 +23,6 @@ export default class HomeView {
      * Отрисовка домашней страницы
      */
     render() {
-        this.page.innerHTML = `
-        <p class="text-first">
-          Главная страница для отработки всех других, и позже роутера
-        </p>
-        <p class="text">
-          На главной странице должен быть поиск
-        </p>
-        <p class="text">
-          На первом этапе без поиска не очень понятно, что тут будет
-        </p>
-        `;
+        this.page.innerHTML = homeTemplate();
     }
 }
