@@ -17,4 +17,10 @@ export default class HomeController {
         Events.trigger('navbarActive', 1);
         this._view.render();
     }
+    /**
+     * Отключение работы контроллера и чистка памяти
+     */
+    deactivate() {
+        // TODO:
+    }
 }

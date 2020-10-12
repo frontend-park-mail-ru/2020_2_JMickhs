@@ -31,6 +31,12 @@ export default class SignupController {
         }
         this._view.render();
     }
+    /**
+     * Отключение работы контроллера и чистка памяти
+     */
+    deactivate() {
+        this._view.unsubscribeEvents();
+    }
 
     /**
      * Валидация формы

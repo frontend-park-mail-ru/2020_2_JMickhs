@@ -20,4 +20,10 @@ export default class ErrorPage {
             <p class="text">Такой страницы не существует</p>
             `;
     }
+    /**
+     * Отключение работы контроллера и чистка памяти
+     */
+    deactivate() {
+        // TODO:
+    }
 }

@@ -24,4 +24,10 @@ export default class HotelController {
         }
         this._model.fillModel(id);
     }
+    /**
+     * Отключение работы контроллера и чистка памяти
+     */
+    deactivate() {
+        // TODO:
+    }
 }

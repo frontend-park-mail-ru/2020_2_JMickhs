@@ -27,6 +27,13 @@ class EventBus {
         });
     }
     /**
+     * Отписка от события
+     * @param {string} evt - имя события
+     */
+    unsubscribeAll(evt) {
+        this.events[evt] = [];
+    }
+    /**
      * Вызывает обработчиков события
      * @param {string} evt - имя события
      * @param {Object?} arg - контекст события

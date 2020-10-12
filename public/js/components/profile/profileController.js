@@ -45,4 +45,10 @@ export default class ProfileController {
             this._view.render();
         });
     }
+    /**
+     * Отключение работы контроллера и чистка памяти
+     */
+    deactivate() {
+        // TODO:
+    }
 }

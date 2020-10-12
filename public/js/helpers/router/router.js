@@ -74,6 +74,10 @@ class RouterCustom {
         const path = '/' + location.pathname.split('/')[1];
         const arg = location.pathname.split('/')[2];
         const {controller} = this._findComponentByPath(path) || {controller: this._errorController};
+        if (this._currController) {
+            this._currController.deactivate();
+        }
+        this._currController = controller;
         controller.activate(arg);
     }
 }

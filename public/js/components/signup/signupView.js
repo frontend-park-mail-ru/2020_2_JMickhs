@@ -36,13 +36,21 @@ export default class SignupView {
      */
     render() {
         this.page.innerHTML = signupTemplate();
-
+        this.subscribeEvents();
+    }
+    /**
+     * Подписка на все необходимые события
+     */
+    subscribeEvents() {
         const form = document.getElementById('signupform');
         const loginInput = document.getElementById('login');
         const passInput1 = document.getElementById('password1');
         const passInput2 = document.getElementById('password2');
 
-        loginInput.addEventListener('click', () => {
+        // eslint-disable-next-line no-undef
+        this._eventHandlers = new Map();
+
+        const clickLoginInput = () => {
             if (document.getElementById('login-promt')) {
                 return;
             }
@@ -58,9 +66,12 @@ export default class SignupView {
             promt.id = 'login-promt';
             promt.innerHTML = promtTemplate(promts);
             form.insertBefore(promt, loginInput);
-        });
+        };
 
-        passInput1.addEventListener('click', () => {
+        this._eventHandlers.set(loginInput.id, clickLoginInput);
+        loginInput.addEventListener('click', clickLoginInput);
+
+        const clickPassInput = () => {
             if (document.getElementById('pass-promt')) {
                 return;
             }
@@ -75,9 +86,14 @@ export default class SignupView {
             promt.id = 'pass-promt';
             promt.innerHTML = promtTemplate(promts);
             form.insertBefore(promt, passInput1);
-        });
+        };
 
-        form.addEventListener('submit', (evt) => {
+        this._eventHandlers.set(passInput1.id, clickLoginInput);
+        passInput1.addEventListener('click', clickPassInput);
+        this._eventHandlers.set(passInput2.id, clickLoginInput);
+        passInput2.addEventListener('click', clickPassInput);
+
+        const submitSignupForm = (evt) => {
             evt.preventDefault();
             const login = loginInput.value;
             const pass1 = passInput1.value;
@@ -86,7 +102,10 @@ export default class SignupView {
             document.getElementById('password1').className = 'input-sign';
             document.getElementById('password2').className = 'input-sign';
             Events.trigger('submitSignup', {login: login, password1: pass1, password2: pass2});
-        });
+        };
+
+        this._eventHandlers.set(form.id, clickLoginInput);
+        form.addEventListener('submit', submitSignupForm);
 
         Events.subscribe('errLoginSignup', (arg) => {
             document.getElementById('login').className = 'input-error';
@@ -105,6 +124,25 @@ export default class SignupView {
             document.getElementById('password2').className = 'input-error';
             this.renderError(arg);
         });
+    }
+    /**
+     * Отписка от всех событий
+     */
+    unsubscribeEvents() {
+        Events.unsubscribeAll('errLoginSignup');
+        Events.unsubscribeAll('errPassword1Signup');
+        Events.unsubscribeAll('errPassword2Signup');
+        Events.unsubscribeAll('errPasswordSignup');
+
+        const form = document.getElementById('signupform');
+        const loginInput = document.getElementById('login');
+        const passInput1 = document.getElementById('password1');
+        const passInput2 = document.getElementById('password2');
+
+        form.removeEventListener(this._eventHandlers.get(form.id));
+        loginInput.removeEventListener(this._eventHandlers.get(loginInput.id));
+        passInput1.removeEventListener(this._eventHandlers.get(passInput1.id));
+        passInput2.removeEventListener(this._eventHandlers.get(passInput2.id));
     }
     /**
      * Отрисовка сообщения об ошибке

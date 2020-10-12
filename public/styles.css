@@ -1,93 +1,9 @@
-
-
 .card .container .btn {
     height: 30%;
     position: relative;
     left: 25%;
     top: 20px;
 }
-
-/* авторизация и регистрация */
-
-.ui-form {
-    max-width: 500px;
-    width: 20%;
-    margin: 100px auto 30px;
-    background: #EFF6FA;
-}
-
-.form-row {
-    position: relative;
-    margin-bottom: 20px;
-    margin-top: 40px;
-}
-
-.form-row input {
-    display: block;
-    width: 100%;
-    padding: 0 10px;
-    line-height: 40px;
-    font-family: 'Ubuntu Condensed', sans-serif;
-    background: none;
-    border-width: 0;
-    border-bottom: 2px solid #4a90e2;
-    transition: all 0.2s ease;
-}
-
-.form-row label {
-    position: absolute;
-    left: 13px;
-    color: #9d959d;
-    font-size: 20px;
-    font-weight: 300;
-    transform: translateY(-35px);
-    transition: all 0.2s ease;
-}
-
-.form-row input:focus {
-    outline: 0;
-    border-color: #F77A52;
-}
-
-.refer {
-    border-color: #F77A52;
-    color: #F77A52;
-    text-align: center;
-    letter-spacing: 2px;
-    font-size: 19px;
-}
-
-.form-row input:focus+label,
-.form-row input:valid+label {
-    transform: translateY(-60px);
-    margin-left: -14px;
-    font-size: 14px;
-    font-weight: 400;
-    outline: 0;
-    border-color: #F77A52;
-    color: #F77A52;
-}
-
-.ui-form p {
-    margin: 0;
-    padding-top: 10px;
-}
-
-.ui-form h2 {
-    text-align: center;
-    color: #4a90e2;
-}
-
-@media screen and (max-width: 300px) {
-    span.psw {
-        display: block;
-        float: none;
-    }
-    .cancelbtn {
-        width: 100%;
-    }
-}
-
 
 /* карточка отеля */
 
@@ -103,7 +19,6 @@
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
-
 
 /* контейнеры */
 

@@ -19,4 +19,10 @@ export default class ListController {
         Events.trigger('navbarActive', 2);
         this._model.getInfo();
     }
+    /**
+     * Отключение работы контроллера и чистка памяти
+     */
+    deactivate() {
+        // TODO:
+    }
 }
