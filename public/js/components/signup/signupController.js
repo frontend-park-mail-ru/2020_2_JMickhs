@@ -1,6 +1,6 @@
 import SignupModel from './signupModel';
 import SignupView from './signupView';
-import Events from './../../helpers/eventbus/eventbus';
+import Events from '../../helpers/eventbus/eventbus';
 import Validation from '../../helpers/validation/validation';
 import {
     ERR_LOGIN_SINGUP,

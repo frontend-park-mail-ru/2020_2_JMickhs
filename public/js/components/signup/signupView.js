@@ -66,7 +66,6 @@ export default class SignupView {
                 form.removeChild(passPromt);
             }
             const promts = [];
-            promts.push({text: 'Логин должен начинаться с буквы'});
             promts.push({text: 'Логин может включать только буквы, цифры и символы _ - .'});
             promts.push({text: 'Длинна логина должна быть в пределе от 3 до 15 символов'});
             const promt = document.createElement('div');
@@ -88,7 +87,7 @@ export default class SignupView {
             }
             const promts = [];
             promts.push({text: 'Пароль может включать только буквы английского алфавита'});
-            promts.push({text: 'Длинна пароля должна быть в пределах от 8 до 20 символов'});
+            promts.push({text: 'Длинна пароля должна быть в пределах от 5 до 30 символов'});
             const promt = document.createElement('div');
             promt.id = 'pass-promt';
             promt.innerHTML = promtTemplate(promts);
