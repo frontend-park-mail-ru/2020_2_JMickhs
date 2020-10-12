@@ -1,6 +1,7 @@
 import Events from '../../helpers/eventbus/eventbus';
 import NavbarModel from './navbarModel';
 import NavbarView from './navbarView';
+import {NAVBAR_ACTIVE} from '../../helpers/eventbus-const/constants';
 
 /** Класс контроллера для навбара */
 export default class NavbarController {
@@ -19,7 +20,7 @@ export default class NavbarController {
      */
     activate() {
         this._view.render();
-        Events.subscribe('navbarActive', (arg) => {
+        Events.subscribe(NAVBAR_ACTIVE, (arg) => {
             document.getElementById('nav1').className = '';
             document.getElementById('nav2').className = '';
             document.getElementById('nav3').className = '';

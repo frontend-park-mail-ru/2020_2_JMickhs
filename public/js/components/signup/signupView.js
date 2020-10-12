@@ -1,5 +1,12 @@
 import SignupModel from './signupModel';
 import Events from './../../helpers/eventbus/eventbus';
+import {
+    ERR_LOGIN_SINGUP,
+    ERR_PASSWORD1_SINGUP,
+    ERR_PASSWORD2_SINGUP,
+    ERR_PASSWORD_SINGUP, ERROR_SIGNUP,
+    SUBMIT_SIGNUP,
+} from '../../helpers/eventbus-const/constants';
 
 // eslint-disable-next-line no-undef
 const signupTemplate = require('./templateSignup.hbs');
@@ -17,7 +24,7 @@ export default class SignupView {
             this._parent = parent;
             this._model = model;
         }
-        Events.subscribe('errorSignup', (arg) => {
+        Events.subscribe(ERROR_SIGNUP, (arg) => {
             this.renderError(arg);
         });
 
@@ -48,22 +55,22 @@ export default class SignupView {
             document.getElementById('login').className = 'input-sign';
             document.getElementById('password1').className = 'input-sign';
             document.getElementById('password2').className = 'input-sign';
-            Events.trigger('submitSignup', {login: login, password1: pass1, password2: pass2});
+            Events.trigger(SUBMIT_SIGNUP, {login: login, password1: pass1, password2: pass2});
         });
 
-        Events.subscribe('errLoginSignup', (arg) => {
+        Events.subscribe(ERR_LOGIN_SINGUP, (arg) => {
             document.getElementById('login').className = 'input-error';
             this.renderError(arg);
         });
-        Events.subscribe('errPassword1Signup', (arg) => {
+        Events.subscribe(ERR_PASSWORD1_SINGUP, (arg) => {
             document.getElementById('password1').className = 'input-error';
             this.renderError(arg);
         });
-        Events.subscribe('errPassword2Signup', (arg) => {
+        Events.subscribe(ERR_PASSWORD2_SINGUP, (arg) => {
             document.getElementById('password2').className = 'input-error';
             this.renderError(arg);
         });
-        Events.subscribe('errPasswordSignup', (arg) => {
+        Events.subscribe(ERR_PASSWORD_SINGUP, (arg) => {
             document.getElementById('password1').className = 'input-error';
             document.getElementById('password2').className = 'input-error';
             this.renderError(arg);

@@ -1,5 +1,6 @@
 import ListModel from './listModel';
 import Events from './../../helpers/eventbus/eventbus';
+import {LOAD_HOSTELS} from '../../helpers/eventbus-const/constants';
 
 // eslint-disable-next-line no-undef
 const myTemplate = require('./listTemplate.hbs');
@@ -28,7 +29,7 @@ export default class ListView {
         this._parent.appendChild(page);
         this.page = page;
 
-        Events.subscribe('loadHostels', () => {
+        Events.subscribe(LOAD_HOSTELS, () => {
             this.render();
         });
     }
