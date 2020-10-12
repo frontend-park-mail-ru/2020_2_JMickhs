@@ -1,7 +1,16 @@
 import SignupModel from './signupModel';
 import SignupView from './signupView';
 import Events from './../../helpers/eventbus/eventbus';
-import {validate} from '../../helpers/validation/validation';
+import Validation from '../../helpers/validation/validation';
+import {
+    ERR_LOGIN_SINGUP,
+    ERR_PASSWORD1_SINGUP,
+    ERR_PASSWORD2_SINGUP,
+    ERR_PASSWORD_SINGUP,
+    NAVBAR_ACTIVE,
+    PAGE_SIGNUP,
+    REDIRECT, SUBMIT_SIGNUP,
+} from '../../helpers/eventbus-const/constants';
 
 /** Класс контроллера для страницы регистрации */
 export default class SignupController {
@@ -12,7 +21,7 @@ export default class SignupController {
     constructor(parent) {
         this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
-        Events.subscribe('submitSignup', (arg) => {
+        Events.subscribe(SUBMIT_SIGNUP, (arg) => {
             const pass1 = arg.password1;
             const pass2 = arg.password2;
             const login = arg.login;
@@ -23,10 +32,10 @@ export default class SignupController {
      * Активация работы контроллера
      */
     activate() {
-        Events.trigger('pageSignup');
-        Events.trigger('navbarActive', 3);
+        Events.trigger(PAGE_SIGNUP);
+        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
-            Events.trigger('redirect', {url: '/profile'});
+            Events.trigger(REDIRECT, {url: '/profile'});
             return;
         }
         this._view.render();
@@ -47,19 +56,21 @@ export default class SignupController {
     validate(login, pass1, pass2) {
         if (login === '' || pass1 === '' || pass2 === '') {
             if (login === '') {
-                Events.trigger('errLoginSignup', 'Заполните все поля');
+                Events.trigger(ERR_LOGIN_SINGUP, 'Заполните все поля');
             }
             if (pass1 === '') {
-                Events.trigger('errPassword1Signup', 'Заполните все поля');
+                Events.trigger(ERR_PASSWORD1_SINGUP, 'Заполните все поля');
             }
             if (pass2 === '') {
-                Events.trigger('errPassword2Signup', 'Заполните все поля');
+                Events.trigger(ERR_PASSWORD2_SINGUP, 'Заполните все поля');
             }
-            return;
         } else if (pass1 !== pass2) {
-            Events.trigger('errPassword1Signup', 'Пароли не совпадают');
-            Events.trigger('errPassword2Signup', 'Пароли не совпадают');
-        } else if (validate({login: login, password: pass1}, 'errLoginSignup', 'errPasswordSignup')) {
+            Events.trigger(ERR_PASSWORD1_SINGUP, 'Пароли не совпадают');
+            Events.trigger(ERR_PASSWORD2_SINGUP, 'Пароли не совпадают');
+        } else if (
+            Validation.validateLogin(login, ERR_LOGIN_SINGUP) &&
+            Validation.validatePassword(pass1, ERR_PASSWORD_SINGUP)
+        ) {
             this._model.signup(login, pass1);
         }
     }

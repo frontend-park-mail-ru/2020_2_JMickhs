@@ -1,6 +1,10 @@
 import HostelModel from './hostelModel';
 import HostelView from './hostelView';
 import Events from './../../helpers/eventbus/eventbus';
+import {
+    NAVBAR_ACTIVE,
+    REDIRECT,
+} from '../../helpers/eventbus-const/constants';
 
 /** Класс контроллера для страницы списка отеля */
 export default class HotelController {
@@ -17,9 +21,9 @@ export default class HotelController {
      * @param {number} id - id отеля
      */
     activate(id) {
-        Events.trigger('navbarActive', 2);
+        Events.trigger(NAVBAR_ACTIVE, 2);
         if (id === undefined || !Number.isInteger(+id)) {
-            Events.trigger('redirect', {url: '/error'});
+            Events.trigger(REDIRECT, {url: '/error'});
             return;
         }
         this._model.fillModel(id);

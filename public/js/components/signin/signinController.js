@@ -1,7 +1,15 @@
 import SigninModel from './signinModel';
 import SigninView from './signinView';
 import Events from './../../helpers/eventbus/eventbus';
-import {validate} from '../../helpers/validation/validation';
+import Validation from '../../helpers/validation/validation';
+import {
+    REDIRECT,
+    NAVBAR_ACTIVE,
+    SUBMIT_SIGNIN,
+    ERR_LOGIN_SINGIN,
+    ERR_PASSWORD_SINGIN,
+    PAGE_SIGNIN,
+} from '../../helpers/eventbus-const/constants';
 
 /** Класс контроллера для страницы авторизации */
 export default class SigninController {
@@ -13,17 +21,20 @@ export default class SigninController {
         this._model = new SigninModel();
         this._view = new SigninView(parent, this._model);
 
-        Events.subscribe('submitSignin', (arg) => {
+        Events.subscribe(SUBMIT_SIGNIN, (arg) => {
             if (arg.login === '' || arg.password === '') {
                 if (arg.login === '') {
-                    Events.trigger('errLoginSignin', 'Заполните все поля');
+                    Events.trigger(ERR_LOGIN_SINGIN, 'Заполните все поля');
                 }
                 if (arg.password === '') {
-                    Events.trigger('errPasswordSignin', 'Заполните все поля');
+                    Events.trigger(ERR_PASSWORD_SINGIN, 'Заполните все поля');
                 }
                 return;
             }
-            if (validate(arg, 'errLoginSignin', 'errPasswordSignin')) {
+            if (
+                Validation.validateLogin(arg.login, ERR_LOGIN_SINGIN) &&
+                Validation.validatePassword(arg.password, ERR_PASSWORD_SINGIN)
+            ) {
                 this._model.signin(arg.login, arg.password);
             }
         });
@@ -32,10 +43,10 @@ export default class SigninController {
      * Активация работы контроллера
      */
     activate() {
-        Events.trigger('pageSignin');
-        Events.trigger('navbarActive', 3);
+        Events.trigger(PAGE_SIGNIN);
+        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
-            Events.trigger('redirect', {url: '/profile'});
+            Events.trigger(REDIRECT, {url: '/profile'});
             return;
         }
         this._view.render();

@@ -1,5 +1,12 @@
 import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
+import {
+    UPDATE_PASSWORD,
+    PROFILE_RENDER_ERROR,
+    GET_NEW_PASSWORD,
+    PASSWORD_UPDATE_ERROR,
+    UPDATE_AVATAR,
+} from '../../helpers/eventbus-const/constants';
 
 // eslint-disable-next-line no-undef
 const profileTemplate = require('./profileTemplate.hbs');
@@ -31,13 +38,13 @@ export default class ProfileView {
         }
         this.page = page;
 
-        Events.subscribe('getNewPassword', () => {
+        Events.subscribe(GET_NEW_PASSWORD, () => {
             this.renderMessage('Вы успешно поменяли пароль', true);
         });
-        Events.subscribe('passwordUpdateError', (arg) => {
+        Events.subscribe(PASSWORD_UPDATE_ERROR, (arg) => {
             this.renderMessage(arg);
         });
-        Events.subscribe('profileRenderError', (arg) => {
+        Events.subscribe(PROFILE_RENDER_ERROR, (arg) => {
             this.renderMessage(arg);
         });
     }
@@ -47,7 +54,7 @@ export default class ProfileView {
     render() {
         this.page.innerHTML = profileTemplate(this._model);
 
-        Events.subscribe('updateAvatar', () => {
+        Events.subscribe(UPDATE_AVATAR, () => {
             const img = document.getElementById('avatar-img');
             img.innerHTML = profileAvatarTemplate(this._model);
             this.renderMessage('Аватар успешно изменен', true);
@@ -60,7 +67,7 @@ export default class ProfileView {
             evt.preventDefault();
             const newPassword = newPass.value;
             const oldPassword = oldPass.value;
-            Events.trigger('updatePassword', {login: '', oldPassword: oldPassword, newPassword: newPassword});
+            Events.trigger(UPDATE_PASSWORD, {login: '', oldPassword: oldPassword, newPassword: newPassword});
         });
 
         const inputFile = document.getElementById('profile_pic');
@@ -90,7 +97,7 @@ export default class ProfileView {
                 const err = r.error;
                 btnReload.innerHTML = '';
                 inputFile.value = '';
-                if (status != 200 || err.code != undefined) {
+                if (status !== 200 || err.code !== undefined) {
                     this.renderMessage('Аватарку обновить не получилось!', false);
                     return;
                 }

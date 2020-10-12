@@ -1,5 +1,9 @@
 import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
+import {
+    ERROR_HOSTEL,
+    UPDATE_HOSTEL,
+} from '../../helpers/eventbus-const/constants';
 
 /** Класс модели для страницы отеля */
 export default class HostelModel {
@@ -23,14 +27,14 @@ export default class HostelModel {
             const data = response.data;
             const status = response.status;
             if (status !== 200 || err !== undefined) {
-                Events.trigger('errorHostel');
+                Events.trigger(ERROR_HOSTEL);
                 return;
             }
             this.description = data.description;
             this.id = data.id;
             this.name = data.name;
             this.image = Net.getUrlFile(data.image);
-            Events.trigger('updateHostel');
+            Events.trigger(UPDATE_HOSTEL);
         });
     }
 }

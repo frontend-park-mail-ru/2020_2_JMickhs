@@ -1,5 +1,11 @@
 import ProfileModel from '../profile/profileModel';
 import Events from './../../helpers/eventbus/eventbus';
+import {
+    UPDATE_USER,
+    UPDATE_NAVBAR,
+    PAGE_SIGNUP,
+    PAGE_SIGNIN,
+} from '../../helpers/eventbus-const/constants';
 
 /** Класс модели для навбара */
 export default class NavbarModel {
@@ -13,19 +19,19 @@ export default class NavbarModel {
 
         this._user = ProfileModel.instance;
 
-        Events.subscribe('updateUser', () => {
+        Events.subscribe(UPDATE_USER, () => {
             if (this._user.isAuth) {
                 this.el3 = {text: this._user.login, ref: '/profile'};
-                Events.trigger('updateNavbar');
+                Events.trigger(UPDATE_NAVBAR);
             }
         });
-        Events.subscribe('pageSignup', () => {
+        Events.subscribe(PAGE_SIGNUP, () => {
             this.el3 = {text: 'Регистрация', ref: '/signup'};
-            Events.trigger('updateNavbar');
+            Events.trigger(UPDATE_NAVBAR);
         });
-        Events.subscribe('pageSignin', () => {
+        Events.subscribe(PAGE_SIGNIN, () => {
             this.el3 = {text: 'Авторизация', ref: '/signin'};
-            Events.trigger('updateNavbar');
+            Events.trigger(UPDATE_NAVBAR);
         });
     }
 }

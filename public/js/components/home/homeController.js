@@ -1,5 +1,6 @@
 import Events from '../../helpers/eventbus/eventbus';
 import HomeView from './homeView';
+import {NAVBAR_ACTIVE} from '../../helpers/eventbus-const/constants';
 
 /** Класс контроллера для домашней страницы */
 export default class HomeController {
@@ -14,7 +15,7 @@ export default class HomeController {
      * Активация работы контроллера
      */
     activate() {
-        Events.trigger('navbarActive', 1);
+        Events.trigger(NAVBAR_ACTIVE, 1);
         this._view.render();
     }
     /**

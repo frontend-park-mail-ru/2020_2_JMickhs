@@ -1,5 +1,18 @@
 import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
+import {
+    SIGNOUT,
+    HAVNT_USER,
+    PROFILE_USER,
+    UPDATE_USER,
+    UPDATE_AVATAR,
+    SIGNIN_USER,
+    ERROR_SIGNIN,
+    SIGNUP_USER,
+    ERROR_SIGNUP,
+    GET_NEW_PASSWORD,
+    PASSWORD_UPDATE_ERROR,
+} from '../../helpers/eventbus-const/constants';
 
 /** Класс модели пользователя */
 class UserModel {
@@ -27,10 +40,10 @@ class UserModel {
                 this.login = data.username;
                 this.id = data.id;
                 this.avatar = data.avatar;
-                Events.trigger('updateUser');
-                Events.trigger('profileUser');
+                Events.trigger(UPDATE_USER);
+                Events.trigger(PROFILE_USER);
             } else {
-                Events.trigger('haventUser');
+                Events.trigger(HAVNT_USER);
             }
         });
     }
@@ -48,7 +61,7 @@ class UserModel {
                 this.login = data.username;
                 this.id = data.id;
                 this.avatar = data.avatar;
-                Events.trigger('updateAvatar');
+                Events.trigger(UPDATE_AVATAR);
             }
         });
     }
@@ -68,12 +81,12 @@ class UserModel {
                 this.id = data.id;
                 this.avatar = data.avatar;
                 this.login = data.username;
-                Events.trigger('updateUser');
-                Events.trigger('signinUser');
+                Events.trigger(UPDATE_USER);
+                Events.trigger(SIGNIN_USER);
             } else if (err.code === 401) {
-                Events.trigger('errorSignin', 'Вы ввели неправильный логин или пароль');
+                Events.trigger(ERROR_SIGNIN, 'Вы ввели неправильный логин или пароль');
             } else {
-                Events.trigger('errorSignin', `Ошибка сервера: статус - ${err.code}`);
+                Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${err.code}`);
             }
         });
     }
@@ -93,13 +106,13 @@ class UserModel {
                 this.avatar = data.avatar;
                 this.isAuth = true;
                 this.login = data.username;
-                Events.trigger('updateUser');
-                Events.trigger('signupUser');
+                Events.trigger(UPDATE_USER);
+                Events.trigger(SIGNUP_USER);
             } else if (err.code === 500) {
-                Events.trigger('errorSignup', 'Пользователь с таким логином уже существует!',
+                Events.trigger(ERROR_SIGNUP, 'Пользователь с таким логином уже существует!',
                 );
             } else {
-                Events.trigger('errorSignup', `Ошибка сервера: статус ${status}`);
+                Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${status}`);
             }
         });
     }
@@ -115,7 +128,7 @@ class UserModel {
                 this.username = '';
                 this.isAuth = false;
                 this.avatar = '';
-                Events.trigger('signout');
+                Events.trigger(SIGNOUT);
             }
         });
     }
@@ -130,10 +143,10 @@ class UserModel {
             const err = r.error;
             const status = r.status;
             if (status === 200 && err.code === undefined) {
-                Events.trigger('getNewPassword');
+                Events.trigger(GET_NEW_PASSWORD);
                 return;
             }
-            Events.trigger('passwordUpdateError', 'Вы ввели неверный пароль');
+            Events.trigger(PASSWORD_UPDATE_ERROR, 'Вы ввели неверный пароль');
         });
     }
 }

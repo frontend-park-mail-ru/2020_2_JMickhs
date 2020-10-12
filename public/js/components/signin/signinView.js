@@ -1,5 +1,11 @@
 import SigninModel from './signinModel';
 import Events from './../../helpers/eventbus/eventbus';
+import {
+    SUBMIT_SIGNIN,
+    ERR_LOGIN_SINGIN,
+    ERR_PASSWORD_SINGIN,
+    ERROR_SIGNIN,
+} from '../../helpers/eventbus-const/constants';
 
 // eslint-disable-next-line no-undef
 const signinTemplate = require('./templateSignin.hbs');
@@ -16,7 +22,7 @@ export default class SigninView {
             this._parent = parent;
             this._model = model;
         }
-        Events.subscribe('errorSignin', (arg) => {
+        Events.subscribe(ERROR_SIGNIN, (arg) => {
             this.renderError(arg);
         });
 
@@ -44,14 +50,14 @@ export default class SigninView {
             const password = passInput.value;
             document.getElementById('login').className = 'input-sign';
             document.getElementById('password').className = 'input-sign';
-            Events.trigger('submitSignin', {login: login, password: password});
+            Events.trigger(SUBMIT_SIGNIN, {login: login, password: password});
         });
 
-        Events.subscribe('errLoginSignin', (arg) => {
+        Events.subscribe(ERR_LOGIN_SINGIN, (arg) => {
             document.getElementById('login').className = 'input-error';
             this.renderError(arg);
         });
-        Events.subscribe('errPasswordSignin', (arg) => {
+        Events.subscribe(ERR_PASSWORD_SINGIN, (arg) => {
             document.getElementById('password').className = 'input-error';
             this.renderError(arg);
         });
