@@ -141,15 +141,15 @@ export default class SignupView {
         Events.unsubscribeAll('errPassword2Signup');
         Events.unsubscribeAll('errPasswordSignup');
 
-        const form = document.getElementById('signupform');
-        const loginInput = document.getElementById('login');
-        const passInput1 = document.getElementById('password1');
-        const passInput2 = document.getElementById('password2');
+        // const form = document.getElementById('signupform');
+        // const loginInput = document.getElementById('login');
+        // const passInput1 = document.getElementById('password1');
+        // const passInput2 = document.getElementById('password2');
 
-        form.removeEventListener(this._eventHandlers.get(form.id));
-        loginInput.removeEventListener(this._eventHandlers.get(loginInput.id));
-        passInput1.removeEventListener(this._eventHandlers.get(passInput1.id));
-        passInput2.removeEventListener(this._eventHandlers.get(passInput2.id));
+        // form.removeEventListener(this._eventHandlers.get(form.id));
+        // loginInput.removeEventListener(this._eventHandlers.get(loginInput.id));
+        // passInput1.removeEventListener(this._eventHandlers.get(passInput1.id));
+        // passInput2.removeEventListener(this._eventHandlers.get(passInput2.id));
     }
     /**
      * Отрисовка сообщения об ошибке
