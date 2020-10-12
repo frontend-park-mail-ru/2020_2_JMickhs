@@ -2,6 +2,7 @@ import NavbarModel from './navbarModel';
 // eslint-disable-next-line no-undef
 const navbarTemplate = require('./navbarTemplate.hbs');
 import Events from './../../helpers/eventbus/eventbus';
+import {UPDATE_NAVBAR} from '../../helpers/eventbus-const/constants';
 
 /** Класс представления для навбара */
 export default class NavbarView {
@@ -16,7 +17,7 @@ export default class NavbarView {
             this._model = model;
         }
 
-        Events.subscribe('updateNavbar', this.render.bind(this));
+        Events.subscribe(UPDATE_NAVBAR, this.render.bind(this));
 
         let nav = document.getElementById('navbar');
         if (nav == null) {

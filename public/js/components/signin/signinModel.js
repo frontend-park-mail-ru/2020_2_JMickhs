@@ -1,5 +1,10 @@
 import ProfileModel from '../profile/profileModel';
 import Events from './../../helpers/eventbus/eventbus';
+import {
+    REDIRECT,
+    SIGNIN_USER,
+    ERROR_SIGNIN,
+} from '../../helpers/eventbus-const/constants';
 
 /** Класс модели для страницы авторизации */
 export default class SigninModel {
@@ -9,11 +14,11 @@ export default class SigninModel {
     constructor() {
         this._user = ProfileModel.instance;
         this.timerId = -1;
-        Events.subscribe('signinUser', () => {
+        Events.subscribe(SIGNIN_USER, () => {
             if (this._user.isAuth) {
-                Events.trigger('redirect', {url: '/profile'});
+                Events.trigger(REDIRECT, {url: '/profile'});
             } else {
-                Events.trigger('errorSignin', 'Неверный логин или пароль!');
+                Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
             }
         });
     }

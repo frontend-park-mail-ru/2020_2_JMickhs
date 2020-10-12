@@ -1,4 +1,5 @@
 import Events from './../../helpers/eventbus/eventbus';
+import {UPDATE_HOSTEL} from '../../helpers/eventbus-const/constants';
 // eslint-disable-next-line no-undef
 const hostelTemplate = require('./hostelTemplate.hbs');
 
@@ -23,7 +24,7 @@ export default class HostelView {
             this._parent.appendChild(page);
         }
         this.page = page;
-        Events.subscribe('updateHostel', () => {
+        Events.subscribe(UPDATE_HOSTEL, () => {
             this.render();
         });
     }
