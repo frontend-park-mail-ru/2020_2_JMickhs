@@ -1,5 +1,5 @@
 import Events from '../../helpers/eventbus/eventbus';
-import {NAVBAR_ACTIVE} from '../../helpers/eventbus-const/constants';
+import {NAVBAR_ACTIVE} from '../../helpers/eventbus/constants';
 
 /** Класс-заглушка ошибки */
 export default class ErrorPage {

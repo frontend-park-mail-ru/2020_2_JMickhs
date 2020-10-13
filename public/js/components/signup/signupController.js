@@ -10,7 +10,7 @@ import {
     NAVBAR_ACTIVE,
     PAGE_SIGNUP,
     REDIRECT, SUBMIT_SIGNUP,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для страницы регистрации */
 export default class SignupController {
@@ -25,7 +25,8 @@ export default class SignupController {
             const pass1 = arg.password1;
             const pass2 = arg.password2;
             const login = arg.login;
-            this.validate(login, pass1, pass2);
+            const email = arg.email;
+            this.validate(login, pass1, pass2, email);
         });
     }
     /**
@@ -52,8 +53,9 @@ export default class SignupController {
      * @param {string} login - родительский элемент html-страницы
      * @param {string} pass1 - родительский элемент html-страницы
      * @param {string} pass2 - родительский элемент html-страницы
+     * @param {string} email - родительский элемент html-страницы
      */
-    validate(login, pass1, pass2) {
+    validate(login, pass1, pass2, email) {
         if (login === '' || pass1 === '' || pass2 === '') {
             if (login === '') {
                 Events.trigger(ERR_LOGIN_SINGUP, 'Заполните все поля');
@@ -71,7 +73,7 @@ export default class SignupController {
             Validation.validateLogin(login, ERR_LOGIN_SINGUP) &&
             Validation.validatePassword(pass1, ERR_PASSWORD_SINGUP)
         ) {
-            this._model.signup(login, pass1);
+            this._model.signup(login, email, pass1);
         }
     }
 }

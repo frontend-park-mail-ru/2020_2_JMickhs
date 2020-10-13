@@ -4,7 +4,7 @@ import Events from './../../helpers/eventbus/eventbus';
 import {
     NAVBAR_ACTIVE,
     REDIRECT,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для страницы списка отеля */
 export default class HotelController {

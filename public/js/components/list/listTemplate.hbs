@@ -2,11 +2,12 @@
 <div class="card">
   <img class="avatar" src="{{getUrlFile image}}" alt="Avatar">
   <h3>
-    <p class="hotel-card-title" href="/hostel/{{id}}">{{name}}
+    <p class="hotel-card-title">{{name}}
+      <p class="hotel-card-title">{{location}}
     </p>
   </h3>
   <p class="hotel-card-block">
-    <a class="btn-green" href="/hostel/{{id}}">Подробнее</a>
+    <a class="btn-green" href="/hostel/{{hotel_id}}">Подробнее</a>
   </p>
 </div>
 {{/each}}

@@ -12,7 +12,7 @@ import {
     ERROR_SIGNUP,
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс модели пользователя */
 class UserModel {
@@ -93,10 +93,11 @@ class UserModel {
     /**
      * Регистрация пользователя
      * @param {string} username - логин пользователя
+     * @param {string} email - пароль пользователя
      * @param {string} password - пароль пользователя
      */
-    signup(username, password) {
-        const response = Net.signup(username, password);
+    signup(username, email, password) {
+        const response = Net.signup(username, email, password);
         response.then((response) => {
             const status = response.status;
             const err = response.error;

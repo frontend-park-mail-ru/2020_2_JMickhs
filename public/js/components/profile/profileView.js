@@ -6,7 +6,7 @@ import {
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
     UPDATE_AVATAR,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 // eslint-disable-next-line no-undef
 const profileTemplate = require('./profileTemplate.hbs');

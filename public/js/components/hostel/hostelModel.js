@@ -3,7 +3,7 @@ import Events from './../../helpers/eventbus/eventbus';
 import {
     ERROR_HOSTEL,
     UPDATE_HOSTEL,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс модели для страницы отеля */
 export default class HostelModel {
@@ -31,9 +31,10 @@ export default class HostelModel {
                 return;
             }
             this.description = data.description;
-            this.id = data.id;
+            this.id = data.hotel_id;
             this.name = data.name;
             this.image = Net.getUrlFile(data.image);
+            this.location = data.location;
             Events.trigger(UPDATE_HOSTEL);
         });
     }

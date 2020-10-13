@@ -5,7 +5,7 @@ import {
     ERR_LOGIN_SINGIN,
     ERR_PASSWORD_SINGIN,
     ERROR_SIGNIN,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 // eslint-disable-next-line no-undef
 const signinTemplate = require('./templateSignin.hbs');

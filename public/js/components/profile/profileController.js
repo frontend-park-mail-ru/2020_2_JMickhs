@@ -10,7 +10,7 @@ import {
     NAVBAR_ACTIVE,
     HAVNT_USER,
     PROFILE_USER,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для страницы профиля */
 export default class ProfileController {

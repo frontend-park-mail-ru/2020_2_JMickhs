@@ -54,7 +54,7 @@ class Network {
      * @return {Promise}
      */
     user() {
-        return this._ajax('GET', '/api/v1/user');
+        return this._ajax('GET', '/api/v1/users');
     }
     /**
      * вход пользователя
@@ -70,30 +70,32 @@ class Network {
         const headers = {
             'Content-Type': 'application/json;charset=utf-8',
         };
-        return this._ajax('POST', '/api/v1/user/signin', body, headers);
+        return this._ajax('POST', '/api/v1/users/sessions', body, headers);
     }
     /**
      * вход пользователя
      * @param {string} username - логин
+     * @param {string} email - email
      * @param {string} password - пароль
      * @return {Promise}
      */
-    signup(username, password) {
+    signup(username, email, password) {
         const body = {
+            email: email,
             username: username,
             password: password,
         };
         const headers = {
             'Content-Type': 'application/json;charset=utf-8',
         };
-        return this._ajax('POST', '/api/v1/user/signup', body, headers);
+        return this._ajax('POST', '/api/v1/users', body, headers);
     }
     /**
      * Получение всех отелей
      * @return {Promise}
      */
     getHostels() {
-        return this._ajax('GET', '/api/v1/hotel?from=0');
+        return this._ajax('GET', '/api/v1/hotels?from=0');
     }
     /**
      * Получение определнных отелей
@@ -102,7 +104,7 @@ class Network {
      * number - statusCode, json - ответ
      */
     getHostel(id) {
-        return this._ajax('GET', `/api/v1/hotel/${id}`);
+        return this._ajax('GET', `/api/v1/hotels/${id}`);
     }
     /**
      * Обновление пароля
@@ -119,14 +121,14 @@ class Network {
             'X-Csrf-Token': this._csrf,
             'Content-Type': 'application/json;charset=utf-8',
         };
-        return this._ajax('PUT', '/api/v1/user/password', body, headers);
+        return this._ajax('PUT', '/api/v1/users/password', body, headers);
     }
     /**
      * Выход из аккаунта
      * @return {Promise} Возвращает статус ответа или ошибку
      */
     signout() {
-        return this._ajax('POST', '/api/v1/user/signout');
+        return this._ajax('DELETE', '/api/v1/users/sessions');
     }
     /**
      * Обновление аватара
@@ -137,7 +139,7 @@ class Network {
         const headers = {
             'X-Csrf-Token': this._csrf,
         };
-        return this._ajax('PUT', '/api/v1/user/avatar', formData, headers);
+        return this._ajax('PUT', '/api/v1/users/avatar', formData, headers);
     }
 }
 

@@ -2,7 +2,7 @@ import NavbarModel from './navbarModel';
 // eslint-disable-next-line no-undef
 const navbarTemplate = require('./navbarTemplate.hbs');
 import Events from './../../helpers/eventbus/eventbus';
-import {UPDATE_NAVBAR} from '../../helpers/eventbus-const/constants';
+import {UPDATE_NAVBAR} from '../../helpers/eventbus/constants';
 
 /** Класс представления для навбара */
 export default class NavbarView {

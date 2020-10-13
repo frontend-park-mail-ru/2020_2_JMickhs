@@ -5,7 +5,7 @@ import {
     UPDATE_NAVBAR,
     PAGE_SIGNUP,
     PAGE_SIGNIN,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс модели для навбара */
 export default class NavbarModel {

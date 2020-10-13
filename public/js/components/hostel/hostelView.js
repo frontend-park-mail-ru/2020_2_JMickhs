@@ -1,5 +1,5 @@
 import Events from './../../helpers/eventbus/eventbus';
-import {UPDATE_HOSTEL} from '../../helpers/eventbus-const/constants';
+import {UPDATE_HOSTEL} from '../../helpers/eventbus/constants';
 // eslint-disable-next-line no-undef
 const hostelTemplate = require('./hostelTemplate.hbs');
 

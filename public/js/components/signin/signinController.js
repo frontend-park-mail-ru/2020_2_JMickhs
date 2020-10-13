@@ -9,7 +9,7 @@ import {
     ERR_LOGIN_SINGIN,
     ERR_PASSWORD_SINGIN,
     PAGE_SIGNIN,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для страницы авторизации */
 export default class SigninController {

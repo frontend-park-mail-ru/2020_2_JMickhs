@@ -3,7 +3,7 @@ import Events from './../../helpers/eventbus/eventbus';
 import {
     ERROR_SIGNUP,
     REDIRECT, SIGNUP_USER,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс модели для страницы регистрации */
 export default class SignupModel {
@@ -24,10 +24,11 @@ export default class SignupModel {
     /**
      * Регистрация пользователя
      * @param {string} username - логин
+     * @param {string} email - email
      * @param {string} password - пароль
      */
-    signup(username, password) {
-        this._user.signup(username, password);
+    signup(username, email, password) {
+        this._user.signup(username, email, password);
     }
     /**
      * Проверка на то, авторизован ли пользователь

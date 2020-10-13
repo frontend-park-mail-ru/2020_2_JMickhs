@@ -4,7 +4,7 @@ import {
     REDIRECT,
     SIGNIN_USER,
     ERROR_SIGNIN,
-} from '../../helpers/eventbus-const/constants';
+} from '../../helpers/eventbus/constants';
 
 /** Класс модели для страницы авторизации */
 export default class SigninModel {

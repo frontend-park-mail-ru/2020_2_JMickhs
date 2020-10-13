@@ -1,6 +1,6 @@
 import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
-import {LOAD_HOSTELS} from '../../helpers/eventbus-const/constants';
+import {LOAD_HOSTELS} from '../../helpers/eventbus/constants';
 
 /** Класс модели для страницы списка отелей */
 export default class ListModel {

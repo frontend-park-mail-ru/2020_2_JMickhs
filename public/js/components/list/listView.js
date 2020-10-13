@@ -1,6 +1,6 @@
 import ListModel from './listModel';
 import Events from './../../helpers/eventbus/eventbus';
-import {LOAD_HOSTELS} from '../../helpers/eventbus-const/constants';
+import {LOAD_HOSTELS} from '../../helpers/eventbus/constants';
 
 // eslint-disable-next-line no-undef
 const myTemplate = require('./listTemplate.hbs');

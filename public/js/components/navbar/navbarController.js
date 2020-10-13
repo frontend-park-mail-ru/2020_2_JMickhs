@@ -1,7 +1,7 @@
 import Events from '../../helpers/eventbus/eventbus';
 import NavbarModel from './navbarModel';
 import NavbarView from './navbarView';
-import {NAVBAR_ACTIVE} from '../../helpers/eventbus-const/constants';
+import {NAVBAR_ACTIVE} from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для навбара */
 export default class NavbarController {

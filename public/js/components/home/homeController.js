@@ -1,6 +1,7 @@
 import Events from '../../helpers/eventbus/eventbus';
+import {NAVBAR_ACTIVE} from '../../helpers/eventbus/constants';
 import HomeView from './homeView';
-import {NAVBAR_ACTIVE} from '../../helpers/eventbus-const/constants';
+
 
 /** Класс контроллера для домашней страницы */
 export default class HomeController {
