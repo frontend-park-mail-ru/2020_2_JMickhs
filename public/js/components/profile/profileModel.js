@@ -33,9 +33,9 @@ class UserModel {
     getCurrUser() {
         const response = Net.user();
         response.then((response) => {
-            const status = response.status;
+            const code = response.code;
             const data = response.data;
-            switch (status) {
+            switch (code) {
             case 200:
                 this.isAuth = true;
                 this.login = data.username;
@@ -59,9 +59,9 @@ class UserModel {
     updateAvatar() {
         const response = Net.user();
         response.then((response) => {
-            const status = response.status;
+            const code = response.code;
             const data = response.data;
-            switch (status) {
+            switch (code) {
             case 200:
                 this.isAuth = true;
                 this.login = data.username;
@@ -95,9 +95,9 @@ class UserModel {
     signin(username, password) {
         const response = Net.signin(username, password);
         response.then((response) => {
-            const status = response.status;
+            const code = response.code;
             const data = response.data;
-            switch (status) {
+            switch (code) {
             case 200:
                 this.isAuth = true;
                 this.id = data.id;
@@ -127,9 +127,9 @@ class UserModel {
     signup(username, email, password) {
         const response = Net.signup(username, email, password);
         response.then((response) => {
-            const status = response.status;
+            const code = response.code;
             const data = response.data;
-            switch (status) {
+            switch (code) {
             case 200:
                 this.id = data.id;
                 this.avatar = data.avatar;
@@ -156,8 +156,8 @@ class UserModel {
     signout() {
         const response = Net.signout();
         response.then((r) => {
-            const status = r.status;
-            switch (status) {
+            const code = r.code;
+            switch (code) {
             case 200:
                 this.id = -1;
                 this.username = '';
@@ -179,8 +179,8 @@ class UserModel {
     updatePassword(oldPassword, password) {
         const response = Net.updatePassword(oldPassword, password);
         response.then((r) => {
-            const status = r.status;
-            switch (status) {
+            const code = r.code;
+            switch (code) {
             case 200:
                 Events.trigger(GET_NEW_PASSWORD);
                 break;

@@ -21,8 +21,8 @@ export default class ListModel {
         const response = Net.getHostels();
         response.then((response) => {
             const data = response.data;
-            const status = response.status;
-            switch (status) {
+            const code = response.code;
+            switch (code) {
             case 200:
                 this.haveInfo = true;
                 this.hostels = data;
