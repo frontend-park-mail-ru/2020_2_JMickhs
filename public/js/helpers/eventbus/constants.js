@@ -27,3 +27,4 @@ export const ERR_LOGIN_SINGUP = 'errLoginSignup';
 export const ERR_PASSWORD1_SINGUP = 'errPassword1Signup';
 export const ERR_PASSWORD2_SINGUP = 'errPassword2Signup';
 export const ERR_PASSWORD_SINGUP = 'errPasswordSignup';
+export const ERR_EMAIL_SINGUP = 'errEmailSignup';
