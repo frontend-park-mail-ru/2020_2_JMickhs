@@ -7,6 +7,7 @@ import {
     ERR_PASSWORD1_SINGUP,
     ERR_PASSWORD2_SINGUP,
     ERR_PASSWORD_SINGUP,
+    ERR_EMAIL_SINGUP,
     NAVBAR_ACTIVE,
     PAGE_SIGNUP,
     REDIRECT, SUBMIT_SIGNUP,
@@ -56,7 +57,7 @@ export default class SignupController {
      * @param {string} email - родительский элемент html-страницы
      */
     validate(login, pass1, pass2, email) {
-        if (login === '' || pass1 === '' || pass2 === '') {
+        if (login === '' || pass1 === '' || pass2 === '' || email === '') {
             if (login === '') {
                 Events.trigger(ERR_LOGIN_SINGUP, 'Заполните все поля');
             }
@@ -65,6 +66,9 @@ export default class SignupController {
             }
             if (pass2 === '') {
                 Events.trigger(ERR_PASSWORD2_SINGUP, 'Заполните все поля');
+            }
+            if (email === '') {
+                Events.trigger(ERR_EMAIL_SINGUP, 'Заполните все поля');
             }
         } else if (pass1 !== pass2) {
             Events.trigger(ERR_PASSWORD1_SINGUP, 'Пароли не совпадают');

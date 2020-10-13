@@ -4,6 +4,7 @@ import {
     ERR_LOGIN_SINGUP,
     ERR_PASSWORD1_SINGUP,
     ERR_PASSWORD2_SINGUP,
+    ERR_EMAIL_SINGUP,
     ERR_PASSWORD_SINGUP, ERROR_SIGNUP,
     SUBMIT_SIGNUP,
 } from '../../helpers/eventbus/constants';
@@ -126,6 +127,10 @@ export default class SignupView {
             document.getElementById('password2').className = 'input-error';
             this.renderError(arg);
         });
+        Events.subscribe(ERR_EMAIL_SINGUP, (arg) => {
+            document.getElementById('email').className = 'input-error';
+            this.renderError(arg);
+        });
         Events.subscribe(ERR_PASSWORD_SINGUP, (arg) => {
             document.getElementById('password1').className = 'input-error';
             document.getElementById('password2').className = 'input-error';
@@ -173,6 +178,7 @@ export default class SignupView {
             errLine.textContent = '';
             document.getElementById('login').className = 'input-sign';
             document.getElementById('password1').className = 'input-sign';
+            document.getElementById('email').className = 'input-sign';
             document.getElementById('password2').className = 'input-sign';
             this._model.timerId = -1;
         }, 5000);
