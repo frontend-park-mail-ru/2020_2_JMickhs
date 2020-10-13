@@ -9,6 +9,7 @@ import ProfileModel from './components/profile/profileModel';
 import HostelController from './components/hostel/hostelController';
 import ErrorController from './components/pageError/error';
 import Events from './helpers/eventbus/eventbus';
+import {REDIRECT} from './helpers/eventbus/constants';
 
 /**
  *  Старт нашего приложения =)
@@ -38,7 +39,7 @@ import Events from './helpers/eventbus/eventbus';
     Router.append('/hostel', hostelController);
     Router.errorController = errorController;
     Router.start();
-    Events.subscribe('redirect', (arg) => {
+    Events.subscribe(REDIRECT, (arg) => {
         const {url} = arg;
         Router.pushState(url);
     });

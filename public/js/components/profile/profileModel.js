@@ -11,7 +11,8 @@ import {
     SIGNUP_USER,
     ERROR_SIGNUP,
     GET_NEW_PASSWORD,
-    PASSWORD_UPDATE_ERROR, REDIRECT,
+    PASSWORD_UPDATE_ERROR,
+    REDIRECT,
 } from '../../helpers/eventbus/constants';
 
 /** Класс модели пользователя */
@@ -72,7 +73,7 @@ class UserModel {
                 Events.trigger(ABSTRACT_ALL_DEAD);
                 break;
             case 401:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(REDIRECT, {url: '/signin'});
                 break;
             case 403:
                 Events.trigger(ABSTRACT_ALL_DEAD);
