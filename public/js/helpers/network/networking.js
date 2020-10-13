@@ -33,8 +33,6 @@ class Network {
             reqBody = JSON.stringify(body); // TODO: сделать проверку
         }
 
-        headers['X-Csrf-Token'] = this._csrf;
-
         return fetch(this.domain + this.port + url, {
             method: method,
             mode: 'cors',
