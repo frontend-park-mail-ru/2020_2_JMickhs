@@ -77,7 +77,7 @@
   overflow: hidden;
   border: 2px solid #fe6637;
   border-radius: 8px;
-  font-family: 'Ubuntu Condensed', sans-serif; 
+  font-family: 'Ubuntu Condensed', sans-serif;
   color: #fe6637;
   transition: .2s ease-in-out;
   cursor: pointer;
@@ -115,7 +115,7 @@
     overflow: hidden;
     border: 2px solid #41cf41;
     border-radius: 8px;
-    font-family: 'Ubuntu Condensed', sans-serif; 
+    font-family: 'Ubuntu Condensed', sans-serif;
     color: #41cf41;
     transition: .2s ease-in-out;
     cursor: pointer;
@@ -172,83 +172,157 @@
     padding: 10px;
 }
 
-/* авторизация и регистрация */	
+/* авторизация и регистрация */
 
-.ui-form {	
-  max-width: 500px;	
-  width: 20%;	
-  margin: 100px auto 30px;	
-  background: #EFF6FA;	
-}	
+.ui-form {
+  max-width: 500px;
+  width: 20%;
+  margin: 100px auto 30px;
+  background: #EFF6FA;
+}
 
-.form-row {	
-  position: relative;	
-  margin-bottom: 20px;	
-  margin-top: 40px;	
-}	
+.form-row {
+  position: relative;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
 
-.form-row input {	
-  display: block;	
-  width: 100%;	
-  padding: 0 10px;	
-  line-height: 40px;	
-  font-family: 'Ubuntu Condensed', sans-serif;	
-  background: none;	
-  border-width: 0;	
-  border-bottom: 2px solid #4a90e2;	
-  transition: all 0.2s ease;	
-}	
+.form-row input {
+  display: block;
+  width: 100%;
+  padding: 0 10px;
+  line-height: 40px;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  background: none;
+  border-width: 0;
+  border-bottom: 2px solid #4a90e2;
+  transition: all 0.2s ease;
+}
 
-.form-row label {	
-  position: absolute;	
-  left: 13px;	
-  color: #9d959d;	
-  font-size: 20px;	
-  font-weight: 300;	
-  transform: translateY(-35px);	
-  transition: all 0.2s ease;	
-}	
+.form-row label {
+  position: absolute;
+  left: 13px;
+  color: #9d959d;
+  font-size: 20px;
+  font-weight: 300;
+  transform: translateY(-35px);
+  transition: all 0.2s ease;
+}
 
-.form-row input:focus {	
-  outline: 0;	
-  border-color: #F77A52;	
-}	
+.form-row input:focus {
+  outline: 0;
+  border-color: #F77A52;
+}
 
-.refer {	
-  border-color: #F77A52;	
-  color: #F77A52;	
-  text-align: center;	
-  letter-spacing: 2px;	
-  font-size: 19px;	
-}	
+.refer {
+  border-color: #F77A52;
+  color: #F77A52;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 19px;
+}
 
-.form-row input:focus+label,	
-.form-row input:valid+label {	
-  transform: translateY(-60px);	
-  margin-left: -14px;	
-  font-size: 14px;	
-  font-weight: 400;	
-  outline: 0;	
-  border-color: #F77A52;	
-  color: #F77A52;	
-}	
+.form-row input:focus+label,
+.form-row input:valid+label {
+  transform: translateY(-60px);
+  margin-left: -14px;
+  font-size: 14px;
+  font-weight: 400;
+  outline: 0;
+  border-color: #F77A52;
+  color: #F77A52;
+}
 
-.ui-form p {	
-  margin: 0;	
-  padding-top: 10px;	
-}	
+.ui-form p {
+  margin: 0;
+  padding-top: 10px;
+}
 
-.ui-form h2 {	
-  text-align: center;	
-  color: #4a90e2;	
-}	
+.ui-form h2 {
+  text-align: center;
+  color: #4a90e2;
+}
 
-@media screen and (max-width: 300px) {	
-  span.psw {	
-      display: block;	
-      float: none;	
-  }	
-  .cancelbtn {	
-      width: 100%;	
-  }	
-}	
+@media screen and (max-width: 300px) {
+  span.psw {
+      display: block;
+      float: none;
+  }
+  .cancelbtn {
+      width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+.page-wrap {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+}
+
+.fucking-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+.search-cnt {
+    border: 3px solid #F77A52;
+    width: 1500px;
+    height: 100px;
+}
+
+.search-form {
+    position: relative;
+    width: 90%;
+    margin: 10px auto;
+}
+.search-input, .search-btn {
+    border: none;
+    outline: none;
+    border-radius: 3px;
+}
+.search-input {
+    width: 100%;
+    height: 42px;
+    background: #F9F0DA;
+    padding-left: 15px;
+}
+.search-btn {
+    height: 26px;
+    width: 26px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #F15B42;
+    cursor: pointer;
+}
+.search-btn:before {
+    content: "\f105";
+    font-family: FontAwesome;
+    color: #F9F0DA;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.date-input {
+    background: #F9F0DA;
+    border: none;
+    border-radius: 5px;
+}
+
+.date-input:after {
+    z-index:200;
+    content:'📅';
+}
