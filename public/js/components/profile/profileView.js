@@ -1,4 +1,3 @@
-import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 import {
     UPDATE_PASSWORD,
@@ -6,6 +5,7 @@ import {
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
     UPDATE_AVATAR,
+    ERR_UPDATE_AVATAR,
 } from '../../helpers/eventbus/constants';
 
 // eslint-disable-next-line no-undef
@@ -91,20 +91,11 @@ export default class ProfileView {
 
         btnReload.addEventListener('click', (evt) => {
             evt.preventDefault();
-            const response = Net.updateAvatar(new FormData(formAvatar));
-            response.then((r) => {
-                const status = r.status;
-                const err = r.error;
-                btnReload.innerHTML = '';
-                inputFile.value = '';
-                if (status !== 200 || err.code !== undefined) {
-                    this.renderMessage('Аватарку обновить не получилось!', false);
-                    return;
-                }
-                this._model.updateAvatar();
-            });
-            response.catch(() => {
-                this.renderMessage('Аватарку обновить не получилось!', false);
+            this._model.updateAvatar(formAvatar);
+            btnReload.innerHTML = '';
+            inputFile.value = '';
+            Events.subscribe(ERR_UPDATE_AVATAR, (arg) => {
+                this.renderMessage(arg, false);
             });
         });
 

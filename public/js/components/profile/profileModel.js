@@ -12,7 +12,7 @@ import {
     ERROR_SIGNUP,
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
-    REDIRECT,
+    REDIRECT, ERR_UPDATE_AVATAR,
 } from '../../helpers/eventbus/constants';
 
 /** Класс модели пользователя */
@@ -55,10 +55,38 @@ class UserModel {
     }
     /**
      * Обновить аватар(и все сведения о пользователе)
+     * @param {FormData} formAvatar - форма аватарки
      */
-    updateAvatar() {
-        const response = Net.user();
-        response.then((response) => {
+    updateAvatar(formAvatar) {
+        const avaResponse = Net.updateAvatar(new FormData(formAvatar));
+        avaResponse.then((response) => {
+            const status = response.status;
+            switch (status) {
+            case 200:
+                Events.trigger(UPDATE_AVATAR);
+                break;
+            case 400:
+                Events.trigger(ERR_UPDATE_AVATAR, 'Неверный формат запроса');
+                break;
+            case 401:
+                Events.trigger(REDIRECT, {url: '/signin'});
+                break;
+            case 403:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            case 415:
+                Events.trigger(ERR_UPDATE_AVATAR, 'Можно загружать только файлы с расширением jpg, png');
+                break;
+            default:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            }
+        }).catch(() => {
+            Events.trigger(ERR_UPDATE_AVATAR, 'Аватарку обновить не получилось!');
+        });
+
+        const userResponse = Net.user();
+        userResponse.then((response) => {
             const status = response.status;
             const data = response.data;
             switch (status) {
@@ -69,17 +97,8 @@ class UserModel {
                 this.avatar = data.avatar;
                 Events.trigger(UPDATE_AVATAR);
                 break;
-            case 400:
-                Events.trigger(ABSTRACT_ALL_DEAD);
-                break;
             case 401:
                 Events.trigger(REDIRECT, {url: '/signin'});
-                break;
-            case 403:
-                Events.trigger(ABSTRACT_ALL_DEAD);
-                break;
-            case 415:
-                Events.trigger(ABSTRACT_ALL_DEAD);
                 break;
             default:
                 Events.trigger(ABSTRACT_ALL_DEAD);
