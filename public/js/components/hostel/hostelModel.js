@@ -23,19 +23,27 @@ export default class HostelModel {
     fillModel(id) {
         const response = Net.getHostel(id);
         response.then((response) => {
-            const err = response.error;
             const data = response.data;
             const status = response.status;
-            if (status !== 200 || err !== undefined) {
+            switch (status) {
+            case 200:
+                this.description = data.description;
+                this.id = data.hotel_id;
+                this.name = data.name;
+                this.image = Net.getUrlFile(data.image);
+                this.location = data.location;
+                Events.trigger(UPDATE_HOSTEL);
+                break;
+            case 400:
+                Events.trigger(ERROR_HOSTEL); // TODO: нет подписки
+                break;
+            case 410:
                 Events.trigger(ERROR_HOSTEL);
-                return;
+                break;
+            default:
+                Events.trigger(ERROR_HOSTEL);
+                break;
             }
-            this.description = data.description;
-            this.id = data.hotel_id;
-            this.name = data.name;
-            this.image = Net.getUrlFile(data.image);
-            this.location = data.location;
-            Events.trigger(UPDATE_HOSTEL);
         });
     }
 }

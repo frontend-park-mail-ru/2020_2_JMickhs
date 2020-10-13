@@ -8,7 +8,6 @@ import {
     SIGNOUT,
     REDIRECT,
     NAVBAR_ACTIVE,
-    HAVNT_USER,
     PROFILE_USER,
 } from '../../helpers/eventbus/constants';
 
@@ -47,9 +46,6 @@ export default class ProfileController {
             this._view.render();
             return;
         }
-        Events.subscribe(HAVNT_USER, () => {
-            Events.trigger(REDIRECT, {url: '/signin'});
-        });
         Events.subscribe(PROFILE_USER, () => {
             this._view.render();
         });

@@ -2,7 +2,7 @@ import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 import {
     SIGNOUT,
-    HAVNT_USER,
+    ABSTRACT_ALL_DEAD,
     PROFILE_USER,
     UPDATE_USER,
     UPDATE_AVATAR,
@@ -11,7 +11,7 @@ import {
     SIGNUP_USER,
     ERROR_SIGNUP,
     GET_NEW_PASSWORD,
-    PASSWORD_UPDATE_ERROR,
+    PASSWORD_UPDATE_ERROR, REDIRECT,
 } from '../../helpers/eventbus/constants';
 
 /** Класс модели пользователя */
@@ -34,16 +34,21 @@ class UserModel {
         response.then((response) => {
             const status = response.status;
             const data = response.data;
-            const err = response.error;
-            if (err === undefined && status === 200) {
+            switch (status) {
+            case 200:
                 this.isAuth = true;
                 this.login = data.username;
                 this.id = data.id;
                 this.avatar = data.avatar;
                 Events.trigger(UPDATE_USER);
                 Events.trigger(PROFILE_USER);
-            } else {
-                Events.trigger(HAVNT_USER);
+                break;
+            case 401:
+                Events.trigger(REDIRECT, {url: '/signin'});
+                break;
+            default:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
             }
         });
     }
@@ -55,13 +60,29 @@ class UserModel {
         response.then((response) => {
             const status = response.status;
             const data = response.data;
-            const err = response.error;
-            if (status === 200 && err === undefined) {
+            switch (status) {
+            case 200:
                 this.isAuth = true;
                 this.login = data.username;
                 this.id = data.id;
                 this.avatar = data.avatar;
                 Events.trigger(UPDATE_AVATAR);
+                break;
+            case 400:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            case 401:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            case 403:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            case 415:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            default:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
             }
         });
     }
@@ -74,19 +95,25 @@ class UserModel {
         const response = Net.signin(username, password);
         response.then((response) => {
             const status = response.status;
-            const err = response.error;
             const data = response.data;
-            if (status === 200 && err === undefined) {
+            switch (status) {
+            case 200:
                 this.isAuth = true;
                 this.id = data.id;
                 this.avatar = data.avatar;
                 this.login = data.username;
                 Events.trigger(UPDATE_USER);
                 Events.trigger(SIGNIN_USER);
-            } else if (err.code === 401) {
+                break;
+            case 400:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            case 401:
                 Events.trigger(ERROR_SIGNIN, 'Вы ввели неправильный логин или пароль');
-            } else {
-                Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${err.code}`);
+                break;
+            default:
+                Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${status}`);
+                break;
             }
         });
     }
@@ -100,20 +127,25 @@ class UserModel {
         const response = Net.signup(username, email, password);
         response.then((response) => {
             const status = response.status;
-            const err = response.error;
             const data = response.data;
-            if (status === 200 && err === undefined) {
+            switch (status) {
+            case 200:
                 this.id = data.id;
                 this.avatar = data.avatar;
                 this.isAuth = true;
                 this.login = data.username;
                 Events.trigger(UPDATE_USER);
                 Events.trigger(SIGNUP_USER);
-            } else if (err.code === 500) {
-                Events.trigger(ERROR_SIGNUP, 'Пользователь с таким логином уже существует!',
-                );
-            } else {
+                break;
+            case 400:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            case 409:
+                Events.trigger(ERROR_SIGNUP, 'Пользователь с таким логином уже существует!');
+                break;
+            default:
                 Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${status}`);
+                break;
             }
         });
     }
@@ -124,12 +156,17 @@ class UserModel {
         const response = Net.signout();
         response.then((r) => {
             const status = r.status;
-            if (status === 200) {
+            switch (status) {
+            case 200:
                 this.id = -1;
                 this.username = '';
                 this.isAuth = false;
                 this.avatar = '';
                 Events.trigger(SIGNOUT);
+                break;
+            default:
+                Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${status}`);
+                break;
             }
         });
     }
@@ -141,13 +178,27 @@ class UserModel {
     updatePassword(oldPassword, password) {
         const response = Net.updatePassword(oldPassword, password);
         response.then((r) => {
-            const err = r.error;
             const status = r.status;
-            if (status === 200 && err.code === undefined) {
+            switch (status) {
+            case 200:
                 Events.trigger(GET_NEW_PASSWORD);
-                return;
+                break;
+            case 400:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            case 401:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            case 402:
+                Events.trigger(PASSWORD_UPDATE_ERROR, 'Вы ввели неверный пароль');
+                break;
+            case 403:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
+            default:
+                Events.trigger(ABSTRACT_ALL_DEAD);
+                break;
             }
-            Events.trigger(PASSWORD_UPDATE_ERROR, 'Вы ввели неверный пароль');
         });
     }
 }

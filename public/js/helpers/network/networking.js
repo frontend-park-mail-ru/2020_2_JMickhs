@@ -44,9 +44,9 @@ class Network {
             statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return {status: statusCode, data: json.data, error: json.error};
+            return {status: json.code, data: json.data};
         }).catch((err) => {
-            return {status: statusCode, error: err};
+            return {status: statusCode, error: err}; // TODO: возможно надо поменять, возможно нет
         });
     }
     /**
