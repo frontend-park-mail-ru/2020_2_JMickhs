@@ -20,11 +20,11 @@ export default class ErrorController {
         this._view.render(this.err);
     }
     /**
-     * Установка ошибки
-     * @param {string} error - текст ошибки
+     * Установка поля ошибки
+     * @param {string} err - текст ошибки
      */
-    setError(error) {
-        this.err = error;
+    set error(err) {
+        this._error = err;
     }
     /**
      * Отключение работы контроллера и чистка памяти

@@ -48,7 +48,7 @@ import {
     });
     Events.subscribe(REDIRECT_ERROR, (arg) => {
         const {url, err} = arg;
-        Router.errorController.setError(err);
+        Router.errorController.error = err;
         Router.pushState(url);
     });
 })();
