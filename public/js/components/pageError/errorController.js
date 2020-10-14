@@ -7,7 +7,6 @@ export default class ErrorController {
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
     constructor(parent) {
-        console.log('Hello from error Controller');
         if (parent instanceof HTMLElement) {
             this._view = new ErrorView(parent);
         }

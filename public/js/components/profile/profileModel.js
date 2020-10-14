@@ -2,7 +2,6 @@ import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 import {
     SIGNOUT,
-    ABSTRACT_ALL_DEAD,
     PROFILE_USER,
     UPDATE_USER,
     UPDATE_AVATAR,
@@ -50,7 +49,8 @@ class UserModel {
                 this.isAuth = false;
                 break;
             default:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Что-то страшное произошло c нишим сервером...' +
+                        ` Он говорит: ${status}`});
                 break;
             }
         });
@@ -76,13 +76,13 @@ class UserModel {
                 Events.trigger(REDIRECT, {url: '/signin'});
                 break;
             case 403:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Нет csrf'});
                 break;
             case 415:
                 Events.trigger(ERR_UPDATE_AVATAR, 'Можно загружать только файлы с расширением jpg, png');
                 break;
             default:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${status}`);
                 break;
             }
         }).catch(() => {
@@ -109,7 +109,7 @@ class UserModel {
                 Events.trigger(SIGNIN_USER);
                 break;
             case 400:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(ERROR_SIGNIN, 'Неверный формат запроса');
                 break;
             case 401:
                 Events.trigger(ERROR_SIGNIN, 'Вы ввели неправильный логин или пароль');
@@ -141,7 +141,7 @@ class UserModel {
                 Events.trigger(SIGNUP_USER);
                 break;
             case 400:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(ERROR_SIGNUP, 'Неверный формат запроса');
                 break;
             case 409:
                 Events.trigger(ERROR_SIGNUP, 'Пользователь с таким логином уже существует!');
@@ -187,7 +187,7 @@ class UserModel {
                 Events.trigger(GET_NEW_PASSWORD);
                 break;
             case 400:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(PASSWORD_UPDATE_ERROR, 'Неверный формат запроса');
                 break;
             case 401:
                 this.isAuth = false;
