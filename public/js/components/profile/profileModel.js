@@ -12,7 +12,7 @@ import {
     ERROR_SIGNUP,
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
-    REDIRECT,
+    REDIRECT, ERR_UPDATE_AVATAR,
 } from '../../helpers/eventbus/constants';
 
 /** Класс модели пользователя */
@@ -33,9 +33,9 @@ class UserModel {
     getCurrUser() {
         const response = Net.user();
         response.then((response) => {
-            const code = response.code;
+            const status = response.status;
             const data = response.data;
-            switch (code) {
+            switch (status) {
             case 200:
                 this.isAuth = true;
                 this.login = data.username;
@@ -45,7 +45,8 @@ class UserModel {
                 Events.trigger(PROFILE_USER);
                 break;
             case 401:
-                Events.trigger(REDIRECT, {url: '/signin'});
+                this.isAuth = false;
+                // Events.trigger(REDIRECT, {url: '/signin'});
                 break;
             default:
                 Events.trigger(ABSTRACT_ALL_DEAD);
@@ -55,22 +56,19 @@ class UserModel {
     }
     /**
      * Обновить аватар(и все сведения о пользователе)
+     * @param {FormData} formAvatar - форма аватарки
      */
-    updateAvatar() {
-        const response = Net.user();
-        response.then((response) => {
-            const code = response.code;
-            const data = response.data;
-            switch (code) {
+    updateAvatar(formAvatar) {
+        const avaResponse = Net.updateAvatar(new FormData(formAvatar));
+        avaResponse.then((response) => {
+            const status = response.status;
+            switch (status) {
             case 200:
-                this.isAuth = true;
-                this.login = data.username;
-                this.id = data.id;
-                this.avatar = data.avatar;
+                this.avatar = response.data;
                 Events.trigger(UPDATE_AVATAR);
                 break;
             case 400:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(ERR_UPDATE_AVATAR, 'Неверный формат запроса');
                 break;
             case 401:
                 Events.trigger(REDIRECT, {url: '/signin'});
@@ -79,12 +77,14 @@ class UserModel {
                 Events.trigger(ABSTRACT_ALL_DEAD);
                 break;
             case 415:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(ERR_UPDATE_AVATAR, 'Можно загружать только файлы с расширением jpg, png');
                 break;
             default:
                 Events.trigger(ABSTRACT_ALL_DEAD);
                 break;
             }
+        }).catch(() => {
+            Events.trigger(ERR_UPDATE_AVATAR, 'Аватарку обновить не получилось!');
         });
     }
     /**
@@ -95,9 +95,9 @@ class UserModel {
     signin(username, password) {
         const response = Net.signin(username, password);
         response.then((response) => {
-            const code = response.code;
+            const status = response.status;
             const data = response.data;
-            switch (code) {
+            switch (status) {
             case 200:
                 this.isAuth = true;
                 this.id = data.id;
@@ -127,9 +127,9 @@ class UserModel {
     signup(username, email, password) {
         const response = Net.signup(username, email, password);
         response.then((response) => {
-            const code = response.code;
+            const status = response.status;
             const data = response.data;
-            switch (code) {
+            switch (status) {
             case 200:
                 this.id = data.id;
                 this.avatar = data.avatar;
@@ -156,8 +156,8 @@ class UserModel {
     signout() {
         const response = Net.signout();
         response.then((r) => {
-            const code = r.code;
-            switch (code) {
+            const status = r.status;
+            switch (status) {
             case 200:
                 this.id = -1;
                 this.username = '';
@@ -179,8 +179,8 @@ class UserModel {
     updatePassword(oldPassword, password) {
         const response = Net.updatePassword(oldPassword, password);
         response.then((r) => {
-            const code = r.code;
-            switch (code) {
+            const status = r.status;
+            switch (status) {
             case 200:
                 Events.trigger(GET_NEW_PASSWORD);
                 break;

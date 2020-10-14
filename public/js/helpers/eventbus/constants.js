@@ -11,6 +11,7 @@ export const SIGNOUT = 'signout';
 export const HAVNT_USER = 'haventUser';
 export const PROFILE_USER = 'profileUser';
 export const UPDATE_AVATAR = 'updateAvatar';
+export const ERR_UPDATE_AVATAR = 'errUpdateAvatar';
 export const SIGNIN_USER = 'signinUser';
 export const ERROR_SIGNIN = 'errorSignin';
 export const SIGNUP_USER = 'signupUser';

@@ -5,10 +5,6 @@ class Validation {
     /** Конструктор класса */
     constructor() {
         this._loginTable = [
-            // {
-            //     regExp: new RegExp('^[a-zA-Zа-яА-Я].*$'),
-            //     strErr: 'Логин должен начинаться с буквы',
-            // },
             {
                 regExp: new RegExp('^[a-zA-Zа-яА-я0-9_.-]*$'),
                 strErr: 'Логин может включать только буквы, цифры и символы _ - .',
@@ -27,6 +23,13 @@ class Validation {
             {
                 regExp: new RegExp('^.{5,30}$'),
                 strErr: 'Длинна пароля должна быть в пределах от 5 до 30 символов',
+            },
+        ];
+
+        this._emailTable = [
+            {
+                regExp: new RegExp('^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$'),
+                strErr: 'Вы ввели некорректрый email-адрес',
             },
         ];
     }
@@ -55,6 +58,21 @@ class Validation {
         for (let i = 0; i < this._passwordTable.length; i++) {
             if (!this._passwordTable[i].regExp.exec(password)) {
                 Events.trigger(evtErrPsw, this._passwordTable[i].strErr);
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
+     * Валидация для пароля и/или логина
+     * @param {string} email - email
+     * @param {string} evtErrEmail - тип события, которое нужно стригеррить при ошибке в пароле
+     * @return {boolean} true, если ошибок не обнаружено
+     */
+    validateEmail(email, evtErrEmail) {
+        for (let i = 0; i < this._emailTable.length; i++) {
+            if (!this._emailTable[i].regExp.exec(email)) {
+                Events.trigger(evtErrEmail, this._emailTable[i].strErr);
                 return false;
             }
         }
