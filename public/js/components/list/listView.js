@@ -24,7 +24,6 @@ export default class ListView {
             page = document.createElement('div');
             page.id = 'page';
         }
-        page.className = 'page-wrap';
 
         this._parent.appendChild(page);
         this.page = page;

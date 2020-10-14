@@ -32,7 +32,7 @@ class Network {
         if (body != null && !(body instanceof FormData)) {
             reqBody = JSON.stringify(body); // TODO: сделать проверку
         }
-        let statusCode = -1;
+
         return fetch(this.domain + this.port + url, {
             method: method,
             mode: 'cors',
@@ -41,12 +41,11 @@ class Network {
             headers: headers,
         }).then((response) => {
             this._csrf = response.headers.get('csrf');
-            statusCode = response.status;
             return response.json();
         }).then((json) => {
-            return {status: json.code, data: json.data};
+            return {code: json.code, data: json.data};
         }).catch((err) => {
-            return {status: statusCode, error: err}; // TODO: возможно надо поменять, возможно нет
+            return {error: err};
         });
     }
     /**

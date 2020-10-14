@@ -12,7 +12,7 @@ export default class SigninModel {
      * Инициализация класса
      */
     constructor() {
-        this._user = ProfileModel.instance;
+        this._user = ProfileModel;
         this.timerId = -1;
         Events.subscribe(SIGNIN_USER, () => {
             if (this._user.isAuth) {

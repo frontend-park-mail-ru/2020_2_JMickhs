@@ -18,7 +18,7 @@ export default class ProfileController {
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
     constructor(parent) {
-        this._model = ProfileModel.instance;
+        this._model = ProfileModel;
         this._view = new ProfileView(parent, this._model);
 
         Events.subscribe(UPDATE_PASSWORD, (arg) => {
@@ -45,6 +45,8 @@ export default class ProfileController {
         if (this._model.isAuth) {
             this._view.render();
             return;
+        } else {
+            Events.trigger(REDIRECT, {url: '/signin'});
         }
         Events.subscribe(PROFILE_USER, () => {
             this._view.render();

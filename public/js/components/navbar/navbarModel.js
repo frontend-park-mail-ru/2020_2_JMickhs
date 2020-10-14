@@ -17,7 +17,7 @@ export default class NavbarModel {
         this.el2 = {text: 'Список отелей', ref: '/list'};
         this.el3 = {text: 'Авторизация', ref: '/signin'};
 
-        this._user = ProfileModel.instance;
+        this._user = ProfileModel;
 
         Events.subscribe(UPDATE_USER, () => {
             if (this._user.isAuth) {
