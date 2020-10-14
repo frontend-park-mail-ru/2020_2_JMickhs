@@ -200,7 +200,8 @@ class UserModel {
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Нет csrf'});
                 break;
             default:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Что-то страшное произошло c нишим сервером...' +
+                        ` Он говорит: ${status}`});
                 break;
             }
         });

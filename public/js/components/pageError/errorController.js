@@ -11,13 +11,13 @@ export default class ErrorController {
         if (parent instanceof HTMLElement) {
             this._view = new ErrorView(parent);
         }
-        this.err = 'Такой страницы не существует';
+        this._error = 'Такой страницы не существует';
     }
     /**
      * Активация работы контроллера
      */
     activate() {
-        this._view.render(this.err);
+        this._view.render(this._error);
     }
     /**
      * Установка поля ошибки
@@ -30,7 +30,7 @@ export default class ErrorController {
      * Отключение работы контроллера и чистка памяти
      */
     deactivate() {
-        this.err = 'Такой страницы не существует';
+        this._error = 'Такой страницы не существует';
         // TODO:
     }
 }
