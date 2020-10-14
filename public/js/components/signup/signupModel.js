@@ -17,7 +17,7 @@ export default class SignupModel {
             if (this._user.isAuth) {
                 Events.trigger(REDIRECT, {url: '/profile'});
             } else {
-                Events.trigger(ERROR_SIGNUP, 'You are not authenticated');
+                Events.trigger(ERROR_SIGNUP, 'Вы не авторизованы');
             }
         });
     }

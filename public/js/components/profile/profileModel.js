@@ -46,7 +46,7 @@ class UserModel {
                 break;
             case 401:
                 this.isAuth = false;
-                Events.trigger(REDIRECT, {url: '/signin'});
+                // Events.trigger(REDIRECT, {url: '/signin'});
                 break;
             default:
                 Events.trigger(ABSTRACT_ALL_DEAD);
@@ -59,33 +59,13 @@ class UserModel {
      * @param {FormData} formAvatar - форма аватарки
      */
     updateAvatar(formAvatar) {
-        let userResponse;
         const avaResponse = Net.updateAvatar(new FormData(formAvatar));
         avaResponse.then((response) => {
             const status = response.status;
             switch (status) {
             case 200:
-                userResponse = Net.user();
-                userResponse.then((response) => {
-                    const status = response.status;
-                    const data = response.data;
-                    switch (status) {
-                    case 200:
-                        this.isAuth = true;
-                        this.login = data.username;
-                        this.id = data.id;
-                        this.avatar = data.avatar;
-                        Events.trigger(UPDATE_AVATAR);
-                        break;
-                    case 401:
-                        this.isAuth = false;
-                        Events.trigger(REDIRECT, {url: '/signin'});
-                        break;
-                    default:
-                        Events.trigger(ABSTRACT_ALL_DEAD);
-                        break;
-                    }
-                });
+                this.avatar = response.data;
+                Events.trigger(UPDATE_AVATAR);
                 break;
             case 400:
                 Events.trigger(ERR_UPDATE_AVATAR, 'Неверный формат запроса');

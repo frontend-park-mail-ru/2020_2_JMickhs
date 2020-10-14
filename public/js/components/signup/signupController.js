@@ -10,7 +10,9 @@ import {
     ERR_EMAIL_SINGUP,
     NAVBAR_ACTIVE,
     PAGE_SIGNUP,
-    REDIRECT, SUBMIT_SIGNUP,
+    REDIRECT,
+    SUBMIT_SIGNUP,
+    ERROR_SIGNUP,
 } from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для страницы регистрации */
@@ -58,24 +60,14 @@ export default class SignupController {
      */
     validate(login, pass1, pass2, email) {
         if (login === '' || pass1 === '' || pass2 === '' || email === '') {
-            if (login === '') {
-                Events.trigger(ERR_LOGIN_SINGUP, 'Заполните все поля');
-            }
-            if (pass1 === '') {
-                Events.trigger(ERR_PASSWORD1_SINGUP, 'Заполните все поля');
-            }
-            if (pass2 === '') {
-                Events.trigger(ERR_PASSWORD2_SINGUP, 'Заполните все поля');
-            }
-            if (email === '') {
-                Events.trigger(ERR_EMAIL_SINGUP, 'Заполните все поля');
-            }
+            Events.trigger(ERROR_SIGNUP, 'Заполните все поля');
         } else if (pass1 !== pass2) {
             Events.trigger(ERR_PASSWORD1_SINGUP, 'Пароли не совпадают');
             Events.trigger(ERR_PASSWORD2_SINGUP, 'Пароли не совпадают');
         } else if (
             Validation.validateLogin(login, ERR_LOGIN_SINGUP) &&
-            Validation.validatePassword(pass1, ERR_PASSWORD_SINGUP)
+            Validation.validatePassword(pass1, ERR_PASSWORD_SINGUP) &&
+            Validation.validateEmail(email, ERR_EMAIL_SINGUP)
         ) {
             this._model.signup(login, email, pass1);
         }
