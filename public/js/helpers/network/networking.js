@@ -28,7 +28,7 @@ class Network {
      * @return {Promise}
      */
     _ajax(method, url, body = null, headers = {}) {
-        let reqBody;
+        let reqBody = body;
         if (body != null && !(body instanceof FormData)) {
             reqBody = JSON.stringify(body); // TODO: сделать проверку
         }
