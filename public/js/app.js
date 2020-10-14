@@ -17,7 +17,7 @@ import {REDIRECT} from './helpers/eventbus/constants';
 (() => {
     const application = document.getElementById('app');
 
-    const userModel = ProfileModel.instance;
+    const userModel = ProfileModel;
     userModel.getCurrUser();
 
     const navbarController = new NavbarController(application);

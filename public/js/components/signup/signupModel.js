@@ -11,7 +11,7 @@ export default class SignupModel {
      * Инициализация класса
      */
     constructor() {
-        this._user = ProfileModel.instance;
+        this._user = ProfileModel;
         this.timerId = -1;
         Events.subscribe(SIGNUP_USER, () => {
             if (this._user.isAuth) {
