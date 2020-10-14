@@ -7,9 +7,12 @@ import SignupController from './components/signup/signupController';
 import ProfileController from './components/profile/profileController';
 import ProfileModel from './components/profile/profileModel';
 import HostelController from './components/hostel/hostelController';
-import ErrorController from './components/pageError/error';
+import ErrorController from './components/pageError/errorController';
 import Events from './helpers/eventbus/eventbus';
-import {REDIRECT} from './helpers/eventbus/constants';
+import {
+    REDIRECT,
+    REDIRECT_ERROR,
+} from './helpers/eventbus/constants';
 
 /**
  *  Старт нашего приложения =)
@@ -43,5 +46,9 @@ import {REDIRECT} from './helpers/eventbus/constants';
         const {url} = arg;
         Router.pushState(url);
     });
+    Events.subscribe(REDIRECT_ERROR, (arg) => {
+        const {url, err} = arg;
+        Router.errorController.setError(err);
+        Router.pushState(url);
+    });
 })();
-

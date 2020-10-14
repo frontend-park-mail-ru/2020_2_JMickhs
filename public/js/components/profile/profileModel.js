@@ -12,7 +12,9 @@ import {
     ERROR_SIGNUP,
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
-    REDIRECT, ERR_UPDATE_AVATAR,
+    REDIRECT,
+    ERR_UPDATE_AVATAR,
+    REDIRECT_ERROR,
 } from '../../helpers/eventbus/constants';
 
 /** Класс модели пользователя */
@@ -46,7 +48,6 @@ class UserModel {
                 break;
             case 401:
                 this.isAuth = false;
-                // Events.trigger(REDIRECT, {url: '/signin'});
                 break;
             default:
                 Events.trigger(ABSTRACT_ALL_DEAD);
@@ -71,6 +72,7 @@ class UserModel {
                 Events.trigger(ERR_UPDATE_AVATAR, 'Неверный формат запроса');
                 break;
             case 401:
+                this.isAuth = false;
                 Events.trigger(REDIRECT, {url: '/signin'});
                 break;
             case 403:
@@ -188,13 +190,14 @@ class UserModel {
                 Events.trigger(ABSTRACT_ALL_DEAD);
                 break;
             case 401:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                this.isAuth = false;
+                Events.trigger(REDIRECT, {url: '/signin'});
                 break;
             case 402:
                 Events.trigger(PASSWORD_UPDATE_ERROR, 'Вы ввели неверный пароль');
                 break;
             case 403:
-                Events.trigger(ABSTRACT_ALL_DEAD);
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Нет csrf'});
                 break;
             default:
                 Events.trigger(ABSTRACT_ALL_DEAD);
