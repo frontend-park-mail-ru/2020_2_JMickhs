@@ -45,6 +45,7 @@ class UserModel {
                 Events.trigger(PROFILE_USER);
                 break;
             case 401:
+                this.isAuth = false;
                 Events.trigger(REDIRECT, {url: '/signin'});
                 break;
             default:
@@ -58,12 +59,33 @@ class UserModel {
      * @param {FormData} formAvatar - форма аватарки
      */
     updateAvatar(formAvatar) {
+        let userResponse;
         const avaResponse = Net.updateAvatar(new FormData(formAvatar));
         avaResponse.then((response) => {
             const status = response.status;
             switch (status) {
             case 200:
-                Events.trigger(UPDATE_AVATAR);
+                userResponse = Net.user();
+                userResponse.then((response) => {
+                    const status = response.status;
+                    const data = response.data;
+                    switch (status) {
+                    case 200:
+                        this.isAuth = true;
+                        this.login = data.username;
+                        this.id = data.id;
+                        this.avatar = data.avatar;
+                        Events.trigger(UPDATE_AVATAR);
+                        break;
+                    case 401:
+                        this.isAuth = false;
+                        Events.trigger(REDIRECT, {url: '/signin'});
+                        break;
+                    default:
+                        Events.trigger(ABSTRACT_ALL_DEAD);
+                        break;
+                    }
+                });
                 break;
             case 400:
                 Events.trigger(ERR_UPDATE_AVATAR, 'Неверный формат запроса');
@@ -83,27 +105,6 @@ class UserModel {
             }
         }).catch(() => {
             Events.trigger(ERR_UPDATE_AVATAR, 'Аватарку обновить не получилось!');
-        });
-
-        const userResponse = Net.user();
-        userResponse.then((response) => {
-            const status = response.status;
-            const data = response.data;
-            switch (status) {
-            case 200:
-                this.isAuth = true;
-                this.login = data.username;
-                this.id = data.id;
-                this.avatar = data.avatar;
-                Events.trigger(UPDATE_AVATAR);
-                break;
-            case 401:
-                Events.trigger(REDIRECT, {url: '/signin'});
-                break;
-            default:
-                Events.trigger(ABSTRACT_ALL_DEAD);
-                break;
-            }
         });
     }
     /**
