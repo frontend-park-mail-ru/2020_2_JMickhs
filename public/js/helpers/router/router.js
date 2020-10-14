@@ -22,6 +22,12 @@ class RouterCustom {
         this._errorController = controller;
     }
     /**
+     * Возвращает контроллер  для ошибок
+     */
+    get errorController() {
+        return this._errorController;
+    }
+    /**
      * Стартует роутер
      */
     start() {

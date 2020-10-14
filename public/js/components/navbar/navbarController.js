@@ -24,7 +24,10 @@ export default class NavbarController {
             document.getElementById('nav1').className = '';
             document.getElementById('nav2').className = '';
             document.getElementById('nav3').className = '';
-            document.getElementById(`nav${arg}`).className = 'current';
+            const tmp = document.getElementById(`nav${arg}`);
+            if (tmp !== null) {
+                tmp.className = 'current';
+            }
         });
     }
 }
