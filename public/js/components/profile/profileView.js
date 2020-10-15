@@ -26,6 +26,24 @@ export default class ProfileView {
     constructor(parent, model) {
         this._model = model;
 
+        this._handlers = {
+            render: this.render.bind(this),
+            getNewPsw: () => {
+                this.renderMessage('Вы успешно поменяли пароль', true);
+            },
+            pswUpdateError: (arg) => {
+                this.renderMessage(arg);
+            },
+            profileRenderErr: (arg) => {
+                this.renderMessage(arg);
+            },
+            updateAvatar: () => {
+                const img = document.getElementById('avatar-img');
+                img.innerHTML = profileAvatarTemplate(this._model);
+                this.renderMessage('Аватар успешно изменен', true);
+            },
+        };
+
         if (parent instanceof HTMLElement) {
             this._parent = parent;
         }
@@ -37,28 +55,30 @@ export default class ProfileView {
             this._parent.appendChild(page);
         }
         this.page = page;
-
-        Events.subscribe(GET_NEW_PASSWORD, () => {
-            this.renderMessage('Вы успешно поменяли пароль', true);
-        });
-        Events.subscribe(PASSWORD_UPDATE_ERROR, (arg) => {
-            this.renderMessage(arg);
-        });
-        Events.subscribe(PROFILE_RENDER_ERROR, (arg) => {
-            this.renderMessage(arg);
-        });
+    }
+    /**
+     * Подписка на события страницы профиля
+     */
+    subscribeEvents() {
+        Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
+        Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
+        Events.subscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
+        Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
+    }
+    /**
+     * Отписка от событий страницы профиля
+     */
+    unsubscribeEvents() {
+        Events.unsubscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
+        Events.unsubscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
+        Events.unsubscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
+        Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
     }
     /**
      * Отрисовка страницы профиля
      */
     render() {
         this.page.innerHTML = profileTemplate(this._model);
-
-        Events.subscribe(UPDATE_AVATAR, () => {
-            const img = document.getElementById('avatar-img');
-            img.innerHTML = profileAvatarTemplate(this._model);
-            this.renderMessage('Аватар успешно изменен', true);
-        });
 
         const btn = document.getElementById('button-save');
         const newPass = document.getElementById('password2');
@@ -148,5 +168,11 @@ export default class ProfileView {
             form.removeChild(noticeLine);
             this._model.timerId = -1;
         }, 5000);
+    }
+    /**
+     * Скрытие страницы профиля
+     */
+    hide() {
+        this.page.innerHTML = '';
     }
 }

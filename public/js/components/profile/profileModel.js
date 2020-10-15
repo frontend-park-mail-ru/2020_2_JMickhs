@@ -13,7 +13,7 @@ import {
     PASSWORD_UPDATE_ERROR,
     REDIRECT,
     ERR_UPDATE_AVATAR,
-    REDIRECT_ERROR,
+    REDIRECT_ERROR, HAVNT_USER,
 } from '../../helpers/eventbus/constants';
 
 /** Класс модели пользователя */
@@ -46,7 +46,7 @@ class ProfileModel {
                 Events.trigger(PROFILE_USER);
                 break;
             case 401:
-                this.isAuth = false;
+                Events.trigger(HAVNT_USER);
                 break;
             default:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Что-то страшное произошло c нишим сервером...' +

@@ -8,7 +8,7 @@ import {
     SIGNOUT,
     REDIRECT,
     NAVBAR_ACTIVE,
-    PROFILE_USER,
+    PROFILE_USER, HAVNT_USER,
 } from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для страницы профиля */
@@ -44,18 +44,20 @@ export default class ProfileController {
         Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth) {
             this._view.render();
-            return;
-        } else {
-            Events.trigger(REDIRECT, {url: '/signin'});
         }
+        Events.subscribe(HAVNT_USER, () => {
+            Events.trigger(REDIRECT, {url: '/signin'});
+        });
         Events.subscribe(PROFILE_USER, () => {
             this._view.render();
         });
+        this._view.subscribeEvents();
     }
     /**
      * Отключение работы контроллера и чистка памяти
      */
     deactivate() {
-        // TODO:
+        this._view.hide();
+        this._view.unsubscribeEvents();
     }
 }
