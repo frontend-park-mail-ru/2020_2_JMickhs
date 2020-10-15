@@ -1,14 +1,8 @@
 import ProfileModel from './profileModel';
 import ProfileView from './profileView';
 import Events from './../../helpers/eventbus/eventbus';
-import Validation from '../../helpers/validation/validation';
 import {
-    UPDATE_PASSWORD,
-    PROFILE_RENDER_ERROR,
-    SIGNOUT,
-    REDIRECT,
     NAVBAR_ACTIVE,
-    PROFILE_USER, HAVNT_USER,
 } from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для страницы профиля */
@@ -20,38 +14,16 @@ export default class ProfileController {
     constructor(parent) {
         this._model = ProfileModel;
         this._view = new ProfileView(parent, this._model);
-
-        Events.subscribe(UPDATE_PASSWORD, (arg) => {
-            if (arg.oldPassword === '' || arg.newPassword === '') {
-                this._view.renderMessage('Заполните все поля');
-            } else if (arg.oldPassword === arg.newPassword) {
-                this._view.renderMessage('Вы ввели одинаковые пароли');
-            } else if (
-                Validation.validatePassword(arg.newPassword, PROFILE_RENDER_ERROR)
-            ) {
-                this._model.updatePassword(arg.oldPassword, arg.newPassword);
-            }
-        });
-
-        Events.subscribe(SIGNOUT, () => {
-            Events.trigger(REDIRECT, {url: '/signin'});
-        });
     }
     /**
      * Активация работы контроллера
      */
     activate() {
+        this._view.subscribeEvents();
         Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth) {
             this._view.render();
         }
-        Events.subscribe(HAVNT_USER, () => {
-            Events.trigger(REDIRECT, {url: '/signin'});
-        });
-        Events.subscribe(PROFILE_USER, () => {
-            this._view.render();
-        });
-        this._view.subscribeEvents();
     }
     /**
      * Отключение работы контроллера и чистка памяти

@@ -19,6 +19,7 @@ export const SIGNUP_USER = 'signupUser';
 export const ERROR_SIGNUP = 'errorSignup';
 export const GET_NEW_PASSWORD = 'getNewPassword';
 export const PASSWORD_UPDATE_ERROR = 'passwordUpdateError';
+export const PASSWORD_VALIDATE_ERROR = 'passwordValidateError';
 export const PROFILE_RENDER_ERROR = 'profileRenderError';
 export const SUBMIT_SIGNIN = 'submitSignin';
 export const ERR_LOGIN_SINGIN = 'errLoginSignin';

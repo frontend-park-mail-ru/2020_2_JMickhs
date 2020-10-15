@@ -13,8 +13,12 @@ import {
     PASSWORD_UPDATE_ERROR,
     REDIRECT,
     ERR_UPDATE_AVATAR,
-    REDIRECT_ERROR, HAVNT_USER,
+    REDIRECT_ERROR,
+    HAVNT_USER,
+    PROFILE_RENDER_ERROR,
+    PASSWORD_VALIDATE_ERROR,
 } from '../../helpers/eventbus/constants';
+import Validation from '../../helpers/validation/validation';
 
 /** Класс модели пользователя */
 class ProfileModel {
@@ -205,6 +209,21 @@ class ProfileModel {
                 break;
             }
         });
+    }
+    /**
+     * Валидация полей
+     * @param {Object} arg - объект с паролями
+     */
+    validate(arg) {
+        if (arg.oldPassword === '' || arg.newPassword === '') {
+            Events.trigger(PASSWORD_VALIDATE_ERROR, 'Заполните все поля');
+        } else if (arg.oldPassword === arg.newPassword) {
+            Events.trigger(PASSWORD_VALIDATE_ERROR, 'Вы ввели одинаковые пароли');
+        } else if (
+            Validation.validatePassword(arg.newPassword, PROFILE_RENDER_ERROR)
+        ) {
+            this.updatePassword(arg.oldPassword, arg.newPassword);
+        }
     }
 }
 
