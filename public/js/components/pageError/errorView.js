@@ -1,6 +1,3 @@
-import Events from '../../helpers/eventbus/eventbus';
-import {NAVBAR_ACTIVE} from '../../helpers/eventbus/constants';
-
 /** Класс представления для страницы ошибки */
 export default class ErrorView {
     /**
@@ -11,16 +8,29 @@ export default class ErrorView {
         if (parent instanceof HTMLElement) {
             this._parent = parent;
         }
+
+        let page = document.getElementById('page');
+        if (page === null) {
+            page = document.createElement('div');
+            page.id = 'page';
+        }
+        this._parent.appendChild(page);
+        this.page = page;
     }
     /**
-     * Отрисовка домашней страницы
+     * Отрисовка страницы ошибок
      * @param {string} err - тип ошибки
      */
     render(err) {
-        Events.trigger(NAVBAR_ACTIVE, -1);
-        document.getElementById('page').innerHTML = `
+        this.page.innerHTML = `
             <p class="text-first">Уупс, произошла ошибка!</p>
             <p class="text">${err}</p>
             `;
+    }
+    /**
+     * Скрытие страницы ошибок
+     */
+    hide() {
+        this.page.innerHTML = '';
     }
 }

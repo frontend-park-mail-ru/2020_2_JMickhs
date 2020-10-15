@@ -12,6 +12,9 @@ export default class HostelView {
      */
     constructor(parent, model) {
         this._model = model;
+        this._handlers = {
+            render: this.render.bind(this),
+        };
 
         if (parent instanceof HTMLElement) {
             this._parent = parent;
@@ -24,14 +27,29 @@ export default class HostelView {
             this._parent.appendChild(page);
         }
         this.page = page;
-        Events.subscribe(UPDATE_HOSTEL, () => {
-            this.render();
-        });
+    }
+    /**
+     * Подписка на события страницы отеля
+     */
+    subscribeEvents() {
+        Events.subscribe(UPDATE_HOSTEL, this._handlers.render);
+    }
+    /**
+     * Отписка от событий страницы отеля
+     */
+    unsubscribeEvents() {
+        Events.unsubscribe(UPDATE_HOSTEL, this._handlers.render);
     }
     /**
      * Отрисовка страницы отеля
      */
     render() {
         this.page.innerHTML = hostelTemplate(this._model);
+    }
+    /**
+     * Скрытие страницы отеля
+     */
+    hide() {
+        this.page.innerHTML = '';
     }
 }

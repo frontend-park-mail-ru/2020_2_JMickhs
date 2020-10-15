@@ -1,4 +1,6 @@
 import ErrorView from './errorView';
+import Events from '../../helpers/eventbus/eventbus';
+import {NAVBAR_ACTIVE} from '../../helpers/eventbus/constants';
 
 /** Класс констроллера для страницы ошибки */
 export default class ErrorController {
@@ -13,12 +15,6 @@ export default class ErrorController {
         this._error = 'Такой страницы не существует';
     }
     /**
-     * Активация работы контроллера
-     */
-    activate() {
-        this._view.render(this._error);
-    }
-    /**
      * Установка поля ошибки
      * @param {string} err - текст ошибки
      */
@@ -26,10 +22,16 @@ export default class ErrorController {
         this._error = err;
     }
     /**
+     * Активация работы контроллера
+     */
+    activate() {
+        Events.trigger(NAVBAR_ACTIVE, -1);
+        this._view.render(this._error);
+    }
+    /**
      * Отключение работы контроллера и чистка памяти
      */
     deactivate() {
-        this._error = 'Такой страницы не существует';
-        // TODO:
+        this._view.hide();
     }
 }

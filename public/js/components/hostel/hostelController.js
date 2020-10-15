@@ -27,11 +27,13 @@ export default class HotelController {
             return;
         }
         this._model.fillModel(id);
+        this._view.subscribeEvents();
     }
     /**
      * Отключение работы контроллера и чистка памяти
      */
     deactivate() {
-        // TODO:
+        this._view.hide();
+        this._view.unsubscribeEvents();
     }
 }

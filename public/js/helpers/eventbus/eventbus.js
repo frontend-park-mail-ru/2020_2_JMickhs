@@ -1,12 +1,10 @@
-/**
- * Eventbus
- */
+/** Eventbus */
 class EventBus {
     /**
      * Создает экземпляр EvenBus
      */
     constructor() {
-        this.events = {}; // храним евенты
+        this.events = {};
     }
     /**
      * Подписка на событие
