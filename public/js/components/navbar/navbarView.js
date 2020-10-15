@@ -2,7 +2,10 @@ import NavbarModel from './navbarModel';
 import Events from './../../helpers/eventbus/eventbus';
 import {
     NAVBAR_ACTIVE,
+    PAGE_SIGNIN,
+    PAGE_SIGNUP,
     UPDATE_NAVBAR,
+    UPDATE_USER,
 } from '../../helpers/eventbus/constants';
 
 // eslint-disable-next-line no-undef
@@ -27,14 +30,25 @@ export default class NavbarView {
                     tmp.className = 'current';
                 }
             },
+            updateUser: () => {
+                if (this._model._user.isAuth) {
+                    this._model.el3 = {text: this._model._user.login, ref: '/profile'};
+                    Events.trigger(UPDATE_NAVBAR);
+                }
+            },
+            pageSignup: () => {
+                this._model.el3 = {text: 'Регистрация', ref: '/signup'};
+                Events.trigger(UPDATE_NAVBAR);
+            },
+            pageSignin: () => {
+                this._model.el3 = {text: 'Авторизация', ref: '/signin'};
+                Events.trigger(UPDATE_NAVBAR);
+            },
         };
-
         if (parent instanceof HTMLElement && model instanceof NavbarModel) {
             this._parent = parent;
             this._model = model;
         }
-
-        Events.subscribe(UPDATE_NAVBAR, this.render.bind(this));
 
         let nav = document.getElementById('navbar');
         if (nav == null) {
@@ -50,6 +64,9 @@ export default class NavbarView {
     subscribeEvents() {
         Events.subscribe(UPDATE_NAVBAR, this._handlers.render);
         Events.subscribe(NAVBAR_ACTIVE, this._handlers.navbarActive);
+        Events.subscribe(UPDATE_USER, this._handlers.updateUser);
+        Events.subscribe(PAGE_SIGNUP, this._handlers.pageSignup);
+        Events.subscribe(PAGE_SIGNIN, this._handlers.pageSignin);
     }
     /**
      * Отрисовка навбара
