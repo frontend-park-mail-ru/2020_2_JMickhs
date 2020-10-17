@@ -5,7 +5,10 @@ import {
     ERR_LOGIN_SINGIN,
     ERR_PASSWORD_SINGIN,
     ERROR_SIGNIN,
+    SIGNIN_USER,
+    REDIRECT,
 } from '../../helpers/eventbus/constants';
+import Validation from '../../helpers/validation/validation';
 
 // eslint-disable-next-line no-undef
 const signinTemplate = require('./templateSignin.hbs');
@@ -18,13 +21,58 @@ export default class SigninView {
      * @param {any} model - модель
      */
     constructor(parent, model) {
+        this._handlers = {
+            renderErr: (arg) => {
+                this.renderError(arg);
+            },
+            errLoginSignin: (arg) => {
+                document.getElementById('login').className = 'input-error';
+                this.renderError(arg);
+            },
+            errPswSigin: (arg) => {
+                document.getElementById('password').className = 'input-error';
+                this.renderError(arg);
+            },
+            submitSignin: (arg) => {
+                if (arg.login === '' || arg.password === '') {
+                    if (arg.login === '') {
+                        Events.trigger(ERR_LOGIN_SINGIN, 'Заполните все поля');
+                    }
+                    if (arg.password === '') {
+                        Events.trigger(ERR_PASSWORD_SINGIN, 'Заполните все поля');
+                    }
+                    return;
+                }
+                if (
+                    Validation.validateLogin(arg.login, ERR_LOGIN_SINGIN) &&
+                    Validation.validatePassword(arg.password, ERR_PASSWORD_SINGIN)
+                ) {
+                    this._model.signin(arg.login, arg.password);
+                }
+            },
+            signinUser: () => {
+                if (this._model._user.isAuth) {
+                    Events.trigger(REDIRECT, {url: '/profile'});
+                } else {
+                    Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
+                }
+            },
+            submitSigninForm: (evt) => {
+                evt.preventDefault();
+                const loginInput = document.getElementById('login');
+                const passInput = document.getElementById('password');
+                const login = loginInput.value;
+                const password = passInput.value;
+                document.getElementById('login').className = 'input-sign';
+                document.getElementById('password').className = 'input-sign';
+                Events.trigger(SUBMIT_SIGNIN, {login: login, password: password});
+            },
+        };
+
         if (parent instanceof HTMLElement && model instanceof SigninModel) {
             this._parent = parent;
             this._model = model;
         }
-        Events.subscribe(ERROR_SIGNIN, (arg) => {
-            this.renderError(arg);
-        });
 
         let page = document.getElementById('page');
         if (page === null) {
@@ -35,32 +83,33 @@ export default class SigninView {
         this.page = page;
     }
     /**
+     * Подписка на события страницы авторизации
+     */
+    subscribeEvents() {
+        Events.subscribe(ERROR_SIGNIN, this._handlers.renderErr);
+        Events.subscribe(ERR_LOGIN_SINGIN, this._handlers.errLoginSignin);
+        Events.subscribe(ERR_PASSWORD_SINGIN, this._handlers.errPswSigin);
+        Events.subscribe(SUBMIT_SIGNIN, this._handlers.submitSignin);
+        Events.subscribe(SIGNIN_USER, this._handlers.signinUser);
+    }
+    /**
+     * Отписка от событий страницы авторизации
+     */
+    unsubscribeEvents() {
+        Events.unsubscribe(SUBMIT_SIGNIN, this._handlers.submitSignin);
+        Events.unsubscribe(ERROR_SIGNIN, this._handlers.renderErr);
+        Events.unsubscribe(ERR_LOGIN_SINGIN, this._handlers.errLoginSignin);
+        Events.unsubscribe(ERR_PASSWORD_SINGIN, this._handlers.errPswSigin);
+        Events.unsubscribe(SIGNIN_USER, this._handlers.signinUser);
+    }
+    /**
      * Отрисовка страницы авторизации
      */
     render() {
         this.page.innerHTML = signinTemplate();
 
         const form = document.getElementById('signinform');
-        const loginInput = document.getElementById('login');
-        const passInput = document.getElementById('password');
-
-        form.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            const login = loginInput.value;
-            const password = passInput.value;
-            document.getElementById('login').className = 'input-sign';
-            document.getElementById('password').className = 'input-sign';
-            Events.trigger(SUBMIT_SIGNIN, {login: login, password: password});
-        });
-
-        Events.subscribe(ERR_LOGIN_SINGIN, (arg) => {
-            document.getElementById('login').className = 'input-error';
-            this.renderError(arg);
-        });
-        Events.subscribe(ERR_PASSWORD_SINGIN, (arg) => {
-            document.getElementById('password').className = 'input-error';
-            this.renderError(arg);
-        });
+        form.addEventListener('submit', this._handlers.submitSigninForm);
     }
     /**
      * Отрисовка сообщения об ошибке
@@ -79,5 +128,13 @@ export default class SigninView {
             document.getElementById('password').className = 'input-sign';
             this._model.timerId = -1;
         }, 5000);
+    }
+    /**
+     * Скрытие страницы страницы авторизации
+     */
+    hide() {
+        const form = document.getElementById('signinform');
+        form.removeEventListener('submit', this._handlers.submitSigninForm);
+        this.page.innerHTML = '';
     }
 }
