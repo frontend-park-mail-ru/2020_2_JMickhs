@@ -1,18 +1,10 @@
 import SignupModel from './signupModel';
 import SignupView from './signupView';
 import Events from '../../helpers/eventbus/eventbus';
-import Validation from '../../helpers/validation/validation';
 import {
-    ERR_LOGIN_SINGUP,
-    ERR_PASSWORD1_SINGUP,
-    ERR_PASSWORD2_SINGUP,
-    ERR_PASSWORD_SINGUP,
-    ERR_EMAIL_SINGUP,
     NAVBAR_ACTIVE,
     PAGE_SIGNUP,
     REDIRECT,
-    SUBMIT_SIGNUP,
-    ERROR_SIGNUP,
 } from '../../helpers/eventbus/constants';
 
 /** Класс контроллера для страницы регистрации */
@@ -24,18 +16,12 @@ export default class SignupController {
     constructor(parent) {
         this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
-        Events.subscribe(SUBMIT_SIGNUP, (arg) => {
-            const pass1 = arg.password1;
-            const pass2 = arg.password2;
-            const login = arg.login;
-            const email = arg.email;
-            this.validate(login, pass1, pass2, email);
-        });
     }
     /**
      * Активация работы контроллера
      */
     activate() {
+        this._view.subscribeEvents();
         Events.trigger(PAGE_SIGNUP);
         Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
@@ -49,27 +35,6 @@ export default class SignupController {
      */
     deactivate() {
         this._view.unsubscribeEvents();
-    }
-
-    /**
-     * Валидация формы
-     * @param {string} login - родительский элемент html-страницы
-     * @param {string} pass1 - родительский элемент html-страницы
-     * @param {string} pass2 - родительский элемент html-страницы
-     * @param {string} email - родительский элемент html-страницы
-     */
-    validate(login, pass1, pass2, email) {
-        if (login === '' || pass1 === '' || pass2 === '' || email === '') {
-            Events.trigger(ERROR_SIGNUP, 'Заполните все поля');
-        } else if (pass1 !== pass2) {
-            Events.trigger(ERR_PASSWORD1_SINGUP, 'Пароли не совпадают');
-            Events.trigger(ERR_PASSWORD2_SINGUP, 'Пароли не совпадают');
-        } else if (
-            Validation.validateLogin(login, ERR_LOGIN_SINGUP) &&
-            Validation.validatePassword(pass1, ERR_PASSWORD_SINGUP) &&
-            Validation.validateEmail(email, ERR_EMAIL_SINGUP)
-        ) {
-            this._model.signup(login, email, pass1);
-        }
+        this._view.hide();
     }
 }
