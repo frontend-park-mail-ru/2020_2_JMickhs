@@ -23,6 +23,6 @@ export default class HomeController {
      * Отключение работы контроллера и чистка памяти
      */
     deactivate() {
-        // TODO:
+        this._view.hide();
     }
 }
