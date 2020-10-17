@@ -112,7 +112,7 @@ export default class SignupView {
         this.page = page;
     }
     /**
-     * Подписка на события списка отелей
+     * Подписка на события страницы регистрации
      */
     subscribeEvents() {
         Events.subscribe(ERROR_SIGNUP, this._handlers.errSignup);
@@ -122,7 +122,7 @@ export default class SignupView {
         Events.subscribe(SUBMIT_SIGNUP, this._handlers.submitSignup);
     }
     /**
-     * Отписка от событий списка отелей
+     * Отписка от событий сраницы регистрации
      */
     unsubscribeEvents() {
         Events.unsubscribe(ERROR_SIGNUP, this._handlers.errSignup);
@@ -172,7 +172,7 @@ export default class SignupView {
         }, 5000);
     }
     /**
-     * Скрытие страницы списка отелей
+     * Скрытие страницы регистрации
      */
     hide() {
         const form = document.getElementById('signupform');
