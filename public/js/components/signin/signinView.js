@@ -26,11 +26,11 @@ export default class SigninView {
                 this.renderError(arg);
             },
             errLoginSignin: (arg) => {
-                document.getElementById('login').className = 'input-error';
+                document.getElementById('signin-login').className = 'input-error';
                 this.renderError(arg);
             },
             errPswSigin: (arg) => {
-                document.getElementById('password').className = 'input-error';
+                document.getElementById('signin-password').className = 'input-error';
                 this.renderError(arg);
             },
             submitSignin: (arg) => {
@@ -59,12 +59,12 @@ export default class SigninView {
             },
             submitSigninForm: (evt) => {
                 evt.preventDefault();
-                const loginInput = document.getElementById('login');
-                const passInput = document.getElementById('password');
+                const loginInput = document.getElementById('signin-login');
+                const passInput = document.getElementById('signin-password');
                 const login = loginInput.value;
                 const password = passInput.value;
-                document.getElementById('login').className = 'input-sign';
-                document.getElementById('password').className = 'input-sign';
+                document.getElementById('signin-login').className = 'input-sign';
+                document.getElementById('signin-password').className = 'input-sign';
                 Events.trigger(SUBMIT_SIGNIN, {login: login, password: password});
             },
         };
@@ -124,8 +124,16 @@ export default class SigninView {
 
         this._model.timerId = setTimeout(() => {
             errLine.textContent = '';
-            document.getElementById('login').className = 'input-sign';
-            document.getElementById('password').className = 'input-sign';
+            const loginElem = document.getElementById('signin-login');
+            // тут не очевидно, так что поясню.
+            // Если отрендерится ошибка и пользователь перейдет на другую страницу до того как эта ошибка пропадет,
+            // выполнится следующий код, но уже на новой странице, на которой нет html-тегов,
+            // котрые используются функцией. Бах, и jserror в консоль! Но мы это предвидим :) и проверяем, есть ли
+            // нужные теги(одного достаточно на самом деле) на странице
+            if (loginElem !== null) {
+                loginElem.className = 'input-sign';
+                document.getElementById('signin-password').className = 'input-sign';
+            }
             this._model.timerId = -1;
         }, 5000);
     }

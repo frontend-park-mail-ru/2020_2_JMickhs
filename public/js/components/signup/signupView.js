@@ -26,16 +26,16 @@ export default class SignupView {
                 this.renderError(arg);
             },
             errLoginSignup: (arg) => {
-                document.getElementById('login').className = 'input-error';
+                document.getElementById('signup-login').className = 'input-error';
                 this.renderError(arg);
             },
             errEmailSignup: (arg) => {
-                document.getElementById('email').className = 'input-error';
+                document.getElementById('signup-email').className = 'input-error';
                 this.renderError(arg);
             },
             errPswSignup: (arg) => {
-                document.getElementById('password1').className = 'input-error';
-                document.getElementById('password2').className = 'input-error';
+                document.getElementById('signup-password1').className = 'input-error';
+                document.getElementById('signup-password2').className = 'input-error';
                 this.renderError(arg);
             },
             submitSignup: (arg) => {
@@ -50,7 +50,7 @@ export default class SignupView {
                     return;
                 }
                 const form = document.getElementById('signupform');
-                const loginInput = document.getElementById('login');
+                const loginInput = document.getElementById('signup-login');
                 const passPromt = document.getElementById('pass-promt');
                 if (passPromt) {
                     form.removeChild(passPromt);
@@ -68,7 +68,7 @@ export default class SignupView {
                     return;
                 }
                 const form = document.getElementById('signupform');
-                const passInput1 = document.getElementById('password1');
+                const passInput1 = document.getElementById('signup-password1');
                 const loginPromt = document.getElementById('login-promt');
                 if (loginPromt) {
                     form.removeChild(loginPromt);
@@ -83,17 +83,17 @@ export default class SignupView {
             },
             submitSignupForm: (evt) => {
                 evt.preventDefault();
-                const loginInput = document.getElementById('login');
-                const emailInput = document.getElementById('email');
-                const passInput1 = document.getElementById('password1');
-                const passInput2 = document.getElementById('password2');
+                const loginInput = document.getElementById('signup-login');
+                const emailInput = document.getElementById('signup-email');
+                const passInput1 = document.getElementById('signup-password1');
+                const passInput2 = document.getElementById('signup-password2');
                 const login = loginInput.value;
                 const email = emailInput.value;
                 const pass1 = passInput1.value;
                 const pass2 = passInput2.value;
-                document.getElementById('login').className = 'input-sign';
-                document.getElementById('password1').className = 'input-sign';
-                document.getElementById('password2').className = 'input-sign';
+                document.getElementById('signup-login').className = 'input-sign';
+                document.getElementById('signup-password1').className = 'input-sign';
+                document.getElementById('signup-password2').className = 'input-sign';
                 Events.trigger(SUBMIT_SIGNUP, {login: login, email: email, password1: pass1, password2: pass2});
             },
         };
@@ -138,9 +138,9 @@ export default class SignupView {
         this.page.innerHTML = signupTemplate();
 
         const form = document.getElementById('signupform');
-        const loginInput = document.getElementById('login');
-        const passInput1 = document.getElementById('password1');
-        const passInput2 = document.getElementById('password2');
+        const loginInput = document.getElementById('signup-login');
+        const passInput1 = document.getElementById('signup-password1');
+        const passInput2 = document.getElementById('signup-password2');
 
         loginInput.addEventListener('click', this._handlers.clickLoginInput);
         passInput1.addEventListener('click', this._handlers.clickPassInput);
@@ -160,10 +160,14 @@ export default class SignupView {
 
         this._model.timerId = setTimeout(() => {
             errLine.textContent = '';
-            document.getElementById('login').className = 'input-sign';
-            document.getElementById('password1').className = 'input-sign';
-            document.getElementById('email').className = 'input-sign';
-            document.getElementById('password2').className = 'input-sign';
+            const loginElem = document.getElementById('signup-login');
+            // тут не очевидно, но писать снова мне лень, так что см. одноименную ф-цию в signinView.js
+            if (loginElem !== null) {
+                loginElem.className = 'input-sign';
+                document.getElementById('signup-password1').className = 'input-sign';
+                document.getElementById('signup-email').className = 'input-sign';
+                document.getElementById('signup-password2').className = 'input-sign';
+            }
             this._model.timerId = -1;
         }, 5000);
     }
@@ -172,9 +176,9 @@ export default class SignupView {
      */
     hide() {
         const form = document.getElementById('signupform');
-        const loginInput = document.getElementById('login');
-        const passInput1 = document.getElementById('password1');
-        const passInput2 = document.getElementById('password2');
+        const loginInput = document.getElementById('signup-login');
+        const passInput1 = document.getElementById('signup-password1');
+        const passInput2 = document.getElementById('signup-password2');
 
         loginInput.removeEventListener('click', this._handlers.clickLoginInput);
         passInput1.removeEventListener('click', this._handlers.clickPassInput);
