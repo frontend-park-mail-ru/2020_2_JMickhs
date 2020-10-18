@@ -6,7 +6,8 @@ import {
     PASSWORD_UPDATE_ERROR,
     UPDATE_AVATAR,
     ERR_UPDATE_AVATAR,
-    SIGNOUT, REDIRECT,
+    SIGNOUT,
+    REDIRECT,
     PROFILE_USER,
     HAVNT_USER,
     PASSWORD_VALIDATE_ERROR,
@@ -63,8 +64,8 @@ export default class ProfileView {
             },
             updatePswClick: (evt) => {
                 evt.preventDefault();
-                const newPass = document.getElementById('password2');
-                const oldPass = document.getElementById('password1');
+                const newPass = document.getElementById('profile-password2');
+                const oldPass = document.getElementById('profile-password1');
                 const newPassword = newPass.value;
                 const oldPassword = oldPass.value;
                 Events.trigger(UPDATE_PASSWORD, {login: '', oldPassword: oldPassword, newPassword: newPassword});

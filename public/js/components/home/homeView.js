@@ -25,4 +25,10 @@ export default class HomeView {
     render() {
         this.page.innerHTML = homeTemplate();
     }
+    /**
+     * Скрытие домашней страницы
+     */
+    hide() {
+        this.page.innerHTML = '';
+    }
 }

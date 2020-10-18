@@ -1,7 +1,7 @@
 import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 import {
-    ERROR_HOSTEL,
+    REDIRECT_ERROR,
     UPDATE_HOSTEL,
 } from '../../helpers/eventbus/constants';
 
@@ -35,13 +35,14 @@ export default class HostelModel {
                 Events.trigger(UPDATE_HOSTEL);
                 break;
             case 400:
-                Events.trigger(ERROR_HOSTEL); // TODO: нет подписки
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
                 break;
             case 410:
-                Events.trigger(ERROR_HOSTEL);
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Такого отеля не существует'});
                 break;
             default:
-                Events.trigger(ERROR_HOSTEL);
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Что-то страшное произошло c нишим сервером...' +
+                        ` Он говорит: ${status}`});
                 break;
             }
         });

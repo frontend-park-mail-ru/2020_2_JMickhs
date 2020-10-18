@@ -1,8 +1,8 @@
 import Net from '../../helpers/network/networking';
 import Events from './../../helpers/eventbus/eventbus';
 import {
-    ERR_LOAD_HOSTELS,
     LOAD_HOSTELS,
+    REDIRECT_ERROR,
 } from '../../helpers/eventbus/constants';
 
 /** Класс модели для страницы списка отелей */
@@ -29,10 +29,11 @@ export default class ListModel {
                 Events.trigger(LOAD_HOSTELS);
                 break;
             case 400:
-                Events.trigger(ERR_LOAD_HOSTELS); // TODO: dont subscribe
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
                 break;
             default:
-                Events.trigger(ERR_LOAD_HOSTELS); // TODO: dont subscribe
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Что-то страшное произошло c нишим сервером...' +
+                        ` Он говорит: ${status}`});
                 break;
             }
         });
