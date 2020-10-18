@@ -142,6 +142,9 @@ export default class SigninView {
      */
     hide() {
         const form = document.getElementById('signinform');
+        if (!form) {
+            return;
+        }
         form.removeEventListener('submit', this._handlers.submitSigninForm);
         this.page.innerHTML = '';
     }
