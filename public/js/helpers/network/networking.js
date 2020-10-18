@@ -72,7 +72,7 @@ class Network {
         return this._ajax('POST', '/api/v1/users/sessions', body, headers);
     }
     /**
-     * вход пользователя
+     * Регистрация пользователя
      * @param {string} username - логин
      * @param {string} email - email
      * @param {string} password - пароль
@@ -139,6 +139,22 @@ class Network {
             'X-Csrf-Token': this._csrf,
         };
         return this._ajax('PUT', '/api/v1/users/avatar', formData, headers);
+    }
+    /**
+     * Обновление информации о пользователе
+     * @param {string} username - логин
+     * @param {string} email - email
+     * @return {Promise} Возвращает статус ответа или ошибку
+     */
+    fixUser(username, email) {
+        const body = {
+            email: email,
+            username: username,
+        };
+        const headers = {
+            'X-Csrf-Token': this._csrf,
+        };
+        return this._ajax('PUT', '/api/v1/users/credentials', body, headers);
     }
 }
 

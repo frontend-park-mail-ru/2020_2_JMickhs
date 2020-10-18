@@ -11,6 +11,8 @@ import {
     PROFILE_USER,
     HAVNT_USER,
     PASSWORD_VALIDATE_ERROR,
+    CHANGE_USER,
+    FIX_USER,
 } from '../../helpers/eventbus/constants';
 
 // eslint-disable-next-line no-undef
@@ -106,6 +108,16 @@ export default class ProfileView {
             signoutClick: () => {
                 this._model.signout();
             },
+            saveDataClick: (evt) => {
+                evt.preventDefault();
+                const username = document.getElementById('login-profile').value;
+                const email = document.getElementById('email-profile').value;
+                Events.trigger(CHANGE_USER, {username: username, email: email});
+            },
+            fixUser: () => {
+                document.getElementById('label-login').textContent = this._model.login;
+                document.getElementById('label-email').textContent = this._model.email;
+            },
         };
 
         if (parent instanceof HTMLElement) {
@@ -134,6 +146,7 @@ export default class ProfileView {
         Events.subscribe(SIGNOUT, this._handlers.signout);
         Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
         Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
+        Events.subscribe(FIX_USER, this._handlers.fixUser);
     }
     /**
      * Отписка от событий страницы профиля
@@ -149,6 +162,7 @@ export default class ProfileView {
         Events.unsubscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
         Events.unsubscribe(PROFILE_USER, this._handlers.render);
         Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
+        Events.unsubscribe(FIX_USER, this._handlers.fixUser);
     }
     /**
      * Отрисовка страницы профиля
@@ -169,6 +183,9 @@ export default class ProfileView {
 
         const btnExit = document.getElementById('btn-exit');
         btnExit.addEventListener('click', this._handlers.signoutClick);
+
+        const btnSaveData = document.getElementById('btn-save-data');
+        btnSaveData.addEventListener('click', this._handlers.saveDataClick);
     }
     /**
      * Отрисовка уведомления об изменении автарки
@@ -176,6 +193,9 @@ export default class ProfileView {
      * @param {boolean} [isErr=false] - тип уведомления(false - ошибка)
      */
     renderMessageAvatar(text = '', isErr = false) {
+        if (this._model.timerId !== -1) {
+            clearTimeout(this._model.timerId);
+        }
         const div = document.getElementById('btn-reload');
         div.innerHTML = messageTemplate({text: text});
         const msg = document.getElementById('msg-avatar');
@@ -188,47 +208,20 @@ export default class ProfileView {
         }, 5000);
     }
     /**
-     * Отрисовка уведомления
-     * @param {string} [errstr=''] - текст уведомления
-     * @param {boolean} [typeMessageFlag=false] - тип уведомления(false - ошибка)
+     * Отрисовка уведомления об изменении автарки
+     * @param {string} [text=''] - текст уведомления
      */
-    renderMessage(errstr = '', typeMessageFlag = false) {
-        const form = document.getElementById('change-data-form');
-        let noticeLine;
-        let errLine;
-        if (typeMessageFlag) {
-            noticeLine = document.getElementById('notice-line');
-            errLine = document.getElementById('error-line');
-        } else {
-            noticeLine = document.getElementById('error-line');
-            errLine = document.getElementById('notice-line');
-        }
-        if (noticeLine === null) {
-            noticeLine = document.createElement('div');
-            if (this._model.timerId !== -1) {
-                clearTimeout(this._model.timerId);
-                form.removeChild(errLine);
-            }
-        } else {
+    renderErrDataSettings(text = '') {
+        if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
-            if (errLine !== null) {
-                form.removeChild(errLine);
-            }
         }
-
-        if (typeMessageFlag) {
-            noticeLine.setAttribute('class', 'notice');
-            noticeLine.setAttribute('id', 'notice-line');
-        } else {
-            noticeLine.setAttribute('class', 'error');
-            noticeLine.setAttribute('id', 'error-line');
-        }
-        noticeLine.innerHTML = `<h3>${errstr}</h3>`;
-
-        form.appendChild(noticeLine);
+        const errLine = document.getElementById('text-error-data');
+        errLine.textContent = text;
 
         this._model.timerId = setTimeout(() => {
-            form.removeChild(noticeLine);
+            if (errLine) {
+                errLine.textContent = '';
+            }
             this._model.timerId = -1;
         }, 5000);
     }

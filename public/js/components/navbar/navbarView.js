@@ -1,6 +1,7 @@
 import NavbarModel from './navbarModel';
 import Events from './../../helpers/eventbus/eventbus';
 import {
+    FIX_USER,
     NAVBAR_ACTIVE,
     PAGE_SIGNIN,
     PAGE_SIGNUP,
@@ -67,6 +68,7 @@ export default class NavbarView {
         Events.subscribe(UPDATE_USER, this._handlers.updateUser);
         Events.subscribe(PAGE_SIGNUP, this._handlers.pageSignup);
         Events.subscribe(PAGE_SIGNIN, this._handlers.pageSignin);
+        Events.subscribe(FIX_USER, this._handlers.updateUser);
     }
     /**
      * Отрисовка навбара

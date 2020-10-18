@@ -17,6 +17,8 @@ import {
     HAVNT_USER,
     PROFILE_RENDER_ERROR,
     PASSWORD_VALIDATE_ERROR,
+    FIX_USER,
+    ERR_FIX_USER,
 } from '../../helpers/eventbus/constants';
 import Validation from '../../helpers/validation/validation';
 
@@ -155,6 +157,37 @@ class ProfileModel {
                 break;
             default:
                 Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${status}`);
+                break;
+            }
+        });
+    }
+    /**
+     * Регистрация пользователя
+     * @param {string} username - логин пользователя
+     * @param {string} email - пароль пользователя
+     */
+    fixUser(username, email) {
+        const response = Net.fixUser(username, email);
+        response.then((response) => {
+            const code = response.code;
+            switch (code) {
+            case 200:
+                this.login = username;
+                this.email = email;
+                Events.trigger(FIX_USER);
+                break;
+            case 400:
+                Events.trigger(ERR_FIX_USER, 'Неверный формат запроса');
+                break;
+            case 401:
+                this.isAuth = false;
+                Events.trigger(REDIRECT, {url: '/signin'});
+                break;
+            case 403:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Нет csrf'});
+                break;
+            default:
+                Events.trigger(ERR_FIX_USER, `Ошибка сервера: статус ${status}`);
                 break;
             }
         });

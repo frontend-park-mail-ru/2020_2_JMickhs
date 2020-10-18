@@ -33,3 +33,6 @@ export const ERR_PASSWORD_SINGUP = 'errPasswordSignup';
 export const ERR_EMAIL_SINGUP = 'errEmailSignup';
 export const ERR_LOAD_HOSTELS = 'errLoadHostels';
 export const ABSTRACT_ALL_DEAD = 'allDead';
+export const FIX_USER = 'fixUser';
+export const ERR_FIX_USER = 'errFixUser';
+export const CHANGE_USER = 'changeUser';
