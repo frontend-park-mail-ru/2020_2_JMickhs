@@ -39,7 +39,7 @@ body, html {
 }
 
 .label-error {
-    color: #d32f2f;
+    color: #c62828;
     text-align: center;
 }
 
@@ -52,7 +52,7 @@ body, html {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
-    border: 3px solid #d32f2f;
+    border: 3px solid #c62828;
     background: #f1f1f1;
     border-radius: 5px;
 }

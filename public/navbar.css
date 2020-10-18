@@ -20,6 +20,7 @@ ul {
     padding: 25px 0 5px;
     text-align: center;
     background:#e3f2fd;
+    z-index: 999999;
 }
 
 .menu-main li {

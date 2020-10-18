@@ -9,6 +9,7 @@
 
 .personal-avatar:hover {
     opacity: 0.8;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .personal-image {
@@ -51,7 +52,7 @@
 }
 
 .btn-out {
-    color: #9e9e9e;
+    color: gray;
     cursor: pointer;
     text-decoration: none;
     background-color: #e3f2fd;
