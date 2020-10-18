@@ -4,7 +4,10 @@ import Events from './../../helpers/eventbus/eventbus';
 import {
     CHANGE_USER,
     NAVBAR_ACTIVE,
+    ERROR_CHANGE_LOGIN,
+    ERROR_CHANGE_EMAIL,
 } from '../../helpers/eventbus/constants';
+import Validation from '../../helpers/validation/validation';
 
 /** Класс контроллера для страницы профиля */
 export default class ProfileController {
@@ -23,7 +26,20 @@ export default class ProfileController {
                     this._view.renderErrDataSettings('Вы ничего не изменили =)');
                     return;
                 }
+                const key1 = Validation.validateLogin(username, ERROR_CHANGE_LOGIN);
+                const key2 = Validation.validateEmail(email, ERROR_CHANGE_EMAIL);
+                if (!key1 || !key2) {
+                    return;
+                }
                 this._model.fixUser(username, email);
+            },
+            errorLogin: (text) => {
+                this._view.renderErrDataSettings(text);
+                this._view.renderLoginInputError();
+            },
+            errorEmail: (text) => {
+                this._view.renderErrDataSettings(text);
+                this._view.renderEmailInputError();
             },
         };
     }
@@ -51,6 +67,8 @@ export default class ProfileController {
      */
     subscribeEvents() {
         Events.subscribe(CHANGE_USER, this._handlers.changeUser);
+        Events.subscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
+        Events.subscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
     }
     /**
      *  Отписка от событий
@@ -60,5 +78,7 @@ export default class ProfileController {
             return;
         }
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
+        Events.unsubscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
+        Events.unsubscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
     }
 }

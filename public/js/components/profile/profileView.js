@@ -33,6 +33,7 @@ export default class ProfileView {
      * @param {any} model - модель
      */
     constructor(parent, model) {
+        window.scrollTo(0, 0);
         this._model = model;
 
         this._handlers = {
@@ -221,6 +222,32 @@ export default class ProfileView {
         this._model.timerId = setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
+            }
+            this._model.timerId = -1;
+        }, 5000);
+    }
+    /**
+     * Выделение инпута логина
+     */
+    renderLoginInputError() {
+        const input = document.getElementById('login-profile');
+        input.className = 'input-error';
+        this._model.timerIdLogin = setTimeout(() => {
+            if (input) {
+                input.className = 'input-sign';
+            }
+            this._model.timerId = -1;
+        }, 5000);
+    }
+    /**
+     * Выделение инпута логина
+     */
+    renderEmailInputError() {
+        const input = document.getElementById('email-profile');
+        input.className = 'input-error';
+        this._model.timerIdEmail = setTimeout(() => {
+            if (input) {
+                input.className = 'input-sign';
             }
             this._model.timerId = -1;
         }, 5000);

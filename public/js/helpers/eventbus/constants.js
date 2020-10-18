@@ -36,3 +36,5 @@ export const ABSTRACT_ALL_DEAD = 'allDead';
 export const FIX_USER = 'fixUser';
 export const ERR_FIX_USER = 'errFixUser';
 export const CHANGE_USER = 'changeUser';
+export const ERROR_CHANGE_LOGIN = 'errChangeError';
+export const ERROR_CHANGE_EMAIL = 'errChangeEmail';
