@@ -20,6 +20,9 @@ class EventBus {
      * @param {function} listener - функция, которая вызовется при событии
      */
     unsubscribe(evt, listener) {
+        if (!this.events[evt]) {
+            return;
+        }
         this.events[evt] = this.events[evt].filter((callback) => {
             return callback !== listener;
         });
