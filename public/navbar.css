@@ -19,7 +19,7 @@ ul {
     margin-right: auto;
     padding: 25px 0 5px;
     text-align: center;
-    background: #EFF6FA;
+    background:#e3f2fd;
 }
 
 .menu-main li {
@@ -28,7 +28,7 @@ ul {
 
 .menu-main li:after {
     content: "|";
-    color: #4a90e2;
+    color: #1976d2;
     display: inline-block;
     vertical-align: top;
 }
@@ -52,12 +52,12 @@ ul {
 
 .menu-main a,
 .menu-main a:visited {
-    color: #4a90e2;
+    color: #1976d2;
 }
 
 .menu-main a.current,
 .menu-main a:hover {
-    color: #F77A52;
+    color: #ff6f00;
 }
 
 .menu-main a:before,
@@ -69,7 +69,7 @@ ul {
     right: 50%;
     bottom: -5px;
     left: 50%;
-    background: #F77A52;
+    background: #ff6f00;
     transition: .8s;
 }
 
