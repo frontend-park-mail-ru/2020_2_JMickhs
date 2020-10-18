@@ -23,6 +23,7 @@ export default class NavbarView {
         this._handlers = {
             render: this.render.bind(this),
             navbarActive: (arg) => {
+                this._curr = arg;
                 document.getElementById('nav1').className = '';
                 document.getElementById('nav2').className = '';
                 document.getElementById('nav3').className = '';
@@ -34,7 +35,8 @@ export default class NavbarView {
             updateUser: () => {
                 if (this._model._user.isAuth) {
                     this._model.el3 = {text: this._model._user.login, ref: '/profile'};
-                    document.getElementById('nav3').textContent = this._model._user.login;
+                    Events.trigger(UPDATE_NAVBAR);
+                    this._handlers.navbarActive(this._curr);
                 }
             },
             pageSignup: () => {
