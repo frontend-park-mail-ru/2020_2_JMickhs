@@ -90,8 +90,6 @@ class ProfileModel {
                 Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${status}`);
                 break;
             }
-        }).catch(() => {
-            Events.trigger(ERR_UPDATE_AVATAR, 'Аватарку обновить не получилось!');
         });
     }
     /**
