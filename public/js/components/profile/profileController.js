@@ -48,10 +48,10 @@ export default class ProfileController {
      */
     activate() {
         this._view.subscribeEvents();
+        this.subscribeEvents();
         Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth) {
             this._view.render();
-            this.subscribeEvents();
         }
     }
     /**
