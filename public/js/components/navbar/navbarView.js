@@ -34,7 +34,7 @@ export default class NavbarView {
             updateUser: () => {
                 if (this._model._user.isAuth) {
                     this._model.el3 = {text: this._model._user.login, ref: '/profile'};
-                    Events.trigger(UPDATE_NAVBAR);
+                    document.getElementById('nav3').textContent = this._model._user.login;
                 }
             },
             pageSignup: () => {
