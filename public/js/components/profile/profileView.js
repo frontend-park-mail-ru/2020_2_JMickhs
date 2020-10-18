@@ -118,6 +118,7 @@ export default class ProfileView {
             fixUser: () => {
                 document.getElementById('label-login').textContent = this._model.login;
                 document.getElementById('label-email').textContent = this._model.email;
+                this.renderMsgDataSettings('Изменения применены!', false);
             },
         };
 
@@ -211,17 +212,22 @@ export default class ProfileView {
     /**
      * Отрисовка уведомления об изменении автарки
      * @param {string} [text=''] - текст уведомления
+     * @param {boolean} [isErr=true] - тип уведомления(false - ошибка)
      */
-    renderErrDataSettings(text = '') {
+    renderMsgDataSettings(text = '', isErr = true) {
         if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
         }
         const errLine = document.getElementById('text-error-data');
+        if (!isErr) {
+            errLine.className = 'text-sign';
+        }
         errLine.textContent = text;
 
         this._model.timerId = setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
+                errLine.className = 'label-error';
             }
             this._model.timerId = -1;
         }, 5000);

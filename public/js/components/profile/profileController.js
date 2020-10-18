@@ -23,7 +23,7 @@ export default class ProfileController {
             changeUser: (arg) => {
                 const {username, email} = arg;
                 if (username === this._model.login && email === this._model.email) {
-                    this._view.renderErrDataSettings('Вы ничего не изменили =)');
+                    this._view.renderMsgDataSettings('Вы ничего не изменили =)');
                     return;
                 }
                 const key1 = Validation.validateLogin(username, ERROR_CHANGE_LOGIN);
@@ -34,11 +34,11 @@ export default class ProfileController {
                 this._model.fixUser(username, email);
             },
             errorLogin: (text) => {
-                this._view.renderErrDataSettings(text);
+                this._view.renderMsgDataSettings(text);
                 this._view.renderLoginInputError();
             },
             errorEmail: (text) => {
-                this._view.renderErrDataSettings(text);
+                this._view.renderMsgDataSettings(text);
                 this._view.renderEmailInputError();
             },
         };
