@@ -40,7 +40,9 @@
                 <form id="avatar-form">
                     <input type="file" id="profile-pic" style="display: none" name="avatar" accept=".jpg, .jpeg, .png">
                 </form>
-                <img id="img-profile" src="{{getUrlFile avatar}}" class="personal-avatar" alt="avatar">
+                <div id="avatar-img">
+                    <img id="img-profile" src="{{getUrlFile avatar}}" class="personal-avatar" alt="avatar">
+                </div>  
             </label>
             <div id="btn-reload"></div>
         </div>
