@@ -1,0 +1,85 @@
+.personal-avatar {
+    width: 300px;
+    height: 300px;
+    object-fit:cover;
+    border-radius: 10px;
+    border: 4px solid #4a90e2;
+    cursor: pointer;
+}
+
+.personal-avatar:hover {
+    opacity: 0.8;
+}
+
+.personal-image {
+    height: 370px;
+    padding-bottom: 10px;
+}
+
+.container-settings {
+    margin-top: 100px;
+}
+
+.left-container {
+    margin-left: 100px;
+    position: fixed;
+    width: 30%;
+}
+
+.right-container {
+    margin-left: 40%;
+    /*width: 70%;*/
+    width: 60%;
+    flex-grow: 8;
+}
+
+.btn-blue {
+    bottom:0;
+    background-color: #4a90e2;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 300px;
+    opacity: 0.9;
+    border-radius: 5px;
+}
+
+.hr-line-blue {
+    border: none; /* Убираем границу */
+    background-color: #4a90e2; /* Цвет линии */
+    color: #4a90e2; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+    width: 300px;
+    margin-left: 0;
+}
+
+.btn-out {
+    color: darkgray;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #EFF6FA;
+    border: none;
+    outline: none;
+}
+
+.btn-out:hover {
+    text-decoration: underline;
+    outline: none;
+}
+
+.text-blue {
+    color: #4a90e2;
+}
+
+.container-settings {
+    margin-bottom: 5%;
+    max-width: 80%;
+    min-width: 300px;
+    /*width: 30%;*/
+    margin-left: 10%;
+    background: white;
+    padding: 17px;
+    border-radius: 10px;
+    border: 4px solid #4a90e2;
+}

@@ -46,6 +46,7 @@ class ProfileModel {
                 this.login = data.username;
                 this.id = data.id;
                 this.avatar = data.avatar;
+                this.email = data.email;
                 Events.trigger(UPDATE_USER);
                 Events.trigger(PROFILE_USER);
                 break;
@@ -109,6 +110,7 @@ class ProfileModel {
                 this.id = data.id;
                 this.avatar = data.avatar;
                 this.login = data.username;
+                this.email = data.email;
                 Events.trigger(UPDATE_USER);
                 Events.trigger(SIGNIN_USER);
                 break;
@@ -141,6 +143,7 @@ class ProfileModel {
                 this.avatar = data.avatar;
                 this.isAuth = true;
                 this.login = data.username;
+                this.email = data.email;
                 Events.trigger(UPDATE_USER);
                 Events.trigger(SIGNUP_USER);
                 break;

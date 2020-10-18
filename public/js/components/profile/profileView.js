@@ -60,6 +60,7 @@ export default class ProfileView {
                 this._model.validate(arg);
             },
             errUpdateAvatar: (arg) => {
+                console.log(arg);
                 this.renderMessage(arg);
             },
             updatePswClick: (evt) => {
@@ -68,6 +69,10 @@ export default class ProfileView {
                 const oldPass = document.getElementById('profile-password1');
                 const newPassword = newPass.value;
                 const oldPassword = oldPass.value;
+                const btn = document.getElementById('button-save');
+                if (btn) {
+                    btn.removeEventListener('click', this._handlers.updatePswClick);
+                }
                 Events.trigger(UPDATE_PASSWORD, {login: '', oldPassword: oldPassword, newPassword: newPassword});
             },
             updateAvatarBtnRender: () => {
@@ -150,9 +155,9 @@ export default class ProfileView {
     render() {
         this.page.innerHTML = profileTemplate(this._model);
 
-        const btn = document.getElementById('button-save');
+        // const btn = document.getElementById('button-save');
 
-        btn.addEventListener('click', this._handlers.updatePswClick);
+        // btn.addEventListener('click', this._handlers.updatePswClick);
 
         const inputFile = document.getElementById('profile-pic');
         const btnReload = document.getElementById('btn-reload');
@@ -213,22 +218,24 @@ export default class ProfileView {
      * Скрытие страницы профиля
      */
     hide() {
-        if (this.page.innerHTML !== '') {
-            const btnExit = document.getElementById('btn-exit');
-            btnExit.removeEventListener('click', this._handlers.signoutClick);
-
-            const btnReload = document.getElementById('btn-reload');
-            btnReload.removeEventListener('click', this._handlers.updateAvatarClick);
-
-            const inputFile = document.getElementById('profile-pic');
-            inputFile.removeEventListener('change', this._handlers.updateAvatarBtnRender);
-
-            inputFile.removeEventListener('change', this._handlers.inputAvatarFile);
-
-            const btn = document.getElementById('button-save');
-            btn.removeEventListener('click', this._handlers.updatePswClick);
-
-            this.page.innerHTML = '';
+        if (this.page.innerHTML === '') {
+            return;
         }
+        const btnExit = document.getElementById('btn-exit');
+        btnExit.removeEventListener('click', this._handlers.signoutClick);
+        const btnReload = document.getElementById('btn-reload');
+        btnReload.removeEventListener('click', this._handlers.updateAvatarClick);
+
+        const inputFile = document.getElementById('profile-pic');
+        inputFile.removeEventListener('change', this._handlers.updateAvatarBtnRender);
+
+        inputFile.removeEventListener('change', this._handlers.inputAvatarFile);
+
+        const btn = document.getElementById('button-save');
+        if (btn) {
+            btn.removeEventListener('click', this._handlers.updatePswClick);
+        }
+
+        this.page.innerHTML = '';
     }
 }
