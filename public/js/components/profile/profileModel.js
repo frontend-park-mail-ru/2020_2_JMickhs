@@ -66,9 +66,7 @@ class ProfileModel {
      */
     updateAvatar(formAvatar) {
         const avaResponse = Net.updateAvatar(new FormData(formAvatar));
-        console.log(avaResponse);
         avaResponse.then((response) => {
-            console.log(response);
             const code = response.code;
             switch (code) {
             case 200:

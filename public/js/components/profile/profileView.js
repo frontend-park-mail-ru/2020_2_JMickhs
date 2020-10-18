@@ -45,8 +45,11 @@ export default class ProfileView {
                 this.renderMessage(arg);
             },
             updateAvatar: () => {
+                console.log('here');
                 const img = document.getElementById('avatar-img');
+                console.log('here');
                 img.innerHTML = profileAvatarTemplate(this._model);
+                console.log('here');
                 this.renderMessageAvatar('Аватар успешно изменен');
             },
             errUpdateAvatar: (arg) => {
