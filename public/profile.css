@@ -16,10 +16,6 @@
     padding-bottom: 10px;
 }
 
-.container-settings {
-    margin-top: 100px;
-}
-
 .left-container {
     margin-left: 100px;
     position: fixed;
@@ -73,10 +69,10 @@
 }
 
 .container-settings {
+    margin-top: 100px;
     margin-bottom: 5%;
-    max-width: 80%;
+    max-width: 550px;
     min-width: 300px;
-    /*width: 30%;*/
     margin-left: 10%;
     background: white;
     padding: 17px;

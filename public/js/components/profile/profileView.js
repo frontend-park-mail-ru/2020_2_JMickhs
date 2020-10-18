@@ -19,6 +19,8 @@ const profileTemplate = require('./profileTemplate.hbs');
 const profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
 // eslint-disable-next-line no-undef
 const profileButtonTemplate = require('./profileButtonTemplate.hbs');
+// eslint-disable-next-line no-undef
+const messageTemplate = require('./profileMessage.hbs');
 
 
 /** Класс представления для страницы профиля */
@@ -45,7 +47,10 @@ export default class ProfileView {
             updateAvatar: () => {
                 const img = document.getElementById('avatar-img');
                 img.innerHTML = profileAvatarTemplate(this._model);
-                this.renderMessage('Аватар успешно изменен', true);
+                this.renderMessageAvatar('Аватар успешно изменен');
+            },
+            errUpdateAvatar: (arg) => {
+                this.renderMessageAvatar(arg, true);
             },
             signout: () => {
                 Events.trigger(REDIRECT, {url: '/signin'});
@@ -58,10 +63,6 @@ export default class ProfileView {
             },
             updatePsw: (arg) => {
                 this._model.validate(arg);
-            },
-            errUpdateAvatar: (arg) => {
-                console.log(arg);
-                this.renderMessage(arg);
             },
             updatePswClick: (evt) => {
                 evt.preventDefault();
@@ -168,6 +169,23 @@ export default class ProfileView {
 
         const btnExit = document.getElementById('btn-exit');
         btnExit.addEventListener('click', this._handlers.signoutClick);
+    }
+    /**
+     * Отрисовка уведомления об изменении автарки
+     * @param {string} [text=''] - текст уведомления
+     * @param {boolean} [isErr=false] - тип уведомления(false - ошибка)
+     */
+    renderMessageAvatar(text = '', isErr = false) {
+        const div = document.getElementById('btn-reload');
+        div.innerHTML = messageTemplate({text: text});
+        const msg = document.getElementById('msg-avatar');
+        if (isErr) {
+            msg.className = 'label-error';
+        }
+        this._model.timerId = setTimeout(() => {
+            div.removeChild(msg);
+            this._model.timerId = -1;
+        }, 5000);
     }
     /**
      * Отрисовка уведомления
