@@ -13,6 +13,7 @@ import {
     PASSWORD_VALIDATE_ERROR,
     CHANGE_USER,
     FIX_USER,
+    ERR_FIX_USER,
 } from '../../helpers/eventbus/constants';
 
 // eslint-disable-next-line no-undef
@@ -120,6 +121,9 @@ export default class ProfileView {
                 document.getElementById('label-email').textContent = this._model.email;
                 this.renderMsgDataSettings('Изменения применены!', false);
             },
+            errFixUser: (text) => {
+                this.renderMsgDataSettings(text);
+            },
         };
 
         if (parent instanceof HTMLElement) {
@@ -149,6 +153,7 @@ export default class ProfileView {
         Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
         Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
         Events.subscribe(FIX_USER, this._handlers.fixUser);
+        Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
     /**
      * Отписка от событий страницы профиля
@@ -165,6 +170,7 @@ export default class ProfileView {
         Events.unsubscribe(PROFILE_USER, this._handlers.render);
         Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
         Events.unsubscribe(FIX_USER, this._handlers.fixUser);
+        Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
     /**
      * Отрисовка страницы профиля
