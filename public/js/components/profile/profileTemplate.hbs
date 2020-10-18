@@ -1,20 +1,20 @@
 <div class="container">
     <div class="card">
-        <div id="avatar-img">
-            <img class="avatar" id="img-profile" src="{{getUrlFile avatar}}">
+        
+        <div class="personal-image">
+            <label class="avatar-input">
+                <form id="avatar-form">
+                    <input type="file" id="profile-pic" name="avatar" accept=".jpg, .jpeg, .png">
+                </form>
+                <img src="{{getUrlFile avatar}}" id="img-profile" class="avatar" alt="avatar">
+            </label>
         </div>
+
         <div class="cnt">
             <h3>
                 <b>Пользователь: {{login}}</b>
             </h3>
         </div>
-        <form id="avatar-form">
-            <div style="margin-left: 20px;">
-                <label>Выберите изображение для новой аватарки</label>
-                <input type="file" id="profile_pic" name="avatar" accept=".jpg, .jpeg, .png">
-            </div>
-            <br>
-        </form>
         <div class="container">
             <button class="btn-red" id="btn-exit">Выйти</button>
             <div id="btn-reload"></div>

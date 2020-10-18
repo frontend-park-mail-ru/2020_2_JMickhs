@@ -74,7 +74,7 @@ export default class ProfileView {
                 btnReload.innerHTML = profileButtonTemplate();
             },
             inputAvatarFile: (evt) => {
-                const inputFile = document.getElementById('profile_pic');
+                const inputFile = document.getElementById('profile-pic');
                 const btnReload = document.getElementById('btn-reload');
                 btnReload.innerHTML = profileButtonTemplate();
                 const file = evt.target.files[0];
@@ -89,7 +89,7 @@ export default class ProfileView {
             },
             updateAvatarClick: (evt) => {
                 evt.preventDefault();
-                const inputFile = document.getElementById('profile_pic');
+                const inputFile = document.getElementById('profile-pic');
                 const btnReload = document.getElementById('btn-reload');
                 const formAvatar = document.getElementById('avatar-form');
                 this._model.updateAvatar(formAvatar);
@@ -153,7 +153,7 @@ export default class ProfileView {
 
         btn.addEventListener('click', this._handlers.updatePswClick);
 
-        const inputFile = document.getElementById('profile_pic');
+        const inputFile = document.getElementById('profile-pic');
         const btnReload = document.getElementById('btn-reload');
 
         inputFile.addEventListener('change', this._handlers.inputAvatarFile);
@@ -219,7 +219,7 @@ export default class ProfileView {
             const btnReload = document.getElementById('btn-reload');
             btnReload.removeEventListener('click', this._handlers.updateAvatarClick);
 
-            const inputFile = document.getElementById('profile_pic');
+            const inputFile = document.getElementById('profile-pic');
             inputFile.removeEventListener('change', this._handlers.updateAvatarBtnRender);
 
             inputFile.removeEventListener('change', this._handlers.inputAvatarFile);
