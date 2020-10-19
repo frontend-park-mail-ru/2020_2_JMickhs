@@ -73,7 +73,7 @@ export default class ProfileView {
             },
             inputAvatarFile: (evt) => {
                 const inputFile = document.getElementById('profile-pic');
-                const btnReload = document.getElementById('btn-reload');
+                const btnReload = document.getElementById('btn-reload-div');
                 btnReload.innerHTML = profileButtonTemplate();
                 const file = evt.target.files[0];
                 const reader = new FileReader();
