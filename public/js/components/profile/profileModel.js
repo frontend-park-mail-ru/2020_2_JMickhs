@@ -1,4 +1,4 @@
-import Net from '../../helpers/network/networking';
+import Net from '../../helpers/network/network';
 import Events from './../../helpers/eventbus/eventbus';
 import {
     SIGNOUT,
