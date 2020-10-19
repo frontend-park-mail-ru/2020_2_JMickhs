@@ -9,8 +9,7 @@ import {
     UPDATE_USER,
 } from '../../helpers/eventbus/constants';
 
-// eslint-disable-next-line no-undef
-const navbarTemplate = require('./navbarTemplate.hbs');
+import navbarTemplate from './navbarTemplate.hbs';
 
 /** Класс представления для навбара */
 export default class NavbarView {

@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-undef
-const homeTemplate = require('./templateHome.hbs');
+import homePageTemplate from './templateHome.hbs';
 
 /** Класс представления для домашней страницы */
 export default class HomeView {
@@ -23,7 +22,7 @@ export default class HomeView {
      * Отрисовка домашней страницы
      */
     render() {
-        this.page.innerHTML = homeTemplate();
+        this.page.innerHTML = homePageTemplate();
     }
     /**
      * Скрытие домашней страницы

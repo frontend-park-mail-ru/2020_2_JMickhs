@@ -1,7 +1,7 @@
 import Events from './../../helpers/eventbus/eventbus';
 import {UPDATE_HOSTEL} from '../../helpers/eventbus/constants';
-// eslint-disable-next-line no-undef
-const hostelTemplate = require('./hostelTemplate.hbs');
+
+import hostelTemplate from './hostelTemplate.hbs';
 
 /** Класс представления для страницы отеля */
 export default class HostelView {

@@ -8,10 +8,8 @@ import {
     SUBMIT_SIGNUP,
 } from '../../helpers/eventbus/constants';
 
-// eslint-disable-next-line no-undef
-const signupTemplate = require('./templateSignup.hbs');
-// eslint-disable-next-line no-undef
-const promtTemplate = require('./tempalatePromt.hbs');
+import signupTemplate from './templateSignup.hbs';
+import promtTemplate from './tempalatePromt.hbs';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView {

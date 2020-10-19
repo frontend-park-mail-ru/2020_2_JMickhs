@@ -10,8 +10,7 @@ import {
 } from '../../helpers/eventbus/constants';
 import Validation from '../../helpers/validation/validation';
 
-// eslint-disable-next-line no-undef
-const signinTemplate = require('./templateSignin.hbs');
+import signinTemplate from './templateSignin.hbs';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView {

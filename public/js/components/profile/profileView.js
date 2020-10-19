@@ -15,14 +15,10 @@ import {
     ERR_FIX_USER,
 } from '../../helpers/eventbus/constants';
 
-// eslint-disable-next-line no-undef
-const profileTemplate = require('./profileTemplate.hbs');
-// eslint-disable-next-line no-undef
-const profileAvatarTemplate = require('./profileAvatarTemplate.hbs');
-// eslint-disable-next-line no-undef
-const profileButtonTemplate = require('./profileButtonTemplate.hbs');
-// eslint-disable-next-line no-undef
-const messageTemplate = require('./profileMessage.hbs');
+import profileTemplate from './profileTemplate.hbs';
+import profileAvatarTemplate from './profileAvatarTemplate.hbs';
+import profileButtonTemplate from './profileButtonTemplate.hbs';
+import messageTemplate from './profileMessage.hbs';
 
 
 /** Класс представления для страницы профиля */
