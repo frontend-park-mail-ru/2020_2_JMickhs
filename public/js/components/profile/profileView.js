@@ -42,7 +42,7 @@ export default class ProfileView {
                 this.renderMsgPswSettings('Вы успешно поменяли пароль', false);
                 document.getElementById('old-psw').value = '';
                 document.getElementById('new-psw1').value = '';
-                document.getElementById('new-psw1').value = '';
+                document.getElementById('new-psw2').value = '';
             },
             pswUpdateError: (arg) => {
                 this.renderMsgPswSettings(arg);
