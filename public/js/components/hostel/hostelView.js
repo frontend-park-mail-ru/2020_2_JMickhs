@@ -40,10 +40,10 @@ export default class HostelView {
     }
     /**
      * Отрисовка страницы отеля
-     * @param {Object} model - модель, по которой все рендериться
+     * @param {Object} data - модель, по которой все рендериться
      */
-    render(model) {
-        this.page.innerHTML = hostelTemplate(model);
+    render(data) {
+        this.page.innerHTML = hostelTemplate(data);
     }
     /**
      * Скрытие страницы отеля

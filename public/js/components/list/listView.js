@@ -1,4 +1,3 @@
-import ListModel from './listModel';
 import Events from './../../helpers/eventbus/eventbus';
 import {LOAD_HOSTELS} from '../../helpers/eventbus/constants';
 
@@ -11,14 +10,13 @@ export default class ListView {
      * @param {HTMLElement} parent - родительский элемент html-страницы
      * @param {any} model - модель
      */
-    constructor(parent, model) {
+    constructor(parent) {
         this._handlers = {
             render: this.render.bind(this),
         };
 
-        if (parent instanceof HTMLElement && model instanceof ListModel) {
+        if (parent instanceof HTMLElement) {
             this._parent = parent;
-            this._model = model;
         }
 
         let page = document.getElementById('page');
@@ -43,9 +41,10 @@ export default class ListView {
     }
     /**
      * Отрисовка страницы списка отелей
+     * @param {Object} data - модель, по которой рендерить
      */
-    render() {
-        this.page.innerHTML = myTemplate(this._model.hostels);
+    render(data) {
+        this.page.innerHTML = myTemplate(data);
     }
     /**
      * Скрытие страницы списка отелей

@@ -17,7 +17,7 @@ export default class ListModel {
     /**
      * Получить список отелей с сервера
      */
-    getInfo() {
+    fillModel() {
         const response = Net.getHostels();
         response.then((response) => {
             const data = response.data;
@@ -29,7 +29,7 @@ export default class ListModel {
                 this.hostels.forEach((hostel) => {
                     hostel.image = Net.getUrlFile(hostel.image);
                 });
-                Events.trigger(LOAD_HOSTELS);
+                Events.trigger(LOAD_HOSTELS, this.getData());
                 break;
             case 400:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
@@ -40,5 +40,12 @@ export default class ListModel {
                 break;
             }
         });
+    }
+    /**
+     * Получить список отелей с сервера
+     * @return {Object}
+     */
+    getData() {
+        return this.hostels;
     }
 }

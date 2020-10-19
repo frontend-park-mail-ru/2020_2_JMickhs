@@ -18,7 +18,7 @@ export default class ListController {
      */
     activate() {
         Events.trigger(NAVBAR_ACTIVE, 2);
-        this._model.getInfo();
+        this._model.fillModel();
         this._view.subscribeEvents();
     }
     /**

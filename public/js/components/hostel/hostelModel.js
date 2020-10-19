@@ -32,7 +32,7 @@ export default class HostelModel {
                 this.name = data.name;
                 this.image = Net.getUrlFile(data.image);
                 this.location = data.location;
-                Events.trigger(UPDATE_HOSTEL, this.getModelForView());
+                Events.trigger(UPDATE_HOSTEL, this.getData());
                 break;
             case 400:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
@@ -51,14 +51,14 @@ export default class HostelModel {
      * Получить список отелей с сервера
      * @return {Object}
      */
-    getModelForView() {
-        const model = {
+    getData() {
+        const data = {
             id: this.id,
             name: this.name,
             description: this.description,
             location: this.location,
             image: this.image,
         };
-        return model;
+        return data;
     }
 }
