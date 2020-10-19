@@ -6,6 +6,8 @@ import {
     NAVBAR_ACTIVE,
     ERROR_CHANGE_LOGIN,
     ERROR_CHANGE_EMAIL,
+    UPDATE_PASSWORD,
+    PASSWORD_VALIDATE_ERROR,
 } from '../../helpers/eventbus/constants';
 import Validation from '../../helpers/validation/validation';
 
@@ -41,14 +43,39 @@ export default class ProfileController {
                 this._view.renderMsgDataSettings(text);
                 this._view.renderEmailInputError();
             },
+            updatePsw: (arg) => {
+                const oldPsw = arg.oldPassword;
+                const newPsw1 = arg.newPassword1;
+                const newPsw2 = arg.newPassword2;
+                if (newPsw1 !== newPsw2) {
+                    this._view.renderNewPswInputError();
+                    this._view.renderMsgPswSettings('Пароли не совпадают');
+                    return;
+                }
+                if (oldPsw === newPsw1) {
+                    this._view.renderNewPswInputError();
+                    this._view.renderOldPswInputError();
+                    this._view.renderMsgPswSettings('Старый и новый пароль совпадает');
+                    return;
+                }
+                const key = Validation.validatePassword(newPsw1, PASSWORD_VALIDATE_ERROR);
+                if (!key) {
+                    return;
+                }
+                this._model.updatePassword(oldPsw, newPsw2);
+            },
+            pswValidateErr: (text) => {
+                this._view.renderNewPswInputError();
+                this._view.renderMsgPswSettings(text);
+            },
         };
     }
     /**
      * Активация работы контроллера
      */
     activate() {
-        this._view.subscribeEvents();
         this.subscribeEvents();
+        this._view.subscribeEvents();
         Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth) {
             this._view.render();
@@ -58,9 +85,9 @@ export default class ProfileController {
      * Отключение работы контроллера и чистка памяти
      */
     deactivate() {
-        this._view.hide();
-        this._view.unsubscribeEvents();
         this.unsubscribeEvents();
+        this._view.unsubscribeEvents();
+        this._view.hide();
     }
     /**
      * Подписка на события
@@ -69,16 +96,17 @@ export default class ProfileController {
         Events.subscribe(CHANGE_USER, this._handlers.changeUser);
         Events.subscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
         Events.subscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
+        Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
+        Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
     }
     /**
      *  Отписка от событий
      */
     unsubscribeEvents() {
-        if (!this._model.isAuth) {
-            return;
-        }
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
         Events.unsubscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
         Events.unsubscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
+        Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
+        Events.unsubscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
     }
 }

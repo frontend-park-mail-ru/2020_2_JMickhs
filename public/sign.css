@@ -12,15 +12,15 @@ body, html {
     background: white;
     padding: 17px;
     border-radius: 10px;
-    border: 4px solid #4a90e2;
+    border: 4px solid #1976d2;
 }
 
 .text-sign {
     text-align: center;
-    color: #4a90e2;
+    color: #1976d2;
 }
 .label-sign {
-    color: #F77A52;
+    color: #ff6f00;
 }
 
 /* Full-width input fields */
@@ -39,7 +39,7 @@ body, html {
 }
 
 .label-error {
-    color: #d9092c;
+    color: #c62828;
     text-align: center;
 }
 
@@ -52,7 +52,7 @@ body, html {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
-    border: 3px solid #d9092c;
+    border: 3px solid #c62828;
     background: #f1f1f1;
     border-radius: 5px;
 }
@@ -60,7 +60,7 @@ body, html {
 .btn-sign {
     position:absolute;
     bottom:0;
-    background-color: #4a90e2;
+    background-color: #1976d2;
     color: white;
     padding: 16px 20px;
     border: none;
@@ -68,4 +68,9 @@ body, html {
     width: 100%;
     opacity: 0.9;
     border-radius: 5px;
+}
+
+.btn-sign:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background-color: #0d47a1;
 }

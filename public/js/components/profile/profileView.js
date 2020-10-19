@@ -34,7 +34,6 @@ export default class ProfileView {
      * @param {any} model - модель
      */
     constructor(parent, model) {
-        window.scrollTo(0, 0);
         this._model = model;
 
         this._handlers = {
@@ -46,7 +45,7 @@ export default class ProfileView {
                 document.getElementById('new-psw1').value = '';
             },
             pswUpdateError: (arg) => {
-                this.renderMessage(arg);
+                this.renderMsgPswSettings(arg);
             },
             profileRenderErr: (arg) => {
                 this.renderMessage(arg);
@@ -65,23 +64,13 @@ export default class ProfileView {
             havntUser: () => {
                 Events.trigger(REDIRECT, {url: '/signin'});
             },
-            pswValidateErr: (arg) => {
-                this.renderMessage(arg);
-            },
-            updatePsw: (arg) => {
-                this._model.validate(arg);
-            },
             updatePswClick: (evt) => {
                 evt.preventDefault();
-                const newPass = document.getElementById('profile-password2');
-                const oldPass = document.getElementById('profile-password1');
-                const newPassword = newPass.value;
-                const oldPassword = oldPass.value;
-                const btn = document.getElementById('button-save');
-                if (btn) {
-                    btn.removeEventListener('click', this._handlers.updatePswClick);
-                }
-                Events.trigger(UPDATE_PASSWORD, {login: '', oldPassword: oldPassword, newPassword: newPassword});
+                const oldPsw = document.getElementById('old-psw').value;
+                const newPsw1 = document.getElementById('new-psw1').value;
+                const newPsw2 = document.getElementById('new-psw1').value;
+                Events.trigger(UPDATE_PASSWORD,
+                    {oldPassword: oldPsw, newPassword1: newPsw1, newPassword2: newPsw2});
             },
             updateAvatarBtnRender: () => {
                 const btnReload = document.getElementById('btn-reload');
@@ -154,7 +143,6 @@ export default class ProfileView {
         Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
         Events.subscribe(SIGNOUT, this._handlers.signout);
         Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
-        Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
         Events.subscribe(FIX_USER, this._handlers.fixUser);
         Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
@@ -168,7 +156,6 @@ export default class ProfileView {
         Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
         Events.unsubscribe(SIGNOUT, this._handlers.signout);
         Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
-        Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
         Events.unsubscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
         Events.unsubscribe(PROFILE_USER, this._handlers.render);
         Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
@@ -179,11 +166,8 @@ export default class ProfileView {
      * Отрисовка страницы профиля
      */
     render() {
+        window.scrollTo(0, 0);
         this.page.innerHTML = profileTemplate(this._model);
-
-        // const btn = document.getElementById('button-save');
-
-        // btn.addEventListener('click', this._handlers.updatePswClick);
 
         const inputFile = document.getElementById('profile-pic');
         const btnReload = document.getElementById('btn-reload');
@@ -197,6 +181,10 @@ export default class ProfileView {
 
         const btnSaveData = document.getElementById('btn-save-data');
         btnSaveData.addEventListener('click', this._handlers.saveDataClick);
+
+
+        const btnSavePsw = document.getElementById('btn-save-sequr');
+        btnSavePsw.addEventListener('click', this._handlers.updatePswClick);
     }
     /**
      * Отрисовка уведомления об изменении автарки
@@ -268,6 +256,58 @@ export default class ProfileView {
         }, 5000);
     }
     /**
+     * Выделение инпута старого пароля
+     */
+    renderOldPswInputError() {
+        const input = document.getElementById('old-psw');
+        input.className = 'input-error';
+        this._model.timerIdOldPsw = setTimeout(() => {
+            if (input) {
+                input.className = 'input-sign';
+            }
+            this._model.timerId = -1;
+        }, 5000);
+    }
+    /**
+     * Выделение инпута старого пароля
+     */
+    renderNewPswInputError() {
+        const input1 = document.getElementById('new-psw1');
+        const input2 = document.getElementById('new-psw2');
+        input1.className = 'input-error';
+        input2.className = 'input-error';
+        this._model.timerIdNewPsw = setTimeout(() => {
+            if (input1 && input2) {
+                input1.className = 'input-sign';
+                input2.className = 'input-sign';
+            }
+            this._model.timerId = -1;
+        }, 5000);
+    }
+    /**
+     * Отрисовка уведомления об изменении автарки
+     * @param {string} [text=''] - текст уведомления
+     * @param {boolean} [isErr=true] - тип уведомления(false - ошибка)
+     */
+    renderMsgPswSettings(text = '', isErr = true) {
+        if (this._model.timerId !== -1) {
+            clearTimeout(this._model.timerId);
+        }
+        const errLine = document.getElementById('text-error-sequr');
+        if (!isErr) {
+            errLine.className = 'text-sign';
+        }
+        errLine.textContent = text;
+
+        this._model.timerIdMsgPsw = setTimeout(() => {
+            if (errLine) {
+                errLine.textContent = '';
+                errLine.className = 'label-error';
+            }
+            this._model.timerId = -1;
+        }, 5000);
+    }
+    /**
      * Скрытие страницы профиля
      */
     hide() {
@@ -281,14 +321,15 @@ export default class ProfileView {
 
         const inputFile = document.getElementById('profile-pic');
         inputFile.removeEventListener('change', this._handlers.updateAvatarBtnRender);
-
         inputFile.removeEventListener('change', this._handlers.inputAvatarFile);
+
+        const btnSaveData = document.getElementById('btn-save-data');
+        btnSaveData.removeEventListener('click', this._handlers.saveDataClick);
 
         const btn = document.getElementById('button-save');
         if (btn) {
             btn.removeEventListener('click', this._handlers.updatePswClick);
         }
-
         this.page.innerHTML = '';
     }
 }
