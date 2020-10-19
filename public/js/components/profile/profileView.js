@@ -68,7 +68,7 @@ export default class ProfileView {
                     {oldPassword: oldPsw, newPassword1: newPsw1, newPassword2: newPsw2});
             },
             updateAvatarBtnRender: () => {
-                const btnReload = document.getElementById('btn-reload');
+                const btnReload = document.getElementById('btn-reload-div');
                 btnReload.innerHTML = profileButtonTemplate();
             },
             inputAvatarFile: (evt) => {
@@ -188,7 +188,7 @@ export default class ProfileView {
         if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
         }
-        const div = document.getElementById('btn-reload');
+        const div = document.getElementById('btn-reload-div');
         div.innerHTML = messageTemplate({text: text});
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
