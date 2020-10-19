@@ -14,7 +14,7 @@ export default class HotelController {
      */
     constructor(parent) {
         this._model = new HostelModel();
-        this._view = new HostelView(parent, this._model);
+        this._view = new HostelView(parent);
     }
     /**
      * Активация работы контроллера для отеля с id

@@ -8,10 +8,8 @@ export default class HostelView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
-     * @param {any} model - модель
      */
-    constructor(parent, model) {
-        this._model = model;
+    constructor(parent) {
         this._handlers = {
             render: this.render.bind(this),
         };
@@ -42,9 +40,10 @@ export default class HostelView {
     }
     /**
      * Отрисовка страницы отеля
+     * @param {Object} model - модель, по которой все рендериться
      */
-    render() {
-        this.page.innerHTML = hostelTemplate(this._model);
+    render(model) {
+        this.page.innerHTML = hostelTemplate(model);
     }
     /**
      * Скрытие страницы отеля

@@ -20,7 +20,6 @@ import profileAvatarTemplate from './profileAvatarTemplate.hbs';
 import profileButtonTemplate from './profileButtonTemplate.hbs';
 import messageTemplate from './profileMessage.hbs';
 
-
 /** Класс представления для страницы профиля */
 export default class ProfileView {
     /**
