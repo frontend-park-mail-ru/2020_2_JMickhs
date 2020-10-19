@@ -18,7 +18,7 @@ class Validation {
         this._passwordTable = [
             {
                 regExp: new RegExp('^[a-zA-Z0-9]*$'),
-                strErr: 'Пароль может включать только буквы английского алфавита',
+                strErr: 'Пароль может включать только буквы английского алфавита и цифры',
             },
             {
                 regExp: new RegExp('^.{5,30}$'),

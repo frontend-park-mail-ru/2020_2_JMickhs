@@ -74,7 +74,7 @@ export default class SignupView {
                     form.removeChild(loginPromt);
                 }
                 const promts = [];
-                promts.push({text: 'Пароль может включать только буквы английского алфавита'});
+                promts.push({text: 'Пароль может включать только буквы английского алфавита и цифры'});
                 promts.push({text: 'Длинна пароля должна быть в пределах от 5 до 30 символов'});
                 const promt = document.createElement('div');
                 promt.id = 'pass-promt';
