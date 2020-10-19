@@ -146,7 +146,7 @@ class Network {
      * @param {string} email - email
      * @return {Promise} Возвращает статус ответа или ошибку
      */
-    fixUser(username, email) {
+    changeUser(username, email) {
         const body = {
             email: email,
             username: username,

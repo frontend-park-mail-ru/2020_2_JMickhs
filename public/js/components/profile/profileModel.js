@@ -164,7 +164,7 @@ class ProfileModel {
      * @param {string} email - пароль пользователя
      */
     changeUser(username, email) {
-        const response = Net.fixUser(username, email);
+        const response = Net.changeUser(username, email);
         response.then((response) => {
             const code = response.code;
             switch (code) {
