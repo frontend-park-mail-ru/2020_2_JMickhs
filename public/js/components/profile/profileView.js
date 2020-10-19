@@ -326,10 +326,8 @@ export default class ProfileView {
         const btnSaveData = document.getElementById('btn-save-data');
         btnSaveData.removeEventListener('click', this._handlers.saveDataClick);
 
-        const btn = document.getElementById('button-save');
-        if (btn) {
-            btn.removeEventListener('click', this._handlers.updatePswClick);
-        }
+        const btnSavePsw = document.getElementById('btn-save-sequr');
+        btnSavePsw.removeEventListener('click', this._handlers.updatePswClick);
         this.page.innerHTML = '';
     }
 }
