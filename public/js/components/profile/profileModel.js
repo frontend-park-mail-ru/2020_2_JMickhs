@@ -44,7 +44,7 @@ class ProfileModel {
                 this.isAuth = true;
                 this.login = data.username;
                 this.id = data.id;
-                this.avatar = data.avatar;
+                this.avatar = Net.getUrlFile(data.avatar);
                 this.email = data.email;
                 Events.trigger(UPDATE_USER);
                 Events.trigger(PROFILE_USER);
@@ -69,7 +69,7 @@ class ProfileModel {
             const code = response.code;
             switch (code) {
             case 200:
-                this.avatar = response.data;
+                this.avatar = Net.getUrlFile(response.data);
                 Events.trigger(UPDATE_AVATAR);
                 break;
             case 400:
@@ -107,7 +107,7 @@ class ProfileModel {
             case 200:
                 this.isAuth = true;
                 this.id = data.id;
-                this.avatar = data.avatar;
+                this.avatar = Net.getUrlFile(data.avatar);
                 this.login = data.username;
                 this.email = data.email;
                 Events.trigger(UPDATE_USER);
@@ -139,7 +139,7 @@ class ProfileModel {
             switch (code) {
             case 200:
                 this.id = data.id;
-                this.avatar = data.avatar;
+                this.avatar = Net.getUrlFile(data.avatar);
                 this.isAuth = true;
                 this.login = data.username;
                 this.email = data.email;
