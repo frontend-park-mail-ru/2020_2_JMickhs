@@ -42,6 +42,11 @@
     border-radius: 5px;
 }
 
+.btn-blue:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background-color: #0d47a1;
+}
+
 .hr-line-blue {
     border: none; /* Убираем границу */
     background-color: #1976d2; /* Цвет линии */

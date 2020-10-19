@@ -69,3 +69,8 @@ body, html {
     opacity: 0.9;
     border-radius: 5px;
 }
+
+.btn-sign:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background-color: #0d47a1;
+}

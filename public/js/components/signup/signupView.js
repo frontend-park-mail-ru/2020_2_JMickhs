@@ -135,6 +135,7 @@ export default class SignupView {
      * Отрисовка страницы регистрации
      */
     render() {
+        window.scrollTo(0, 0);
         this.page.innerHTML = signupTemplate();
 
         const form = document.getElementById('signupform');
