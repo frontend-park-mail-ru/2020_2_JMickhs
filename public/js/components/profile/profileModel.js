@@ -159,11 +159,11 @@ class ProfileModel {
         });
     }
     /**
-     * Регистрация пользователя
+     * Изменение данных пользователя
      * @param {string} username - логин пользователя
      * @param {string} email - пароль пользователя
      */
-    fixUser(username, email) {
+    changeUser(username, email) {
         const response = Net.fixUser(username, email);
         response.then((response) => {
             const code = response.code;

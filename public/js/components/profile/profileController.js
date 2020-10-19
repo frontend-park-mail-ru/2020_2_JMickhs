@@ -33,7 +33,7 @@ export default class ProfileController {
                 if (!key1 || !key2) {
                     return;
                 }
-                this._model.fixUser(username, email);
+                this._model.changeUser(username, email);
             },
             errorLogin: (text) => {
                 this._view.renderMsgDataSettings(text);
