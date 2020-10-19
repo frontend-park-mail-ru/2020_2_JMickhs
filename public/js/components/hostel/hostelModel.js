@@ -23,7 +23,7 @@ export default class HostelModel {
     fillModel(id) {
         const response = Net.getHostel(id);
         response.then((response) => {
-            const data = response.data;
+            const data = response.data.hotel;
             const code = response.code;
             switch (code) {
             case 200:
