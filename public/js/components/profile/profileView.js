@@ -68,7 +68,7 @@ export default class ProfileView {
                 evt.preventDefault();
                 const oldPsw = document.getElementById('old-psw').value;
                 const newPsw1 = document.getElementById('new-psw1').value;
-                const newPsw2 = document.getElementById('new-psw1').value;
+                const newPsw2 = document.getElementById('new-psw2').value;
                 Events.trigger(UPDATE_PASSWORD,
                     {oldPassword: oldPsw, newPassword1: newPsw1, newPassword2: newPsw2});
             },
