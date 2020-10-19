@@ -40,7 +40,10 @@ export default class ProfileView {
         this._handlers = {
             render: this.render.bind(this),
             getNewPsw: () => {
-                this.renderMessage('Вы успешно поменяли пароль', true);
+                this.renderMsgPswSettings('Вы успешно поменяли пароль', false);
+                document.getElementById('old-psw').value = '';
+                document.getElementById('new-psw1').value = '';
+                document.getElementById('new-psw1').value = '';
             },
             pswUpdateError: (arg) => {
                 this.renderMessage(arg);
