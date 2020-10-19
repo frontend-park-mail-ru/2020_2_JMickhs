@@ -26,6 +26,9 @@ export default class ListModel {
             case 200:
                 this.haveInfo = true;
                 this.hostels = data;
+                this.hostels.forEach((hostel) => {
+                    hostel.image = Net.getUrlFile(hostel.image);
+                });
                 Events.trigger(LOAD_HOSTELS);
                 break;
             case 400:
