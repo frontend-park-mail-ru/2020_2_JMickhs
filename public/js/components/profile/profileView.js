@@ -10,7 +10,6 @@ import {
     REDIRECT,
     PROFILE_USER,
     HAVNT_USER,
-    PASSWORD_VALIDATE_ERROR,
     CHANGE_USER,
     FIX_USER,
     ERR_FIX_USER,
@@ -142,7 +141,6 @@ export default class ProfileView {
         Events.subscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
         Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
         Events.subscribe(SIGNOUT, this._handlers.signout);
-        Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
         Events.subscribe(FIX_USER, this._handlers.fixUser);
         Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
@@ -156,7 +154,6 @@ export default class ProfileView {
         Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
         Events.unsubscribe(SIGNOUT, this._handlers.signout);
         Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
-        Events.unsubscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
         Events.unsubscribe(PROFILE_USER, this._handlers.render);
         Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
         Events.unsubscribe(FIX_USER, this._handlers.fixUser);
