@@ -36,7 +36,7 @@
 }
 
 .cnt {
-    color: #f5b08f;
+    color: var(--orange);
 }
 
 
@@ -59,49 +59,14 @@
 }
 
 .notice {
-    color: #6996D3;
+    color: var(--blue);
     text-align: center;
 }
 
 .error {
-    color: #e32636;
+    color: var(--red);
     text-align: center;
 }
-
-.btn-red {
-  text-decoration: none;
-  outline: none;
-  display: inline-block;
-  padding: 10px 30px;
-  margin: 10px 20px;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid #fe6637;
-  border-radius: 8px;
-  font-family: 'Ubuntu Condensed', sans-serif;
-  color: #fe6637;
-  transition: .2s ease-in-out;
-  cursor: pointer;
-}
-.btn-red:before {
-  content: "";
-  background: linear-gradient(90deg, rgba(255,255,255,.1), rgba(255,255,255,.5));
-  height: 50px;
-  width: 50px;
-  position: absolute;
-  top: -8px;
-  left: -75px;
-  transform: skewX(-45deg);
-}
-.btn-red:hover {
-  background: #fe6637;
-  color: #EFF6FA;
-}
-.btn-red:hover:before {
-  left: 150px;
-  transition: .5s ease-in-out;
-}
-
 
 .btn-green {
     width: 200px;
@@ -161,13 +126,13 @@
 }
 
 .hotel-card-title {
-    color: #f5b08f;
+    color: var(--orange);
     text-align: center;
     letter-spacing: 2px;
     font-size: 23px;
 }
 .hotel-card-text {
-    color: #6996D3;
+    color: var(--blue);
     margin: auto;
     width: 90%;
     padding: 10px;
@@ -196,7 +161,7 @@
   font-family: 'Ubuntu Condensed', sans-serif;
   background: none;
   border-width: 0;
-  border-bottom: 2px solid #4a90e2;
+  border-bottom: 2px solid var(--blue);
   transition: all 0.2s ease;
 }
 
@@ -212,12 +177,12 @@
 
 .form-row input:focus {
   outline: 0;
-  border-color: #F77A52;
+  border-color: var(--orange);
 }
 
 .refer {
-  border-color: #F77A52;
-  color: #F77A52;
+  border-color: var(--orange);
+  color: var(--orange);
   text-align: center;
   letter-spacing: 2px;
   font-size: 19px;
@@ -230,8 +195,8 @@
   font-size: 14px;
   font-weight: 400;
   outline: 0;
-  border-color: #F77A52;
-  color: #F77A52;
+  border-color: var(--orange);
+  color: var(--orange);
 }
 
 .ui-form p {
@@ -241,7 +206,7 @@
 
 .ui-form h2 {
   text-align: center;
-  color: #4a90e2;
+  color: var(--blue);
 }
 
 @media screen and (max-width: 300px) {

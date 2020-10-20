@@ -31,9 +31,7 @@ module.exports = {
             filename: 'index.html',
             template: './public/template.html',
             entryPoint: 'app',
-            css: '../styles.css',
+            css: '../main.css',
         }),
     ],
-
-
 };

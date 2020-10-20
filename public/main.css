@@ -1,5 +1,11 @@
+@import "./css/colors.css" all;
+@import "./css/navbar.css" all;
+@import "./css/profile.css" all;
+@import "./css/sign.css" all;
+@import "./css/styles.css" all;
+
 body {
-    background:#e3f2fd;
+    background: var(--main-background-color);
 }
 
 * {
