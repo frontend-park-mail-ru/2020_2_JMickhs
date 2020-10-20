@@ -25,7 +25,6 @@
 
 .right-container {
     margin-left: 40%;
-    /*width: 70%;*/
     width: 60%;
     flex-grow: 8;
 }
@@ -33,7 +32,7 @@
 .btn-blue {
     bottom:0;
     background-color: var(--blue);
-    color: white;
+    color: var(--white);
     padding: 16px 20px;
     border: none;
     cursor: pointer;
@@ -43,7 +42,7 @@
 }
 
 .btn-blue:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
     background-color: var(--blue-dark);
 }
 
@@ -57,10 +56,10 @@
 }
 
 .btn-out {
-    color: gray;
+    color: var(--gray-dark);
     cursor: pointer;
     text-decoration: none;
-    background-color: #e3f2fd;
+    background-color: var(--main-background-color);
     border: none;
     outline: none;
 }
@@ -80,7 +79,7 @@
     max-width: 550px;
     min-width: 300px;
     margin-left: 10%;
-    background: white;
+    background: var(--white);
     padding: 17px;
     border-radius: 10px;
     border: 4px solid var(--blue);
