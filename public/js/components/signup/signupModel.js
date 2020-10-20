@@ -43,7 +43,7 @@ export default class SignupModel {
         return this._user.isAuth;
     }
     /**
-     * Валидация формы
+     * Валидация данных, переданных в форме регистрации
      * @param {string} login - родительский элемент html-страницы
      * @param {string} pass1 - родительский элемент html-страницы
      * @param {string} pass2 - родительский элемент html-страницы

@@ -15,10 +15,10 @@ import {
     ERR_FIX_USER,
 } from '../../helpers/eventbus/constants';
 
-import profileTemplate from './profileTemplate.hbs';
-import profileAvatarTemplate from './profileAvatarTemplate.hbs';
-import profileButtonTemplate from './profileButtonTemplate.hbs';
-import messageTemplate from './profileMessage.hbs';
+import profileTemplate from './templates/profileTemplate.hbs';
+import profileAvatarTemplate from './templates/profileAvatarTemplate.hbs';
+import profileButtonTemplate from './templates/profileButtonTemplate.hbs';
+import messageTemplate from './templates/profileMessage.hbs';
 
 /** Класс представления для страницы профиля */
 export default class ProfileView {

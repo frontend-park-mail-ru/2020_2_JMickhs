@@ -1,7 +1,7 @@
 import Events from './../../helpers/eventbus/eventbus';
 import {LOAD_HOSTELS} from '../../helpers/eventbus/constants';
 
-import myTemplate from './listTemplate.hbs';
+import myTemplate from './templates/listTemplate.hbs';
 
 /** Класс представления для страницы списка отелей */
 export default class ListView {

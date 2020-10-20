@@ -9,7 +9,7 @@ import {
     UPDATE_USER,
 } from '../../helpers/eventbus/constants';
 
-import navbarTemplate from './navbarTemplate.hbs';
+import navbarTemplate from './templates/navbarTemplate.hbs';
 
 /** Класс представления для навбара */
 export default class NavbarView {

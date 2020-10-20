@@ -10,7 +10,7 @@ import {
 } from '../../helpers/eventbus/constants';
 import Validation from '../../helpers/validation/validation';
 
-import signinTemplate from './templateSignin.hbs';
+import signinTemplate from './templates/templateSignin.hbs';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView {

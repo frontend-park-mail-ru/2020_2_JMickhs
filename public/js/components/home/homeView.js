@@ -1,4 +1,4 @@
-import homePageTemplate from './templateHome.hbs';
+import homePageTemplate from './templates/templateHome.hbs';
 
 /** Класс представления для домашней страницы */
 export default class HomeView {

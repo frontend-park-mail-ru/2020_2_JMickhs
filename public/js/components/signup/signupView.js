@@ -8,8 +8,8 @@ import {
     SUBMIT_SIGNUP,
 } from '../../helpers/eventbus/constants';
 
-import signupTemplate from './templateSignup.hbs';
-import promtTemplate from './tempalatePromt.hbs';
+import signupTemplate from './templates/templateSignup.hbs';
+import promtTemplate from './templates/tempalatePromt.hbs';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView {

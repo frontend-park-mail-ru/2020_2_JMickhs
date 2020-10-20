@@ -1,7 +1,7 @@
 import Events from './../../helpers/eventbus/eventbus';
 import {UPDATE_HOSTEL} from '../../helpers/eventbus/constants';
 
-import hostelTemplate from './hostelTemplate.hbs';
+import hostelTemplate from './templates/hostelTemplate.hbs';
 
 /** Класс представления для страницы отеля */
 export default class HostelView {
