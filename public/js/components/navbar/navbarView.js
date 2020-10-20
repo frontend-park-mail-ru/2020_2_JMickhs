@@ -8,7 +8,6 @@ import {
     UPDATE_NAVBAR,
     UPDATE_USER,
 } from '../../helpers/eventbus/constants';
-
 import navbarTemplate from './templates/navbarTemplate.hbs';
 
 /** Класс представления для навбара */

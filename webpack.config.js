@@ -2,6 +2,8 @@
 const path = require('path');
 // eslint-disable-next-line no-undef
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// eslint-disable-next-line no-undef
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // eslint-disable-next-line no-undef
 module.exports = {
@@ -23,6 +25,10 @@ module.exports = {
                     options: {helperDirs: path.resolve(__dirname, './public/js/helpers/handlebars-helpers')},
                 }],
             },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
         ],
     },
     plugins: [
@@ -31,7 +37,10 @@ module.exports = {
             filename: 'index.html',
             template: './public/template.html',
             entryPoint: 'app',
-            css: '../main.css',
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'bundle.css',
+            ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
     ],
 };

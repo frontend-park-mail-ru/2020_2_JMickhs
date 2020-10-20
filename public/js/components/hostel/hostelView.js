@@ -1,6 +1,5 @@
 import Events from './../../helpers/eventbus/eventbus';
 import {UPDATE_HOSTEL} from '../../helpers/eventbus/constants';
-
 import hostelTemplate from './templates/hostelTemplate.hbs';
 
 /** Класс представления для страницы отеля */

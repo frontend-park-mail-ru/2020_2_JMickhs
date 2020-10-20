@@ -13,6 +13,7 @@ import {
     REDIRECT,
     REDIRECT_ERROR,
 } from './helpers/eventbus/constants';
+import '../main.css';
 
 /**
  *  Старт нашего приложения =)
