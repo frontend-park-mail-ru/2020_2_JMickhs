@@ -43,6 +43,7 @@ export default class HostelView {
      * @param {Object} data - модель, по которой все рендериться
      */
     render(data) {
+        window.scrollTo(0, 0);
         this.page.innerHTML = hostelTemplate(data);
     }
     /**

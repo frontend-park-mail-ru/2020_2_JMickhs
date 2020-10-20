@@ -1,13 +1,13 @@
 {{#each this}}
-<div class="card">
-  <img class="avatar" src="{{image}}" alt="Avatar">
+<div class="hostels-card">
+  <img class="hostel-image" src="{{image}}" alt="image">
   <h3>
-    <p class="hotel-card-title">{{name}}
-    <p class="hotel-card-title">{{location}}
+    <p class="hostel-title">{{name}}
+    <p class="hostel-title">{{location}}
     </p>
   </h3>
-  <p class="hotel-card-block">
-    <a class="btn-green" href="/hostel/{{hotel_id}}">Подробнее</a>
-  </p>
+  <div class="hostel-btn-div">
+    <a class="hostel-btn" href="/hostel/{{hotel_id}}">Подробнее</a>
+  </div>
 </div>
 {{/each}}
