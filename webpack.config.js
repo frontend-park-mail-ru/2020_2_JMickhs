@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
     mode: 'development',
     entry: './public/js/app.js',
+    devtool: 'inline-source-map',
     output: {
         // eslint-disable-next-line no-undef
         path: path.resolve(__dirname, './public'),
@@ -17,6 +18,16 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: 'source-map-loader',
+            },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
             {
                 test: /\.hbs$/,
                 use: [{
@@ -30,6 +41,9 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
         ],
+    },
+    resolve: {
+        extensions: ['.js', '.ts'],
     },
     plugins: [
         new HtmlWebpackPlugin({
