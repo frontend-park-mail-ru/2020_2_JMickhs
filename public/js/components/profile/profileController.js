@@ -21,6 +21,51 @@ export default class ProfileController {
         this._model = ProfileModel;
         this._view = new ProfileView(parent, this._model);
 
+        this._makeHandlers();
+    }
+    /**
+     * Активация работы контроллера
+     */
+    activate() {
+        this.subscribeEvents();
+        this._view.subscribeEvents();
+        Events.trigger(NAVBAR_ACTIVE, 3);
+        if (this._model.isAuth) {
+            this._view.render();
+        }
+    }
+    /**
+     * Отключение работы контроллера и чистка памяти
+     */
+    deactivate() {
+        this.unsubscribeEvents();
+        this._view.unsubscribeEvents();
+        this._view.hide();
+    }
+    /**
+     * Подписка на события
+     */
+    subscribeEvents() {
+        Events.subscribe(CHANGE_USER, this._handlers.changeUser);
+        Events.subscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
+        Events.subscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
+        Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
+        Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
+    }
+    /**
+     *  Отписка от событий
+     */
+    unsubscribeEvents() {
+        Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
+        Events.unsubscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
+        Events.unsubscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
+        Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
+        Events.unsubscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
+    }
+    /**
+     * Функция создает и заполняет поле _handlers обработчиками событий
+     */
+    _makeHandlers() {
         this._handlers = {
             changeUser: (arg) => {
                 const {username, email} = arg;
@@ -69,44 +114,5 @@ export default class ProfileController {
                 this._view.renderMsgPswSettings(text);
             },
         };
-    }
-    /**
-     * Активация работы контроллера
-     */
-    activate() {
-        this.subscribeEvents();
-        this._view.subscribeEvents();
-        Events.trigger(NAVBAR_ACTIVE, 3);
-        if (this._model.isAuth) {
-            this._view.render();
-        }
-    }
-    /**
-     * Отключение работы контроллера и чистка памяти
-     */
-    deactivate() {
-        this.unsubscribeEvents();
-        this._view.unsubscribeEvents();
-        this._view.hide();
-    }
-    /**
-     * Подписка на события
-     */
-    subscribeEvents() {
-        Events.subscribe(CHANGE_USER, this._handlers.changeUser);
-        Events.subscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
-        Events.subscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
-        Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
-    }
-    /**
-     *  Отписка от событий
-     */
-    unsubscribeEvents() {
-        Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
-        Events.unsubscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
-        Events.unsubscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
-        Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        Events.unsubscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
     }
 }

@@ -48,7 +48,7 @@ ul {
     font-size: 17px;
     text-transform: uppercase;
     display: inline-block;
-    transition: color 0.2ms;
+    transition: color 0.28ms;
 }
 
 .menu-main a,
@@ -71,7 +71,7 @@ ul {
     bottom: -5px;
     left: 50%;
     background: var(--orange);
-    transition: .8s;
+    transition: 0.5s;
 }
 
 .menu-main a:hover:before,

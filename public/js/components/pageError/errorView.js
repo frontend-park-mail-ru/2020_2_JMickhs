@@ -1,3 +1,5 @@
+import pageTemplate from './templates/page.hbs';
+
 /** Класс представления для страницы ошибки */
 export default class ErrorView {
     /**
@@ -22,10 +24,7 @@ export default class ErrorView {
      * @param {string} err - тип ошибки
      */
     render(err) {
-        this.page.innerHTML = `
-            <p class="text-first">Уупс, произошла ошибка!</p>
-            <p class="text">${err}</p>
-            `;
+        this.page.innerHTML = pageTemplate({error: err});
     }
     /**
      * Скрытие страницы ошибок

@@ -6,6 +6,8 @@ import {
     ERR_PASSWORD_SINGUP,
     ERROR_SIGNUP,
     SUBMIT_SIGNUP,
+    REDIRECT,
+    SIGNUP_USER,
 } from '../../helpers/eventbus/constants';
 
 import signupTemplate from './templates/templateSignup.hbs';
@@ -19,6 +21,25 @@ export default class SignupView {
      * @param {any} model - модель
      */
     constructor(parent, model) {
+        if (parent instanceof HTMLElement && model instanceof SignupModel) {
+            this._parent = parent;
+            this._model = model;
+        }
+
+        let page = document.getElementById('page');
+        if (page === null) {
+            page = document.createElement('div');
+            page.id = 'page';
+            this._parent.appendChild(page);
+        }
+        this.page = page;
+
+        this._makeHandlers();
+    }
+    /**
+     * Функция создает и заполняет поле _handlers обработчиками событий
+     */
+    _makeHandlers() {
         this._handlers = {
             errSignup: (arg) => {
                 this.renderError(arg);
@@ -94,20 +115,14 @@ export default class SignupView {
                 document.getElementById('signup-password2').className = 'input-sign';
                 Events.trigger(SUBMIT_SIGNUP, {login: login, email: email, password1: pass1, password2: pass2});
             },
+            userSignup: (isAuth) => {
+                if (isAuth) {
+                    Events.trigger(REDIRECT, {url: '/profile'});
+                } else {
+                    Events.trigger(ERROR_SIGNUP, 'Вы не смогли зарегистрироваться =)');
+                }
+            },
         };
-
-        if (parent instanceof HTMLElement && model instanceof SignupModel) {
-            this._parent = parent;
-            this._model = model;
-        }
-
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
     }
     /**
      * Подписка на события страницы регистрации
@@ -118,6 +133,7 @@ export default class SignupView {
         Events.subscribe(ERR_EMAIL_SINGUP, this._handlers.errEmailSignup);
         Events.subscribe(ERR_PASSWORD_SINGUP, this._handlers.errPswSignup);
         Events.subscribe(SUBMIT_SIGNUP, this._handlers.submitSignup);
+        Events.subscribe(SIGNUP_USER, this._handlers.userSignup);
     }
     /**
      * Отписка от событий сраницы регистрации
@@ -128,6 +144,7 @@ export default class SignupView {
         Events.unsubscribe(ERR_EMAIL_SINGUP, this._handlers.errEmailSignup);
         Events.unsubscribe(ERR_PASSWORD_SINGUP, this._handlers.errPswSignup);
         Events.unsubscribe(SUBMIT_SIGNUP, this._handlers.submitSignup);
+        Events.unsubscribe(SIGNUP_USER, this._handlers.userSignup);
     }
     /**
      * Отрисовка страницы регистрации
