@@ -19,6 +19,36 @@ export default class NavbarView {
      * @param {any} model - модель
      */
     constructor(parent, model) {
+        if (parent instanceof HTMLElement && model instanceof NavbarModel) {
+            this._parent = parent;
+            this._model = model;
+        }
+
+        let nav = document.getElementById('navbar');
+        if (nav == null) {
+            nav = document.createElement('div');
+            nav.id = 'navbar';
+            this._parent.appendChild(nav);
+        }
+        this.navbar = nav;
+
+        this._makeHandlers();
+    }
+    /**
+     * Подписка на события навбара
+     */
+    subscribeEvents() {
+        Events.subscribe(UPDATE_NAVBAR, this._handlers.render);
+        Events.subscribe(NAVBAR_ACTIVE, this._handlers.navbarActive);
+        Events.subscribe(UPDATE_USER, this._handlers.updateUser);
+        Events.subscribe(PAGE_SIGNUP, this._handlers.pageSignup);
+        Events.subscribe(PAGE_SIGNIN, this._handlers.pageSignin);
+        Events.subscribe(FIX_USER, this._handlers.updateUser);
+    }
+    /**
+     * Функция создает и заполняет поле _handlers обработчиками событий
+     */
+    _makeHandlers() {
         this._handlers = {
             render: this.render.bind(this),
             navbarActive: (arg) => {
@@ -47,29 +77,6 @@ export default class NavbarView {
                 Events.trigger(UPDATE_NAVBAR);
             },
         };
-        if (parent instanceof HTMLElement && model instanceof NavbarModel) {
-            this._parent = parent;
-            this._model = model;
-        }
-
-        let nav = document.getElementById('navbar');
-        if (nav == null) {
-            nav = document.createElement('div');
-            nav.id = 'navbar';
-            this._parent.appendChild(nav);
-        }
-        this.navbar = nav;
-    }
-    /**
-     * Подписка на события навбара
-     */
-    subscribeEvents() {
-        Events.subscribe(UPDATE_NAVBAR, this._handlers.render);
-        Events.subscribe(NAVBAR_ACTIVE, this._handlers.navbarActive);
-        Events.subscribe(UPDATE_USER, this._handlers.updateUser);
-        Events.subscribe(PAGE_SIGNUP, this._handlers.pageSignup);
-        Events.subscribe(PAGE_SIGNIN, this._handlers.pageSignin);
-        Events.subscribe(FIX_USER, this._handlers.updateUser);
     }
     /**
      * Отрисовка навбара

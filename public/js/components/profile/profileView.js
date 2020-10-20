@@ -30,6 +30,54 @@ export default class ProfileView {
     constructor(parent, model) {
         this._model = model;
 
+        if (parent instanceof HTMLElement) {
+            this._parent = parent;
+        }
+
+        let page = document.getElementById('page');
+        if (page === null) {
+            page = document.createElement('div');
+            page.id = 'page';
+            this._parent.appendChild(page);
+        }
+        this.page = page;
+
+        this._makeHandlers();
+    }
+    /**
+     * Подписка на события страницы профиля
+     */
+    subscribeEvents() {
+        Events.subscribe(PROFILE_USER, this._handlers.render);
+        Events.subscribe(HAVNT_USER, this._handlers.havntUser);
+        Events.subscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
+        Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
+        Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
+        Events.subscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
+        Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
+        Events.subscribe(SIGNOUT, this._handlers.signout);
+        Events.subscribe(FIX_USER, this._handlers.fixUser);
+        Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
+    }
+    /**
+     * Отписка от событий страницы профиля
+     */
+    unsubscribeEvents() {
+        Events.unsubscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
+        Events.unsubscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
+        Events.unsubscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
+        Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
+        Events.unsubscribe(SIGNOUT, this._handlers.signout);
+        Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
+        Events.unsubscribe(PROFILE_USER, this._handlers.render);
+        Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
+        Events.unsubscribe(FIX_USER, this._handlers.fixUser);
+        Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
+    }
+    /**
+     * Функция создает и заполняет поле _handlers обработчиками событий
+     */
+    _makeHandlers() {
         this._handlers = {
             render: this.render.bind(this),
             getNewPsw: () => {
@@ -111,48 +159,6 @@ export default class ProfileView {
                 this.renderMsgDataSettings(text);
             },
         };
-
-        if (parent instanceof HTMLElement) {
-            this._parent = parent;
-        }
-
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
-    }
-    /**
-     * Подписка на события страницы профиля
-     */
-    subscribeEvents() {
-        Events.subscribe(PROFILE_USER, this._handlers.render);
-        Events.subscribe(HAVNT_USER, this._handlers.havntUser);
-        Events.subscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
-        Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
-        Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
-        Events.subscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
-        Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.subscribe(SIGNOUT, this._handlers.signout);
-        Events.subscribe(FIX_USER, this._handlers.fixUser);
-        Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
-    }
-    /**
-     * Отписка от событий страницы профиля
-     */
-    unsubscribeEvents() {
-        Events.unsubscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
-        Events.unsubscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
-        Events.unsubscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
-        Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.unsubscribe(SIGNOUT, this._handlers.signout);
-        Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
-        Events.unsubscribe(PROFILE_USER, this._handlers.render);
-        Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
-        Events.unsubscribe(FIX_USER, this._handlers.fixUser);
-        Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
     /**
      * Отрисовка страницы профиля

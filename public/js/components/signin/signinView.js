@@ -20,6 +20,45 @@ export default class SigninView {
      * @param {any} model - модель
      */
     constructor(parent, model) {
+        if (parent instanceof HTMLElement && model instanceof SigninModel) {
+            this._parent = parent;
+            this._model = model;
+        }
+
+        let page = document.getElementById('page');
+        if (page === null) {
+            page = document.createElement('div');
+            page.id = 'page';
+            this._parent.appendChild(page);
+        }
+        this.page = page;
+
+        this._makeHandlers();
+    }
+    /**
+     * Подписка на события страницы авторизации
+     */
+    subscribeEvents() {
+        Events.subscribe(ERROR_SIGNIN, this._handlers.renderErr);
+        Events.subscribe(ERR_LOGIN_SINGIN, this._handlers.errLoginSignin);
+        Events.subscribe(ERR_PASSWORD_SINGIN, this._handlers.errPswSigin);
+        Events.subscribe(SUBMIT_SIGNIN, this._handlers.submitSignin);
+        Events.subscribe(SIGNIN_USER, this._handlers.signinUser);
+    }
+    /**
+     * Отписка от событий страницы авторизации
+     */
+    unsubscribeEvents() {
+        Events.unsubscribe(SUBMIT_SIGNIN, this._handlers.submitSignin);
+        Events.unsubscribe(ERROR_SIGNIN, this._handlers.renderErr);
+        Events.unsubscribe(ERR_LOGIN_SINGIN, this._handlers.errLoginSignin);
+        Events.unsubscribe(ERR_PASSWORD_SINGIN, this._handlers.errPswSigin);
+        Events.unsubscribe(SIGNIN_USER, this._handlers.signinUser);
+    }
+    /**
+     * Функция создает и заполняет поле _handlers обработчиками событий
+     */
+    _makeHandlers() {
         this._handlers = {
             renderErr: (arg) => {
                 this.renderError(arg);
@@ -67,39 +106,6 @@ export default class SigninView {
                 Events.trigger(SUBMIT_SIGNIN, {login: login, password: password});
             },
         };
-
-        if (parent instanceof HTMLElement && model instanceof SigninModel) {
-            this._parent = parent;
-            this._model = model;
-        }
-
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
-    }
-    /**
-     * Подписка на события страницы авторизации
-     */
-    subscribeEvents() {
-        Events.subscribe(ERROR_SIGNIN, this._handlers.renderErr);
-        Events.subscribe(ERR_LOGIN_SINGIN, this._handlers.errLoginSignin);
-        Events.subscribe(ERR_PASSWORD_SINGIN, this._handlers.errPswSigin);
-        Events.subscribe(SUBMIT_SIGNIN, this._handlers.submitSignin);
-        Events.subscribe(SIGNIN_USER, this._handlers.signinUser);
-    }
-    /**
-     * Отписка от событий страницы авторизации
-     */
-    unsubscribeEvents() {
-        Events.unsubscribe(SUBMIT_SIGNIN, this._handlers.submitSignin);
-        Events.unsubscribe(ERROR_SIGNIN, this._handlers.renderErr);
-        Events.unsubscribe(ERR_LOGIN_SINGIN, this._handlers.errLoginSignin);
-        Events.unsubscribe(ERR_PASSWORD_SINGIN, this._handlers.errPswSigin);
-        Events.unsubscribe(SIGNIN_USER, this._handlers.signinUser);
     }
     /**
      * Отрисовка страницы авторизации

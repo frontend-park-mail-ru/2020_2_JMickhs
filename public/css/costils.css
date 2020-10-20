@@ -1,0 +1,10 @@
+.text {
+    color: var(--blue);
+    text-align: center;
+}
+
+.text-first {
+    margin-top: 300px;
+    color: var(--orange);
+    text-align: center;
+}

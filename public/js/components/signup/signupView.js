@@ -26,8 +26,6 @@ export default class SignupView {
             this._model = model;
         }
 
-        this._makeHandlers();
-
         let page = document.getElementById('page');
         if (page === null) {
             page = document.createElement('div');
@@ -35,6 +33,8 @@ export default class SignupView {
             this._parent.appendChild(page);
         }
         this.page = page;
+
+        this._makeHandlers();
     }
     /**
      * Функция создает и заполняет поле _handlers обработчиками событий

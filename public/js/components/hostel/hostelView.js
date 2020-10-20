@@ -10,10 +10,6 @@ export default class HostelView {
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
     constructor(parent) {
-        this._handlers = {
-            render: this.render.bind(this),
-        };
-
         if (parent instanceof HTMLElement) {
             this._parent = parent;
         }
@@ -25,6 +21,8 @@ export default class HostelView {
             this._parent.appendChild(page);
         }
         this.page = page;
+
+        this._makeHandlers();
     }
     /**
      * Подписка на события страницы отеля
@@ -37,6 +35,14 @@ export default class HostelView {
      */
     unsubscribeEvents() {
         Events.unsubscribe(UPDATE_HOSTEL, this._handlers.render);
+    }
+    /**
+     * Функция создает и заполняет поле _handlers обработчиками событий
+     */
+    _makeHandlers() {
+        this._handlers = {
+            render: this.render.bind(this),
+        };
     }
     /**
      * Отрисовка страницы отеля
