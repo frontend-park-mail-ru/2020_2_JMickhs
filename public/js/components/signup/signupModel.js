@@ -5,8 +5,6 @@ import {
     ERR_LOGIN_SINGUP,
     ERR_PASSWORD_SINGUP,
     ERROR_SIGNUP,
-    REDIRECT,
-    SIGNUP_USER,
 } from '../../helpers/eventbus/constants';
 import Validation from '../../helpers/validation/validation';
 
@@ -18,13 +16,6 @@ export default class SignupModel {
     constructor() {
         this._user = ProfileModel;
         this.timerId = -1;
-        Events.subscribe(SIGNUP_USER, () => {
-            if (this._user.isAuth) {
-                Events.trigger(REDIRECT, {url: '/profile'});
-            } else {
-                Events.trigger(ERROR_SIGNUP, 'Вы не авторизованы');
-            }
-        });
     }
     /**
      * Регистрация пользователя

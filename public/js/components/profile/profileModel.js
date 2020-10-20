@@ -144,7 +144,7 @@ class ProfileModel {
                 this.login = data.username;
                 this.email = data.email;
                 Events.trigger(UPDATE_USER);
-                Events.trigger(SIGNUP_USER);
+                Events.trigger(SIGNUP_USER, this.isAuth);
                 break;
             case 400:
                 Events.trigger(ERROR_SIGNUP, 'Неверный формат запроса');
