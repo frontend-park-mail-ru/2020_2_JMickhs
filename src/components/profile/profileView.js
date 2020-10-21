@@ -32,7 +32,7 @@ export default class ProfileView extends PageView {
 
         this._model = model;
 
-        this._makeHandlers();
+        this._handlers = this._makeHandlers();
     }
     /**
      * Подписка на события страницы профиля
@@ -63,10 +63,11 @@ export default class ProfileView extends PageView {
         Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
     /**
-     * Функция создает и заполняет поле _handlers обработчиками событий
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
      */
     _makeHandlers() {
-        this._handlers = {
+        const handlers = {
             render: this.render.bind(this),
             getNewPsw: () => {
                 this.renderMsgPswSettings('Вы успешно поменяли пароль', false);
@@ -145,6 +146,7 @@ export default class ProfileView extends PageView {
                 this.renderMsgDataSettings(text);
             },
         };
+        return handlers;
     }
     /**
      * Отрисовка страницы профиля

@@ -18,7 +18,7 @@ export default class ProfileController {
         this._model = ProfileModel;
         this._view = new ProfileView(parent, this._model);
 
-        this._makeHandlers();
+        this._handlers = this._makeHandlers();
     }
     /**
      * Активация работы контроллера
@@ -132,12 +132,14 @@ export default class ProfileController {
         this._model.updatePassword(oldPsw, newPsw2);
     }
     /**
-     * Функция создает и заполняет поле _handlers обработчиками событий
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
      */
     _makeHandlers() {
-        this._handlers = {
+        const handlers = {
             changeUser: this._validateDataChange.bind(this),
             updatePsw: this._validatePswChange.bind(this),
         };
+        return handlers;
     }
 }

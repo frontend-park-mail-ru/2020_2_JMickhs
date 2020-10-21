@@ -31,7 +31,7 @@ export default class NavbarView {
         }
         this.navbar = nav;
 
-        this._makeHandlers();
+        this._handlers = this._makeHandlers();
     }
     /**
      * Подписка на события навбара
@@ -45,10 +45,11 @@ export default class NavbarView {
         Events.subscribe(FIX_USER, this._handlers.updateUser);
     }
     /**
-     * Функция создает и заполняет поле _handlers обработчиками событий
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
      */
     _makeHandlers() {
-        this._handlers = {
+        const handlers = {
             render: this.render.bind(this),
             navbarActive: (arg) => {
                 this._curr = arg;
@@ -76,6 +77,7 @@ export default class NavbarView {
                 Events.trigger(UPDATE_NAVBAR);
             },
         };
+        return handlers;
     }
     /**
      * Отрисовка навбара

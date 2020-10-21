@@ -25,66 +25,11 @@ export default class SignupView extends PageView {
         this._handlers = this._makeHandlers();
     }
     /**
-     * Функция создает и заполняет поле _handlers обработчиками событий
+     * Функция создает обработчики событий
      * @return {Object} - возвращает обьект с обработчиками
      */
     _makeHandlers() {
         const handlers = {
-            clickLoginInput: () => {
-                if (document.getElementById('login-promt')) {
-                    return;
-                }
-                const form = document.getElementById('signupform');
-                const loginInput = document.getElementById('signup-login');
-                const passPromt = document.getElementById('pass-promt');
-                if (passPromt) {
-                    form.removeChild(passPromt);
-                }
-                const promts = [];
-                promts.push({text: 'Логин может включать только буквы, цифры и символы _ - .'});
-                promts.push({text: 'Длинна логина должна быть в пределе от 3 до 15 символов'});
-                const promt = document.createElement('div');
-                promt.id = 'login-promt';
-                promt.innerHTML = promtTemplate(promts);
-                form.insertBefore(promt, loginInput);
-            },
-            clickPassInput: () => {
-                if (document.getElementById('pass-promt')) {
-                    return;
-                }
-                const form = document.getElementById('signupform');
-                const passInput1 = document.getElementById('signup-password1');
-                const loginPromt = document.getElementById('login-promt');
-                if (loginPromt) {
-                    form.removeChild(loginPromt);
-                }
-                const promts = [];
-                promts.push({text: 'Пароль может включать только буквы английского алфавита и цифры'});
-                promts.push({text: 'Длинна пароля должна быть в пределах от 5 до 30 символов'});
-                const promt = document.createElement('div');
-                promt.id = 'pass-promt';
-                promt.innerHTML = promtTemplate(promts);
-                form.insertBefore(promt, passInput1);
-            },
-            submitSignupForm: (evt) => {
-                evt.preventDefault();
-                const loginInput = document.getElementById('signup-login');
-                const emailInput = document.getElementById('signup-email');
-                const passInput1 = document.getElementById('signup-password1');
-                const passInput2 = document.getElementById('signup-password2');
-
-                const login = loginInput.value;
-                const email = emailInput.value;
-                const pass1 = passInput1.value;
-                const pass2 = passInput2.value;
-
-                loginInput.className = 'input-sign';
-                emailInput.className = 'input-sign';
-                passInput1.className = 'input-sign';
-                passInput2.className = 'input-sign';
-
-                Events.trigger(SUBMIT_SIGNUP, {login: login, email: email, psw1: pass1, psw2: pass2});
-            },
             userSignup: (isAuth) => {
                 if (isAuth) {
                     Events.trigger(REDIRECT, {url: '/profile'});
@@ -95,8 +40,76 @@ export default class SignupView extends PageView {
             errSignup: (arg) => {
                 this.renderError(arg);
             },
+            clickLoginInput: this._clickLoginInput.bind(this),
+            clickPassInput: this._clickPswInput.bind(this),
+            submitSignupForm: this._submitSignup.bind(this),
         };
         return handlers;
+    }
+    /**
+     * Обработчик сабмита формы
+     * @param {Event} evt - евент сабмита
+     */
+    _submitSignup(evt) {
+        evt.preventDefault();
+        const loginInput = document.getElementById('signup-login');
+        const emailInput = document.getElementById('signup-email');
+        const passInput1 = document.getElementById('signup-password1');
+        const passInput2 = document.getElementById('signup-password2');
+
+        const login = loginInput.value;
+        const email = emailInput.value;
+        const pass1 = passInput1.value;
+        const pass2 = passInput2.value;
+
+        loginInput.className = 'input-sign';
+        emailInput.className = 'input-sign';
+        passInput1.className = 'input-sign';
+        passInput2.className = 'input-sign';
+
+        Events.trigger(SUBMIT_SIGNUP, {login: login, email: email, psw1: pass1, psw2: pass2});
+    }
+    /**
+     * Обработчик клика по инпуту пароля
+     */
+    _clickPswInput() {
+        if (document.getElementById('pass-promt')) {
+            return;
+        }
+        const form = document.getElementById('signupform');
+        const passInput1 = document.getElementById('signup-password1');
+        const loginPromt = document.getElementById('login-promt');
+        if (loginPromt) {
+            form.removeChild(loginPromt);
+        }
+        const promts = [];
+        promts.push({text: 'Пароль может включать только буквы английского алфавита и цифры'});
+        promts.push({text: 'Длинна пароля должна быть в пределах от 5 до 30 символов'});
+        const promt = document.createElement('div');
+        promt.id = 'pass-promt';
+        promt.innerHTML = promtTemplate(promts);
+        form.insertBefore(promt, passInput1);
+    }
+    /**
+     * Обработчик клика по инпуту логина
+     */
+    _clickLoginInput() {
+        if (document.getElementById('login-promt')) {
+            return;
+        }
+        const form = document.getElementById('signupform');
+        const loginInput = document.getElementById('signup-login');
+        const passPromt = document.getElementById('pass-promt');
+        if (passPromt) {
+            form.removeChild(passPromt);
+        }
+        const promts = [];
+        promts.push({text: 'Логин может включать только буквы, цифры и символы _ - .'});
+        promts.push({text: 'Длинна логина должна быть в пределе от 3 до 15 символов'});
+        const promt = document.createElement('div');
+        promt.id = 'login-promt';
+        promt.innerHTML = promtTemplate(promts);
+        form.insertBefore(promt, loginInput);
     }
     /**
      * Подписка на события страницы регистрации
