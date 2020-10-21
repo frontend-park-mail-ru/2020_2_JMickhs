@@ -1,6 +1,6 @@
-import Net from '../../helpers/network/network';
-import Events from '../../helpers/eventbus/eventbus';
-import {REDIRECT, REDIRECT_ERROR} from '../../helpers/eventbus/constants';
+import Net from 'network/network';
+import Events from 'eventBus/eventbus';
+import {REDIRECT, REDIRECT_ERROR} from 'eventBus/constants';
 
 /** Класс модели для страницы вырвиглазного поиска */
 export default class SearchModel {

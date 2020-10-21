@@ -1,7 +1,7 @@
-import ListModel from './listModel';
-import ListView from './listView';
-import Events from '../../helpers/eventbus/eventbus';
-import {NAVBAR_ACTIVE} from '../../helpers/eventbus/constants';
+import ListModel from 'list/listModel';
+import ListView from 'list/listView';
+import Events from 'eventBus/eventbus';
+import {NAVBAR_ACTIVE} from 'eventBus/constants';
 
 /** Класс контроллера для страницы списка отелей */
 export default class ListController {

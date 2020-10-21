@@ -1,13 +1,13 @@
-import SignupModel from './signupModel';
-import SignupView from './signupView';
-import Events from '../../helpers/eventbus/eventbus';
+import SignupModel from 'signup/signupModel';
+import SignupView from 'signup/signupView';
+import Events from 'eventBus/eventbus';
 import {
     NAVBAR_ACTIVE,
     PAGE_SIGNUP,
     REDIRECT,
     SUBMIT_SIGNUP,
-} from '../../helpers/eventbus/constants';
-import Validator from '../../helpers/validator/validator';
+} from 'eventBus/constants';
+import Validator from 'validator/validator';
 
 /** Класс контроллера для страницы регистрации */
 export default class SignupController {

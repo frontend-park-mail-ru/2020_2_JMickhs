@@ -1,9 +1,9 @@
-@import "./css/colors.css" all;
-@import "./css/navbar.css" all;
-@import "./css/profile.css" all;
-@import "./css/sign.css" all;
-@import "./css/hostels.css" all;
-@import "./css/errorPage.css" all;
+@import "css/colors.css" all;
+@import "css/navbar.css" all;
+@import "css/profile.css" all;
+@import "css/sign.css" all;
+@import "css/hostels.css" all;
+@import "css/errorPage.css" all;
 
 body {
     background: var(--main-background-color);

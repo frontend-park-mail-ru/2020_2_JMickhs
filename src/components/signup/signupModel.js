@@ -1,4 +1,5 @@
-import ProfileModel from '../profile/profileModel';
+import ProfileModel from 'profile/profileModel';
+
 /** Класс модели для страницы регистрации */
 export default class SignupModel {
     /**

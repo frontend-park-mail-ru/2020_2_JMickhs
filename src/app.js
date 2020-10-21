@@ -1,20 +1,20 @@
-import Router from './helpers/router/router';
-import HomeController from './components/home/homeController';
-import NavbarController from './components/navbar/navbarController';
-import ListController from './components/list/listController';
-import SigninController from './components/signin/signinController';
-import SignupController from './components/signup/signupController';
-import ProfileController from './components/profile/profileController';
-import ProfileModel from './components/profile/profileModel';
-import HostelController from './components/hostel/hostelController';
-import ErrorController from './components/pageError/errorController';
-import Events from './helpers/eventbus/eventbus';
+import Router from 'router/router';
+import HomeController from 'home/homeController';
+import NavbarController from 'navbar/navbarController';
+import ListController from 'list/listController';
+import SigninController from 'signin/signinController';
+import SignupController from 'signup/signupController';
+import ProfileController from 'profile/profileController';
+import ProfileModel from 'profile/profileModel';
+import HostelController from 'hostel/hostelController';
+import ErrorController from 'pageError/errorController';
+import SearchController from 'search/searchController';
+import Events from 'eventBus/eventbus';
 import {
     REDIRECT,
     REDIRECT_ERROR,
-} from './helpers/eventbus/constants';
+} from 'eventBus/constants';
 import './main.css';
-import SearchController from './components/search/searchController';
 
 /**
  *  Старт нашего приложения =)

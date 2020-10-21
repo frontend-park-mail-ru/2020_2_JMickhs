@@ -1,7 +1,7 @@
-import Events from '../../helpers/eventbus/eventbus';
-import {NAVBAR_ACTIVE} from '../../helpers/eventbus/constants';
-import SearchView from './searchView';
-import SearchModel from './searchModel';
+import Events from 'eventBus/eventbus';
+import {NAVBAR_ACTIVE} from 'eventBus/constants';
+import SearchView from 'search/searchView';
+import SearchModel from 'search/searchModel';
 
 /** Класс контроллера для страницы вырвиглазного поиска */
 export default class SearchController {

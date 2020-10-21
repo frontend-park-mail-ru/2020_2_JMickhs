@@ -1,5 +1,5 @@
-import PageView from '../basic/pageView';
-import Events from '../../helpers/eventbus/eventbus';
+import PageView from 'basic/pageView';
+import Events from 'eventBus/eventbus';
 
 /** Класс представления вырвиглазного поиска */
 export default class SearchView extends PageView {

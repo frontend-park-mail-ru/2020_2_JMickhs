@@ -1,9 +1,9 @@
-import Net from '../../helpers/network/network';
-import Events from '../../helpers/eventbus/eventbus';
+import Net from 'network/network';
+import Events from 'eventBus/eventbus';
 import {
     LOAD_HOSTELS,
     REDIRECT_ERROR,
-} from '../../helpers/eventbus/constants';
+} from 'eventBus/constants';
 
 /** Класс модели для страницы списка отелей */
 export default class ListModel {

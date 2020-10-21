@@ -1,4 +1,4 @@
-import pageTemplate from './templates/page.hbs';
+import pageTemplate from 'basic/templates/page.hbs';
 
 /** Класс представления для страницы профиля */
 export default class PageView {

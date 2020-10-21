@@ -1,8 +1,7 @@
-import PageView from '../basic/pageView';
-import Events from './../../helpers/eventbus/eventbus';
-import {LOAD_HOSTELS} from '../../helpers/eventbus/constants';
-
-import myTemplate from './templates/listTemplate.hbs';
+import PageView from 'basic/pageView';
+import Events from 'eventBus/eventbus';
+import {LOAD_HOSTELS} from 'eventBus/constants';
+import myTemplate from 'list/templates/listTemplate.hbs';
 
 /** Класс представления для страницы списка отелей */
 export default class ListView extends PageView {
