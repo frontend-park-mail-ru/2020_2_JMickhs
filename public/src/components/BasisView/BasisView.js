@@ -1,6 +1,4 @@
 import pageTemplate from './templates/page.hbs';
-import Events from '../../helpers/eventbus/eventbus';
-import {GET_ERROR} from '../../helpers/eventbus/constants';
 
 /** Класс представления для страницы профиля */
 export default class ProfileView {
@@ -27,28 +25,24 @@ export default class ProfileView {
      * Подписка на события страницы профиля
      */
     subscribeEvents() {
-        Events.subscribe(GET_ERROR, this._handlers.getErr);
     }
     /**
      * Отписка от событий страницы профиля
      */
     unsubscribeEvents() {
-        Events.unsubscribe(GET_ERROR, this._handlers.getErr);
     }
     /**
      * Функция создает и заполняет поле _handlers обработчиками событий
      */
     _makeHandlers() {
-        this._handlers = {
-            getErr: (arg) => {
-                this._error = arg;
-            },
-        };
     }
     /**
      * Отрисовка страницы профиля
      */
     render() {
+        if (this._error === undefined) {
+            this._error = 'Такой страницы не существует';
+        }
         this.page.innerHTML = pageTemplate({error: this._error});
     }
     /**
