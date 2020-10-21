@@ -32,10 +32,10 @@ export default class PageView {
      */
     render() {
         window.scrollTo(0, 0);
-        if (this._error === undefined) {
-            this._error = 'Такой страницы не существует';
+        if (this.error === undefined) {
+            this.error = 'Такой страницы не существует';
         }
-        this.page.innerHTML = pageTemplate({error: this._error});
+        this.page.innerHTML = pageTemplate({error: this.error});
     }
     /**
      * Скрытие страницы профиля

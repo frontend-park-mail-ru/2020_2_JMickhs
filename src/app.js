@@ -48,16 +48,10 @@ import SearchController from './components/search/searchController';
     Router.start();
     Events.subscribe(REDIRECT, (arg) => {
         const {url, data} = arg;
-        if (data !== undefined) {
-            const path = '/' + url.split('/')[1];
-            const {controller} = Router._findComponentByPath(path);
-            controller.data = {hotels: data};
-        }
-        Router.pushState(url);
+        Router.pushState(url, data);
     });
     Events.subscribe(REDIRECT_ERROR, (arg) => {
         const {url, err} = arg;
-        Router.errorController.error = err;
-        Router.pushState(url);
+        Router.pushState(url, err);
     });
 })();

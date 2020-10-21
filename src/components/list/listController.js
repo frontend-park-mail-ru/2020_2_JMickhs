@@ -15,25 +15,21 @@ export default class ListController {
         this.haveInfo = false;
     }
     /**
-     * Сетер для данных модели
-     * @param {Object} arg - оъект с данными
-     */
-    set data(arg) {
-        const {hotels} = arg;
-        this.haveInfo = true;
-        this._model.hostels = hotels;
-    }
-    /**
      * Заполнение данных модели с сервера
      * @param {string} arg
      */
     activate(arg) {
+        const {state} = history.state;
+        if (state !== {} && state !== undefined) {
+            this.haveInfo = true;
+            this._model.hostels = state;
+        }
         Events.trigger(NAVBAR_ACTIVE, 2);
         this._view.subscribeEvents();
         if (!this.haveInfo && arg) {
             this._model.search(arg);
         }
-        if (!this.haveInfo && !arg) {
+        if (!this.haveInfo && arg === undefined) {
             this._model.fillModel();
         }
         if (this.haveInfo) {

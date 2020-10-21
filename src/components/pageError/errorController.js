@@ -14,16 +14,13 @@ export default class ErrorController {
         }
     }
     /**
-     * Установка поля ошибки
-     * @param {string} err - текст ошибки
-     */
-    set error(err) {
-        this._view._error = err;
-    }
-    /**
      * Активация работы контроллера
      */
     activate() {
+        const {state} = history.state;
+        if (state !== {} && state !== undefined) {
+            this._view.error = state;
+        }
         Events.trigger(NAVBAR_ACTIVE, -1);
         this._view.render();
     }
