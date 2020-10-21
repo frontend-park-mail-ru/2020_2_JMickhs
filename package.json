@@ -4,16 +4,11 @@
     "description": "Веб сервис, который помогает найти подходящий отель в поездку",
     "private": true,
     "dependencies": {
-        "babel-preset-env": "^1.7.0",
-        "debug": "^4.2.0",
         "express": "^4.17.1",
         "handlebars": "^4.7.6",
         "handlebars-loader": "^1.7.1"
     },
     "devDependencies": {
-        "@babel/core": "^7.11.6",
-        "@babel/plugin-proposal-class-properties": "^7.10.4",
-        "@babel/preset-env": "^7.11.5",
         "@typescript-eslint/eslint-plugin": "^4.5.0",
         "@typescript-eslint/parser": "^4.5.0",
         "babel-loader": "^8.1.0",

@@ -7,7 +7,6 @@ module.exports = {
     entry: './src/app.js',
     devtool: 'inline-source-map',
     output: {
-        // eslint-disable-next-line no-undef
         path: path.resolve(__dirname, './public'),
         filename: 'bundle.js',
         publicPath: '../',
@@ -28,7 +27,6 @@ module.exports = {
                 test: /\.hbs$/,
                 use: [{
                     loader: 'handlebars-loader',
-                    // eslint-disable-next-line no-undef
                     options: {helperDirs: path.resolve(__dirname, './public/src/helpers/handlebars-helpers')},
                 }],
             },
