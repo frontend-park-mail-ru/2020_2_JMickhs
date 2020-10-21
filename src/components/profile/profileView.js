@@ -31,6 +31,9 @@ export default class ProfileView extends PageView {
         super(parent);
 
         this._model = model;
+        this._avatarTimerId = -1;
+        this._dataTimerId = -1;
+        this._pswTimerId = -1;
 
         this._makeHandlers();
     }
@@ -176,8 +179,8 @@ export default class ProfileView extends PageView {
      * @param {boolean} [isErr=false] - тип уведомления(false - ошибка)
      */
     renderMessageAvatar(text = '', isErr = false) {
-        if (this._model.avatarTimerId !== -1) {
-            clearTimeout(this._model.avatarTimerId);
+        if (this._avatarTimerId !== -1) {
+            clearTimeout(this._avatarTimerId);
         }
         const div = document.getElementById('btn-reload');
         div.innerHTML = messageTemplate({text: text});
@@ -185,9 +188,9 @@ export default class ProfileView extends PageView {
         if (isErr) {
             msg.className = 'label-error';
         }
-        this._model.avatarTimerId = setTimeout(() => {
+        this._avatarTimerId = setTimeout(() => {
             div.removeChild(msg);
-            this._model.avatarTimerId = -1;
+            this._avatarTimerId = -1;
         }, 5000);
     }
     /**
@@ -196,8 +199,8 @@ export default class ProfileView extends PageView {
      * @param {boolean} [isErr=true] - тип уведомления(true - ошибка)
      */
     renderMsgDataSettings(text = '', isErr = true) {
-        if (this._model.dataTimerId !== -1) {
-            clearTimeout(this._model.dataTimerId);
+        if (this._dataTimerId !== -1) {
+            clearTimeout(this._dataTimerId);
         }
         const errLine = document.getElementById('text-error-data');
         if (!isErr) {
@@ -205,12 +208,12 @@ export default class ProfileView extends PageView {
         }
         errLine.textContent = text;
 
-        this._model.dataTimerId = setTimeout(() => {
+        this._dataTimerId = setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
                 errLine.className = 'label-error';
             }
-            this._model.dataTimerId = -1;
+            this._dataTimerId = -1;
         }, 5000);
     }
     /**
@@ -270,8 +273,8 @@ export default class ProfileView extends PageView {
      * @param {boolean} [isErr=true] - тип уведомления(false - ошибка)
      */
     renderMsgPswSettings(text = '', isErr = true) {
-        if (this._model.pswTimerId !== -1) {
-            clearTimeout(this._model.pswTimerId);
+        if (this._pswTimerId !== -1) {
+            clearTimeout(this._pswTimerId);
         }
         const errLine = document.getElementById('text-error-sequr');
         if (!isErr) {
@@ -279,12 +282,12 @@ export default class ProfileView extends PageView {
         }
         errLine.textContent = text;
 
-        this._model.pswTimerId = setTimeout(() => {
+        this._pswTimerId = setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
                 errLine.className = 'label-error';
             }
-            this._model.pswTimerId = -1;
+            this._pswTimerId = -1;
         }, 5000);
     }
     /**

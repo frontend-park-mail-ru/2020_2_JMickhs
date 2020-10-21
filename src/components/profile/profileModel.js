@@ -29,9 +29,6 @@ class ProfileModel {
         this.id = -1;
         this.isAuth = false;
         this.avatar = '';
-        this.avatarTimerId = -1;
-        this.dataTimerId = -1;
-        this.pswTimerId = -1;
     }
     /**
      * Запросить с сервера информацию о пользователе
@@ -184,6 +181,9 @@ class ProfileModel {
                 break;
             case 403:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Нет csrf'});
+                break;
+            case 409:
+                Events.trigger(ERR_FIX_USER, 'Пользователь с такими данными уже зарегистрирован');
                 break;
             default:
                 Events.trigger(ERR_FIX_USER, `Ошибка сервера: статус ${status}`);
