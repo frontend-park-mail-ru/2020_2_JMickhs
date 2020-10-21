@@ -22,13 +22,14 @@ export default class SignupView extends PageView {
 
         this._model = model;
 
-        this._makeHandlers();
+        this._handlers = this._makeHandlers();
     }
     /**
      * Функция создает и заполняет поле _handlers обработчиками событий
+     * @return {Object} - возвращает обьект с обработчиками
      */
     _makeHandlers() {
-        this._handlers = {
+        const handlers = {
             clickLoginInput: () => {
                 if (document.getElementById('login-promt')) {
                     return;
@@ -95,6 +96,7 @@ export default class SignupView extends PageView {
                 this.renderError(arg);
             },
         };
+        return handlers;
     }
     /**
      * Подписка на события страницы регистрации

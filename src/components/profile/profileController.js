@@ -44,20 +44,14 @@ export default class ProfileController {
      */
     subscribeEvents() {
         Events.subscribe(CHANGE_USER, this._handlers.changeUser);
-        // Events.subscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
-        // Events.subscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
         Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        // Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
     }
     /**
      *  Отписка от событий
      */
     unsubscribeEvents() {
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
-        // Events.unsubscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
-        // Events.unsubscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
         Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        // Events.unsubscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
     }
     /**
      * Проверка данных, переданных для изменения
