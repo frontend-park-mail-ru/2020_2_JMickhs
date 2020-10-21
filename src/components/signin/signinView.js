@@ -45,8 +45,8 @@ export default class SigninView extends PageView {
             renderErr: (arg) => {
                 this.renderError(arg);
             },
-            signinUser: () => {
-                if (this._model._user.isAuth) {
+            signinUser: (isAuth) => {
+                if (isAuth) {
                     Events.trigger(REDIRECT, {url: '/profile'});
                 } else {
                     Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
@@ -78,7 +78,7 @@ export default class SigninView extends PageView {
      * @param {string} errstr - ощибка, которую нужно отобразить
      * @param {Number} numberInputErr 1 - логин, 2 пароль
      */
-    renderError(errstr, numberInputErr) {
+    renderError(errstr, numberInputErr = 0) {
         if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
         }

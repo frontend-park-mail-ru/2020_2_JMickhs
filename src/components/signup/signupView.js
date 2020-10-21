@@ -1,9 +1,6 @@
 import PageView from '../basic/pageView';
 import Events from '../../helpers/eventbus/eventbus';
 import {
-    ERR_LOGIN_SINGUP,
-    ERR_EMAIL_SINGUP,
-    ERR_PASSWORD_SINGUP,
     ERROR_SIGNUP,
     SUBMIT_SIGNUP,
     REDIRECT,
@@ -32,29 +29,6 @@ export default class SignupView extends PageView {
      */
     _makeHandlers() {
         this._handlers = {
-            errSignup: (arg) => {
-                this.renderError(arg);
-            },
-            errLoginSignup: (arg) => {
-                document.getElementById('signup-login').className = 'input-error';
-                this.renderError(arg);
-            },
-            errEmailSignup: (arg) => {
-                document.getElementById('signup-email').className = 'input-error';
-                this.renderError(arg);
-            },
-            errPswSignup: (arg) => {
-                document.getElementById('signup-password1').className = 'input-error';
-                document.getElementById('signup-password2').className = 'input-error';
-                this.renderError(arg);
-            },
-            submitSignup: (arg) => {
-                const pass1 = arg.password1;
-                const pass2 = arg.password2;
-                const login = arg.login;
-                const email = arg.email;
-                this._model.validate(login, pass1, pass2, email);
-            },
             clickLoginInput: () => {
                 if (document.getElementById('login-promt')) {
                     return;
@@ -97,14 +71,18 @@ export default class SignupView extends PageView {
                 const emailInput = document.getElementById('signup-email');
                 const passInput1 = document.getElementById('signup-password1');
                 const passInput2 = document.getElementById('signup-password2');
+
                 const login = loginInput.value;
                 const email = emailInput.value;
                 const pass1 = passInput1.value;
                 const pass2 = passInput2.value;
-                document.getElementById('signup-login').className = 'input-sign';
-                document.getElementById('signup-password1').className = 'input-sign';
-                document.getElementById('signup-password2').className = 'input-sign';
-                Events.trigger(SUBMIT_SIGNUP, {login: login, email: email, password1: pass1, password2: pass2});
+
+                loginInput.className = 'input-sign';
+                emailInput.className = 'input-sign';
+                passInput1.className = 'input-sign';
+                passInput2.className = 'input-sign';
+
+                Events.trigger(SUBMIT_SIGNUP, {login: login, email: email, psw1: pass1, psw2: pass2});
             },
             userSignup: (isAuth) => {
                 if (isAuth) {
@@ -113,6 +91,9 @@ export default class SignupView extends PageView {
                     Events.trigger(ERROR_SIGNUP, 'Вы не смогли зарегистрироваться =)');
                 }
             },
+            errSignup: (arg) => {
+                this.renderError(arg);
+            },
         };
     }
     /**
@@ -120,10 +101,6 @@ export default class SignupView extends PageView {
      */
     subscribeEvents() {
         Events.subscribe(ERROR_SIGNUP, this._handlers.errSignup);
-        Events.subscribe(ERR_LOGIN_SINGUP, this._handlers.errLoginSignup);
-        Events.subscribe(ERR_EMAIL_SINGUP, this._handlers.errEmailSignup);
-        Events.subscribe(ERR_PASSWORD_SINGUP, this._handlers.errPswSignup);
-        Events.subscribe(SUBMIT_SIGNUP, this._handlers.submitSignup);
         Events.subscribe(SIGNUP_USER, this._handlers.userSignup);
     }
     /**
@@ -131,10 +108,6 @@ export default class SignupView extends PageView {
      */
     unsubscribeEvents() {
         Events.unsubscribe(ERROR_SIGNUP, this._handlers.errSignup);
-        Events.unsubscribe(ERR_LOGIN_SINGUP, this._handlers.errLoginSignup);
-        Events.unsubscribe(ERR_EMAIL_SINGUP, this._handlers.errEmailSignup);
-        Events.unsubscribe(ERR_PASSWORD_SINGUP, this._handlers.errPswSignup);
-        Events.unsubscribe(SUBMIT_SIGNUP, this._handlers.submitSignup);
         Events.unsubscribe(SIGNUP_USER, this._handlers.userSignup);
     }
     /**
@@ -156,14 +129,31 @@ export default class SignupView extends PageView {
     }
     /**
      * Отрисовка сообщения об ошибке
-     * @param {string} [errstr=''] - текст ошибки
+     * @param {string} errstr - ощибка, которую нужно отобразить
+     * @param {Number} numberInputErr 1 - логин, 2 email, 3 - пароль
      */
-    renderError(errstr = '') {
+    renderError(errstr, numberInputErr = 0) {
         if (this._model.timerId !== -1) {
             clearTimeout(this._model.timerId);
         }
         const errLine = document.getElementById('text-error');
         errLine.textContent = errstr;
+
+        switch (numberInputErr) {
+        case 1: {
+            document.getElementById('signup-login').className = 'input-error';
+            break;
+        }
+        case 2: {
+            document.getElementById('signup-email').className = 'input-error';
+            break;
+        }
+        case 3: {
+            document.getElementById('signup-password1').className = 'input-error';
+            document.getElementById('signup-password2').className = 'input-error';
+            break;
+        }
+        }
 
         this._model.timerId = setTimeout(() => {
             errLine.textContent = '';

@@ -34,7 +34,11 @@ class Validator {
             },
         ];
     }
-
+    /**
+     * Валидация имени пользователя
+     * @param login - иям пользователя
+     * @return {string[]} - массив строк с ошибками. Если ошибок 0 - массив пустой
+     */
     validateLogin(login: string) : string[] {
         let result: string[] = [];
         this.loginTableСheckup.forEach((checkup) => {
