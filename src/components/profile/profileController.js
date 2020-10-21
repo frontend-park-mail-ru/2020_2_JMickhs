@@ -128,7 +128,7 @@ export default class ProfileController {
             return;
         }
 
-        const pswErrors = Validator.validatePsw(newPsw1);
+        const pswErrors = Validator.validatePassword(newPsw1);
         if (pswErrors.length > 0) {
             this._view.renderNewPswInputError();
             this._view.renderMsgPswSettings(pswErrors[0]);

@@ -1,9 +1,9 @@
 /** Класс, занимающийся валидацией данных */
 class Validator {
     private loginTableCheckup: {regular: RegExp, error: string}[];
-    private pswTableCheckup: {regular: RegExp, error: string}[];
+    private passwordTableCheckup: {regular: RegExp, error: string}[];
     private emailTableCheckup: {regular: RegExp, error: string}[];
-    /** Создает экземпляр класса */
+
     constructor() {
         this.loginTableCheckup = [
             {
@@ -16,7 +16,7 @@ class Validator {
             },
         ];
 
-        this.pswTableCheckup = [
+        this.passwordTableCheckup = [
             {
                 regular: new RegExp('^[a-zA-Z0-9]*$'),
                 error: 'Пароль может включать только буквы английского алфавита и цифры',
@@ -34,11 +34,7 @@ class Validator {
             },
         ];
     }
-    /**
-     * Валидация имени пользователя
-     * @param {string} login - иям пользователя
-     * @return {string[]} - массив строк с ошибками. Если ошибок 0 - массив пустой
-     */
+
     validateLogin(login: string) : string[] {
         const result: string[] = [];
         this.loginTableCheckup.forEach((checkup) => {
@@ -48,25 +44,17 @@ class Validator {
         });
         return result;
     }
-    /**
-     * Валидация пароля
-     * @param {string} psw - пароль
-     * @return {string[]} - массив строк с ошибками. Если ошибок 0 - массив пустой
-     */
-    validatePsw(psw: string) : string[] {
+
+    validatePassword(psw: string) : string[] {
         const result: string[] = [];
-        this.pswTableCheckup.forEach((checkup) => {
+        this.passwordTableCheckup.forEach((checkup) => {
             if (!checkup.regular.exec(psw)) {
                 result.push(checkup.error);
             }
         });
         return result;
     }
-    /**
-     * Валидация почты
-     * @param {string} email - почта
-     * @return {string[]} - массив строк с ошибками. Если ошибок 0 - массив пустой
-     */
+
     validateEmail(email: string) : string[] {
         const result: string[] = [];
         this.emailTableCheckup.forEach((checkup) => {

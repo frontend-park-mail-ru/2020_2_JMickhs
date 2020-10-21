@@ -90,7 +90,7 @@ export default class SignupController {
             this._view.renderError(emailErrors[0], 2);
         }
 
-        const pswErrors = Validator.validatePsw(psw1);
+        const pswErrors = Validator.validatePassword(psw1);
         if (pswErrors.length > 0) {
             resolution = false;
             this._view.renderError(pswErrors[0], 3);

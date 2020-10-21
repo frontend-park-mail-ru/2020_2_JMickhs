@@ -10,8 +10,6 @@
     "plugins": [
         "@typescript-eslint"
     ],
-    "extends": ["eslint:recommended",
-                "google"],
     "rules": {
         "max-len": ["error", { "code": 120 }],
         "indent": [
@@ -21,11 +19,21 @@
     },
     "overrides": [
         {
-            "files": ["*.ts"],
+            "files": ["*.js"],
             "extends": ["eslint:recommended",
-                "google",
-                "plugin:@typescript-eslint/eslint-recommended",
-                "plugin:@typescript-eslint/recommended"],
+                        "google"],
+            "rules": {
+                "max-len": ["error", { "code": 120 }],
+                "indent": [
+                    "error",
+                    4
+                ]
+            }
+        },
+        {
+            "files": ["*.ts"],
+            "extends": ["plugin:@typescript-eslint/eslint-recommended",
+                        "plugin:@typescript-eslint/recommended"],
             "rules": {
                 "max-len": ["error", { "code": 120 }],
                 "indent": [
