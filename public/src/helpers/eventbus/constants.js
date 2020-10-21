@@ -38,3 +38,4 @@ export const ERR_FIX_USER = 'errFixUser';
 export const CHANGE_USER = 'changeUser';
 export const ERROR_CHANGE_LOGIN = 'errChangeError';
 export const ERROR_CHANGE_EMAIL = 'errChangeEmail';
+export const GET_ERROR = 'getError';

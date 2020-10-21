@@ -33,7 +33,7 @@ module.exports = {
                 use: [{
                     loader: 'handlebars-loader',
                     // eslint-disable-next-line no-undef
-                    options: {helperDirs: path.resolve(__dirname, './public/js/helpers/handlebars-helpers')},
+                    options: {helperDirs: path.resolve(__dirname, './public/src/helpers/handlebars-helpers')},
                 }],
             },
             {
@@ -54,7 +54,6 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'bundle.css',
-            ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
     ],
 };

@@ -29,7 +29,9 @@ class ProfileModel {
         this.id = -1;
         this.isAuth = false;
         this.avatar = '';
-        this.timerId = -1;
+        this.avatarTimerId = -1;
+        this.dataTimerId = -1;
+        this.pswTimerId = -1;
     }
     /**
      * Запросить с сервера информацию о пользователе

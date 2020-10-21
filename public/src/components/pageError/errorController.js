@@ -12,21 +12,20 @@ export default class ErrorController {
         if (parent instanceof HTMLElement) {
             this._view = new ErrorView(parent);
         }
-        this._error = 'Такой страницы не существует';
     }
     /**
      * Установка поля ошибки
      * @param {string} err - текст ошибки
      */
     set error(err) {
-        this._error = err;
+        this._view._error = err;
     }
     /**
      * Активация работы контроллера
      */
     activate() {
         Events.trigger(NAVBAR_ACTIVE, -1);
-        this._view.render(this._error);
+        this._view.render();
     }
     /**
      * Отключение работы контроллера и чистка памяти

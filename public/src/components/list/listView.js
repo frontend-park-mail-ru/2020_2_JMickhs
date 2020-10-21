@@ -8,7 +8,6 @@ export default class ListView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
-     * @param {any} model - модель
      */
     constructor(parent) {
         this._handlers = {

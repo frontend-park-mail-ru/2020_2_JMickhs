@@ -1,27 +1,16 @@
 import Events from './../../helpers/eventbus/eventbus';
 import {UPDATE_HOSTEL} from '../../helpers/eventbus/constants';
 import hostelTemplate from './templates/hostelTemplate.hbs';
+import BasisView from '../BasisView/BasisView';
 
 /** Класс представления для страницы отеля */
-export default class HostelView {
+export default class HostelView extends BasisView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
     constructor(parent) {
-        if (parent instanceof HTMLElement) {
-            this._parent = parent;
-        }
-
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
-
-        this._makeHandlers();
+        super(parent);
     }
     /**
      * Подписка на события страницы отеля

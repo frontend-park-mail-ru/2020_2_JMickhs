@@ -7,7 +7,7 @@ import {
     ERROR_CHANGE_LOGIN,
     ERROR_CHANGE_EMAIL,
     UPDATE_PASSWORD,
-    PASSWORD_VALIDATE_ERROR,
+    PASSWORD_VALIDATE_ERROR, PASSWORD_UPDATE_ERROR,
 } from '../../helpers/eventbus/constants';
 import Validation from '../../helpers/validation/validation';
 
@@ -103,8 +103,9 @@ export default class ProfileController {
                     this._view.renderMsgPswSettings('Старый и новый пароль совпадает');
                     return;
                 }
+                const ok = Validation.validatePassword(oldPsw, PASSWORD_UPDATE_ERROR);
                 const key = Validation.validatePassword(newPsw1, PASSWORD_VALIDATE_ERROR);
-                if (!key) {
+                if (!key || !ok) {
                     return;
                 }
                 this._model.updatePassword(oldPsw, newPsw2);
