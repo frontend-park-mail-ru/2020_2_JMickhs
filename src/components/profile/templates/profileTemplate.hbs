@@ -1,0 +1,53 @@
+<div>
+    <div class="left-container">
+        <div class="personal-image">
+            <label class="avatar-input">
+                <form id="avatar-form">
+                    <input type="file" id="profile-pic" style="display: none" name="avatar" accept=".jpg, .jpeg, .png">
+                </form>
+                <div id="avatar-img">
+                    <img id="img-profile" src="{{avatar}}" class="personal-avatar" alt="avatar">
+                </div>  
+            </label>
+            <div id="btn-reload"></div>
+        </div>
+        <hr class="hr-line-blue">
+        <b class="text-blue">Логин:</b>
+        <b class="label-sign" id="label-login">{{login}}</b>
+        <hr class="hr-line-blue">
+        <b class="text-blue">Email:</b>
+        <b class="label-sign" id="label-email">{{email}}</b>
+        <hr class="hr-line-blue">
+        <button type="submit" class="btn-out" id="btn-exit">Выйти</button>
+    </div>
+    <div class="right-container">
+        <form class="container-settings">
+            <h1 class="text-sign">Основные данные</h1>
+            <label class="label-sign">
+                <b>Логин</b>
+            </label>
+            <input type="text" class="input-sign" id="login-profile" value="{{login}}">
+            <label class="label-sign"><b>Почта</b></label>
+            <input type="email" class="input-sign" id="email-profile" value="{{email}}">
+            <div class="div-btn-error" id="div-btn-sign">
+                <h4 class="label-error" id="text-error-data"></h4>
+                <button type="submit" class="btn-sign" id="btn-save-data">Сохранить</button>
+            </div>
+        </form>
+        <form class="container-settings">
+            <h1 class="text-sign">Безопасность</h1>
+            <label class="label-sign">
+                <b>Старый пароль</b>
+            </label>
+            <input type="password" class="input-sign" placeholder="Старый пароль" id="old-psw">
+            <label class="label-sign"><b>Пароль</b></label>
+            <input type="password" class="input-sign" placeholder="Введите пароль" id="new-psw1">
+            <label class="label-sign"><b>Подтвердите пароль</b></label>
+            <input type="password" class="input-sign" placeholder="Повторите пароль" id="new-psw2">
+            <div class="div-btn-error" id="div-btn-sign">
+                <h4 class="label-error" id="text-error-sequr"></h4>
+                <button type="submit" class="btn-sign" id="btn-save-sequr">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
