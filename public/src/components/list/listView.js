@@ -1,30 +1,23 @@
+import PageView from '../basic/pageView';
 import Events from './../../helpers/eventbus/eventbus';
 import {LOAD_HOSTELS} from '../../helpers/eventbus/constants';
 
 import myTemplate from './templates/listTemplate.hbs';
 
 /** Класс представления для страницы списка отелей */
-export default class ListView {
+export default class ListView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
     constructor(parent) {
+        super(parent);
+
         this._handlers = {
             render: this.render.bind(this),
         };
 
-        if (parent instanceof HTMLElement) {
-            this._parent = parent;
-        }
-
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-        }
-        this._parent.appendChild(page);
-        this.page = page;
+        this._parent.appendChild(this.page);
     }
     /**
      * Подписка на события списка отелей

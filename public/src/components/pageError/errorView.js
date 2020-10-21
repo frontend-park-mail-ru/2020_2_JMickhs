@@ -1,7 +1,7 @@
-import BasisView from '../BasisView/BasisView';
+import PageView from '../basic/pageView';
 
 /** Класс представления для страницы ошибки */
-export default class ErrorView extends BasisView {
+export default class ErrorView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы

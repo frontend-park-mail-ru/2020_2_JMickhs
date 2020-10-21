@@ -1,5 +1,5 @@
-import SigninModel from './signinModel';
-import Events from './../../helpers/eventbus/eventbus';
+import PageView from '../basic/pageView';
+import Events from '../../helpers/eventbus/eventbus';
 import {
     SUBMIT_SIGNIN,
     ERROR_SIGNIN,
@@ -10,25 +10,16 @@ import {
 import signinTemplate from './templates/templateSignin.hbs';
 
 /** Класс представления для страницы авторизации */
-export default class SigninView {
+export default class SigninView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
-     * @param {any} model - модель
+     * @param {SigninModel} model - модель
      */
     constructor(parent, model) {
-        if (parent instanceof HTMLElement && model instanceof SigninModel) {
-            this._parent = parent;
-            this._model = model;
-        }
+        super(parent);
 
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
+        this._model = model;
 
         this._makeHandlers();
     }

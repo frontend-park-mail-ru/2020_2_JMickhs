@@ -1,5 +1,5 @@
 import Net from '../../helpers/network/network';
-import Events from './../../helpers/eventbus/eventbus';
+import Events from '../../helpers/eventbus/eventbus';
 import {
     LOAD_HOSTELS,
     REDIRECT_ERROR,

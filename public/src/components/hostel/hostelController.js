@@ -1,6 +1,6 @@
 import HostelModel from './hostelModel';
 import HostelView from './hostelView';
-import Events from './../../helpers/eventbus/eventbus';
+import Events from '../../helpers/eventbus/eventbus';
 import {
     NAVBAR_ACTIVE,
     REDIRECT,

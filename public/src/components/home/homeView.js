@@ -1,8 +1,8 @@
+import PageView from '../basic/pageView';
 import homePageTemplate from './templates/templateHome.hbs';
-import BasisView from '../BasisView/BasisView';
 
 /** Класс представления для домашней страницы */
-export default class HomeView extends BasisView {
+export default class HomeView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы

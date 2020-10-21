@@ -1,7 +1,7 @@
 import pageTemplate from './templates/page.hbs';
 
 /** Класс представления для страницы профиля */
-export default class ProfileView {
+export default class PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
@@ -18,24 +18,15 @@ export default class ProfileView {
             this._parent.appendChild(page);
         }
         this.page = page;
-
-        this._makeHandlers();
     }
     /**
      * Подписка на события страницы профиля
      */
-    subscribeEvents() {
-    }
+    subscribeEvents() {}
     /**
      * Отписка от событий страницы профиля
      */
-    unsubscribeEvents() {
-    }
-    /**
-     * Функция создает и заполняет поле _handlers обработчиками событий
-     */
-    _makeHandlers() {
-    }
+    unsubscribeEvents() {}
     /**
      * Отрисовка страницы профиля
      */

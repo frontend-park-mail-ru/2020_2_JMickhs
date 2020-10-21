@@ -1,5 +1,5 @@
-import SignupModel from './signupModel';
-import Events from './../../helpers/eventbus/eventbus';
+import PageView from '../basic/pageView';
+import Events from '../../helpers/eventbus/eventbus';
 import {
     ERR_LOGIN_SINGUP,
     ERR_EMAIL_SINGUP,
@@ -14,25 +14,16 @@ import signupTemplate from './templates/templateSignup.hbs';
 import promtTemplate from './templates/tempalatePromt.hbs';
 
 /** Класс представления для страницы регистрации */
-export default class SignupView {
+export default class SignupView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
      * @param {any} model - модель
      */
     constructor(parent, model) {
-        if (parent instanceof HTMLElement && model instanceof SignupModel) {
-            this._parent = parent;
-            this._model = model;
-        }
+        super(parent);
 
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
+        this._model = model;
 
         this._makeHandlers();
     }

@@ -1,16 +1,18 @@
-import Events from './../../helpers/eventbus/eventbus';
+import PageView from '../basic/pageView';
+import Events from '../../helpers/eventbus/eventbus';
 import {UPDATE_HOSTEL} from '../../helpers/eventbus/constants';
 import hostelTemplate from './templates/hostelTemplate.hbs';
-import BasisView from '../BasisView/BasisView';
 
 /** Класс представления для страницы отеля */
-export default class HostelView extends BasisView {
+export default class HostelView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
     constructor(parent) {
         super(parent);
+
+        this._makeHandlers();
     }
     /**
      * Подписка на события страницы отеля

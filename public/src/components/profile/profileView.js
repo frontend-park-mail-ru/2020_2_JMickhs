@@ -1,3 +1,4 @@
+import PageView from '../basic/pageView';
 import Events from './../../helpers/eventbus/eventbus';
 import {
     UPDATE_PASSWORD,
@@ -20,25 +21,16 @@ import profileButtonTemplate from './templates/profileButtonTemplate.hbs';
 import messageTemplate from './templates/profileMessage.hbs';
 
 /** Класс представления для страницы профиля */
-export default class ProfileView {
+export default class ProfileView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
      * @param {any} model - модель
      */
     constructor(parent, model) {
-        this._model = model;
-        if (parent instanceof HTMLElement) {
-            this._parent = parent;
-        }
+        super(parent);
 
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            this._parent.appendChild(page);
-        }
-        this.page = page;
+        this._model = model;
 
         this._makeHandlers();
     }
