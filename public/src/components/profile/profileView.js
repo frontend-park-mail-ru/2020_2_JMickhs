@@ -28,7 +28,6 @@ export default class ProfileView {
      */
     constructor(parent, model) {
         this._model = model;
-
         if (parent instanceof HTMLElement) {
             this._parent = parent;
         }
