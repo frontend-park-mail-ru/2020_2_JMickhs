@@ -14,6 +14,7 @@ import {
     REDIRECT_ERROR,
 } from './helpers/eventbus/constants';
 import './main.css';
+import SearchController from './components/search/searchController';
 
 /**
  *  Старт нашего приложения =)
@@ -34,6 +35,7 @@ import './main.css';
     const profileController = new ProfileController(application);
     const hostelController = new HostelController(application);
     const errorController = new ErrorController(application);
+    const searchController = new SearchController(application);
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);
@@ -41,10 +43,16 @@ import './main.css';
     Router.append('/profile', profileController);
     Router.append('/list', listController);
     Router.append('/hostel', hostelController);
+    Router.append('/s', searchController);
     Router.errorController = errorController;
     Router.start();
     Events.subscribe(REDIRECT, (arg) => {
-        const {url} = arg;
+        const {url, data} = arg;
+        if (data !== undefined) {
+            const path = '/' + url.split('/')[1];
+            const {controller} = Router._findComponentByPath(path);
+            controller.data = {hotels: data};
+        }
         Router.pushState(url);
     });
     Events.subscribe(REDIRECT_ERROR, (arg) => {
