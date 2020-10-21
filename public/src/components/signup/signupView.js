@@ -177,7 +177,7 @@ export default class SignupView {
         this._model.timerId = setTimeout(() => {
             errLine.textContent = '';
             const loginElem = document.getElementById('signup-login');
-            // тут не очевидно, но писать снова мне лень, так что см. одноименную ф-цию в signinView.js
+            // тут не очевидно, но писать снова мне лень, так что см. одноименную ф-цию в signinView.src
             if (loginElem !== null) {
                 loginElem.className = 'input-sign';
                 document.getElementById('signup-password1').className = 'input-sign';

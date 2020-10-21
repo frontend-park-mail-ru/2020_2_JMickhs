@@ -12,7 +12,7 @@ module.exports = {
     output: {
         // eslint-disable-next-line no-undef
         path: path.resolve(__dirname, './public'),
-        filename: 'bundle.js',
+        filename: 'bundle.src',
         publicPath: '../',
     },
     module: {
@@ -22,7 +22,7 @@ module.exports = {
                 use: [{
                     loader: 'handlebars-loader',
                     // eslint-disable-next-line no-undef
-                    options: {helperDirs: path.resolve(__dirname, './public/js/helpers/handlebars-helpers')},
+                    options: {helperDirs: path.resolve(__dirname, './public/src/helpers/handlebars-helpers')},
                 }],
             },
             {
