@@ -15,13 +15,10 @@ import {
 } from './helpers/eventbus/constants';
 import '../main.css';
 
-import Validator from './helpers/validator/validator';
-
 /**
  *  Старт нашего приложения =)
  */
 (() => {
-    console.log(Validator.validateLogin('/a'));
     const application = document.getElementById('app');
 
     const userModel = ProfileModel;

@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // eslint-disable-next-line no-undef
 module.exports = {
     mode: 'development',
-    entry: './public/js/app.js',
+    entry: './public/src/app.js',
     devtool: 'inline-source-map',
     output: {
         // eslint-disable-next-line no-undef
