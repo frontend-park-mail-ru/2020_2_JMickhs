@@ -193,7 +193,7 @@ export default class ProfileView extends PageView {
     /**
      * Отрисовка уведомления об изменении логина или почты
      * @param {string} [text=''] - текст уведомления
-     * @param {boolean} [isErr=true] - тип уведомления(false - ошибка)
+     * @param {boolean} [isErr=true] - тип уведомления(true - ошибка)
      */
     renderMsgDataSettings(text = '', isErr = true) {
         if (this._model.dataTimerId !== -1) {

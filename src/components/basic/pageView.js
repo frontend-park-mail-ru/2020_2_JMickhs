@@ -31,6 +31,7 @@ export default class PageView {
      * Отрисовка страницы профиля
      */
     render() {
+        window.scrollTo(0, 0);
         if (this._error === undefined) {
             this._error = 'Такой страницы не существует';
         }
