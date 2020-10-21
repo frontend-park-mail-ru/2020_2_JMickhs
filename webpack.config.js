@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // eslint-disable-next-line no-undef
 module.exports = {
     mode: 'development',
-    entry: './public/src/app.js',
+    entry: './src/app.js',
     devtool: 'inline-source-map',
     output: {
         // eslint-disable-next-line no-undef
@@ -49,7 +49,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'HostelScan',
             filename: 'index.html',
-            template: './public/template.html',
+            template: './src/template.html',
             entryPoint: 'app',
         }),
         new MiniCssExtractPlugin({

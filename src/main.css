@@ -3,7 +3,7 @@
 @import "./css/profile.css" all;
 @import "./css/sign.css" all;
 @import "./css/hostels.css" all;
-@import "./css/costils.css" all;
+@import "./css/errorPage.css" all;
 
 body {
     background: var(--main-background-color);
