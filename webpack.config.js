@@ -40,7 +40,6 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'bundle.css',
-            ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
     ],
 };

@@ -1,7 +1,6 @@
 import Events from './../../helpers/eventbus/eventbus';
 import {
     UPDATE_PASSWORD,
-    PROFILE_RENDER_ERROR,
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
     UPDATE_AVATAR,
@@ -53,7 +52,6 @@ export default class ProfileView {
         Events.subscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
-        Events.subscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
         Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
         Events.subscribe(SIGNOUT, this._handlers.signout);
         Events.subscribe(FIX_USER, this._handlers.fixUser);
@@ -65,7 +63,6 @@ export default class ProfileView {
     unsubscribeEvents() {
         Events.unsubscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.unsubscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
-        Events.unsubscribe(PROFILE_RENDER_ERROR, this._handlers.profileRenderErr);
         Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
         Events.unsubscribe(SIGNOUT, this._handlers.signout);
         Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
@@ -87,10 +84,8 @@ export default class ProfileView {
                 document.getElementById('new-psw2').value = '';
             },
             pswUpdateError: (arg) => {
+                this.renderOldPswInputError();
                 this.renderMsgPswSettings(arg);
-            },
-            profileRenderErr: (arg) => {
-                this.renderMessage(arg);
             },
             updateAvatar: () => {
                 const img = document.getElementById('avatar-img');
@@ -190,8 +185,8 @@ export default class ProfileView {
      * @param {boolean} [isErr=false] - тип уведомления(false - ошибка)
      */
     renderMessageAvatar(text = '', isErr = false) {
-        if (this._model.timerId !== -1) {
-            clearTimeout(this._model.timerId);
+        if (this._model.avatarTimerId !== -1) {
+            clearTimeout(this._model.avatarTimerId);
         }
         const div = document.getElementById('btn-reload');
         div.innerHTML = messageTemplate({text: text});
@@ -199,19 +194,19 @@ export default class ProfileView {
         if (isErr) {
             msg.className = 'label-error';
         }
-        this._model.timerId = setTimeout(() => {
+        this._model.avatarTimerId = setTimeout(() => {
             div.removeChild(msg);
-            this._model.timerId = -1;
+            this._model.avatarTimerId = -1;
         }, 5000);
     }
     /**
-     * Отрисовка уведомления об изменении автарки
+     * Отрисовка уведомления об изменении логина или почты
      * @param {string} [text=''] - текст уведомления
      * @param {boolean} [isErr=true] - тип уведомления(false - ошибка)
      */
     renderMsgDataSettings(text = '', isErr = true) {
-        if (this._model.timerId !== -1) {
-            clearTimeout(this._model.timerId);
+        if (this._model.dataTimerId !== -1) {
+            clearTimeout(this._model.dataTimerId);
         }
         const errLine = document.getElementById('text-error-data');
         if (!isErr) {
@@ -219,12 +214,12 @@ export default class ProfileView {
         }
         errLine.textContent = text;
 
-        this._model.timerId = setTimeout(() => {
+        this._model.dataTimerId = setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
                 errLine.className = 'label-error';
             }
-            this._model.timerId = -1;
+            this._model.dataTimerId = -1;
         }, 5000);
     }
     /**
@@ -233,24 +228,22 @@ export default class ProfileView {
     renderLoginInputError() {
         const input = document.getElementById('login-profile');
         input.className = 'input-error';
-        this._model.timerIdLogin = setTimeout(() => {
+        setTimeout(() => {
             if (input) {
                 input.className = 'input-sign';
             }
-            this._model.timerId = -1;
         }, 5000);
     }
     /**
-     * Выделение инпута логина
+     * Выделение инпута email
      */
     renderEmailInputError() {
         const input = document.getElementById('email-profile');
         input.className = 'input-error';
-        this._model.timerIdEmail = setTimeout(() => {
+        setTimeout(() => {
             if (input) {
                 input.className = 'input-sign';
             }
-            this._model.timerId = -1;
         }, 5000);
     }
     /**
@@ -259,37 +252,35 @@ export default class ProfileView {
     renderOldPswInputError() {
         const input = document.getElementById('old-psw');
         input.className = 'input-error';
-        this._model.timerIdOldPsw = setTimeout(() => {
+        setTimeout(() => {
             if (input) {
                 input.className = 'input-sign';
             }
-            this._model.timerId = -1;
         }, 5000);
     }
     /**
-     * Выделение инпута старого пароля
+     * Выделение инпута новых пароля
      */
     renderNewPswInputError() {
         const input1 = document.getElementById('new-psw1');
         const input2 = document.getElementById('new-psw2');
         input1.className = 'input-error';
         input2.className = 'input-error';
-        this._model.timerIdNewPsw = setTimeout(() => {
+        setTimeout(() => {
             if (input1 && input2) {
                 input1.className = 'input-sign';
                 input2.className = 'input-sign';
             }
-            this._model.timerId = -1;
         }, 5000);
     }
     /**
-     * Отрисовка уведомления об изменении автарки
+     * Отрисовка уведомления об изменении пароля
      * @param {string} [text=''] - текст уведомления
      * @param {boolean} [isErr=true] - тип уведомления(false - ошибка)
      */
     renderMsgPswSettings(text = '', isErr = true) {
-        if (this._model.timerId !== -1) {
-            clearTimeout(this._model.timerId);
+        if (this._model.pswTimerId !== -1) {
+            clearTimeout(this._model.pswTimerId);
         }
         const errLine = document.getElementById('text-error-sequr');
         if (!isErr) {
@@ -297,12 +288,12 @@ export default class ProfileView {
         }
         errLine.textContent = text;
 
-        this._model.timerIdMsgPsw = setTimeout(() => {
+        this._model.pswTimerId = setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
                 errLine.className = 'label-error';
             }
-            this._model.timerId = -1;
+            this._model.pswTimerId = -1;
         }, 5000);
     }
     /**
