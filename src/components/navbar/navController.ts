@@ -59,6 +59,6 @@ export default class NavController {
     private updateUsr(user: User) {
         const changeElem = 3;
         this.model.updateElem(changeElem - 1, { text: user.username, href: '/profile', active: true });
-        this.navbarActive(changeElem);
+        this.navbarActive(this.model.active);
     }
 }
