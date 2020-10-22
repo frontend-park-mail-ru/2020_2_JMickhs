@@ -27,7 +27,7 @@ export default function getUserFromCookie(): UserData {
             user.id = data.id;
             user.avatar = Network.getUrlFile(data.avatar);
             user.email = data.email;
-            Events.trigger(HAVE_USER, this.getData());
+            Events.trigger(HAVE_USER, user);
             break;
         case 401:
             Events.trigger(HAVNT_USER);
