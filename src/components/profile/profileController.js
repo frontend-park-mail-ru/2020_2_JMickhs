@@ -56,7 +56,8 @@ export default class ProfileController {
     unsubscribeEvents() {
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
         Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        Events.unsubscribe(SIGNOUT_CLICK, this._model.signout.bind(this));
+        Events.unsubscribe(SIGNOUT_CLICK, this._model.signout.bind(this._model));
+        Events.unsubscribe(AVATAR_UPDATE_CLICK, this._model.updateAvatar.bind(this._model));
     }
     /**
      * Проверка данных, переданных для изменения
