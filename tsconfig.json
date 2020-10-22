@@ -12,6 +12,7 @@
             "@eventBus/*": ["src/helpers/eventbus/*"],
             "@network/*": ["src/helpers/network/*"],
             "@user/*": ["src/helpers/user/*"],
+            "@interfaces/*": ["src/helpers/interfaces/*"],
         },
     },
 }

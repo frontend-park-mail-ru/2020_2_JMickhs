@@ -11,12 +11,7 @@ import {
     SIGNUP_USER,
 } from '@eventBus/constants';
 
-interface User {
-    username: string,
-    id: number,
-    avatar: string,
-    isAuth: boolean,
-}
+import {UserData} from '@interfaces/userData';
 
 export default class NavController {
 
@@ -56,7 +51,7 @@ export default class NavController {
         this.view.render(this.model.getData());
     }
 
-    private updateUsr(user: User) {
+    private updateUsr(user: UserData) {
         const changeElem = 3;
         this.model.updateElem(changeElem - 1, user.username, '/profile');
         this.view.render(this.model.getData());

@@ -22,3 +22,5 @@ export const SUBMIT_SIGNUP = 'submitSignup';
 export const CHANGE_USER_OK = 'okChangeUser';
 export const ERR_FIX_USER = 'errFixUser';
 export const CHANGE_USER = 'changeUser';
+export const SIGNOUT_CLICK = 'signoutClick';
+export const AVATAR_UPDATE_CLICK = 'avatarUpdateClick';

@@ -5,8 +5,9 @@ import {
     CHANGE_USER,
     NAVBAR_ACTIVE,
     UPDATE_PASSWORD,
+    SIGNOUT_CLICK,
+    AVATAR_UPDATE_CLICK,
 } from '@eventBus/constants';
-import User from '@user/user';
 import Validator from '@validator/validator';
 
 /** Класс контроллера для страницы профиля */
@@ -16,8 +17,8 @@ export default class ProfileController {
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
     constructor(parent) {
-        this._model = ProfileModel;
-        this._view = new ProfileView(parent, this._model);
+        this._model = new ProfileModel();
+        this._view = new ProfileView(parent);
 
         this._handlers = this._makeHandlers();
     }
@@ -25,12 +26,11 @@ export default class ProfileController {
      * Активация работы контроллера
      */
     activate() {
-        this._model.setData(User.getInstance().getData());
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(NAVBAR_ACTIVE, 3);
-        if (this._model.isAuth) {
-            this._view.render();
+        if (this._model.isAuth()) {
+            this._view.render(this._model.getData());
         }
     }
     /**
@@ -47,6 +47,8 @@ export default class ProfileController {
     subscribeEvents() {
         Events.subscribe(CHANGE_USER, this._handlers.changeUser);
         Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
+        Events.subscribe(SIGNOUT_CLICK, this._model.signout.bind(this._model));
+        Events.subscribe(AVATAR_UPDATE_CLICK, this._model.updateAvatar.bind(this._model));
     }
     /**
      *  Отписка от событий
@@ -54,6 +56,7 @@ export default class ProfileController {
     unsubscribeEvents() {
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
         Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
+        Events.unsubscribe(SIGNOUT_CLICK, this._model.signout.bind(this));
     }
     /**
      * Проверка данных, переданных для изменения

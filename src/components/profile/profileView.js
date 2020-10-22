@@ -13,6 +13,8 @@ import {
     CHANGE_USER,
     CHANGE_USER_OK,
     ERR_FIX_USER,
+    SIGNOUT_CLICK,
+    AVATAR_UPDATE_CLICK,
 } from '@eventBus/constants';
 
 import profileTemplate from '@profile/templates/profileTemplate.hbs';
@@ -25,12 +27,10 @@ export default class ProfileView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
-     * @param {any} model - модель
      */
-    constructor(parent, model) {
+    constructor(parent) {
         super(parent);
 
-        this._model = model;
         this._avatarTimerId = -1;
         this._dataTimerId = -1;
         this._pswTimerId = -1;
@@ -71,10 +71,7 @@ export default class ProfileView extends PageView {
      */
     _makeHandlers() {
         const handlers = {
-            render: (data) => {
-                this._model.setData(data);
-                this.render();
-            },
+            render: this.render.bind(this),
             getNewPsw: () => {
                 this.renderMsgPswSettings('Вы успешно поменяли пароль', false);
                 document.getElementById('old-psw').value = '';
@@ -85,9 +82,9 @@ export default class ProfileView extends PageView {
                 this.renderOldPswInputError();
                 this.renderMsgPswSettings(arg);
             },
-            updateAvatar: () => {
+            updateAvatar: (avatar) => {
                 const img = document.getElementById('avatar-img');
-                img.innerHTML = profileAvatarTemplate(this._model);
+                img.innerHTML = profileAvatarTemplate({avatar: avatar});
                 this.renderMessageAvatar('Аватар успешно изменен');
             },
             errUpdateAvatar: (arg) => {
@@ -128,14 +125,14 @@ export default class ProfileView extends PageView {
                 const inputFile = document.getElementById('profile-pic');
                 const btnReload = document.getElementById('div-avatar-bottom');
                 const formAvatar = document.getElementById('avatar-form');
-                this._model.updateAvatar(formAvatar);
                 const btn = document.getElementById('btn-reload');
                 btn.removeEventListener('click', this._handlers.updateAvatarClick);
                 btnReload.innerHTML = '';
                 inputFile.value = '';
+                Events.trigger(AVATAR_UPDATE_CLICK, formAvatar);
             },
             signoutClick: () => {
-                this._model.signout();
+                Events.trigger(SIGNOUT_CLICK);
             },
             saveDataClick: (evt) => {
                 evt.preventDefault();
@@ -143,9 +140,9 @@ export default class ProfileView extends PageView {
                 const email = document.getElementById('email-profile').value;
                 Events.trigger(CHANGE_USER, {username: username, email: email});
             },
-            okChangeUser: () => {
-                document.getElementById('label-login').textContent = this._model.login;
-                document.getElementById('label-email').textContent = this._model.email;
+            okChangeUser: (user) => {
+                document.getElementById('label-login').textContent = user.username;
+                document.getElementById('label-email').textContent = user.email;
                 this.renderMsgDataSettings('Изменения применены!', false);
             },
             errFixUser: (text) => {
@@ -156,10 +153,11 @@ export default class ProfileView extends PageView {
     }
     /**
      * Отрисовка страницы профиля
+     * @param {Object} data - данные, по которым рисуется вьюшка
      */
-    render() {
+    render(data) {
         window.scrollTo(0, 0);
-        this.page.innerHTML = profileTemplate(this._model);
+        this.page.innerHTML = profileTemplate(data);
 
         const inputFile = document.getElementById('profile-pic');
         inputFile.addEventListener('change', this._handlers.inputAvatarFile);

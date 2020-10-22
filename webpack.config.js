@@ -56,6 +56,7 @@ module.exports = {
             '@router': path.resolve(__dirname, 'src/helpers/router'),
             '@validator': path.resolve(__dirname, 'src/helpers/validator'),
             '@user': path.resolve(__dirname, 'src/helpers/user'),
+            '@interfaces': path.resolve(__dirname, 'src/helpers/interfaces'),
         },
     },
     plugins: [

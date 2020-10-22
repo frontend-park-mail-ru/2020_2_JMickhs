@@ -6,6 +6,8 @@ import {
     HAVNT_USER,
 } from '@eventBus/constants';
 
+import {UserData} from '@interfaces/userData';
+
 /** Информация о пользователе,
  *  Синглтон, чтобы проще шарить в разные части проекта
  */
@@ -33,7 +35,7 @@ export default class User {
         this.avatar = '';
     }
 
-    getData(): {username: string; email: string; id: number; avatar: string; isAuth: boolean;} {
+    getData(): UserData {
         return {
             username: this.username,
             email: this.email,
