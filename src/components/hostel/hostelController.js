@@ -1,10 +1,10 @@
-import HostelModel from 'hostel/hostelModel';
-import HostelView from 'hostel/hostelView';
-import Events from 'eventBus/eventbus';
+import HostelModel from '@hostel/hostelModel';
+import HostelView from '@hostel/hostelView';
+import Events from '@eventBus/eventbus';
 import {
     NAVBAR_ACTIVE,
     REDIRECT,
-} from 'eventBus/constants';
+} from '@eventBus/constants';
 
 /** Класс контроллера для страницы списка отеля */
 export default class HotelController {

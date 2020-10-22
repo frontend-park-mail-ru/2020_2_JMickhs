@@ -1,7 +1,7 @@
-import PageView from 'basic/pageView';
-import Events from 'eventBus/eventbus';
-import {UPDATE_HOSTEL} from 'eventBus/constants';
-import hostelTemplate from 'hostel/templates/hostelTemplate.hbs';
+import PageView from '@basic/pageView';
+import Events from '@eventBus/eventbus';
+import {UPDATE_HOSTEL} from '@eventBus/constants';
+import hostelTemplate from '@hostel/templates/hostelTemplate.hbs';
 
 /** Класс представления для страницы отеля */
 export default class HostelView extends PageView {

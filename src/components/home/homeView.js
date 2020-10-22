@@ -1,5 +1,5 @@
-import PageView from 'basic/pageView';
-import homePageTemplate from 'home/templates/templateHome.hbs';
+import PageView from '@basic/pageView';
+import homePageTemplate from '@home/templates/templateHome.hbs';
 
 /** Класс представления для домашней страницы */
 export default class HomeView extends PageView {

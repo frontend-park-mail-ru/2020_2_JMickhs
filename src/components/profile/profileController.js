@@ -1,12 +1,12 @@
-import ProfileModel from 'profile/profileModel';
-import ProfileView from 'profile/profileView';
-import Events from 'eventBus/eventbus';
+import ProfileModel from '@profile/profileModel';
+import ProfileView from '@profile/profileView';
+import Events from '@eventBus/eventbus';
 import {
     CHANGE_USER,
     NAVBAR_ACTIVE,
     UPDATE_PASSWORD,
-} from 'eventBus/constants';
-import Validator from 'validator/validator';
+} from '@eventBus/constants';
+import Validator from '@validator/validator';
 
 /** Класс контроллера для страницы профиля */
 export default class ProfileController {

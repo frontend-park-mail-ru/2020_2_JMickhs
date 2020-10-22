@@ -1,4 +1,4 @@
-import PageView from 'basic/pageView';
+import PageView from '@basic/pageView';
 
 /** Класс представления для страницы ошибки */
 export default class ErrorView extends PageView {

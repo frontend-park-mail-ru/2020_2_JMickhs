@@ -1,6 +1,6 @@
-import ErrorView from 'pageError/errorView';
-import Events from 'eventBus/eventbus';
-import {NAVBAR_ACTIVE} from 'eventBus/constants';
+import ErrorView from '@pageError/errorView';
+import Events from '@eventBus/eventbus';
+import {NAVBAR_ACTIVE} from '@eventBus/constants';
 
 /** Класс констроллера для страницы ошибки */
 export default class ErrorController {

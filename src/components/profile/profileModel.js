@@ -1,5 +1,5 @@
-import Net from 'network/network';
-import Events from 'eventBus/eventbus';
+import Net from '@network/network';
+import Events from '@eventBus/eventbus';
 import {
     SIGNOUT,
     PROFILE_USER,
@@ -17,7 +17,7 @@ import {
     HAVNT_USER,
     FIX_USER,
     ERR_FIX_USER,
-} from 'eventBus/constants';
+} from '@eventBus/constants';
 
 /** Класс модели пользователя */
 class ProfileModel {

@@ -1,5 +1,5 @@
-import NavbarModel from 'navbar/navbarModel';
-import NavbarView from 'navbar/navbarView';
+import NavbarModel from '@navbar/navbarModel';
+import NavbarView from '@navbar/navbarView';
 
 /** Класс контроллера для навбара */
 export default class NavbarController {

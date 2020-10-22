@@ -1,13 +1,13 @@
-import PageView from 'basic/pageView';
-import Events from 'eventBus/eventbus';
+import PageView from '@basic/pageView';
+import Events from '@eventBus/eventbus';
 import {
     SUBMIT_SIGNIN,
     ERROR_SIGNIN,
     SIGNIN_USER,
     REDIRECT,
-} from 'eventBus/constants';
+} from '@eventBus/constants';
 
-import signinTemplate from 'signin/templates/templateSignin.hbs';
+import signinTemplate from '@signin/templates/templateSignin.hbs';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView extends PageView {

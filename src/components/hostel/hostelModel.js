@@ -1,9 +1,9 @@
-import Net from 'network/network';
-import Events from 'eventBus/eventbus';
+import Net from '@network/network';
+import Events from '@eventBus/eventbus';
 import {
     REDIRECT_ERROR,
     UPDATE_HOSTEL,
-} from 'eventBus/constants';
+} from '@eventBus/constants';
 
 /** Класс модели для страницы отеля */
 export default class HostelModel {

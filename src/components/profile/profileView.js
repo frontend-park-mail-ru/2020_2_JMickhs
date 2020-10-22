@@ -1,5 +1,5 @@
-import PageView from 'basic/pageView';
-import Events from 'eventBus/eventbus';
+import PageView from '@basic/pageView';
+import Events from '@eventBus/eventbus';
 import {
     UPDATE_PASSWORD,
     GET_NEW_PASSWORD,
@@ -13,12 +13,12 @@ import {
     CHANGE_USER,
     FIX_USER,
     ERR_FIX_USER,
-} from 'eventBus/constants';
+} from '@eventBus/constants';
 
-import profileTemplate from 'profile/templates/profileTemplate.hbs';
-import profileAvatarTemplate from 'profile/templates/profileAvatarTemplate.hbs';
-import profileButtonTemplate from 'profile/templates/profileButtonTemplate.hbs';
-import messageTemplate from 'profile/templates/profileMessage.hbs';
+import profileTemplate from '@profile/templates/profileTemplate.hbs';
+import profileAvatarTemplate from '@profile/templates/profileAvatarTemplate.hbs';
+import profileButtonTemplate from '@profile/templates/profileButtonTemplate.hbs';
+import messageTemplate from '@profile/templates/profileMessage.hbs';
 
 /** Класс представления для страницы профиля */
 export default class ProfileView extends PageView {

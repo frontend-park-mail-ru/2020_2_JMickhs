@@ -1,4 +1,4 @@
-import ProfileModel from 'profile/profileModel';
+import ProfileModel from '@profile/profileModel';
 
 /** Класс модели для навбара */
 export default class NavbarModel {
