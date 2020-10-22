@@ -20,7 +20,7 @@
 .left-container {
     margin-left: 100px;
     position: fixed;
-    width: 30%;
+    width: 300px;
 }
 
 .right-container {
@@ -83,4 +83,14 @@
     padding: 17px;
     border-radius: 10px;
     border: 4px solid var(--blue);
+}
+
+.text-left-blue {
+    text-align: left;
+    color: var(--blue);
+}
+
+.text-left-red {
+    text-align: left;
+    color: var(--red);
 }
