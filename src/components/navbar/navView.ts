@@ -1,4 +1,4 @@
-import navTemplate from './templates/wrapper';
+import navTemplate from '@navbar/templates/wrapper';
 
 interface NavElem {
     text: string,

@@ -4,6 +4,12 @@
       "sourceMap": true,
       "noImplicitAny": true,
       "target": "es5",
-      "allowJs": true
+      "allowJs": true,
+      "baseUrl": "./",
+        "paths": {
+            "@/*": ["src/*"],
+            "@navbar/*": ["src/components/navbar/*"],
+            "@eventBus/*": ["src/helpers/eventbus/*"],
+        },
     },
 }

@@ -1,6 +1,6 @@
-import NavModel from './navModel';
-import NavView from './navView';
-import Events from '../../helpers/eventbus/eventbus';
+import NavModel from '@navbar/navModel';
+import NavView from '@navbar/navView';
+import Events from '@eventBus/eventbus';
 import {
     NAVBAR_ACTIVE,
     PAGE_SIGNIN,
@@ -9,7 +9,7 @@ import {
     PROFILE_USER,
     SIGNIN_USER,
     SIGNUP_USER,
-} from '../../helpers/eventbus/constants';
+} from '@eventBus/constants';
 
 interface User {
     username: string,
