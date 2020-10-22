@@ -23,9 +23,13 @@ import '@/main.css';
 (() => {
     const application = document.getElementById('app');
 
-    const user = getUserFromCookie();
+    const userPromise = getUserFromCookie();
     const userSingleton = User.getInstance();
-    userSingleton.setData(user);
+    userPromise.then((user) => {
+        if (user.isAuth) {
+            userSingleton.setData(user);
+        }
+    });
 
     const navbarController = new NavbarController(application);
     navbarController.activate();

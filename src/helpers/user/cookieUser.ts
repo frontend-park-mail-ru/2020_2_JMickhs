@@ -8,7 +8,7 @@ import {
 
 import {UserData} from '@interfaces/userData';
 
-export default function getUserFromCookie(): UserData {
+export default function getUserFromCookie(): Promise<UserData> {
     const user: UserData = {
         isAuth: false,
         username: '',
@@ -16,8 +16,8 @@ export default function getUserFromCookie(): UserData {
         avatar: '',
         id: -1,
     }
-    const response = Network.user();
-    response.then((response) => {
+    const response =  Network.user();
+    return response.then((response) => {
         const code = response.code;
         const data = response.data;
         switch (code) {
@@ -38,6 +38,6 @@ export default function getUserFromCookie(): UserData {
             });
             break;
         }
+        return user;
     });
-    return user;
 }
