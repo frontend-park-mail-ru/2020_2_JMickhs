@@ -19,7 +19,7 @@ export default class ListController {
      * @param {string} arg
      */
     activate(arg) {
-        const {state} = history.state;
+        const {state} = history.state || {state: undefined};
         if (state !== {} && state !== undefined) {
             this.haveInfo = true;
             this._model.hostels = state;

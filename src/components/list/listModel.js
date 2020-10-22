@@ -67,6 +67,10 @@ export default class ListModel {
      * Запрашивает у сервера все аватарки и триггерит рендер отелей
      */
     loadHotels() {
+        if (this.hostels === null) {
+            this.hostels = [];
+            return;
+        }
         this.hostels.forEach((hostel) => {
             hostel.image = Net.getUrlFile(hostel.image);
         });
