@@ -3,7 +3,6 @@ import Events from '@eventBus/eventbus';
 import {
     SIGNOUT,
     UPDATE_AVATAR,
-    SIGNIN_USER,
     ERROR_SIGNIN,
     SIGNUP_USER,
     ERROR_SIGNUP,
@@ -78,37 +77,6 @@ class ProfileModel {
             }
         }).catch(() => {
             Events.trigger(ERR_UPDATE_AVATAR, 'Аватарку обновить не получилось!');
-        });
-    }
-    /**
-     * Авторизация пользователя
-     * @param {string} username - логин пользователя
-     * @param {string} password - пароль пользователя
-     */
-    signin(username, password) {
-        const response = Net.signin(username, password);
-        response.then((response) => {
-            const code = response.code;
-            const data = response.data;
-            switch (code) {
-            case 200:
-                this.isAuth = true;
-                this.id = data.id;
-                this.avatar = Net.getUrlFile(data.avatar);
-                this.login = data.username;
-                this.email = data.email;
-                Events.trigger(SIGNIN_USER, this.getData());
-                break;
-            case 400:
-                Events.trigger(ERROR_SIGNIN, 'Неверный формат запроса');
-                break;
-            case 401:
-                Events.trigger(ERROR_SIGNIN, 'Вы ввели неправильный логин или пароль');
-                break;
-            default:
-                Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${status}`);
-                break;
-            }
         });
     }
     /**

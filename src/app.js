@@ -24,7 +24,7 @@ import '@/main.css';
     const application = document.getElementById('app');
 
     // попробуем получить пользователя по кукам
-    User.getFromCookie();
+    User.getInstance().getFromCookie();
 
     const navbarController = new NavbarController(application);
     navbarController.activate();

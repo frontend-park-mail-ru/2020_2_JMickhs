@@ -9,7 +9,7 @@ import {
 /** Информация о пользователе,
  *  Синглтон, чтобы проще шарить в разные части проекта
  */
-class User {
+export default class User {
 
     isAuth: boolean;
     id: number;
@@ -17,14 +17,23 @@ class User {
     email: string;
     avatar: string;
 
-    constructor() {
+    private static instance: User;
+    
+    static getInstance(): User {
+        if (this.instance === undefined) {
+            this.instance = new User();
+        }
+        return this.instance;
+    }
+
+    private constructor() {
         this.isAuth = false;
         this.id = -1;
         this.username = '';
         this.avatar = '';
     }
 
-    getData() {
+    getData(): {username: string; email: string; id: number; avatar: string; isAuth: boolean;} {
         return {
             username: this.username,
             email: this.email,
@@ -60,5 +69,3 @@ class User {
         });
     }
 }
-
-export default new User();

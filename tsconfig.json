@@ -11,6 +11,7 @@
             "@navbar/*": ["src/components/navbar/*"],
             "@eventBus/*": ["src/helpers/eventbus/*"],
             "@network/*": ["src/helpers/network/*"],
+            "@user/*": ["src/helpers/user/*"],
         },
     },
 }

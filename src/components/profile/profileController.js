@@ -25,7 +25,7 @@ export default class ProfileController {
      * Активация работы контроллера
      */
     activate() {
-        this._model.setData(User.getData());
+        this._model.setData(User.getInstance().getData());
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(NAVBAR_ACTIVE, 3);

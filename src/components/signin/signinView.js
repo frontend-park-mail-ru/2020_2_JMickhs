@@ -14,12 +14,9 @@ export default class SigninView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
-     * @param {SigninModel} model - модель
      */
-    constructor(parent, model) {
+    constructor(parent) {
         super(parent);
-
-        this._model = model;
 
         this._handlers = this._makeHandlers();
     }
@@ -79,8 +76,8 @@ export default class SigninView extends PageView {
      * @param {Number} numberInputErr 1 - логин, 2 пароль
      */
     renderError(errstr, numberInputErr = 0) {
-        if (this._model.timerId !== -1) {
-            clearTimeout(this._model.timerId);
+        if (this.timerId !== -1) {
+            clearTimeout(this.timerId);
         }
         if (numberInputErr === 1) {
             document.getElementById('signin-login').className = 'input-error';
@@ -91,7 +88,7 @@ export default class SigninView extends PageView {
         const errLine = document.getElementById('text-error');
         errLine.textContent = errstr;
 
-        this._model.timerId = setTimeout(() => {
+        this.timerId = setTimeout(() => {
             errLine.textContent = '';
             const loginElem = document.getElementById('signin-login');
             // тут не очевидно, так что поясню.
@@ -103,7 +100,7 @@ export default class SigninView extends PageView {
                 loginElem.className = 'input-sign';
                 document.getElementById('signin-password').className = 'input-sign';
             }
-            this._model.timerId = -1;
+            this.timerId = -1;
         }, 5000);
     }
     /**

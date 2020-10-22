@@ -16,7 +16,7 @@ export default class SigninController {
      */
     constructor(parent) {
         this._model = new SigninModel();
-        this._view = new SigninView(parent, this._model);
+        this._view = new SigninView(parent);
     }
     /**
      * Активация работы контроллера
