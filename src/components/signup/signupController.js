@@ -2,7 +2,6 @@ import SignupModel from '@signup/signupModel';
 import SignupView from '@signup/signupView';
 import Events from '@eventBus/eventbus';
 import {
-    NAVBAR_ACTIVE,
     PAGE_SIGNUP,
     REDIRECT,
     SUBMIT_SIGNUP,
@@ -26,7 +25,6 @@ export default class SignupController {
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(PAGE_SIGNUP);
-        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
             Events.trigger(REDIRECT, {url: '/profile'});
             return;

@@ -3,7 +3,6 @@ import SigninView from '@signin/signinView';
 import Events from '@eventBus/eventbus';
 import {
     REDIRECT,
-    NAVBAR_ACTIVE,
     PAGE_SIGNIN,
     SUBMIT_SIGNIN,
 } from '@eventBus/constants';
@@ -25,7 +24,6 @@ export default class SigninController {
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(PAGE_SIGNIN);
-        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
             Events.trigger(REDIRECT, {url: '/profile'});
             return;
