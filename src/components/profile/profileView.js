@@ -126,10 +126,10 @@ export default class ProfileView extends PageView {
                 const btnReload = document.getElementById('div-avatar-bottom');
                 const formAvatar = document.getElementById('avatar-form');
                 const btn = document.getElementById('btn-reload');
+                Events.trigger(AVATAR_UPDATE_CLICK, formAvatar);
                 btn.removeEventListener('click', this._handlers.updateAvatarClick);
                 btnReload.innerHTML = '';
                 inputFile.value = '';
-                Events.trigger(AVATAR_UPDATE_CLICK, formAvatar);
             },
             signoutClick: () => {
                 Events.trigger(SIGNOUT_CLICK);
