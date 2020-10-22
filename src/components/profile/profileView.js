@@ -104,14 +104,12 @@ export default class ProfileView extends PageView {
                 Events.trigger(UPDATE_PASSWORD,
                     {oldPassword: oldPsw, newPassword1: newPsw1, newPassword2: newPsw2});
             },
-            updateAvatarBtnRender: () => {
-                const btnReload = document.getElementById('btn-reload');
-                btnReload.innerHTML = profileButtonTemplate();
-            },
             inputAvatarFile: (evt) => {
                 const inputFile = document.getElementById('profile-pic');
-                const btnReload = document.getElementById('btn-reload');
+                const btnReload = document.getElementById('div-avatar-bottom');
                 btnReload.innerHTML = profileButtonTemplate();
+                const btn = document.getElementById('btn-reload');
+                btn.addEventListener('click', this._handlers.updateAvatarClick);
                 const file = evt.target.files[0];
                 const reader = new FileReader();
                 const img = document.getElementById('img-profile');
@@ -125,9 +123,11 @@ export default class ProfileView extends PageView {
             updateAvatarClick: (evt) => {
                 evt.preventDefault();
                 const inputFile = document.getElementById('profile-pic');
-                const btnReload = document.getElementById('btn-reload');
+                const btnReload = document.getElementById('div-avatar-bottom');
                 const formAvatar = document.getElementById('avatar-form');
                 this._model.updateAvatar(formAvatar);
+                const btn = document.getElementById('btn-reload');
+                btn.removeEventListener('click', this._handlers.updateAvatarClick);
                 btnReload.innerHTML = '';
                 inputFile.value = '';
             },
@@ -159,11 +159,7 @@ export default class ProfileView extends PageView {
         this.page.innerHTML = profileTemplate(this._model);
 
         const inputFile = document.getElementById('profile-pic');
-        const btnReload = document.getElementById('btn-reload');
-
         inputFile.addEventListener('change', this._handlers.inputAvatarFile);
-
-        btnReload.addEventListener('click', this._handlers.updateAvatarClick);
 
         const btnExit = document.getElementById('btn-exit');
         btnExit.addEventListener('click', this._handlers.signoutClick);
@@ -302,7 +298,9 @@ export default class ProfileView extends PageView {
         const btnExit = document.getElementById('btn-exit');
         btnExit.removeEventListener('click', this._handlers.signoutClick);
         const btnReload = document.getElementById('btn-reload');
-        btnReload.removeEventListener('click', this._handlers.updateAvatarClick);
+        if (btnReload) {
+            btnReload.removeEventListener('click', this._handlers.updateAvatarClick);
+        }
 
         const inputFile = document.getElementById('profile-pic');
         inputFile.removeEventListener('change', this._handlers.updateAvatarBtnRender);
