@@ -1,5 +1,5 @@
-import NavbarModel from './navbarModel';
-import Events from './../../helpers/eventbus/eventbus';
+import NavbarModel from 'navbar/navbarModel';
+import Events from 'eventBus/eventbus';
 import {
     FIX_USER,
     NAVBAR_ACTIVE,
@@ -7,8 +7,8 @@ import {
     PAGE_SIGNUP,
     UPDATE_NAVBAR,
     UPDATE_USER,
-} from '../../helpers/eventbus/constants';
-import navbarTemplate from './templates/navbarTemplate.hbs';
+} from 'eventBus/constants';
+import navbarTemplate from 'navbar/templates/navbarTemplate.hbs';
 
 /** Класс представления для навбара */
 export default class NavbarView {

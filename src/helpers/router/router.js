@@ -63,7 +63,7 @@ class RouterCustom {
      * @param {string} path - ключ, по которому ищется контроллер
       * @return {any} Возвращает контроллер
      */
-    _findComponentByPath(path) {
+    findComponentByPath(path) {
         return this.routes.find(
             (r) => r.path.match(new RegExp(`^\\${path}$`, 'gm')),
         );
@@ -77,9 +77,10 @@ class RouterCustom {
         if (evt !== null) {
             evt.preventDefault();
         }
-        const path = '/' + location.pathname.split('/')[1];
-        const arg = location.pathname.split('/')[2];
-        const {controller} = this._findComponentByPath(path) || {controller: this._errorController};
+        const splitUrl = location.pathname.split('/');
+        const path = '/' + splitUrl[1];
+        const arg = splitUrl[2];
+        const {controller} = this.findComponentByPath(path) || {controller: this._errorController};
         if (this._currController) {
             this._currController.deactivate();
         }

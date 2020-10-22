@@ -1,6 +1,6 @@
-import ErrorView from './errorView';
-import Events from '../../helpers/eventbus/eventbus';
-import {NAVBAR_ACTIVE} from '../../helpers/eventbus/constants';
+import ErrorView from 'pageError/errorView';
+import Events from 'eventBus/eventbus';
+import {NAVBAR_ACTIVE} from 'eventBus/constants';
 
 /** Класс констроллера для страницы ошибки */
 export default class ErrorController {
@@ -14,16 +14,13 @@ export default class ErrorController {
         }
     }
     /**
-     * Установка поля ошибки
-     * @param {string} err - текст ошибки
-     */
-    set error(err) {
-        this._view._error = err;
-    }
-    /**
      * Активация работы контроллера
      */
     activate() {
+        const {state} = history.state;
+        if (state !== {} && state !== undefined) {
+            this._view.error = state;
+        }
         Events.trigger(NAVBAR_ACTIVE, -1);
         this._view.render();
     }

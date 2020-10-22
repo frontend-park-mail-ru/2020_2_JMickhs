@@ -1,14 +1,14 @@
-import PageView from '../basic/pageView';
-import Events from '../../helpers/eventbus/eventbus';
+import PageView from 'basic/pageView';
+import Events from 'eventBus/eventbus';
 import {
     ERROR_SIGNUP,
     SUBMIT_SIGNUP,
     REDIRECT,
     SIGNUP_USER,
-} from '../../helpers/eventbus/constants';
+} from 'eventBus/constants';
 
-import signupTemplate from './templates/templateSignup.hbs';
-import promtTemplate from './templates/tempalatePromt.hbs';
+import signupTemplate from 'signup/templates/templateSignup.hbs';
+import promtTemplate from 'signup/templates/tempalatePromt.hbs';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView extends PageView {

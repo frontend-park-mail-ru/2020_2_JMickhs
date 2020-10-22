@@ -30,7 +30,13 @@ class Network {
     _ajax(method, url, body = null, headers = {}) {
         let reqBody = body;
         if (body != null && !(body instanceof FormData)) {
-            reqBody = JSON.stringify(body);
+            try {
+                reqBody = JSON.stringify(body);
+            } catch (err) {
+                return Promise.reject(err).catch((e) => {
+                    return {error: e};
+                });
+            }
         }
 
         return fetch(this.domain + this.port + url, {
@@ -155,6 +161,30 @@ class Network {
             'X-Csrf-Token': this._csrf,
         };
         return this._ajax('PUT', '/api/v1/users/credentials', body, headers);
+    }
+    /**
+     * Поиск отелей
+     * @param {string} pattern - паттерн поиска
+     * @param {number} limit - максимальное количество отелей в ответе
+     * @param {string} prev - предыдущий лист отелей
+     * @param {string} next - следующий лист отелей
+     * @return {Promise} Возвращает статус ответа или ошибку
+     */
+    searchHotels(pattern, limit=10, prev='', next='') {
+        let resUrl = '/api/v1/hotels/search';
+        if (pattern) {
+            resUrl += `?pattern=${pattern}`;
+        }
+        resUrl += '&prev';
+        if (prev) {
+            resUrl += `${prev}`;
+        }
+        resUrl += '&next';
+        if (prev) {
+            resUrl += `${next}`;
+        }
+        resUrl += `&limit=${limit}`;
+        return this._ajax('GET', resUrl);
     }
 }
 

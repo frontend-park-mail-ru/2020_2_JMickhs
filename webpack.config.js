@@ -38,6 +38,23 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.ts'],
+        alias: {
+            basic: path.resolve(__dirname, 'src/components/basic'),
+            home: path.resolve(__dirname, 'src/components/home'),
+            hostel: path.resolve(__dirname, 'src/components/hostel'),
+            list: path.resolve(__dirname, 'src/components/list'),
+            navbar: path.resolve(__dirname, 'src/components/navbar'),
+            pageError: path.resolve(__dirname, 'src/components/pageError'),
+            profile: path.resolve(__dirname, 'src/components/profile'),
+            search: path.resolve(__dirname, 'src/components/search'),
+            signin: path.resolve(__dirname, 'src/components/signin'),
+            signup: path.resolve(__dirname, 'src/components/signup'),
+            css: path.resolve(__dirname, 'src/css'),
+            eventBus: path.resolve(__dirname, 'src/helpers/eventbus'),
+            network: path.resolve(__dirname, 'src/helpers/network'),
+            router: path.resolve(__dirname, 'src/helpers/router'),
+            validator: path.resolve(__dirname, 'src/helpers/validator'),
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({
