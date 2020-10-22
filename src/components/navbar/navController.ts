@@ -45,20 +45,20 @@ export default class NavController {
     }
 
     private pageSignup() {
-        const changeElem = 2;
-        this.model.updateElem(changeElem, { text: 'Регистрация', href: '/signup', active: true });
+        const changeElem = 3;
+        this.model.updateElem(changeElem - 1, { text: 'Регистрация', href: '/signup', active: true });
         this.navbarActive(changeElem);
     }
 
     private pageSignin() {
-        const changeElem = 2;
-        this.model.updateElem(changeElem, { text: 'Авторизация', href: '/signin', active: true });
+        const changeElem = 3;
+        this.model.updateElem(changeElem - 1, { text: 'Авторизация', href: '/signin', active: true });
         this.navbarActive(changeElem);
     }
 
     private updateUsr(user: User) {
-        const changeElem = 2;
-        this.model.updateElem(changeElem, { text: user.username, href: '/profile', active: true });
+        const changeElem = 3;
+        this.model.updateElem(changeElem - 1, { text: user.username, href: '/profile', active: true });
         this.navbarActive(changeElem);
     }
 }
