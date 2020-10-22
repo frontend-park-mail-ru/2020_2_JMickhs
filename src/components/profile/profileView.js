@@ -11,7 +11,7 @@ import {
     PROFILE_USER,
     HAVNT_USER,
     CHANGE_USER,
-    FIX_USER,
+    CHANGE_USER_OK,
     ERR_FIX_USER,
 } from '@eventBus/constants';
 
@@ -48,7 +48,7 @@ export default class ProfileView extends PageView {
         Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
         Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
         Events.subscribe(SIGNOUT, this._handlers.signout);
-        Events.subscribe(FIX_USER, this._handlers.fixUser);
+        Events.subscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
     /**
@@ -62,7 +62,7 @@ export default class ProfileView extends PageView {
         Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.unsubscribe(PROFILE_USER, this._handlers.render);
         Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
-        Events.unsubscribe(FIX_USER, this._handlers.fixUser);
+        Events.unsubscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
     /**
@@ -140,7 +140,7 @@ export default class ProfileView extends PageView {
                 const email = document.getElementById('email-profile').value;
                 Events.trigger(CHANGE_USER, {username: username, email: email});
             },
-            fixUser: () => {
+            okChangeUser: () => {
                 document.getElementById('label-login').textContent = this._model.login;
                 document.getElementById('label-email').textContent = this._model.email;
                 this.renderMsgDataSettings('Изменения применены!', false);

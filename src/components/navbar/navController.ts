@@ -5,7 +5,7 @@ import {
     NAVBAR_ACTIVE,
     PAGE_SIGNIN,
     PAGE_SIGNUP,
-    FIX_USER,
+    CHANGE_USER_OK,
     PROFILE_USER,
     SIGNIN_USER,
     SIGNUP_USER,
@@ -36,7 +36,7 @@ export default class NavController {
         Events.subscribe(SIGNIN_USER, this.updateUsr.bind(this));
         Events.subscribe(SIGNUP_USER, this.updateUsr.bind(this));
         Events.subscribe(PROFILE_USER, this.updateUsr.bind(this));
-        Events.subscribe(FIX_USER, this.updateUsr.bind(this));
+        Events.subscribe(CHANGE_USER_OK, this.updateUsr.bind(this));
     }
 
     private navbarActive(n: number) {

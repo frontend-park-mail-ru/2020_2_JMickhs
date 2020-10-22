@@ -19,6 +19,6 @@ export const PASSWORD_UPDATE_ERROR = 'passwordUpdateError';
 export const SUBMIT_SIGNIN = 'submitSignin';
 export const PAGE_SIGNIN = 'pageSignin';
 export const SUBMIT_SIGNUP = 'submitSignup';
-export const FIX_USER = 'fixUser';
+export const CHANGE_USER_OK = 'okChangeUser';
 export const ERR_FIX_USER = 'errFixUser';
 export const CHANGE_USER = 'changeUser';

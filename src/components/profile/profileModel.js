@@ -14,7 +14,7 @@ import {
     ERR_UPDATE_AVATAR,
     REDIRECT_ERROR,
     HAVNT_USER,
-    FIX_USER,
+    CHANGE_USER_OK,
     ERR_FIX_USER,
 } from '@eventBus/constants';
 
@@ -173,7 +173,7 @@ class ProfileModel {
             case 200:
                 this.login = username;
                 this.email = email;
-                Events.trigger(FIX_USER, this.getData());
+                Events.trigger(CHANGE_USER_OK, this.getData());
                 break;
             case 400:
                 Events.trigger(ERR_FIX_USER, 'Неверный формат запроса');
