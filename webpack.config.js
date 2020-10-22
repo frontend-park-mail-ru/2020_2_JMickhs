@@ -55,6 +55,7 @@ module.exports = {
             '@network': path.resolve(__dirname, 'src/helpers/network'),
             '@router': path.resolve(__dirname, 'src/helpers/router'),
             '@validator': path.resolve(__dirname, 'src/helpers/validator'),
+            '@user': path.resolve(__dirname, 'src/helpers/user'),
         },
     },
     plugins: [

@@ -6,6 +6,7 @@ import {
     NAVBAR_ACTIVE,
     UPDATE_PASSWORD,
 } from '@eventBus/constants';
+import User from '@user/user';
 import Validator from '@validator/validator';
 
 /** Класс контроллера для страницы профиля */
@@ -24,6 +25,7 @@ export default class ProfileController {
      * Активация работы контроллера
      */
     activate() {
+        this._model.setData(User.getData());
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(NAVBAR_ACTIVE, 3);

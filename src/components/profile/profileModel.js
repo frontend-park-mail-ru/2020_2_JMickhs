@@ -2,7 +2,6 @@ import Net from '@network/network';
 import Events from '@eventBus/eventbus';
 import {
     SIGNOUT,
-    PROFILE_USER,
     UPDATE_AVATAR,
     SIGNIN_USER,
     ERROR_SIGNIN,
@@ -13,7 +12,6 @@ import {
     REDIRECT,
     ERR_UPDATE_AVATAR,
     REDIRECT_ERROR,
-    HAVNT_USER,
     CHANGE_USER_OK,
     ERR_FIX_USER,
 } from '@eventBus/constants';
@@ -28,6 +26,18 @@ class ProfileModel {
         this.id = -1;
         this.isAuth = false;
         this.avatar = '';
+        this.email = '';
+    }
+    /**
+     * Возврщает данные о пользователе
+     * @param {Object} data
+     */
+    setData(data) {
+        this.login = data.username;
+        this.email = data.email;
+        this.id = data.id;
+        this.isAuth = data.isAuth;
+        this.avatar = data.avatar;
     }
     /**
      * Возврщает данные о пользователе
@@ -35,33 +45,6 @@ class ProfileModel {
      */
     getData() {
         return {username: this.login, id: this.id, avatar: this.avatar, isAuth: this.isAuth};
-    }
-    /**
-     * Запросить с сервера информацию о пользователе
-     */
-    getCurrUser() {
-        const response = Net.user();
-        response.then((response) => {
-            const code = response.code;
-            const data = response.data;
-            switch (code) {
-            case 200:
-                this.isAuth = true;
-                this.login = data.username;
-                this.id = data.id;
-                this.avatar = Net.getUrlFile(data.avatar);
-                this.email = data.email;
-                Events.trigger(PROFILE_USER, this.getData());
-                break;
-            case 401:
-                Events.trigger(HAVNT_USER);
-                break;
-            default:
-                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Что-то страшное произошло c нишим сервером...' +
-                        ` Он говорит: ${status}`});
-                break;
-            }
-        });
     }
     /**
      * Обновить аватар(и все сведения о пользователе)

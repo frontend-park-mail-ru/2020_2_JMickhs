@@ -5,7 +5,6 @@ import ListController from '@list/listController';
 import SigninController from '@signin/signinController';
 import SignupController from '@signup/signupController';
 import ProfileController from '@profile/profileController';
-import ProfileModel from '@profile/profileModel';
 import HostelController from '@hostel/hostelController';
 import ErrorController from '@pageError/errorController';
 import SearchController from '@search/searchController';
@@ -14,6 +13,8 @@ import {
     REDIRECT,
     REDIRECT_ERROR,
 } from '@eventBus/constants';
+import User from '@user/user';
+
 import '@/main.css';
 
 /**
@@ -22,8 +23,8 @@ import '@/main.css';
 (() => {
     const application = document.getElementById('app');
 
-    const userModel = ProfileModel;
-    userModel.getCurrUser();
+    // попробуем получить пользователя по кукам
+    User.getFromCookie();
 
     const navbarController = new NavbarController(application);
     navbarController.activate();
