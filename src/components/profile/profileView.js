@@ -180,7 +180,7 @@ export default class ProfileView extends PageView {
         if (this._avatarTimerId !== -1) {
             clearTimeout(this._avatarTimerId);
         }
-        const div = document.getElementById('btn-reload');
+        const div = document.getElementById('div-avatar-bottom');
         div.innerHTML = messageTemplate({text: text});
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
