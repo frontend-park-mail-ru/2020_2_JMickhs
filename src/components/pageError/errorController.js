@@ -17,7 +17,7 @@ export default class ErrorController {
      * Активация работы контроллера
      */
     activate() {
-        const {state} = history.state;
+        const {state} = history.state || {state: undefined};
         if (state !== {} && state !== undefined) {
             this._view.error = state;
         }

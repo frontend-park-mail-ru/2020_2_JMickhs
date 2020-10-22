@@ -31,11 +31,11 @@ export default class PageView {
      * Отрисовка страницы профиля
      */
     render() {
-        window.scrollTo(0, 0);
         if (this.error === undefined) {
             this.error = 'Такой страницы не существует';
         }
         this.page.innerHTML = pageTemplate({error: this.error});
+        window.scrollTo(0, 0);
     }
     /**
      * Скрытие страницы профиля

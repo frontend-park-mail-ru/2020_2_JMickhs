@@ -33,7 +33,7 @@ export default class NavModel {
         this.arr.forEach((elem) => {
             elem.active = false;
         });
-        if (index < 0 && index >= this.arr.length) {
+        if (index < 0 || index >= this.arr.length) {
             return;
         }
         this.arr[index].active = true;
