@@ -1,7 +1,7 @@
 import navbarTemplate from '@navbar/templates/navbarTemplate.hbs';
 
 /**
-* Инициализация класса
+* Обертка над шаблоном, чтобы не ругался ts
 * @param {Object} data - модель
 * @return {string} - результат шаблониазтора
 */

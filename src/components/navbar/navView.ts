@@ -7,7 +7,9 @@ interface NavElem {
 }
 
 export default class NavView {
+
     private navbar: HTMLElement;
+
     constructor(parent: HTMLElement) {
         let nav = document.getElementById('navbar');
         if (nav == null) {
@@ -17,6 +19,7 @@ export default class NavView {
         }
         this.navbar = nav;
     }
+    
     render(data: {elems: NavElem[], active: number}): void {
         this.navbar.innerHTML = navTemplate(data.elems);
     }

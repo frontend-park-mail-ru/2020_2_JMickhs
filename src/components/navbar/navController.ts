@@ -13,18 +13,21 @@ import {
 
 interface User {
     username: string,
-    id: number, 
-    avatar: string, 
+    id: number,
+    avatar: string,
     isAuth: boolean,
 }
 
 export default class NavController {
+
     private model: NavModel;
     private view: NavView;
+
     constructor(parent: HTMLElement) {
         this.model = new NavModel();
         this.view = new NavView(parent);
     }
+
     activate(): void {
         this.view.render(this.model.getData());
         Events.subscribe(NAVBAR_ACTIVE, this.navbarActive.bind(this));
@@ -35,17 +38,21 @@ export default class NavController {
         Events.subscribe(PROFILE_USER, this.updateUsr.bind(this));
         Events.subscribe(FIX_USER, this.updateUsr.bind(this));
     }
+
     private navbarActive(n: number) {
         this.model.updateActive(n - 1);
         this.view.render(this.model.getData());
     }
+
     private pageSignup() {
-        this.model.updateElem(2, {text: 'Регистрация', href: '/signup', active: true});
+        this.model.updateElem(2, { text: 'Регистрация', href: '/signup', active: true });
     }
+
     private pageSignin() {
-        this.model.updateElem(2, {text: 'Авторизация', href: '/signin', active: true});
+        this.model.updateElem(2, { text: 'Авторизация', href: '/signin', active: true });
     }
+
     private updateUsr(user: User) {
-        this.model.updateElem(2, {text: user.username, href: '/profile', active: true});
+        this.model.updateElem(2, { text: user.username, href: '/profile', active: true });
     }
 }
