@@ -1,11 +1,13 @@
 <ul class="menu-main">
+    {{#each this}}
+    {{#if active}}
     <li>
-        <a href="{{el1.ref}}" id="nav1">{{el1.text}}</a>
+        <a href="{{href}}" class="current">{{text}}</a>
     </li>
+    {{else}}
     <li>
-        <a href="{{el2.ref}}" id="nav2">{{el2.text}}</a>
+        <a href="{{href}}">{{text}}</a>
     </li>
-    <li>
-        <a href="{{el3.ref}}" id="nav3">{{el3.text}}</a>
-    </li>
+    {{/if}}
+    {{/each}}
 </ul>

@@ -1,6 +1,6 @@
 import Router from '@router/router';
 import HomeController from '@home/homeController';
-import NavbarController from '@navbar/navbarController';
+import NavbarController from '@navbar/navController';
 import ListController from '@list/listController';
 import SigninController from '@signin/signinController';
 import SignupController from '@signup/signupController';

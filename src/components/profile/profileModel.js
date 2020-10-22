@@ -3,7 +3,6 @@ import Events from '@eventBus/eventbus';
 import {
     SIGNOUT,
     PROFILE_USER,
-    UPDATE_USER,
     UPDATE_AVATAR,
     SIGNIN_USER,
     ERROR_SIGNIN,
@@ -31,6 +30,13 @@ class ProfileModel {
         this.avatar = '';
     }
     /**
+     * Возврщает данные о пользователе
+     * @return {Object}
+     */
+    getData() {
+        return {username: this.login, id: this.id, avatar: this.avatar, isAuth: this.isAuth};
+    }
+    /**
      * Запросить с сервера информацию о пользователе
      */
     getCurrUser() {
@@ -45,8 +51,7 @@ class ProfileModel {
                 this.id = data.id;
                 this.avatar = Net.getUrlFile(data.avatar);
                 this.email = data.email;
-                Events.trigger(UPDATE_USER);
-                Events.trigger(PROFILE_USER);
+                Events.trigger(PROFILE_USER, this.getData());
                 break;
             case 401:
                 Events.trigger(HAVNT_USER);
@@ -109,8 +114,7 @@ class ProfileModel {
                 this.avatar = Net.getUrlFile(data.avatar);
                 this.login = data.username;
                 this.email = data.email;
-                Events.trigger(UPDATE_USER);
-                Events.trigger(SIGNIN_USER, this.isAuth);
+                Events.trigger(SIGNIN_USER, this.getData());
                 break;
             case 400:
                 Events.trigger(ERROR_SIGNIN, 'Неверный формат запроса');
@@ -142,8 +146,7 @@ class ProfileModel {
                 this.isAuth = true;
                 this.login = data.username;
                 this.email = data.email;
-                Events.trigger(UPDATE_USER);
-                Events.trigger(SIGNUP_USER, this.isAuth);
+                Events.trigger(SIGNUP_USER, this.getData());
                 break;
             case 400:
                 Events.trigger(ERROR_SIGNUP, 'Неверный формат запроса');
@@ -170,7 +173,7 @@ class ProfileModel {
             case 200:
                 this.login = username;
                 this.email = email;
-                Events.trigger(FIX_USER);
+                Events.trigger(FIX_USER, this.getData());
                 break;
             case 400:
                 Events.trigger(ERR_FIX_USER, 'Неверный формат запроса');
