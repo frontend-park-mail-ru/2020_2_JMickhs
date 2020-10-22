@@ -27,6 +27,7 @@ class User {
     getData() {
         return {
             username: this.username,
+            email: this.email,
             id: this.id,
             avatar: this.avatar,
             isAuth: this.isAuth
