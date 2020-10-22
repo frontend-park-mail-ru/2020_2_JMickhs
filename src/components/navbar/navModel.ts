@@ -22,11 +22,12 @@ export default class NavModel {
         return {elems: this.arr, active: this.active};
     }
 
-    updateElem(index: number, elem: NavElem): void {
+    updateElem(index: number, text: string, href: string): void {
         if (index < 0 && index >= this.arr.length) {
             return;
         }
-        this.arr[index] = elem;
+        this.arr[index].text = text;
+        this.arr[index].href = href;
     }
 
     updateActive(index: number): void {
