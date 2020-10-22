@@ -3,9 +3,6 @@ import Events from '@eventBus/eventbus';
 import {
     SIGNOUT,
     UPDATE_AVATAR,
-    ERROR_SIGNIN,
-    SIGNUP_USER,
-    ERROR_SIGNUP,
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
     REDIRECT,
@@ -72,43 +69,11 @@ class ProfileModel {
                 Events.trigger(ERR_UPDATE_AVATAR, 'Можно загружать только файлы с расширением jpg, png');
                 break;
             default:
-                Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${status}`);
+                Events.trigger(ERR_UPDATE_AVATAR, `Ошибка сервера: статус - ${status}`);
                 break;
             }
         }).catch(() => {
             Events.trigger(ERR_UPDATE_AVATAR, 'Аватарку обновить не получилось!');
-        });
-    }
-    /**
-     * Регистрация пользователя
-     * @param {string} username - логин пользователя
-     * @param {string} email - пароль пользователя
-     * @param {string} password - пароль пользователя
-     */
-    signup(username, email, password) {
-        const response = Net.signup(username, email, password);
-        response.then((response) => {
-            const code = response.code;
-            const data = response.data;
-            switch (code) {
-            case 200:
-                this.id = data.id;
-                this.avatar = Net.getUrlFile(data.avatar);
-                this.isAuth = true;
-                this.login = data.username;
-                this.email = data.email;
-                Events.trigger(SIGNUP_USER, this.getData());
-                break;
-            case 400:
-                Events.trigger(ERROR_SIGNUP, 'Неверный формат запроса');
-                break;
-            case 409:
-                Events.trigger(ERROR_SIGNUP, 'Пользователь с таким логином уже существует!');
-                break;
-            default:
-                Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${status}`);
-                break;
-            }
         });
     }
     /**
@@ -161,7 +126,7 @@ class ProfileModel {
                 Events.trigger(SIGNOUT);
                 break;
             default:
-                Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${status}`);
+                Events.trigger(SIGNOUT, `Ошибка сервера: статус ${status}`);
                 break;
             }
         });
