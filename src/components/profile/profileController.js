@@ -29,6 +29,8 @@ export default class ProfileController {
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(NAVBAR_ACTIVE, 3);
+        console.log(this._model.isAuth());
+        console.log(this._model.getData());
         if (this._model.isAuth()) {
             this._view.render(this._model.getData());
         }
