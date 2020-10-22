@@ -7,7 +7,6 @@ import SignupController from '@signup/signupController';
 import ProfileController from '@profile/profileController';
 import HostelController from '@hostel/hostelController';
 import ErrorController from '@pageError/errorController';
-import SearchController from '@search/searchController';
 import Events from '@eventBus/eventbus';
 import {
     REDIRECT,
@@ -36,7 +35,6 @@ import '@/main.css';
     const profileController = new ProfileController(application);
     const hostelController = new HostelController(application);
     const errorController = new ErrorController(application);
-    const searchController = new SearchController(application);
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);
@@ -44,7 +42,6 @@ import '@/main.css';
     Router.append('/profile', profileController);
     Router.append('/list', listController);
     Router.append('/hostel', hostelController);
-    Router.append('/s', searchController);
     Router.errorController = errorController;
     Router.start();
     Events.subscribe(REDIRECT, (arg) => {
