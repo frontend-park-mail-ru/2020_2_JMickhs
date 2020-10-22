@@ -71,7 +71,10 @@ export default class ProfileView extends PageView {
      */
     _makeHandlers() {
         const handlers = {
-            render: this.render.bind(this),
+            render: (data) => {
+                this._model.setData(data);
+                this.render();
+            },
             getNewPsw: () => {
                 this.renderMsgPswSettings('Вы успешно поменяли пароль', false);
                 document.getElementById('old-psw').value = '';
