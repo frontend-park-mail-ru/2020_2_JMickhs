@@ -12,7 +12,8 @@ import {
     REDIRECT,
     REDIRECT_ERROR,
 } from '@eventBus/constants';
-import User from '@user/user';
+import UserSingleton from '@user/user';
+import getUserFromCookie from '@user/cookieUser';
 
 import '@/main.css';
 
@@ -22,8 +23,8 @@ import '@/main.css';
 (() => {
     const application = document.getElementById('app');
 
-    // попробуем получить пользователя по кукам
-    User.getInstance().getFromCookie();
+    const user = getUserFromCookie();
+    UserSingleton.getInstance().setData(user);
 
     const navbarController = new NavbarController(application);
     navbarController.activate();

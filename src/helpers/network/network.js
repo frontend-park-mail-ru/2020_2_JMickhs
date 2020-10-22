@@ -162,30 +162,6 @@ class Network {
         };
         return this._ajax('PUT', '/api/v1/users/credentials', body, headers);
     }
-    /**
-     * Поиск отелей
-     * @param {string} pattern - паттерн поиска
-     * @param {number} limit - максимальное количество отелей в ответе
-     * @param {string} prev - предыдущий лист отелей
-     * @param {string} next - следующий лист отелей
-     * @return {Promise} Возвращает статус ответа или ошибку
-     */
-    searchHotels(pattern, limit=10, prev='', next='') {
-        let resUrl = '/api/v1/hotels/search';
-        if (pattern) {
-            resUrl += `?pattern=${pattern}`;
-        }
-        resUrl += '&prev';
-        if (prev) {
-            resUrl += `${prev}`;
-        }
-        resUrl += '&next';
-        if (prev) {
-            resUrl += `${next}`;
-        }
-        resUrl += `&limit=${limit}`;
-        return this._ajax('GET', resUrl);
-    }
 }
 
 export default new Network();
