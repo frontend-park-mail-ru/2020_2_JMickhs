@@ -13,7 +13,7 @@ import {
     REDIRECT_ERROR,
 } from '@eventBus/constants';
 import User from '@user/user';
-import setUserFromCookie from '@user/cookieUser';
+import getUserFromCookie from '@user/cookieUser';
 
 import '@/main.css';
 
@@ -24,7 +24,10 @@ import '@/main.css';
     const application = document.getElementById('app');
 
     const userSingleton = User.getInstance();
-    setUserFromCookie(userSingleton);
+    const userDataPromise = getUserFromCookie();
+    userDataPromise.then((data) => {
+        userSingleton.setData(data);
+    });
 
     const navbarController = new NavbarController(application);
     navbarController.activate();
