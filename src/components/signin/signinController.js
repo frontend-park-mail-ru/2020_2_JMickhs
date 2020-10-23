@@ -1,12 +1,12 @@
-import SigninModel from './signinModel';
-import SigninView from './signinView';
-import Events from './../../helpers/eventbus/eventbus';
+import SigninModel from '@signin/signinModel';
+import SigninView from '@signin/signinView';
+import Events from '@eventBus/eventbus';
 import {
     REDIRECT,
-    NAVBAR_ACTIVE,
     PAGE_SIGNIN,
     SUBMIT_SIGNIN,
-} from '../../helpers/eventbus/constants';
+    NAVBAR_ACTIVE,
+} from '@eventBus/constants';
 
 /** Класс контроллера для страницы авторизации */
 export default class SigninController {
@@ -16,7 +16,7 @@ export default class SigninController {
      */
     constructor(parent) {
         this._model = new SigninModel();
-        this._view = new SigninView(parent, this._model);
+        this._view = new SigninView(parent);
     }
     /**
      * Активация работы контроллера

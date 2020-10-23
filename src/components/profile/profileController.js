@@ -1,12 +1,14 @@
-import ProfileModel from './profileModel';
-import ProfileView from './profileView';
-import Events from '../../helpers/eventbus/eventbus';
+import ProfileModel from '@profile/profileModel';
+import ProfileView from '@profile/profileView';
+import Events from '@eventBus/eventbus';
 import {
     CHANGE_USER,
     NAVBAR_ACTIVE,
     UPDATE_PASSWORD,
-} from '../../helpers/eventbus/constants';
-import Validator from '../../helpers/validator/validator';
+    SIGNOUT_CLICK,
+    AVATAR_UPDATE_CLICK,
+} from '@eventBus/constants';
+import Validator from '@validator/validator';
 
 /** Класс контроллера для страницы профиля */
 export default class ProfileController {
@@ -15,10 +17,10 @@ export default class ProfileController {
      * @param {HTMLElement} parent - родительский элемент html-страницы
      */
     constructor(parent) {
-        this._model = ProfileModel;
-        this._view = new ProfileView(parent, this._model);
+        this._model = new ProfileModel();
+        this._view = new ProfileView(parent);
 
-        this._makeHandlers();
+        this._handlers = this._makeHandlers();
     }
     /**
      * Активация работы контроллера
@@ -27,8 +29,8 @@ export default class ProfileController {
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(NAVBAR_ACTIVE, 3);
-        if (this._model.isAuth) {
-            this._view.render();
+        if (this._model.isAuth()) {
+            this._view.render(this._model.getData());
         }
     }
     /**
@@ -44,20 +46,18 @@ export default class ProfileController {
      */
     subscribeEvents() {
         Events.subscribe(CHANGE_USER, this._handlers.changeUser);
-        // Events.subscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
-        // Events.subscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
         Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        // Events.subscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
+        Events.subscribe(SIGNOUT_CLICK, this._model.signout.bind(this._model));
+        Events.subscribe(AVATAR_UPDATE_CLICK, this._model.updateAvatar.bind(this._model));
     }
     /**
      *  Отписка от событий
      */
     unsubscribeEvents() {
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
-        // Events.unsubscribe(ERROR_CHANGE_LOGIN, this._handlers.errorLogin);
-        // Events.unsubscribe(ERROR_CHANGE_EMAIL, this._handlers.errorEmail);
         Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        // Events.unsubscribe(PASSWORD_VALIDATE_ERROR, this._handlers.pswValidateErr);
+        Events.unsubscribe(SIGNOUT_CLICK, this._model.signout.bind(this._model));
+        Events.unsubscribe(AVATAR_UPDATE_CLICK, this._model.updateAvatar.bind(this._model));
     }
     /**
      * Проверка данных, переданных для изменения
@@ -65,7 +65,8 @@ export default class ProfileController {
      */
     _validateDataChange(arg) {
         const {username, email} = arg;
-        if (username === this._model.login && email === this._model.email) {
+        const user = this._model.getData();
+        if (username === user.username && email === user.email) {
             this._view.renderMsgDataSettings('Вы ничего не изменили =)');
             return;
         }
@@ -128,7 +129,7 @@ export default class ProfileController {
             return;
         }
 
-        const pswErrors = Validator.validatePsw(newPsw1);
+        const pswErrors = Validator.validatePassword(newPsw1);
         if (pswErrors.length > 0) {
             this._view.renderNewPswInputError();
             this._view.renderMsgPswSettings(pswErrors[0]);
@@ -138,12 +139,14 @@ export default class ProfileController {
         this._model.updatePassword(oldPsw, newPsw2);
     }
     /**
-     * Функция создает и заполняет поле _handlers обработчиками событий
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
      */
     _makeHandlers() {
-        this._handlers = {
+        const handlers = {
             changeUser: this._validateDataChange.bind(this),
             updatePsw: this._validatePswChange.bind(this),
         };
+        return handlers;
     }
 }

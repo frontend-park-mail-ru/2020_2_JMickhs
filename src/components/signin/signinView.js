@@ -1,27 +1,24 @@
-import PageView from '../basic/pageView';
-import Events from '../../helpers/eventbus/eventbus';
+import PageView from '@basic/pageView';
+import Events from '@eventBus/eventbus';
 import {
     SUBMIT_SIGNIN,
     ERROR_SIGNIN,
     SIGNIN_USER,
     REDIRECT,
-} from '../../helpers/eventbus/constants';
+} from '@eventBus/constants';
 
-import signinTemplate from './templates/templateSignin.hbs';
+import signinTemplate from '@signin/templates/templateSignin.hbs';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView extends PageView {
     /**
      * Инициализация класса
      * @param {HTMLElement} parent - родительский элемент html-страницы
-     * @param {SigninModel} model - модель
      */
-    constructor(parent, model) {
+    constructor(parent) {
         super(parent);
 
-        this._model = model;
-
-        this._makeHandlers();
+        this._handlers = this._makeHandlers();
     }
     /**
      * Подписка на события страницы авторизации
@@ -38,13 +35,11 @@ export default class SigninView extends PageView {
         Events.unsubscribe(SIGNIN_USER, this._handlers.signinUser);
     }
     /**
-     * Функция создает и заполняет поле _handlers обработчиками событий
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
      */
     _makeHandlers() {
-        this._handlers = {
-            renderErr: (arg) => {
-                this.renderError(arg);
-            },
+        const handlers = {
             signinUser: (isAuth) => {
                 if (isAuth) {
                     Events.trigger(REDIRECT, {url: '/profile'});
@@ -52,6 +47,7 @@ export default class SigninView extends PageView {
                     Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
                 }
             },
+            renderErr: this.renderError.bind(this),
             submitSigninForm: (evt) => {
                 evt.preventDefault();
                 const loginInput = document.getElementById('signin-login');
@@ -63,6 +59,7 @@ export default class SigninView extends PageView {
                 Events.trigger(SUBMIT_SIGNIN, {login: login, password: password});
             },
         };
+        return handlers;
     }
     /**
      * Отрисовка страницы авторизации
@@ -79,8 +76,8 @@ export default class SigninView extends PageView {
      * @param {Number} numberInputErr 1 - логин, 2 пароль
      */
     renderError(errstr, numberInputErr = 0) {
-        if (this._model.timerId !== -1) {
-            clearTimeout(this._model.timerId);
+        if (this.timerId !== -1) {
+            clearTimeout(this.timerId);
         }
         if (numberInputErr === 1) {
             document.getElementById('signin-login').className = 'input-error';
@@ -91,7 +88,7 @@ export default class SigninView extends PageView {
         const errLine = document.getElementById('text-error');
         errLine.textContent = errstr;
 
-        this._model.timerId = setTimeout(() => {
+        this.timerId = setTimeout(() => {
             errLine.textContent = '';
             const loginElem = document.getElementById('signin-login');
             // тут не очевидно, так что поясню.
@@ -103,7 +100,7 @@ export default class SigninView extends PageView {
                 loginElem.className = 'input-sign';
                 document.getElementById('signin-password').className = 'input-sign';
             }
-            this._model.timerId = -1;
+            this.timerId = -1;
         }, 5000);
     }
     /**

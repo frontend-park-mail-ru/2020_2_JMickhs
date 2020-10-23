@@ -1,9 +1,9 @@
-import Net from '../../helpers/network/network';
-import Events from '../../helpers/eventbus/eventbus';
+import Net from '@network/network';
+import Events from '@eventBus/eventbus';
 import {
     LOAD_HOSTELS,
     REDIRECT_ERROR,
-} from '../../helpers/eventbus/constants';
+} from '@eventBus/constants';
 
 /** Класс модели для страницы списка отелей */
 export default class ListModel {
@@ -11,7 +11,6 @@ export default class ListModel {
      * Инициализация класса
      */
     constructor() {
-        this.haveInfo = false;
         this.hostels = [];
     }
     /**
@@ -24,12 +23,8 @@ export default class ListModel {
             const code = response.code;
             switch (code) {
             case 200:
-                this.haveInfo = true;
                 this.hostels = data;
-                this.hostels.forEach((hostel) => {
-                    hostel.image = Net.getUrlFile(hostel.image);
-                });
-                Events.trigger(LOAD_HOSTELS, this.getData());
+                this.loadHotels();
                 break;
             case 400:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
@@ -47,5 +42,18 @@ export default class ListModel {
      */
     getData() {
         return this.hostels;
+    }
+    /**
+     * Переименовывает все аватарки и триггерит рендер отелей
+     */
+    loadHotels() {
+        if (this.hostels === null) {
+            this.hostels = [];
+            return;
+        }
+        this.hostels.forEach((hostel) => {
+            hostel.image = Net.getUrlFile(hostel.image);
+        });
+        Events.trigger(LOAD_HOSTELS, this.getData());
     }
 }

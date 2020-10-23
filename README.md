@@ -6,8 +6,8 @@
 
 * **Константин Павлов** - *Бэкендер* - [Kostikans](https://github.com/Kostikans)
 * **Сергей Алексеев** - *Фронтендер* - [serenehet](https://github.com/serenehet)
-* **Николай Манзеев** - *Фуллстек* - [Alkirys](https://github.com/Alkirys)
-* **Никита Щелканов** - *Фуллстек* - [n-shch](https://github.com/n-shch')
+* **Николай Манзеев** - *Фронтендер* - [Alkirys](https://github.com/Alkirys)
+* **Никита Щелканов** - *Бэкендер* - [n-shch](https://github.com/n-shch')
 
 
 ## Менторы

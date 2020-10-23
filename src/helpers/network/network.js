@@ -30,7 +30,13 @@ class Network {
     _ajax(method, url, body = null, headers = {}) {
         let reqBody = body;
         if (body != null && !(body instanceof FormData)) {
-            reqBody = JSON.stringify(body);
+            try {
+                reqBody = JSON.stringify(body);
+            } catch (err) {
+                return Promise.reject(err).catch((e) => {
+                    return {error: e};
+                });
+            }
         }
 
         return fetch(this.domain + this.port + url, {

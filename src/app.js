@@ -1,19 +1,21 @@
-import Router from './helpers/router/router';
-import HomeController from './components/home/homeController';
-import NavbarController from './components/navbar/navbarController';
-import ListController from './components/list/listController';
-import SigninController from './components/signin/signinController';
-import SignupController from './components/signup/signupController';
-import ProfileController from './components/profile/profileController';
-import ProfileModel from './components/profile/profileModel';
-import HostelController from './components/hostel/hostelController';
-import ErrorController from './components/pageError/errorController';
-import Events from './helpers/eventbus/eventbus';
+import Router from '@router/router';
+import HomeController from '@home/homeController';
+import NavbarController from '@navbar/navController';
+import ListController from '@list/listController';
+import SigninController from '@signin/signinController';
+import SignupController from '@signup/signupController';
+import ProfileController from '@profile/profileController';
+import HostelController from '@hostel/hostelController';
+import ErrorController from '@pageError/errorController';
+import Events from '@eventBus/eventbus';
 import {
     REDIRECT,
     REDIRECT_ERROR,
-} from './helpers/eventbus/constants';
-import './main.css';
+} from '@eventBus/constants';
+import User from '@user/user';
+import getUserFromCookie from '@user/cookieUser';
+
+import '@/main.css';
 
 /**
  *  Старт нашего приложения =)
@@ -21,10 +23,14 @@ import './main.css';
 (() => {
     const application = document.getElementById('app');
 
-    const userModel = ProfileModel;
-    userModel.getCurrUser();
-
     const navbarController = new NavbarController(application);
+
+    const userSingleton = User.getInstance();
+    const userDataPromise = getUserFromCookie();
+    userDataPromise.then((data) => {
+        userSingleton.setData(data);
+    });
+
     navbarController.activate();
 
     const homeController = new HomeController(application);
@@ -41,15 +47,16 @@ import './main.css';
     Router.append('/profile', profileController);
     Router.append('/list', listController);
     Router.append('/hostel', hostelController);
+
     Router.errorController = errorController;
     Router.start();
+
     Events.subscribe(REDIRECT, (arg) => {
-        const {url} = arg;
-        Router.pushState(url);
+        const {url, data} = arg;
+        Router.pushState(url, data);
     });
     Events.subscribe(REDIRECT_ERROR, (arg) => {
         const {url, err} = arg;
-        Router.errorController.error = err;
-        Router.pushState(url);
+        Router.pushState(url, err);
     });
 })();

@@ -1,13 +1,13 @@
-import SignupModel from './signupModel';
-import SignupView from './signupView';
-import Events from '../../helpers/eventbus/eventbus';
+import SignupModel from '@signup/signupModel';
+import SignupView from '@signup/signupView';
+import Events from '@eventBus/eventbus';
 import {
-    NAVBAR_ACTIVE,
     PAGE_SIGNUP,
     REDIRECT,
     SUBMIT_SIGNUP,
-} from '../../helpers/eventbus/constants';
-import Validator from '../../helpers/validator/validator';
+    NAVBAR_ACTIVE,
+} from '@eventBus/constants';
+import Validator from '@validator/validator';
 
 /** Класс контроллера для страницы регистрации */
 export default class SignupController {
@@ -90,7 +90,7 @@ export default class SignupController {
             this._view.renderError(emailErrors[0], 2);
         }
 
-        const pswErrors = Validator.validatePsw(psw1);
+        const pswErrors = Validator.validatePassword(psw1);
         if (pswErrors.length > 0) {
             resolution = false;
             this._view.renderError(pswErrors[0], 3);
