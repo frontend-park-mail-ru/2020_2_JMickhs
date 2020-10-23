@@ -50,7 +50,6 @@ export default class ProfileModel {
     }
 
     updateAvatar(formAvatar: HTMLFormElement): void {
-        console.log(formAvatar);
         const avaResponse = Network.updateAvatar(new FormData(formAvatar));
         avaResponse.then((response) => {
             const code = response.code;
