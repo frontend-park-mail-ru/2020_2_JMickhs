@@ -65,7 +65,8 @@ export default class ProfileController {
      */
     _validateDataChange(arg) {
         const {username, email} = arg;
-        if (username === this._model.login && email === this._model.email) {
+        const user = this._model.getData();
+        if (username === user.username && email === user.email) {
             this._view.renderMsgDataSettings('Вы ничего не изменили =)');
             return;
         }

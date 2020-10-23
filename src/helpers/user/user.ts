@@ -40,7 +40,7 @@ export default class User {
     setData(user: UserData): void {
         this.isAuth = user.isAuth;
         this.username = user.username;
-        this.email = user.username;
+        this.email = user.email;
         this.id = user.id;
         this.avatar = user.avatar;
     }
