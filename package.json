@@ -11,8 +11,6 @@
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^4.5.0",
         "@typescript-eslint/parser": "^4.5.0",
-        "babel-loader": "^8.1.0",
-        "babel-plugin-transform-class-properties": "^6.24.1",
         "css-loader": "^5.0.0",
         "eslint": "^7.11.0",
         "eslint-config-google": "^0.14.0",
