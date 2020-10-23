@@ -37,26 +37,6 @@ export default class ListModel {
         });
     }
     /**
-     * Функция поиска отелей
-     * @param {string} pattern - паттерн поиска
-     */
-    search(pattern) {
-        const response = Net.searchHotels(pattern);
-        response.then((response) => {
-            const data = response.data;
-            const code = response.code;
-            switch (code) {
-            case 200:
-                this.hostels = data.hotels;
-                this.loadHotels();
-                break;
-            case 400:
-                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
-                break;
-            }
-        });
-    }
-    /**
      * Получить список отелей с сервера
      * @return {Object}
      */
@@ -64,7 +44,7 @@ export default class ListModel {
         return this.hostels;
     }
     /**
-     * Запрашивает у сервера все аватарки и триггерит рендер отелей
+     * Переименовывает все аватарки и триггерит рендер отелей
      */
     loadHotels() {
         if (this.hostels === null) {

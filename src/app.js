@@ -23,13 +23,14 @@ import '@/main.css';
 (() => {
     const application = document.getElementById('app');
 
+    const navbarController = new NavbarController(application);
+
     const userSingleton = User.getInstance();
     const userDataPromise = getUserFromCookie();
     userDataPromise.then((data) => {
         userSingleton.setData(data);
     });
 
-    const navbarController = new NavbarController(application);
     navbarController.activate();
 
     const homeController = new HomeController(application);
@@ -46,8 +47,10 @@ import '@/main.css';
     Router.append('/profile', profileController);
     Router.append('/list', listController);
     Router.append('/hostel', hostelController);
+
     Router.errorController = errorController;
     Router.start();
+
     Events.subscribe(REDIRECT, (arg) => {
         const {url, data} = arg;
         Router.pushState(url, data);

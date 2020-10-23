@@ -19,21 +19,10 @@ export default class ListController {
      * @param {string} arg
      */
     activate(arg) {
-        const {state} = history.state || {state: undefined};
-        if (state !== {} && state !== undefined) {
-            this.haveInfo = true;
-            this._model.hostels = state;
-        }
         Events.trigger(NAVBAR_ACTIVE, 2);
         this._view.subscribeEvents();
-        if (!this.haveInfo && arg) {
-            this._model.search(arg);
-        }
-        if (!this.haveInfo && arg === undefined) {
+        if (!this.haveInfo) {
             this._model.fillModel();
-        }
-        if (this.haveInfo) {
-            this._model.loadHotels();
         }
     }
     /**
