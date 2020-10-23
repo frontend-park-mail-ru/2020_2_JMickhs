@@ -1,0 +1,76 @@
+body, html {
+    height: 100%;
+}
+
+.container-sign {
+    max-width: 500px;
+    min-width: 300px;
+    width: 30%;
+    margin-top: 8%;
+    margin-left: 35%;
+    margin-right: 35%;
+    background: var(--white);
+    padding: 17px;
+    border-radius: 10px;
+    border: 4px solid var(--blue);
+}
+
+.text-sign {
+    text-align: center;
+    color: var(--blue);
+}
+.label-sign {
+    color: var(--orange);
+}
+
+/* Full-width input fields */
+.input-sign {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: var(--gray-light);
+    border-radius: 5px;
+}
+
+.input-sign:focus {
+    background-color: var(--gray);
+    outline: none;
+}
+
+.label-error {
+    color: var(--red);
+    text-align: center;
+}
+
+.div-btn-error {
+    height: 90px;
+    position:relative;
+}
+
+.input-error {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: 3px solid var(--red);
+    background: var(--gray-light);
+    border-radius: 5px;
+}
+
+.btn-sign {
+    position: absolute;
+    bottom:0;
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    border-radius: 5px;
+}
+
+.btn-sign:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    background-color: var(--blue-dark);
+}

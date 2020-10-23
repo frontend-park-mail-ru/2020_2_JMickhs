@@ -2,18 +2,19 @@
     "name": "frontend",
     "version": "1.0.0",
     "description": "Веб сервис, который помогает найти подходящий отель в поездку",
-    "main": "index.js",
+    "private": true,
     "dependencies": {
-        "babel-preset-env": "^1.7.0",
-        "debug": "^4.2.0"
+        "express": "^4.17.1",
+        "handlebars": "^4.7.6",
+        "handlebars-loader": "^1.7.1"
     },
     "devDependencies": {
-        "@babel/core": "^7.11.6",
-        "@babel/plugin-proposal-class-properties": "^7.10.4",
-        "@babel/preset-env": "^7.11.5",
+        "@typescript-eslint/eslint-plugin": "^4.5.0",
+        "@typescript-eslint/parser": "^4.5.0",
         "babel-loader": "^8.1.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
-        "eslint": "^7.10.0",
+        "css-loader": "^5.0.0",
+        "eslint": "^7.11.0",
         "eslint-config-google": "^0.14.0",
         "eslint-config-prettier": "^6.12.0",
         "eslint-plugin-prettier": "^3.1.4",
@@ -21,16 +22,26 @@
         "html-webpack-root-plugin": "^0.10.0",
         "husky": "^4.3.0",
         "lint-staged": "^10.4.0",
+        "mini-css-extract-plugin": "^1.1.1",
+        "pre-commit": "^1.2.2",
         "prettier": "^2.1.2",
+        "source-map-loader": "^1.1.1",
+        "ts-loader": "^8.0.6",
+        "typescript": "^4.0.3",
         "webpack": "^4.44.2",
         "webpack-cli": "^3.3.12"
     },
     "scripts": {
-        "start": "node server/",
+        "start": "node server.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "npx webpack",
-        "eslint": "eslint public/"
+        "build": "webpack",
+        "linter": "eslint src",
+        "dev": "webpack --watch --mode=development",
+        "prod": "webpack --mode=prodcution"
     },
+    "pre-commit": [
+        "linter"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/frontend-park-mail-ru/2020_2_JMickhs.git"

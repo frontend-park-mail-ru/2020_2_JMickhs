@@ -1,0 +1,13 @@
+<ul class="menu-main">
+    {{#each this}}
+    {{#if active}}
+    <li>
+        <a href="{{href}}" class="current">{{text}}</a>
+    </li>
+    {{else}}
+    <li>
+        <a href="{{href}}">{{text}}</a>
+    </li>
+    {{/if}}
+    {{/each}}
+</ul>

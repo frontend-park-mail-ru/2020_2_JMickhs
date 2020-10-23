@@ -1,0 +1,12 @@
+:root {
+    --main-background-color: #ffffff;
+    --blue: #1976d2;
+    --blue-dark: #0d47a1;
+    --orange: #ff6f00;
+    --red: #c62828;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --white: white;
+    --gray-light: #f1f1f1;
+    --gray: #ddd;
+    --gray-dark: #757575;
+}

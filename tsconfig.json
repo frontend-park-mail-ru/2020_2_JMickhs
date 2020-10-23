@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "target": "es5",
+      "allowJs": true,
+      "baseUrl": "./",
+        "paths": {
+            "@/*": ["src/*"],
+            "@navbar/*": ["src/components/navbar/*"],
+            "@eventBus/*": ["src/helpers/eventbus/*"],
+            "@network/*": ["src/helpers/network/*"],
+            "@user/*": ["src/helpers/user/*"],
+            "@interfaces/*": ["src/helpers/interfaces/*"],
+        },
+    },
+}
