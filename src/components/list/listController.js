@@ -15,10 +15,9 @@ export default class ListController {
         this.haveInfo = false;
     }
     /**
-     * Заполнение данных модели с сервера
-     * @param {string} arg
+     * Заполнение данных модели с сервераы
      */
-    activate(arg) {
+    activate() {
         Events.trigger(NAVBAR_ACTIVE, 2);
         this._view.subscribeEvents();
         if (!this.haveInfo) {
