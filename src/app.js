@@ -5,7 +5,7 @@ import ListController from '@list/listController';
 import SigninController from '@signin/signinController';
 import SignupController from '@signup/signupController';
 import ProfileController from '@profile/profileController';
-import HostelController from '@hostel/hostelController';
+import HostelPageController from '@hostel/hostelPageController';
 import ErrorController from '@pageError/errorController';
 import Events from '@eventBus/eventbus';
 import {
@@ -38,7 +38,7 @@ import '@/main.css';
     const signinController = new SigninController(application);
     const signupController = new SignupController(application);
     const profileController = new ProfileController(application);
-    const hostelController = new HostelController(application);
+    const hostelPageController = new HostelPageController(application);
     const errorController = new ErrorController(application);
 
     Router.append('/', homeController);
@@ -46,7 +46,7 @@ import '@/main.css';
     Router.append('/signup', signupController);
     Router.append('/profile', profileController);
     Router.append('/list', listController);
-    Router.append('/hostel', hostelController);
+    Router.append('/hostel', hostelPageController);
 
     Router.errorController = errorController;
     Router.start();

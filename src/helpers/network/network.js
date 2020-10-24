@@ -105,7 +105,7 @@ class Network {
     /**
      * Получение определнных отелей
      * @param {number} id - id отеля
-     * @return {Promise<{number, json}|{number, Error}>}
+     * @return {Promise<{code: number, data: {hotel: any}}>}
      * number - statusCode, json - ответ
      */
     getHostel(id) {

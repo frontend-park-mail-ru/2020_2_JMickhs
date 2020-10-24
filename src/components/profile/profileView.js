@@ -47,7 +47,7 @@ export default class ProfileView extends PageView {
         Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
         Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.subscribe(SIGNOUT, this._handlers.signout);
+        Events.subscribe(SIGNOUT, this._handlers.havntUser);
         Events.subscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
@@ -58,7 +58,7 @@ export default class ProfileView extends PageView {
         Events.unsubscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.unsubscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
         Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.unsubscribe(SIGNOUT, this._handlers.signout);
+        Events.unsubscribe(SIGNOUT, this._handlers.havntUser);
         Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.unsubscribe(HAVE_USER, this._handlers.render);
         Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
@@ -89,9 +89,6 @@ export default class ProfileView extends PageView {
             },
             errUpdateAvatar: (arg) => {
                 this.renderMessageAvatar(arg, true);
-            },
-            signout: () => {
-                Events.trigger(REDIRECT, {url: '/signin'});// TODO ???!!!
             },
             havntUser: () => {
                 Events.trigger(REDIRECT, {url: '/signin'});
