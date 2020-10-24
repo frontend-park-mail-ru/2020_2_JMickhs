@@ -17,6 +17,8 @@ export default class SigninController {
     constructor(parent) {
         this._model = new SigninModel();
         this._view = new SigninView(parent);
+
+        this._handlers = this._makeHandlers();
     }
     /**
      * Активация работы контроллера
@@ -65,12 +67,22 @@ export default class SigninController {
      * Подписка на необходимые события
      */
     subscribeEvents() {
-        Events.subscribe(SUBMIT_SIGNIN, this.validate.bind(this));
+        Events.subscribe(SUBMIT_SIGNIN, this._handlers.validate);
     }
     /**
      * Отписка от необходимые события
      */
     unsubscribeEvents() {
-        Events.unsubscribe(SUBMIT_SIGNIN, this.validate.bind(this));
+        Events.unsubscribe(SUBMIT_SIGNIN, this._handlers.validate);
+    }
+    /**
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
+     */
+    _makeHandlers() {
+        const handlers = {
+            validate: this.validate.bind(this),
+        };
+        return handlers;
     }
 }

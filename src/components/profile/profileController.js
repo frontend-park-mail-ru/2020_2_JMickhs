@@ -47,8 +47,8 @@ export default class ProfileController {
     subscribeEvents() {
         Events.subscribe(CHANGE_USER, this._handlers.changeUser);
         Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        Events.subscribe(SIGNOUT_CLICK, this._model.signout.bind(this._model));
-        Events.subscribe(AVATAR_UPDATE_CLICK, this._model.updateAvatar.bind(this._model));
+        Events.subscribe(SIGNOUT_CLICK, this._handlers.signout);
+        Events.subscribe(AVATAR_UPDATE_CLICK, this._handlers.updateAvatar);
     }
     /**
      *  Отписка от событий
@@ -56,8 +56,8 @@ export default class ProfileController {
     unsubscribeEvents() {
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
         Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        Events.unsubscribe(SIGNOUT_CLICK, this._model.signout.bind(this._model));
-        Events.unsubscribe(AVATAR_UPDATE_CLICK, this._model.updateAvatar.bind(this._model));
+        Events.unsubscribe(SIGNOUT_CLICK, this._handlers.signout);
+        Events.unsubscribe(AVATAR_UPDATE_CLICK, this._handlers.updateAvatar);
     }
     /**
      * Проверка данных, переданных для изменения
@@ -146,6 +146,8 @@ export default class ProfileController {
         const handlers = {
             changeUser: this._validateDataChange.bind(this),
             updatePsw: this._validatePswChange.bind(this),
+            signout: this._model.signout.bind(this._model),
+            updateAvatar: this._model.updateAvatar.bind(this._model),
         };
         return handlers;
     }

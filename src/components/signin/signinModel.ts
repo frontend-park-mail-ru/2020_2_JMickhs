@@ -12,7 +12,7 @@ export default class SigninModel {
     constructor() {
         this.user = User.getInstance();
     }
-    
+
     isAuth(): boolean {
         return this.user.isAuth;
     }

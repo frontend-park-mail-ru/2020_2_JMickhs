@@ -91,7 +91,7 @@ export default class ProfileView extends PageView {
                 this.renderMessageAvatar(arg, true);
             },
             signout: () => {
-                Events.trigger(REDIRECT, {url: '/signin'});
+                Events.trigger(REDIRECT, {url: '/signin'});// TODO ???!!!
             },
             havntUser: () => {
                 Events.trigger(REDIRECT, {url: '/signin'});
@@ -300,6 +300,7 @@ export default class ProfileView extends PageView {
         }
         const btnExit = document.getElementById('btn-exit');
         btnExit.removeEventListener('click', this._handlers.signoutClick);
+
         const btnReload = document.getElementById('btn-reload');
         if (btnReload) {
             btnReload.removeEventListener('click', this._handlers.updateAvatarClick);

@@ -18,6 +18,8 @@ export default class SignupController {
     constructor(parent) {
         this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
+
+        this._handlers = this._makeHandlers();
     }
     /**
      * Активация работы контроллера
@@ -104,12 +106,22 @@ export default class SignupController {
      * Подписка на необходимые события
      */
     subscribeEvents() {
-        Events.subscribe(SUBMIT_SIGNUP, this.validate.bind(this));
+        Events.subscribe(SUBMIT_SIGNUP, this._handlers.validate);
     }
     /**
      * Отписка от необходимые события
      */
     unsubscribeEvents() {
-        Events.unsubscribe(SUBMIT_SIGNUP, this.validate.bind(this));
+        Events.unsubscribe(SUBMIT_SIGNUP, this._handlers.validate);
+    }
+    /**
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
+     */
+    _makeHandlers() {
+        const handlers = {
+            validate: this.validate.bind(this),
+        };
+        return handlers;
     }
 }
