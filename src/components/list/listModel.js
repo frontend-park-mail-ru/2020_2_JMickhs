@@ -20,11 +20,10 @@ export default class ListModel {
     fillModel() {
         const response = Network.getHostels();
         response.then((response) => {
-            const data = response.data;
             const code = response.code;
             switch (code) {
             case 200:
-                this.hostels = data;
+                this.hostels = response.data;
                 this.loadHotels();
                 break;
             case 400:
@@ -32,7 +31,7 @@ export default class ListModel {
                 break;
             default:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Что-то страшное произошло c нишим сервером...' +
-                        ` Он говорит: ${status}`});
+                        ` Он говорит: ${code}`});
                 break;
             }
         });
