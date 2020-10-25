@@ -1,4 +1,4 @@
-import PageView from '@basic/pageView';
+import {PageView} from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {
     SUBMIT_SIGNIN,

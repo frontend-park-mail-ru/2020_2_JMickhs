@@ -1,4 +1,4 @@
-import PageView from '@basic/pageView';
+import {PageView} from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {LOAD_HOSTELS} from '@eventBus/constants';
 import myTemplate from '@list/templates/listTemplate.hbs';
@@ -15,8 +15,6 @@ export default class ListView extends PageView {
         this._handlers = {
             render: this.render.bind(this),
         };
-
-        this._parent.appendChild(this.page);
     }
     /**
      * Подписка на события списка отелей

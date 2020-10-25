@@ -1,4 +1,4 @@
-import PageView from '@basic/pageView';
+import {PageView} from '@interfaces/views';
 import homePageTemplate from '@home/templates/templateHome.hbs';
 
 /** Класс представления для домашней страницы */
