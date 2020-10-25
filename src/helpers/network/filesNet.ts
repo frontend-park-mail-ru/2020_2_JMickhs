@@ -5,7 +5,7 @@ class FilesNet {
     private port: string;
 
     constructor() {
-        this.domain = 'http://s3.hostelscan.ru';
+        this.domain = 'http://www.hostelscan.ru';
         this.port = ':8080';
     }
 

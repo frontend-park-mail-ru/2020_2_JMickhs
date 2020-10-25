@@ -5,7 +5,7 @@ import ListController from '@list/listController';
 import SigninController from '@signin/signinController';
 import SignupController from '@signup/signupController';
 import ProfileController from '@profile/profileController';
-import HostelPageController from '@hostel/hostelPageController';
+import HostelPageController from '@hostel/HostelPageController';
 import ErrorPageController from '@pageError/errorPageController';
 import Events from '@eventBus/eventbus';
 import {
