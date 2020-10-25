@@ -1,4 +1,4 @@
-import navTemplate from '@navbar/templates/wrapper';
+import * as navbarTemplate from '@navbar/templates/navbarTemplate.hbs';
 
 interface NavElem {
     text: string,
@@ -21,6 +21,6 @@ export default class NavView {
     }
     
     render(data: {elems: NavElem[], active: number}): void {
-        this.navbar.innerHTML = navTemplate(data.elems);
+        this.navbar.innerHTML = navbarTemplate(data.elems);
     }
 }
