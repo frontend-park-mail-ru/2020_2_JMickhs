@@ -1,5 +1,6 @@
 import User from '@user/user';
 import Network from '@network/network';
+import FilesNet from '@network/filesNet';
 import Events from '@eventBus/eventbus';
 import {
     SIGNOUT,
@@ -55,7 +56,7 @@ export default class ProfileModel {
             const code = response.code;
             switch (code) {
             case 200:
-                this.user.avatar = Network.getUrlFile(response.data);
+                this.user.avatar = FilesNet.getUrlFile(response.data);
                 Events.trigger(UPDATE_AVATAR, this.user.avatar);
                 break;
             case 400:

@@ -1,4 +1,5 @@
-import Net from '@network/network';
+import Network from '@network/network';
+import FilesNet from '@network/filesNet';
 import Events from '@eventBus/eventbus';
 import {
     LOAD_HOSTELS,
@@ -17,7 +18,7 @@ export default class ListModel {
      * Получить список отелей с сервера
      */
     fillModel() {
-        const response = Net.getHostels();
+        const response = Network.getHostels();
         response.then((response) => {
             const data = response.data;
             const code = response.code;
@@ -52,7 +53,7 @@ export default class ListModel {
             return;
         }
         this.hostels.forEach((hostel) => {
-            hostel.image = Net.getUrlFile(hostel.image);
+            hostel.image = FilesNet.getUrlFile(hostel.image);
         });
         Events.trigger(LOAD_HOSTELS, this.getData());
     }

@@ -1,5 +1,6 @@
 import {HostelData} from '@interfaces/hostelData';
 import Network from '@network/network';
+import FilesNet from '@network/filesNet';
 import Events from '@eventBus/eventbus';
 import {
     REDIRECT_ERROR,
@@ -53,7 +54,7 @@ export default class HostelPageModel {
                 this.description = hostel.description;
                 this.id = hostel.hotel_id;
                 this.name = hostel.name;
-                this.image = Network.getUrlFile(hostel.image);
+                this.image = FilesNet.getUrlFile(hostel.image);
                 this.location = hostel.location;
                 Events.trigger(UPDATE_HOSTEL, this.getData());
                 break;

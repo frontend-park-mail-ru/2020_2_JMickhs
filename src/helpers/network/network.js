@@ -13,13 +13,6 @@ class Network {
         return ':8080';
     }
     /**
-     * @param {string} path - Относительный путь
-     * @return {string} Возвращает адресс файла
-     */
-    getUrlFile(path) {
-        return this.domain + this.port + '/' + path;
-    }
-    /**
      * универсальный модуль request
      * @param {string} method
      * @param {string} url
