@@ -21,7 +21,6 @@ import profileTemplate from '@profile/templates/profileTemplate.hbs';
 import profileButtonTemplate from '@profile/templates/profileButtonTemplate.hbs';
 import messageTemplate from '@profile/templates/profileMessage.hbs';
 
-// TODO: avatarImage
 /** Класс представления для страницы профиля */
 export default class ProfileView extends PageView {
     /**
@@ -83,9 +82,8 @@ export default class ProfileView extends PageView {
                 this.renderMsgPswSettings(arg);
             },
             updateAvatar: (avatar) => {
-                const img = document.getElementById('avatar-img');
+                const img = document.getElementById('img-profile');
                 img.src = avatar;
-                // img.innerHTML = profileAvatarTemplate({avatar: avatar});
                 this.renderMessageAvatar('Аватар успешно изменен');
             },
             errUpdateAvatar: (arg) => {
