@@ -73,14 +73,14 @@ export default class SigninController {
      */
     subscribeEvents() {
         Events.subscribe(SUBMIT_SIGNIN, this._handlers.validate);
-        Events.subscribe(HAVE_USER, this.redirectToProfile)
+        Events.subscribe(HAVE_USER, this.redirectToProfile);
     }
     /**
      * Отписка от необходимые события
      */
     unsubscribeEvents() {
         Events.unsubscribe(SUBMIT_SIGNIN, this._handlers.validate);
-        Events.unsubscribe(HAVE_USER, this.redirectToProfile)
+        Events.unsubscribe(HAVE_USER, this.redirectToProfile);
     }
     /**
      * Функция создает обработчики событий
