@@ -18,12 +18,11 @@
 
 .btn-beaty-orange {
     background-color: var(--orange);
-    border-top-right-radius: 16px;
-    border-bottom-left-radius: 16px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
     font-weight: 500;
     font-size: 17px;
     padding: 9px 30px;
-    font-family: TT Norms Pro,Arial,Helvetica,sans-serif;
     box-shadow: none;
     color: white;
     outline: none;
@@ -33,7 +32,7 @@
 
 .btn-beaty-orange:hover {
     text-decoration: none;
-    background-color: var(--orange-dark);
+    background-color: var(--violet-light);
     border-color: white;
     transition: 0.1s;
     color: white;
@@ -42,12 +41,11 @@
 
 .btn-beaty-violet {
     background-color: var(--violet-light);
-    border-top-right-radius: 16px;
-    border-bottom-left-radius: 16px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
     font-weight: 500;
     font-size: 17px;
     padding: 9px 30px;
-    font-family: TT Norms Pro,Arial,Helvetica,sans-serif;
     box-shadow: none;
     color: white;
     outline: none;
@@ -57,7 +55,7 @@
 
 .btn-beaty-violet:hover {
     text-decoration: none;
-    background-color: var(--violet-dark);
+    background-color: var(--orange);
     border-color: white;
     transition: 0.1s;
     color: white;
@@ -68,7 +66,6 @@
     font-weight: 500;
     font-size: 17px;
     padding: 9px 30px;
-    font-family: TT Norms Pro,Arial,Helvetica,sans-serif;
     box-shadow: none;
     color: white;
     outline: none;
@@ -82,4 +79,3 @@
     transition: 0.1s;
     color: var(--orange);
 }
-
