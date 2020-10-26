@@ -5,7 +5,6 @@ import {
     REDIRECT,
     PAGE_SIGNIN,
     SUBMIT_SIGNIN,
-    NAVBAR_ACTIVE,
 } from '@eventBus/constants';
 
 /** Класс контроллера для страницы авторизации */
@@ -27,7 +26,6 @@ export default class SigninController {
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(PAGE_SIGNIN);
-        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
             Events.trigger(REDIRECT, {url: '/profile'});
             return;

@@ -1,85 +1,32 @@
-nav ul {
-    z-index: 2;
-}
-
-nav {
-    height: 60px
-}
-
 ul {
-    width: 100%;
-}
-
-.menu-main {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--blue);
     position: fixed;
-    top: 0;
-    margin-top: 0%;
-    list-style: none;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 25px 0 5px;
-    text-align: center;
-    background: var(--main-background-color);
-    z-index: 999999;
-}
-
-.menu-main li {
-    display: inline-block;
-}
-
-.menu-main li:after {
-    content: "|";
-    color: var(--blue);
-    display: inline-block;
-    vertical-align: top;
-}
-
-.menu-main li:last-child:after {
-    content: none;
-}
-
-.menu-main a {
-    text-decoration: none;
-    font-family: 'Ubuntu Condensed', sans-serif;
-    letter-spacing: 2px;
-    position: relative;
-    padding-bottom: 20px;
-    margin: 0 34px 0 30px;
-    font-size: 17px;
-    text-transform: uppercase;
-    display: inline-block;
-    transition: color 0.28ms;
-}
-
-.menu-main a,
-.menu-main a:visited {
-    color: var(--blue);
-}
-
-.menu-main a.current,
-.menu-main a:hover {
-    color: var(--orange);
-}
-
-.menu-main a:before,
-.menu-main a:after {
-    content: "";
-    position: absolute;
-    height: 4px;
-    top: auto;
-    right: 50%;
-    bottom: -5px;
-    left: 50%;
-    background: var(--orange);
-    transition: 0.5s;
-}
-
-.menu-main a:hover:before,
-.menu-main .current:before {
+    width: 100%;
     left: 0;
+    top: 0;
+    right: 0;
+    height: 72px;
+    z-index: 99999;
 }
 
-.menu-main a:hover:after,
-.menu-main .current:after {
-    right: 0;
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+	height		: 36px;
+    margin-top	: 18px;
+}
+
+li a:hover {
+    color: var(--orange);
 }

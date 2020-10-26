@@ -1,6 +1,4 @@
 import ErrorPageView from '@pageError/errorPageView';
-import Events from '@eventBus/eventbus';
-import {NAVBAR_ACTIVE} from '@eventBus/constants';
 
 export default class ErrorPageController {
 
@@ -11,8 +9,6 @@ export default class ErrorPageController {
     }
 
     activate(): void {
-        Events.trigger(NAVBAR_ACTIVE, -1);
-
         const errText = history.state;
 
         this.view.render(errText);

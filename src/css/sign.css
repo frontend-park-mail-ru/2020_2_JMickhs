@@ -6,7 +6,7 @@ body, html {
     max-width: 500px;
     min-width: 300px;
     width: 30%;
-    margin-top: 8%;
+    margin-top: 100px;
     margin-left: 35%;
     margin-right: 35%;
     background: var(--white);
@@ -55,22 +55,4 @@ body, html {
     border: 3px solid var(--red);
     background: var(--gray-light);
     border-radius: 5px;
-}
-
-.btn-sign {
-    position: absolute;
-    bottom:0;
-    background-color: var(--blue);
-    color: var(--white);
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-    border-radius: 5px;
-}
-
-.btn-sign:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
-    background-color: var(--blue-dark);
 }

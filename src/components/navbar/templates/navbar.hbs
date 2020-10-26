@@ -1,0 +1,13 @@
+<ul>
+    <div style="margin-left: 10%">
+        <li><a href="/" class="btn-text">HostelScan</a></li>
+    </div>
+    <div style="margin-right: 5%">
+        {{#if isAuth}}
+        <li style="float:right"><a class="btn-beaty-violet" href="/profile">{{username}}</a></li>
+        {{else}}
+        <li style="float:right"><a class="btn-beaty-orange" href="/signup">Регистрация</a></li>
+        <li style="float:right"><a class="btn-text" href="/signin">Вход</a></li>
+        {{/if}}
+    </div>
+</ul>

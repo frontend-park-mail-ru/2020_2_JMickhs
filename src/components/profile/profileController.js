@@ -3,7 +3,6 @@ import ProfileView from '@profile/profileView';
 import Events from '@eventBus/eventbus';
 import {
     CHANGE_USER,
-    NAVBAR_ACTIVE,
     UPDATE_PASSWORD,
     SIGNOUT_CLICK,
     AVATAR_UPDATE_CLICK,
@@ -19,7 +18,6 @@ export default class ProfileController {
     constructor(parent) {
         this._model = new ProfileModel();
         this._view = new ProfileView(parent);
-
         this._handlers = this._makeHandlers();
     }
     /**
@@ -28,7 +26,6 @@ export default class ProfileController {
     activate() {
         this.subscribeEvents();
         this._view.subscribeEvents();
-        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
             this._view.render(this._model.getData());
         }

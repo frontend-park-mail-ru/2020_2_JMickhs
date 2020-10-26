@@ -1,4 +1,3 @@
-export const NAVBAR_ACTIVE = 'navbarActive';
 export const REDIRECT = 'redirect';
 export const REDIRECT_ERROR = 'redirectError';
 export const UPDATE_HOSTEL = 'updateHostel';

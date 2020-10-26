@@ -2,7 +2,6 @@ import HostelPageModel from '@hostel/hostelPageModel';
 import HostelPageView from '@hostel/hostelPageView';
 import Events from '@eventBus/eventbus';
 import {
-    NAVBAR_ACTIVE,
     REDIRECT_ERROR,
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
@@ -34,8 +33,6 @@ export default class HostelPageController {
     }
 
     activate(id: number): void {
-        Events.trigger(NAVBAR_ACTIVE, 2);
-
         if (id <= 0) {
             Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Такого отеля не существует'});
         }

@@ -1,10 +1,4 @@
-import * as navbarTemplate from '@navbar/templates/navbarTemplate.hbs';
-
-interface NavElem {
-    text: string,
-    href: string,
-    active: boolean;
-}
+import * as navbarTemplate from '@navbar/templates/navbar.hbs';
 
 export default class NavView {
 
@@ -20,7 +14,7 @@ export default class NavView {
         this.navbar = nav;
     }
     
-    render(data: {elems: NavElem[], active: number}): void {
-        this.navbar.innerHTML = navbarTemplate(data.elems);
+    render(data: {isAuth: boolean, username: string}): void {
+        this.navbar.innerHTML = navbarTemplate(data);
     }
 }
