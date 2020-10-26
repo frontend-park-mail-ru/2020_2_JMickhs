@@ -30,3 +30,12 @@ li a {
 li a:hover {
     color: var(--orange);
 }
+
+.navbar-left {
+    margin-left: 10%;
+}
+
+.navbar-right {
+    margin-right: 5%;
+    float: right;
+}
