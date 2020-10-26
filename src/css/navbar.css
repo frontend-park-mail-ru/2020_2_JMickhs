@@ -22,11 +22,21 @@
 }
 
 .navbar__items--right {
-    margin-right: 10%;
+    margin-right: 7%;
     margin-left: auto;
 }
 
 .navbar__items--left {
-    margin-left: 10%;
+    margin-left: 7%;
     margin-right: auto;
+}
+
+.navbar__items-mbnone {
+    margin-right: 1%;
+}
+
+@media only screen and (max-width: 500px) {
+    .navbar__items-mbnone {
+        display: none;
+    }
 }
