@@ -3,16 +3,17 @@ body, html {
 }
 
 .container-sign {
-    max-width: 500px;
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    transition: 0.3s;
+    width: 35%;
     min-width: 300px;
-    width: 30%;
-    margin-top: 100px;
-    margin-left: 35%;
-    margin-right: 35%;
-    background: var(--white);
-    padding: 17px;
     border-radius: 10px;
+    margin: auto;
+    margin-top: 7%;
+    margin-bottom: 1%;
+    padding: 17px;
     border: 4px solid var(--blue);
+    background-color: var(--white);
 }
 
 .text-sign {
