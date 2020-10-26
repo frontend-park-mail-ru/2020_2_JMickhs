@@ -9,6 +9,7 @@
     width: 100%;
     opacity: 0.9;
     border-radius: 5px;
+    text-decoration: none;
 }
 
 .btn-sign:hover {
@@ -27,7 +28,7 @@
     color: white;
     outline: none;
     cursor: pointer;
-    margin-right: 200px;
+    text-decoration: none;
 }
 
 .btn-beaty-orange:hover {
@@ -50,7 +51,7 @@
     color: white;
     outline: none;
     cursor: pointer;
-    margin-right: 200px;
+    text-decoration: none;
 }
 
 .btn-beaty-violet:hover {
@@ -71,6 +72,7 @@
     outline: none;
     cursor: pointer;
     color: white;
+    text-decoration: none;
 }
 
 .btn-text:hover {

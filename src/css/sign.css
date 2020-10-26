@@ -20,11 +20,11 @@ body, html {
     text-align: center;
     color: var(--blue);
 }
+
 .label-sign {
     color: var(--orange);
 }
 
-/* Full-width input fields */
 .input-sign {
     width: 100%;
     padding: 15px;

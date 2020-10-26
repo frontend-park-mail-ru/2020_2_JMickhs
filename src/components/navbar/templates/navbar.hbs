@@ -1,13 +1,21 @@
-<ul>
-    <div class="navbar-left">
-        <li><a href="/" class="btn-text">HostelScan</a></li>
-    </div>
-    <div class="navbar-right">
+<div class="navbar">
+    <nav class="navbar__items navbar__items--left">
+        <div class="navbar__link">
+            <a class="btn-text" href="/">HostelScan</a>
+        </div>
+    </nav>
+    <nav class="navbar__items navbar__items--right">
         {{#if isAuth}}
-        <li><a class="btn-beaty-violet" href="/profile">{{username}}</a></li>
+        <div class="navbar__link">
+            <a class="btn-beaty-violet" href="/profile">{{username}}</a>
+        </div>
         {{else}}
-        <li><a class="btn-text" href="/signin">Вход</a></li>
-        <li><a class="btn-beaty-orange" href="/signup">Регистрация</a></li>
+        <div class="navbar__link">
+            <a class="btn-text" href="/signin">Вход</a>
+        </div>
+        <div class="navbar__link">
+            <a class="btn-beaty-orange" href="/signup">Регистрация</a>
+        </div>
         {{/if}}
-    </div>
-</ul>
+    </nav>
+</div>
