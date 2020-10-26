@@ -6,6 +6,7 @@ import {
     UPDATE_PASSWORD,
     SIGNOUT_CLICK,
     AVATAR_UPDATE_CLICK,
+    PAGE_PROFILE,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
 
@@ -24,6 +25,7 @@ export default class ProfileController {
      * Активация работы контроллера
      */
     activate() {
+        Events.trigger(PAGE_PROFILE, this._model.getData());
         this.subscribeEvents();
         this._view.subscribeEvents();
         if (this._model.isAuth()) {

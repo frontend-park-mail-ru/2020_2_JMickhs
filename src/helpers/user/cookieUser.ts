@@ -6,19 +6,12 @@ import {
     REDIRECT_ERROR,
     HAVNT_USER,
 } from '@eventBus/constants';
+import User from '@user/user';
 
-import {UserData} from '@interfaces/userData';
-
-export default function getUserFromCookie(): Promise<UserData> {
-    const user = {
-        isAuth: false,
-        username: '',
-        email: '',
-        avatar: '',
-        id: -1,
-    }
+export default function userFromCookie(): void {
+    const user = User.getInstance();
     const response = Network.user();
-    return response.then((r) => {
+    response.then((r) => {
         const code = r.code;
         const data = r.data;
         switch (code) {
@@ -39,7 +32,6 @@ export default function getUserFromCookie(): Promise<UserData> {
             });
             break;
         }
-        return user;
     })
 
 }

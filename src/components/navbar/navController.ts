@@ -4,6 +4,7 @@ import Events from '@eventBus/eventbus';
 import {
     PAGE_SIGNIN,
     PAGE_SIGNUP,
+    PAGE_PROFILE,
     CHANGE_USER_OK,
     HAVE_USER,
     SIGNIN_USER,
@@ -24,20 +25,16 @@ export default class NavController {
 
     activate(): void {
         this.view.render(this.model.getData());
-        Events.subscribe(PAGE_SIGNUP, this.pageSignup.bind(this));
-        Events.subscribe(PAGE_SIGNIN, this.pageSignin.bind(this));
+        Events.subscribe(PAGE_SIGNUP, this.pageSign.bind(this));
+        Events.subscribe(PAGE_SIGNIN, this.pageSign.bind(this));
+        Events.subscribe(PAGE_PROFILE, this.updateUsr.bind(this));
         Events.subscribe(SIGNIN_USER, this.updateUsr.bind(this));
         Events.subscribe(SIGNUP_USER, this.updateUsr.bind(this));
         Events.subscribe(HAVE_USER, this.updateUsr.bind(this));
         Events.subscribe(CHANGE_USER_OK, this.updateUsr.bind(this));
     }
 
-    private pageSignup(): void {
-        this.model.setData('');
-        this.view.render(this.model.getData());
-    }
-
-    private pageSignin(): void {
+    private pageSign(): void {
         this.model.setData('');
         this.view.render(this.model.getData());
     }

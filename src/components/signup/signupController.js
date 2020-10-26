@@ -5,6 +5,7 @@ import {
     PAGE_SIGNUP,
     REDIRECT,
     SUBMIT_SIGNUP,
+    HAVE_USER,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
 
@@ -39,6 +40,12 @@ export default class SignupController {
     deactivate() {
         this._view.unsubscribeEvents();
         this._view.hide();
+    }
+    /**
+     * Редирект на страницу пользователя
+     */
+    redirectToProfile() {
+        Events.trigger(REDIRECT, {url: '/profile'});
     }
     /**
      * Проверка формы авторизации
@@ -105,12 +112,14 @@ export default class SignupController {
      */
     subscribeEvents() {
         Events.subscribe(SUBMIT_SIGNUP, this._handlers.validate);
+        Events.subscribe(HAVE_USER, this.redirectToProfile)
     }
     /**
      * Отписка от необходимые события
      */
     unsubscribeEvents() {
         Events.unsubscribe(SUBMIT_SIGNUP, this._handlers.validate);
+        Events.unsubscribe(HAVE_USER, this.redirectToProfile)
     }
     /**
      * Функция создает обработчики событий

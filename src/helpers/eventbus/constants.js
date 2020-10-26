@@ -3,6 +3,7 @@ export const REDIRECT_ERROR = 'redirectError';
 export const UPDATE_HOSTEL = 'updateHostel';
 export const LOAD_HOSTELS = 'loadHostels';
 export const PAGE_SIGNUP = 'pageSignup';
+export const PAGE_PROFILE = 'pageProfile';
 export const UPDATE_PASSWORD= 'updatePassword';
 export const SIGNOUT = 'signout';
 export const HAVNT_USER = 'haventUser';

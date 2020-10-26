@@ -5,6 +5,7 @@ import {
     REDIRECT,
     PAGE_SIGNIN,
     SUBMIT_SIGNIN,
+    HAVE_USER,
 } from '@eventBus/constants';
 
 /** Класс контроллера для страницы авторизации */
@@ -27,7 +28,7 @@ export default class SigninController {
         this._view.subscribeEvents();
         Events.trigger(PAGE_SIGNIN);
         if (this._model.isAuth()) {
-            Events.trigger(REDIRECT, {url: '/profile'});
+            this.redirectToProfile();
             return;
         }
         this._view.render();
@@ -62,16 +63,24 @@ export default class SigninController {
         }
     }
     /**
+     * Редирект на страницу пользователя
+     */
+    redirectToProfile() {
+        Events.trigger(REDIRECT, {url: '/profile'});
+    }
+    /**
      * Подписка на необходимые события
      */
     subscribeEvents() {
         Events.subscribe(SUBMIT_SIGNIN, this._handlers.validate);
+        Events.subscribe(HAVE_USER, this.redirectToProfile)
     }
     /**
      * Отписка от необходимые события
      */
     unsubscribeEvents() {
         Events.unsubscribe(SUBMIT_SIGNIN, this._handlers.validate);
+        Events.unsubscribe(HAVE_USER, this.redirectToProfile)
     }
     /**
      * Функция создает обработчики событий
