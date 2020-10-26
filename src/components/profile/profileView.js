@@ -18,10 +18,10 @@ import {
 } from '@eventBus/constants';
 
 import profileTemplate from '@profile/templates/profileTemplate.hbs';
-import profileAvatarTemplate from '@profile/templates/profileAvatarTemplate.hbs';
 import profileButtonTemplate from '@profile/templates/profileButtonTemplate.hbs';
 import messageTemplate from '@profile/templates/profileMessage.hbs';
 
+// TODO: avatarImage
 /** Класс представления для страницы профиля */
 export default class ProfileView extends PageView {
     /**
@@ -84,7 +84,8 @@ export default class ProfileView extends PageView {
             },
             updateAvatar: (avatar) => {
                 const img = document.getElementById('avatar-img');
-                img.innerHTML = profileAvatarTemplate({avatar: avatar});
+                img.src = avatar;
+                // img.innerHTML = profileAvatarTemplate({avatar: avatar});
                 this.renderMessageAvatar('Аватар успешно изменен');
             },
             errUpdateAvatar: (arg) => {

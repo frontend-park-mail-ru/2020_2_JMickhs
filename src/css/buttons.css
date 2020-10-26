@@ -17,6 +17,25 @@
     background-color: var(--blue-dark);
 }
 
+.btn-submit {
+    bottom:0;
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 0;
+}
+
+.btn-submit:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    background-color: var(--blue-dark);
+}
+
 .btn-beaty-orange {
     background-color: var(--orange);
     border-top-right-radius: 20px;

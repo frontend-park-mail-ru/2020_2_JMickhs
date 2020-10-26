@@ -1,4 +1,4 @@
-<div>
+{{!-- <div>
     <div class="left-container">
         <div class="personal-image">
             <label class="avatar-input">
@@ -50,4 +50,54 @@
             </div>
         </form>
     </div>
+</div> --}}
+
+<div class="profile__container-all">
+    <div class="profile__data">
+        <label>
+            <form id="avatar-form">
+                <input type="file" id="profile-pic" style="display: none" name="avatar" accept=".jpg, .jpeg, .png">
+            </form>
+            <img class="profile__avatar" id="img-profile" src="http://s3.hostelscan.ru/static/img/hotelImg1.jpg"
+                alt="avatar">
+        </label>
+        <div id="div-avatar-bottom"></div>
+        <hr class="profile__line">
+        <b class="profile__text profile__text--blue">Логин:</b>
+        <b class="profile__text profile__text--orange" id="label-login">{{username}}</b>
+        <hr class="profile__line">
+        <b class="profile__text profile__text--blue">Email:</b>
+        <b class="profile__text profile__text--orange" id="label-email">{{email}}</b>
+        <hr class="profile__line">
+        <button type="submit" class="profile__btn-out" id="btn-exit">Выйти</button>
+    </div>
+    <div class="profile__settings-data">
+        <form class="container-settings">
+            <h1 class="text-sign">Основные данные</h1>
+            <label class="label-sign">
+                <b>Логин</b>
+            </label>
+            <input type="text" class="profile__input" id="login-profile" value="{{username}}">
+            <label class="label-sign"><b>Почта</b></label>
+            <input type="email" class="profile__input" id="email-profile" value="{{email}}">
+            <h4 class="label-error" id="text-error-data"></h4>
+            <button type="submit" class="btn-submit" id="btn-save-data">Сохранить</button>
+        </form>
+    </div>
+    <div class="profile__settings-psw">
+        <form class="container-settings">
+            <h1 class="text-sign">Безопасность</h1>
+            <label class="label-sign">
+                <b>Старый пароль</b>
+            </label>
+            <input type="password" class="profile__input" placeholder="Старый пароль" id="old-psw">
+            <label class="label-sign"><b>Пароль</b></label>
+            <input type="password" class="profile__input" placeholder="Введите пароль" id="new-psw1">
+            <label class="label-sign"><b>Подтвердите пароль</b></label>
+            <input type="password" class="profile__input" placeholder="Повторите пароль" id="new-psw2">
+            <h4 class="label-error" id="text-error-sequr"></h4>
+            <button type="submit" class="btn-submit" id="btn-save-sequr">Сохранить</button>
+        </form>
+    </div>
+</div>
 </div>
