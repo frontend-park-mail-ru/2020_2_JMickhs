@@ -88,7 +88,7 @@
     color: var(--orange);
 }
 
-.profile__text-red {
+.profile__text--red {
     color: var(--red);
 }
 
