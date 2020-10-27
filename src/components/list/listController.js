@@ -1,7 +1,5 @@
 import ListModel from '@list/listModel';
 import ListView from '@list/listView';
-import Events from '@eventBus/eventbus';
-import {NAVBAR_ACTIVE} from '@eventBus/constants';
 
 /** Класс контроллера для страницы списка отелей */
 export default class ListController {
@@ -18,7 +16,6 @@ export default class ListController {
      * Заполнение данных модели с сервераы
      */
     activate() {
-        Events.trigger(NAVBAR_ACTIVE, 2);
         this._view.subscribeEvents();
         if (!this.haveInfo) {
             this._model.fillModel();

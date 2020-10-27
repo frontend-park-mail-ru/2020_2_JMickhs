@@ -40,7 +40,6 @@ module.exports = {
         extensions: ['.js', '.ts'],
         alias: {
             '@': path.resolve(__dirname, 'src'),
-            '@basic': path.resolve(__dirname, 'src/components/basic'),
             '@home': path.resolve(__dirname, 'src/components/home'),
             '@hostel': path.resolve(__dirname, 'src/components/hostel'),
             '@list': path.resolve(__dirname, 'src/components/list'),

@@ -1,4 +1,4 @@
-import PageView from '@basic/pageView';
+import {PageView} from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {
     UPDATE_PASSWORD,
@@ -18,7 +18,6 @@ import {
 } from '@eventBus/constants';
 
 import profileTemplate from '@profile/templates/profileTemplate.hbs';
-import profileAvatarTemplate from '@profile/templates/profileAvatarTemplate.hbs';
 import profileButtonTemplate from '@profile/templates/profileButtonTemplate.hbs';
 import messageTemplate from '@profile/templates/profileMessage.hbs';
 
@@ -42,12 +41,12 @@ export default class ProfileView extends PageView {
      */
     subscribeEvents() {
         Events.subscribe(HAVE_USER, this._handlers.render);
-        Events.subscribe(HAVNT_USER, this._handlers.havntUser);
+        Events.subscribe(HAVNT_USER, this._handlers.redirectSignin);
         Events.subscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
         Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.subscribe(SIGNOUT, this._handlers.signout);
+        Events.subscribe(SIGNOUT, this._handlers.redirectSignin);
         Events.subscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
@@ -58,10 +57,10 @@ export default class ProfileView extends PageView {
         Events.unsubscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.unsubscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
         Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.unsubscribe(SIGNOUT, this._handlers.signout);
+        Events.unsubscribe(SIGNOUT, this._handlers.redirectSignin);
         Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.unsubscribe(HAVE_USER, this._handlers.render);
-        Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
+        Events.unsubscribe(HAVNT_USER, this._handlers.redirectSignin);
         Events.unsubscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
@@ -83,17 +82,14 @@ export default class ProfileView extends PageView {
                 this.renderMsgPswSettings(arg);
             },
             updateAvatar: (avatar) => {
-                const img = document.getElementById('avatar-img');
-                img.innerHTML = profileAvatarTemplate({avatar: avatar});
+                const img = document.getElementById('img-profile');
+                img.src = avatar;
                 this.renderMessageAvatar('Аватар успешно изменен');
             },
             errUpdateAvatar: (arg) => {
                 this.renderMessageAvatar(arg, true);
             },
-            signout: () => {
-                Events.trigger(REDIRECT, {url: '/signin'});
-            },
-            havntUser: () => {
+            redirectSignin: () => {
                 Events.trigger(REDIRECT, {url: '/signin'});
             },
             updatePswClick: (evt) => {
@@ -185,9 +181,9 @@ export default class ProfileView extends PageView {
         div.innerHTML = messageTemplate({text: text});
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
-            msg.className = 'text-left-red';
+            msg.className += ' profile__text--red';
         } else {
-            msg.className = 'text-left-blue';
+            msg.className += ' profile__text--blue';
         }
         this._avatarTimerId = setTimeout(() => {
             div.removeChild(msg);
@@ -300,6 +296,7 @@ export default class ProfileView extends PageView {
         }
         const btnExit = document.getElementById('btn-exit');
         btnExit.removeEventListener('click', this._handlers.signoutClick);
+
         const btnReload = document.getElementById('btn-reload');
         if (btnReload) {
             btnReload.removeEventListener('click', this._handlers.updateAvatarClick);

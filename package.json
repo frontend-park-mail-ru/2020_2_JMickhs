@@ -4,15 +4,13 @@
     "description": "Веб сервис, который помогает найти подходящий отель в поездку",
     "private": true,
     "dependencies": {
-        "express": "^4.17.1",
-        "handlebars": "^4.7.6",
-        "handlebars-loader": "^1.7.1"
+        "express": "^4.17.1"
     },
     "devDependencies": {
+        "handlebars": "^4.7.6",
+        "handlebars-loader": "^1.7.1",
         "@typescript-eslint/eslint-plugin": "^4.5.0",
         "@typescript-eslint/parser": "^4.5.0",
-        "babel-loader": "^8.1.0",
-        "babel-plugin-transform-class-properties": "^6.24.1",
         "css-loader": "^5.0.0",
         "eslint": "^7.11.0",
         "eslint-config-google": "^0.14.0",

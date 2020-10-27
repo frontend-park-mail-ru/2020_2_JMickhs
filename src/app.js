@@ -5,15 +5,14 @@ import ListController from '@list/listController';
 import SigninController from '@signin/signinController';
 import SignupController from '@signup/signupController';
 import ProfileController from '@profile/profileController';
-import HostelController from '@hostel/hostelController';
-import ErrorController from '@pageError/errorController';
+import HostelPageController from '@hostel/HostelPageController';
+import ErrorPageController from '@pageError/errorPageController';
 import Events from '@eventBus/eventbus';
 import {
     REDIRECT,
     REDIRECT_ERROR,
 } from '@eventBus/constants';
-import User from '@user/user';
-import getUserFromCookie from '@user/cookieUser';
+import userFromCookie from '@user/cookieUser';
 
 import '@/main.css';
 
@@ -25,11 +24,7 @@ import '@/main.css';
 
     const navbarController = new NavbarController(application);
 
-    const userSingleton = User.getInstance();
-    const userDataPromise = getUserFromCookie();
-    userDataPromise.then((data) => {
-        userSingleton.setData(data);
-    });
+    userFromCookie();
 
     navbarController.activate();
 
@@ -38,17 +33,17 @@ import '@/main.css';
     const signinController = new SigninController(application);
     const signupController = new SignupController(application);
     const profileController = new ProfileController(application);
-    const hostelController = new HostelController(application);
-    const errorController = new ErrorController(application);
+    const hostelPageController = new HostelPageController(application);
+    const errorPageController = new ErrorPageController(application);
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);
     Router.append('/signup', signupController);
     Router.append('/profile', profileController);
     Router.append('/list', listController);
-    Router.append('/hostel', hostelController);
+    Router.append('/hostel', hostelPageController);
 
-    Router.errorController = errorController;
+    Router.errorController = errorPageController;
     Router.start();
 
     Events.subscribe(REDIRECT, (arg) => {

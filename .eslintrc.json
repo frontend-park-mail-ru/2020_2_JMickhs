@@ -15,7 +15,8 @@
         "indent": [
             "error",
             4
-        ]
+        ],
+        "no-console": 2
     },
     "overrides": [
         {

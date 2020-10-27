@@ -5,7 +5,7 @@ import {
     REDIRECT,
     PAGE_SIGNIN,
     SUBMIT_SIGNIN,
-    NAVBAR_ACTIVE,
+    HAVE_USER,
 } from '@eventBus/constants';
 
 /** Класс контроллера для страницы авторизации */
@@ -17,6 +17,8 @@ export default class SigninController {
     constructor(parent) {
         this._model = new SigninModel();
         this._view = new SigninView(parent);
+
+        this._handlers = this._makeHandlers();
     }
     /**
      * Активация работы контроллера
@@ -25,9 +27,8 @@ export default class SigninController {
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(PAGE_SIGNIN);
-        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
-            Events.trigger(REDIRECT, {url: '/profile'});
+            this.redirectToProfile();
             return;
         }
         this._view.render();
@@ -62,15 +63,33 @@ export default class SigninController {
         }
     }
     /**
+     * Редирект на страницу пользователя
+     */
+    redirectToProfile() {
+        Events.trigger(REDIRECT, {url: '/profile'});
+    }
+    /**
      * Подписка на необходимые события
      */
     subscribeEvents() {
-        Events.subscribe(SUBMIT_SIGNIN, this.validate.bind(this));
+        Events.subscribe(SUBMIT_SIGNIN, this._handlers.validate);
+        Events.subscribe(HAVE_USER, this.redirectToProfile);
     }
     /**
      * Отписка от необходимые события
      */
     unsubscribeEvents() {
-        Events.unsubscribe(SUBMIT_SIGNIN, this.validate.bind(this));
+        Events.unsubscribe(SUBMIT_SIGNIN, this._handlers.validate);
+        Events.unsubscribe(HAVE_USER, this.redirectToProfile);
+    }
+    /**
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
+     */
+    _makeHandlers() {
+        const handlers = {
+            validate: this.validate.bind(this),
+        };
+        return handlers;
     }
 }
