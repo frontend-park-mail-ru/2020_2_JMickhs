@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.static(`${__dirname}/public`));
 
-const port = 511;
+const port = 80;
 
 app.get('*', (req, res) => {
     res.sendFile(`${__dirname}/public/index.html`);
