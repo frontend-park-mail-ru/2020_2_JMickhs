@@ -181,9 +181,9 @@ export default class ProfileView extends PageView {
         div.innerHTML = messageTemplate({text: text});
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
-            msg.className = 'text-left-red';
+            msg.className += 'profile__text--red';
         } else {
-            msg.className = 'text-left-blue';
+            msg.className += 'profile__text--blue';
         }
         this._avatarTimerId = setTimeout(() => {
             div.removeChild(msg);

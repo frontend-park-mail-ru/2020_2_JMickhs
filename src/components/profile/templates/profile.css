@@ -88,6 +88,10 @@
     color: var(--orange);
 }
 
+.profile__text-red {
+    color: var(--red);
+}
+
 .profile__input {
     width: 95%;
     padding: 15px;

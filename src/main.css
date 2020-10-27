@@ -1,7 +1,7 @@
 @import "@css/colors.css" all;
 @import "@css/buttons.css" all;
-@import "@css/navbar.css" all;
-@import "@css/profile.css" all;
+@import "@navbar/templates/navbar.css" all;
+@import "@profile/templates/profile.css" all;
 @import "@css/sign.css" all;
 @import "@css/hostels.css" all;
 @import "@css/errorPage.css" all;
