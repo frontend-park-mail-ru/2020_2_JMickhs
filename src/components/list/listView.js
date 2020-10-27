@@ -33,6 +33,7 @@ export default class ListView extends PageView {
      * @param {Object} data - модель, по которой рендерить
      */
     render(data) {
+        window.scrollTo(0, 0);
         this.page.innerHTML = myTemplate(data);
     }
     /**

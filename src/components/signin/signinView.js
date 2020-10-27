@@ -65,6 +65,7 @@ export default class SigninView extends PageView {
      * Отрисовка страницы авторизации
      */
     render() {
+        window.scrollTo(0, 0);
         this.page.innerHTML = signinTemplate();
 
         const form = document.getElementById('signinform');
