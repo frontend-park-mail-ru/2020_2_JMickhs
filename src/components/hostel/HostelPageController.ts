@@ -35,6 +35,7 @@ export default class HostelPageController {
     activate(id: number): void {
         if (id <= 0) {
             Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Такого отеля не существует'});
+            return;
         }
 
         if (this.model.haveHostel(id)) {

@@ -1,5 +1,4 @@
 import Network from '@network/network';
-import FilesNet from '@network/filesNet';
 import Events from '@eventBus/eventbus';
 import {
     HAVE_USER,
@@ -19,7 +18,7 @@ export default function userFromCookie(): void {
             user.isAuth = true;
             user.username = data.username;
             user.id = data.id;
-            user.avatar = FilesNet.getUrlFile(data.avatar);
+            user.avatar = data.avatar;
             user.email = data.email;
             Events.trigger(HAVE_USER, user);
             break;

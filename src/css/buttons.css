@@ -36,6 +36,10 @@
     background-color: var(--blue-dark);
 }
 
+.btn-submit--w300px {
+    width: 300px;
+}
+
 .btn-beaty-orange {
     background-color: var(--orange);
     border-top-right-radius: 20px;

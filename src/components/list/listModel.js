@@ -1,5 +1,4 @@
 import Network from '@network/network';
-import FilesNet from '@network/filesNet';
 import Events from '@eventBus/eventbus';
 import {
     LOAD_HOSTELS,
@@ -24,7 +23,7 @@ export default class ListModel {
             switch (code) {
             case 200:
                 this.hostels = response.data;
-                this.loadHotels();
+                Events.trigger(LOAD_HOSTELS, this.getData());
                 break;
             case 400:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
@@ -42,18 +41,5 @@ export default class ListModel {
      */
     getData() {
         return this.hostels;
-    }
-    /**
-     * Переименовывает все аватарки и триггерит рендер отелей
-     */
-    loadHotels() {
-        if (this.hostels === null) {
-            this.hostels = [];
-            return;
-        }
-        this.hostels.forEach((hostel) => {
-            hostel.image = FilesNet.getUrlFile(hostel.image);
-        });
-        Events.trigger(LOAD_HOSTELS, this.getData());
     }
 }

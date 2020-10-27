@@ -1,6 +1,5 @@
 import User from '@user/user';
 import Network from '@network/network';
-import FilesNet from '@network/filesNet';
 import Events from '@eventBus/eventbus';
 import {
     SIGNUP_USER,
@@ -26,7 +25,7 @@ export default class SignupModel {
             switch (code) {
             case 200:
                 this.user.id = data.id;
-                this.user.avatar = FilesNet.getUrlFile(data.avatar);
+                this.user.avatar = data.avatar;
                 this.user.isAuth = true;
                 this.user.username = data.username;
                 this.user.email = data.email;
