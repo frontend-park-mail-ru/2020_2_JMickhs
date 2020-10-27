@@ -44,5 +44,4 @@ class EventBus {
     }
 }
 
-const Events = new EventBus;
-export default Events;
+export default new EventBus;

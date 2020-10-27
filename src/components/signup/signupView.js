@@ -1,4 +1,4 @@
-import PageView from '@basic/pageView';
+import {PageView} from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {
     ERROR_SIGNUP,
@@ -84,7 +84,7 @@ export default class SignupView extends PageView {
         }
         const promts = [];
         promts.push({text: 'Пароль может включать только буквы английского алфавита и цифры'});
-        promts.push({text: 'Длинна пароля должна быть в пределах от 5 до 30 символов'});
+        promts.push({text: 'Длина пароля должна быть в пределах от 5 до 30 символов'});
         const promt = document.createElement('div');
         promt.id = 'pass-promt';
         promt.innerHTML = promtTemplate(promts);
@@ -105,7 +105,7 @@ export default class SignupView extends PageView {
         }
         const promts = [];
         promts.push({text: 'Логин может включать только буквы, цифры и символы _ - .'});
-        promts.push({text: 'Длинна логина должна быть в пределе от 3 до 15 символов'});
+        promts.push({text: 'Длина логина должна быть в пределе от 3 до 15 символов'});
         const promt = document.createElement('div');
         promt.id = 'login-promt';
         promt.innerHTML = promtTemplate(promts);

@@ -25,7 +25,7 @@ export default class SignupModel {
             switch (code) {
             case 200:
                 this.user.id = data.id;
-                this.user.avatar = Network.getUrlFile(data.avatar);
+                this.user.avatar = data.avatar;
                 this.user.isAuth = true;
                 this.user.username = data.username;
                 this.user.email = data.email;

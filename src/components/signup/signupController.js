@@ -5,7 +5,7 @@ import {
     PAGE_SIGNUP,
     REDIRECT,
     SUBMIT_SIGNUP,
-    NAVBAR_ACTIVE,
+    HAVE_USER,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
 
@@ -18,6 +18,8 @@ export default class SignupController {
     constructor(parent) {
         this._model = new SignupModel();
         this._view = new SignupView(parent, this._model);
+
+        this._handlers = this._makeHandlers();
     }
     /**
      * Активация работы контроллера
@@ -26,7 +28,6 @@ export default class SignupController {
         this.subscribeEvents();
         this._view.subscribeEvents();
         Events.trigger(PAGE_SIGNUP);
-        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
             Events.trigger(REDIRECT, {url: '/profile'});
             return;
@@ -39,6 +40,12 @@ export default class SignupController {
     deactivate() {
         this._view.unsubscribeEvents();
         this._view.hide();
+    }
+    /**
+     * Редирект на страницу пользователя
+     */
+    redirectToProfile() {
+        Events.trigger(REDIRECT, {url: '/profile'});
     }
     /**
      * Проверка формы авторизации
@@ -104,12 +111,24 @@ export default class SignupController {
      * Подписка на необходимые события
      */
     subscribeEvents() {
-        Events.subscribe(SUBMIT_SIGNUP, this.validate.bind(this));
+        Events.subscribe(SUBMIT_SIGNUP, this._handlers.validate);
+        Events.subscribe(HAVE_USER, this.redirectToProfile);
     }
     /**
      * Отписка от необходимые события
      */
     unsubscribeEvents() {
-        Events.unsubscribe(SUBMIT_SIGNUP, this.validate.bind(this));
+        Events.unsubscribe(SUBMIT_SIGNUP, this._handlers.validate);
+        Events.unsubscribe(HAVE_USER, this.redirectToProfile);
+    }
+    /**
+     * Функция создает обработчики событий
+     * @return {Object} - возвращает обьект с обработчиками
+     */
+    _makeHandlers() {
+        const handlers = {
+            validate: this.validate.bind(this),
+        };
+        return handlers;
     }
 }

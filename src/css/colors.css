@@ -1,8 +1,11 @@
 :root {
     --main-background-color: #ffffff;
-    --blue: #1976d2;
-    --blue-dark: #0d47a1;
+    --blue: #312DA4;
+    --blue-dark: #6200ea;
+    --violet-light: #5c6bc0;
+    --violet-dark: #000051;
     --orange: #ff6f00;
+    --orange-dark: #ff3d00;
     --red: #c62828;
     --shadow-color: rgba(0, 0, 0, 0.4);
     --white: white;

@@ -12,7 +12,7 @@ export default class SigninModel {
     constructor() {
         this.user = User.getInstance();
     }
-    
+
     isAuth(): boolean {
         return this.user.isAuth;
     }
@@ -26,7 +26,7 @@ export default class SigninModel {
             case 200:
                 this.user.isAuth = true;
                 this.user.id = data.id;
-                this.user.avatar = Network.getUrlFile(data.avatar);
+                this.user.avatar = data.avatar;
                 this.user.username = data.username;
                 this.user.email = data.email;
                 Events.trigger(SIGNIN_USER, this.user.getData());

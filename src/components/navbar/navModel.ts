@@ -1,42 +1,21 @@
-interface NavElem {
-    text: string,
-    href: string,
-    active: boolean;
-}
-
 export default class NavModel {
     
-    private arr: NavElem[];
-    public active: number;
+    private username: string;
+    private isAuth: boolean;
     
     constructor() {
-        this.arr = [
-            {text: 'HostelScan', href: '/', active: false},
-            {text: 'Список отелей', href: '/list', active: false},
-            {text: 'Авторизация', href: '/signin', active: false},
-        ];
-        this.active = -1;
+        this.isAuth = false;
     }
 
-    getData(): {elems: NavElem[], active: number} {
-        return {elems: this.arr, active: this.active};
+    getData(): {isAuth: boolean, username: string} {
+        return {
+            isAuth: this.isAuth,
+            username: this.username
+        };
     }
 
-    updateElem(index: number, text: string, href: string): void {
-        if (index < 0 && index >= this.arr.length) {
-            return;
-        }
-        this.arr[index].text = text;
-        this.arr[index].href = href;
-    }
-
-    updateActive(index: number): void {
-        this.arr.forEach((elem) => {
-            elem.active = false;
-        });
-        if (index < 0 || index >= this.arr.length) {
-            return;
-        }
-        this.arr[index].active = true;
-    }
+    setData(name: string): void {
+        this.isAuth = !(name === '');
+        this.username = name;
+    } 
 }

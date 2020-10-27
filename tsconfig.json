@@ -13,6 +13,8 @@
             "@network/*": ["src/helpers/network/*"],
             "@user/*": ["src/helpers/user/*"],
             "@interfaces/*": ["src/helpers/interfaces/*"],
+            "@hostel/*": ["src/components/hostel/*"],
+            "@pageError/*": ["src/components/pageError/*"],
         },
     },
 }

@@ -1,0 +1,128 @@
+.profile__container-all {
+    display: grid;
+    grid-template-areas:
+        "data set-login"
+        "data set-psw";
+    grid-template-rows: 0.7fr 1fr;
+    grid-template-columns: 1fr 1.5fr;
+    grid-gap: 2vw;
+}
+
+@media all and (max-width: 768px) {
+    .profile__container-all {
+        grid-template-areas:
+            "data"
+            "set-login"
+            "set-psw";
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
+    }
+}
+
+.profile__data {
+    padding: .5em;
+    text-align: center;
+    grid-area: data;
+}
+
+.profile__settings-data {
+    padding: .5em;
+    grid-area: set-login;
+}
+
+.profile__settings-psw {
+    padding: .5em;
+    grid-area: set-psw;
+}
+
+
+.profile__avatar {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid var(--blue);
+    cursor: pointer;
+}
+
+.profile__avatar:hover {
+    opacity: 0.8;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.profile__line {
+    border: none;
+    /* Убираем границу */
+    background-color: var(--blue);
+    /* Цвет линии */
+    color: var(--blue);
+    /* Цвет линии для IE6-7 */
+    height: 2px;
+    /* Толщина линии */
+    width: 300px;
+}
+
+.profile__btn-out {
+    color: var(--gray-dark);
+    cursor: pointer;
+    text-decoration: none;
+    background-color: var(--main-background-color);
+    border: none;
+    outline: none;
+}
+
+.profile__btn-out:hover {
+    text-decoration: underline;
+    outline: none;
+}
+
+.profile__text {
+    text-align: center;
+}
+
+.profile__text--blue {
+    color: var(--blue);
+}
+
+.profile__text--orange {
+    color: var(--orange);
+}
+
+.profile__text--red {
+    color: var(--red);
+}
+
+.profile__input {
+    width: 95%;
+    padding: 15px;
+    border: none;
+    margin: 5px 0 22px 0;
+    background: var(--gray-light);
+    border-radius: 5px;
+}
+
+.profile__input:focus {
+    background-color: var(--gray);
+    outline: none;
+}
+
+/* Исправить на БЭМ */
+
+.container-settings {
+    max-width: 700px;
+    min-width: 300px;
+    background: var(--white);
+    padding: 17px;
+    border-radius: 10px;
+    border: 4px solid var(--blue);
+}
+
+.text-left-blue {
+    text-align: left;
+    color: var(--blue);
+}
+
+.text-left-red {
+    text-align: left;
+    color: var(--red);
+}

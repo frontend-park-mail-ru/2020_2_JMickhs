@@ -3,10 +3,10 @@ import ProfileView from '@profile/profileView';
 import Events from '@eventBus/eventbus';
 import {
     CHANGE_USER,
-    NAVBAR_ACTIVE,
     UPDATE_PASSWORD,
     SIGNOUT_CLICK,
     AVATAR_UPDATE_CLICK,
+    PAGE_PROFILE,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
 
@@ -19,16 +19,15 @@ export default class ProfileController {
     constructor(parent) {
         this._model = new ProfileModel();
         this._view = new ProfileView(parent);
-
         this._handlers = this._makeHandlers();
     }
     /**
      * Активация работы контроллера
      */
     activate() {
+        Events.trigger(PAGE_PROFILE, this._model.getData());
         this.subscribeEvents();
         this._view.subscribeEvents();
-        Events.trigger(NAVBAR_ACTIVE, 3);
         if (this._model.isAuth()) {
             this._view.render(this._model.getData());
         }
@@ -47,8 +46,8 @@ export default class ProfileController {
     subscribeEvents() {
         Events.subscribe(CHANGE_USER, this._handlers.changeUser);
         Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        Events.subscribe(SIGNOUT_CLICK, this._model.signout.bind(this._model));
-        Events.subscribe(AVATAR_UPDATE_CLICK, this._model.updateAvatar.bind(this._model));
+        Events.subscribe(SIGNOUT_CLICK, this._handlers.signout);
+        Events.subscribe(AVATAR_UPDATE_CLICK, this._handlers.updateAvatar);
     }
     /**
      *  Отписка от событий
@@ -56,8 +55,8 @@ export default class ProfileController {
     unsubscribeEvents() {
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
         Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
-        Events.unsubscribe(SIGNOUT_CLICK, this._model.signout.bind(this._model));
-        Events.unsubscribe(AVATAR_UPDATE_CLICK, this._model.updateAvatar.bind(this._model));
+        Events.unsubscribe(SIGNOUT_CLICK, this._handlers.signout);
+        Events.unsubscribe(AVATAR_UPDATE_CLICK, this._handlers.updateAvatar);
     }
     /**
      * Проверка данных, переданных для изменения
@@ -146,6 +145,8 @@ export default class ProfileController {
         const handlers = {
             changeUser: this._validateDataChange.bind(this),
             updatePsw: this._validatePswChange.bind(this),
+            signout: this._model.signout.bind(this._model),
+            updateAvatar: this._model.updateAvatar.bind(this._model),
         };
         return handlers;
     }

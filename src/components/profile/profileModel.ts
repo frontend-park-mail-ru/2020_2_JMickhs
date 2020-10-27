@@ -50,13 +50,12 @@ export default class ProfileModel {
     }
 
     updateAvatar(formAvatar: HTMLFormElement): void {
-        console.log(formAvatar);
         const avaResponse = Network.updateAvatar(new FormData(formAvatar));
         avaResponse.then((response) => {
             const code = response.code;
             switch (code) {
             case 200:
-                this.user.avatar = Network.getUrlFile(response.data);
+                this.user.avatar = response.data;
                 Events.trigger(UPDATE_AVATAR, this.user.avatar);
                 break;
             case 400:
