@@ -41,12 +41,12 @@ export default class ProfileView extends PageView {
      */
     subscribeEvents() {
         Events.subscribe(HAVE_USER, this._handlers.render);
-        Events.subscribe(HAVNT_USER, this._handlers.havntUser);
+        Events.subscribe(HAVNT_USER, this._handlers.redirectSignin);
         Events.subscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
         Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.subscribe(SIGNOUT, this._handlers.havntUser);
+        Events.subscribe(SIGNOUT, this._handlers.redirectSignin);
         Events.subscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
@@ -57,10 +57,10 @@ export default class ProfileView extends PageView {
         Events.unsubscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.unsubscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
         Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.unsubscribe(SIGNOUT, this._handlers.havntUser);
+        Events.unsubscribe(SIGNOUT, this._handlers.redirectSignin);
         Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.unsubscribe(HAVE_USER, this._handlers.render);
-        Events.unsubscribe(HAVNT_USER, this._handlers.havntUser);
+        Events.unsubscribe(HAVNT_USER, this._handlers.redirectSignin);
         Events.unsubscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
@@ -89,7 +89,7 @@ export default class ProfileView extends PageView {
             errUpdateAvatar: (arg) => {
                 this.renderMessageAvatar(arg, true);
             },
-            havntUser: () => {
+            redirectSignin: () => {
                 Events.trigger(REDIRECT, {url: '/signin'});
             },
             updatePswClick: (evt) => {
