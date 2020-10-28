@@ -46,7 +46,7 @@
     border-bottom-left-radius: 20px;
     font-weight: 500;
     font-size: 17px;
-    padding: 9px 30px;
+    padding: 10px 30px;
     box-shadow: none;
     color: white;
     outline: none;
@@ -69,7 +69,7 @@
     border-bottom-left-radius: 20px;
     font-weight: 500;
     font-size: 17px;
-    padding: 9px 30px;
+    padding: 10px 30px;
     box-shadow: none;
     color: white;
     outline: none;
@@ -89,7 +89,7 @@
 .btn-text {
     font-weight: 500;
     font-size: 17px;
-    padding: 9px 30px;
+    padding: 9px 15px;
     box-shadow: none;
     color: white;
     outline: none;
@@ -103,4 +103,22 @@
     border-color: white;
     transition: 0.1s;
     color: var(--orange);
+}
+
+.btn-regular-orange {
+    border-radius: 1000px;
+    background-color: var(--orange-new);
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 9px 30px;
+    border: none;
+    outline: none;
+    height: 45px;
+}
+
+.btn-regular-orange:hover {
+
 }

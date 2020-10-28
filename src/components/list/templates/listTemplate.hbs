@@ -1,13 +1,16 @@
-{{#each this}}
-<div class="hostels-card">
-  <img class="hostel-image" src="{{image}}" alt="image">
-  <h3>
-    <p class="hostel-title">{{name}}
-    <p class="hostel-title">{{location}}
-    </p>
-  </h3>
-  <div class="hostel-btn-div">
-    <a class="hostel-btn" href="/hostel/{{hotel_id}}">Подробнее</a>
-  </div>
-</div>
-{{/each}}
+
+    <div class="list__container-all">
+        {{#each this}}
+        <div class="hostels-card">
+            <img class="hostel-image" src="{{image}}" alt="image">
+          <h3>
+            <p class="hostel-title">{{name}}
+            <p class="hostel-title">{{location}}
+            </p>
+          </h3>
+          <div class="hostel-btn-div">
+            <a class="hostel-btn" href="/hostel/{{hotel_id}}">Подробнее</a>
+          </div>
+        </div>
+        {{/each}}
+    </div>

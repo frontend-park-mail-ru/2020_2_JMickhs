@@ -5,6 +5,7 @@
     --violet-light: #5c6bc0;
     --violet-dark: #000051;
     --orange: #ff6f00;
+    --orange-new: #f38000;
     --orange-dark: #ff3d00;
     --red: #c62828;
     --shadow-color: rgba(0, 0, 0, 0.4);
@@ -12,4 +13,5 @@
     --gray-light: #f1f1f1;
     --gray: #ddd;
     --gray-dark: #757575;
+    --gray-new: #707070;
 }

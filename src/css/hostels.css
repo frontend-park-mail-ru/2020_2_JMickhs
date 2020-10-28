@@ -1,11 +1,9 @@
 .hostels-card {
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     transition: 0.3s;
-    width: 40%;
+    /*width: 40%;*/
+    width: 20%;
     border-radius: 10px;
-    margin: auto;
-    margin-top: 7%;
-    margin-bottom: 1%;
     border: 4px solid var(--blue);
     min-width: 300px;
     background-color: white;
@@ -57,4 +55,15 @@
 .hostel-btn:hover {
     box-shadow: 0 8px 16px 0 var(--shadow-color);
     background-color: var(--blue-dark);
+}
+
+.list__container-all {
+    height: 100%;
+    display: grid;
+    grid-template-areas: "a b c"
+                         "d d d";
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 7%;
+    padding: 0 15px;
 }

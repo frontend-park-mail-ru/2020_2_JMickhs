@@ -1,7 +1,8 @@
 .navbar {
     background-color: var(--blue);
     display: flex;
-    padding: 8px;
+    flex-direction: row;
+    align-items: center;
     font-family: sans-serif;
     color: white;
     position: fixed;
@@ -9,20 +10,15 @@
     left: 0;
     right: 0;
     height: 72px;
-    align-self: center;
     z-index: 99999;
 }
 
-.navbar__items {
-    display: flex;
-}
-
 .navbar__link {
-    padding-right: 8px;
-    margin-top: 20px;
+    padding-right: 15px;
 }
 
 .navbar__items--right {
+    display: flex;
     margin-right: 7%;
     margin-left: auto;
 }
@@ -32,8 +28,8 @@
     margin-right: auto;
 }
 
-.navbar__items-mbnone {
-    margin-right: 1%;
+.big-font {
+    font-size: 24px;
 }
 
 @media only screen and (max-width: 500px) {
