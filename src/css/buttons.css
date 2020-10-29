@@ -10,6 +10,7 @@
     opacity: 0.9;
     border-radius: 5px;
     text-decoration: none;
+    outline: none;
 }
 
 .btn-sign:hover {
@@ -29,78 +30,10 @@
     border-radius: 5px;
     text-decoration: none;
     margin-bottom: 0;
+    outline: none;
 }
 
 .btn-submit:hover {
     box-shadow: 0 8px 16px 0 var(--shadow-color);
     background-color: var(--blue-dark);
-}
-
-.btn-submit--w300px {
-    width: 300px;
-}
-
-.btn-beaty-orange {
-    background-color: var(--orange);
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    font-weight: 500;
-    font-size: 17px;
-    padding: 9px 30px;
-    box-shadow: none;
-    color: white;
-    outline: none;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.btn-beaty-orange:hover {
-    text-decoration: none;
-    background-color: var(--violet-light);
-    border-color: white;
-    transition: 0.1s;
-    color: white;
-    transition: 0.3s;
-}
-
-.btn-beaty-violet {
-    background-color: var(--violet-light);
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    font-weight: 500;
-    font-size: 17px;
-    padding: 9px 30px;
-    box-shadow: none;
-    color: white;
-    outline: none;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.btn-beaty-violet:hover {
-    text-decoration: none;
-    background-color: var(--orange);
-    border-color: white;
-    transition: 0.1s;
-    color: white;
-    transition: 0.3s;
-}
-
-.btn-text {
-    font-weight: 500;
-    font-size: 17px;
-    padding: 9px 30px;
-    box-shadow: none;
-    color: white;
-    outline: none;
-    cursor: pointer;
-    color: white;
-    text-decoration: none;
-}
-
-.btn-text:hover {
-    text-decoration: none;
-    border-color: white;
-    transition: 0.1s;
-    color: var(--orange);
 }

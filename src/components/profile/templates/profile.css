@@ -35,7 +35,6 @@
     grid-area: set-psw;
 }
 
-
 .profile__avatar {
     width: 300px;
     height: 300px;
@@ -52,13 +51,9 @@
 
 .profile__line {
     border: none;
-    /* Убираем границу */
     background-color: var(--blue);
-    /* Цвет линии */
     color: var(--blue);
-    /* Цвет линии для IE6-7 */
     height: 2px;
-    /* Толщина линии */
     width: 300px;
 }
 
@@ -77,7 +72,15 @@
 }
 
 .profile__text {
+    font: outline;
+}
+
+.profile__text--center {
     text-align: center;
+}
+
+.profile__text-left {
+    text-align: left;
 }
 
 .profile__text--blue {
@@ -93,7 +96,7 @@
 }
 
 .profile__input {
-    width: 95%;
+    width: 100%;
     padding: 15px;
     border: none;
     margin: 5px 0 22px 0;
@@ -125,4 +128,31 @@
 .text-left-red {
     text-align: left;
     color: var(--red);
+}
+
+.profile__btn {
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--white);
+    transition: 0.3s;
+    padding: 16px 20px;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.profile__btn--blue {
+    opacity: 0.8;
+    background-color: var(--blue);
+}
+
+.profile__btn--blue:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    opacity: 1;
+}
+
+.profile__btn--w300px {
+    width: 300px;
 }

@@ -1,7 +1,3 @@
-body, html {
-    height: 100%;
-}
-
 .container-sign {
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     transition: 0.3s;
