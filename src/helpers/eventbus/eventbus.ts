@@ -19,7 +19,7 @@ class EvenBus {
         });
     }
 
-    trigger(evt: string, arg?: unknown) {
+    trigger(evt: string, arg?: unknown): void {
         (this.events[evt] || []).slice().forEach((lsn) => lsn(arg));
     }
 
