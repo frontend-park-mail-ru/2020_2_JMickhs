@@ -1,10 +1,20 @@
-import {HostelData} from '@interfaces/hostelData';
-import Network from '@network/network';
+import {HostelData} from '@interfaces/structsData/hostelData';
+import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
     REDIRECT_ERROR,
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
+
+interface HotelFromServer {
+    hotel: {
+        description: string,
+        hotel_id: number;
+        name: string;
+        image: string;
+        location: string;
+    }
+}
 
 export default class HostelPageModel {
     private name: string;
@@ -44,12 +54,13 @@ export default class HostelPageModel {
             Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
         }
         
-        const response = Network.getHostel(id);
+        const response = NetworkHostel.getHostel(id);
         response.then((response) => {
             const code = response.code;
             switch (code) {
             case 200:
-                const hostel = response.data.hotel;
+                const data = response.data as HotelFromServer;
+                const hostel = data.hotel;
                 this.description = hostel.description;
                 this.id = hostel.hotel_id;
                 this.name = hostel.name;

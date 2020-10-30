@@ -1,5 +1,5 @@
 export interface HostelData {
-    name: string,
+    name: string;
     id: number;
     image: string;
     photos: string[];

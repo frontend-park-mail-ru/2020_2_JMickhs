@@ -1,4 +1,4 @@
-import Network from '@network/network';
+import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
     LOAD_HOSTELS,
@@ -17,7 +17,7 @@ export default class ListModel {
      * Получить список отелей с сервера
      */
     fillModel() {
-        const response = Network.getHostels();
+        const response = NetworkHostel.getHostels();
         response.then((response) => {
             const code = response.code;
             switch (code) {

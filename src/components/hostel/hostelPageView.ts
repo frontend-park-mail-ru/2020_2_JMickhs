@@ -1,5 +1,5 @@
 import {PageView} from '@interfaces/views';
-import {HostelData} from '@interfaces/hostelData';
+import {HostelData} from '@interfaces/structsData/hostelData';
 
 import * as hostelCardTemplate from '@hostel/templates/hostelCard.hbs';
 

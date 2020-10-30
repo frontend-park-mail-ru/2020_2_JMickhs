@@ -1,4 +1,4 @@
-import {UserData} from '@interfaces/userData';
+import {UserData} from '@interfaces/structsData/userData';
 
 /** Информация о пользователе,
  *  Синглтон, чтобы проще шарить в разные части проекта

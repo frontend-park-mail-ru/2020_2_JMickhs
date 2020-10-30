@@ -1,10 +1,11 @@
 import User from '@user/user';
-import Network from '@network/network';
+import NetworkUser from '@network/networkUser';
 import Events from '@eventBus/eventbus';
 import {
     SIGNUP_USER,
     ERROR_SIGNUP,
 } from '@eventBus/constants';
+import {UserData} from '@interfaces/structsData/userData';
 
 export default class SignupModel {
     private user: User;
@@ -18,10 +19,10 @@ export default class SignupModel {
     }
 
     signup(username: string, email: string, password: string): void {
-        const response = Network.signup(username, email, password);
+        const response = NetworkUser.signup(username, email, password);
         response.then((response) => {
             const code = response.code;
-            const data = response.data;
+            const data = response.data as UserData;
             switch (code) {
             case 200:
                 this.user.id = data.id;

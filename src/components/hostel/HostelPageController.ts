@@ -6,7 +6,7 @@ import {
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
 
-import {HostelData} from '@interfaces/hostelData';
+import {HostelData} from '@interfaces/structsData/hostelData';
 
 interface Handlers {
     renderView: (data: HostelData) => void,
