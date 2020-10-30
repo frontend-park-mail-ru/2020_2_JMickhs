@@ -1,5 +1,5 @@
-import SigninModel from '@signin/signinModel';
-import SigninView from '@signin/signinView';
+import SigninModel from '@sign/signin/signinModel';
+import SigninView from '@sign/signin/signinView';
 import Events from '@eventBus/eventbus';
 import {
     REDIRECT,

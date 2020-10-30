@@ -18,8 +18,7 @@
             "@router/*": ["src/helpers/router/*"],
             "@home/*": ["src/components/home/*"],
             "@list/*": ["src/components/list/*"],
-            "@signin/*": ["src/components/signin/*"],
-            "@signup/*": ["src/components/signup/*"],
+            "@sign/*": ["src/components/sign/*"],
             "@profile/*": ["src/components/profile/*"]
         },
     },
