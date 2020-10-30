@@ -14,6 +14,8 @@ class Request {
     constructor() {
         this.domain = 'http://www.hostelscan.ru';
         this.port = ':8080';
+
+        this.token = '';
     }
 
     ajax(method: string,
@@ -39,7 +41,13 @@ class Request {
         }
 
         if (csrf) {
-            headers['X-Csrf-Token'] = this.token;
+            if (headers) {
+                headers['X-Csrf-Token'] = this.token;
+            } else {
+                headers = {
+                    'X-Csrf-Token': this.token
+                }
+            } 
         }
 
         return fetch(this.domain + this.port + url, {
