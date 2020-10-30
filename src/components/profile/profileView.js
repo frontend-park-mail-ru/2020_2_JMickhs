@@ -97,8 +97,11 @@ export default class ProfileView extends PageView {
                 const oldPsw = document.getElementById('old-psw').value;
                 const newPsw1 = document.getElementById('new-psw1').value;
                 const newPsw2 = document.getElementById('new-psw2').value;
-                Events.trigger(UPDATE_PASSWORD,
-                    {oldPassword: oldPsw, newPassword1: newPsw1, newPassword2: newPsw2});
+                Events.trigger(UPDATE_PASSWORD, {
+                    oldPassword: oldPsw,
+                    newPassword1: newPsw1,
+                    newPassword2: newPsw2},
+                );
             },
             inputAvatarFile: (evt) => {
                 const inputFile = document.getElementById('profile-pic');
@@ -200,15 +203,17 @@ export default class ProfileView extends PageView {
             clearTimeout(this._dataTimerId);
         }
         const errLine = document.getElementById('text-error-data');
-        if (!isErr) {
-            errLine.className = 'text-sign';
+        if (isErr) {
+            errLine.className += ' profile__text--red';
+        } else {
+            errLine.className += ' profile__text--blue';
         }
         errLine.textContent = text;
 
         this._dataTimerId = setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'label-error';
+                errLine.className = 'profile__text profile__text--center';
             }
             this._dataTimerId = -1;
         }, 5000);
@@ -218,10 +223,10 @@ export default class ProfileView extends PageView {
      */
     renderLoginInputError() {
         const input = document.getElementById('login-profile');
-        input.className = 'input-error';
+        input.className += ' profile__input--error';
         setTimeout(() => {
             if (input) {
-                input.className = 'input-sign';
+                input.className = 'profile__input';
             }
         }, 5000);
     }
@@ -230,10 +235,10 @@ export default class ProfileView extends PageView {
      */
     renderEmailInputError() {
         const input = document.getElementById('email-profile');
-        input.className = 'input-error';
+        input.className += ' profile__input--error';
         setTimeout(() => {
             if (input) {
-                input.className = 'input-sign';
+                input.className = 'profile__input';
             }
         }, 5000);
     }
@@ -242,10 +247,10 @@ export default class ProfileView extends PageView {
      */
     renderOldPswInputError() {
         const input = document.getElementById('old-psw');
-        input.className = 'input-error';
+        input.className += ' profile__input--error';
         setTimeout(() => {
             if (input) {
-                input.className = 'input-sign';
+                input.className = 'profile__input';
             }
         }, 5000);
     }
@@ -255,12 +260,12 @@ export default class ProfileView extends PageView {
     renderNewPswInputError() {
         const input1 = document.getElementById('new-psw1');
         const input2 = document.getElementById('new-psw2');
-        input1.className = 'input-error';
-        input2.className = 'input-error';
+        input1.className += ' profile__input--error';
+        input2.className+= ' profile__input--error';
         setTimeout(() => {
             if (input1 && input2) {
-                input1.className = 'input-sign';
-                input2.className = 'input-sign';
+                input1.className = 'profile__input';
+                input2.className = 'profile__input';
             }
         }, 5000);
     }
@@ -274,15 +279,19 @@ export default class ProfileView extends PageView {
             clearTimeout(this._pswTimerId);
         }
         const errLine = document.getElementById('text-error-sequr');
-        if (!isErr) {
-            errLine.className = 'text-sign';
+
+        if (isErr) {
+            errLine.className += ' profile__text--red';
+        } else {
+            errLine.className += ' profile__text--blue';
         }
+
         errLine.textContent = text;
 
         this._pswTimerId = setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'label-error';
+                errLine.className = 'profile__text profile__text--center';
             }
             this._pswTimerId = -1;
         }, 5000);

@@ -47,12 +47,7 @@
 }
 
 .sign__input--error {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
     border: 3px solid var(--red);
-    background: var(--gray-light);
-    border-radius: 5px;
 }
 
 .sign__place-bottom {
