@@ -5,16 +5,7 @@ import {
     REDIRECT_ERROR,
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
-
-interface HotelFromServer {
-    hotel: {
-        description: string,
-        hotel_id: number;
-        name: string;
-        image: string;
-        location: string;
-    }
-}
+import HotelFromServer from '@network/structsServer/HotelData';
 
 export default class HostelPageModel {
     private name: string;
