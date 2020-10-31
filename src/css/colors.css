@@ -8,10 +8,12 @@
     --orange-new: #f38000;
     --orange-dark: #ff3d00;
     --red: #c62828;
+    --new-red: #D50000;
     --shadow-color: rgba(0, 0, 0, 0.4);
     --white: white;
+    --opacity-white: rgba(255, 255, 255, 0.8);
     --gray-light: #f1f1f1;
     --gray: #ddd;
     --gray-dark: #757575;
-    --gray-new: #707070;
+    --gray-new: #3c3f41;
 }

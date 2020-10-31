@@ -16,6 +16,14 @@ import userFromCookie from '@user/cookieUser';
 
 import '@/main.css';
 
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('../serviceWorker.js', {scope: '/'}).then((reg) => {
+//         console.log('Worker registrated!!!');
+//     }).catch((err) => {
+//         console.log('Worker fucked up:(', err);
+//     });
+// }
+
 /**
  *  Старт нашего приложения =)
  */

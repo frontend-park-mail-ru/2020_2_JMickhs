@@ -1,16 +1,14 @@
 
     <div class="list__container-all">
         {{#each this}}
-        <div class="hostels-card">
+        <a class="hostels-card" href="/hostel/{{hotel_id}}">
             <img class="hostel-image" src="{{image}}" alt="image">
-          <h3>
-            <p class="hostel-title">{{name}}
-            <p class="hostel-title">{{location}}
-            </p>
-          </h3>
-          <div class="hostel-btn-div">
-            <a class="hostel-btn" href="/hostel/{{hotel_id}}">Подробнее</a>
-          </div>
-        </div>
+                <div class="hostel-title text-italic">{{name}}</div>
+                <div class="text-cnt">
+                    <p class="hostel-title text-blue">{{location}}
+                    <p class="hostel-title text-red">7/10
+                </div>
+        </a>
         {{/each}}
     </div>
+
