@@ -1,5 +1,5 @@
 import User from '@user/user';
-import Network from '@network/network';
+import NetworkUser from '@network/networkUser';
 import Events from '@eventBus/eventbus';
 import {
     SIGNOUT,
@@ -13,7 +13,7 @@ import {
     ERR_FIX_USER,
 } from '@eventBus/constants';
 
-import {UserData} from '@interfaces/userData';
+import {UserData} from '@interfaces/structsData/userData';
 
 export default class ProfileModel {
     private user: User;
@@ -31,7 +31,7 @@ export default class ProfileModel {
     }
 
     signout(): void {
-        const response = Network.signout();
+        const response = NetworkUser.signout();
         response.then((r) => {
             const code = r.code;
             switch (code) {
@@ -50,12 +50,12 @@ export default class ProfileModel {
     }
 
     updateAvatar(formAvatar: HTMLFormElement): void {
-        const avaResponse = Network.updateAvatar(new FormData(formAvatar));
+        const avaResponse = NetworkUser.updateAvatar(new FormData(formAvatar));
         avaResponse.then((response) => {
             const code = response.code;
             switch (code) {
             case 200:
-                this.user.avatar = response.data;
+                this.user.avatar = response.data as string;
                 Events.trigger(UPDATE_AVATAR, this.user.avatar);
                 break;
             case 400:
@@ -81,7 +81,7 @@ export default class ProfileModel {
     }
 
     changeUser(username: string, email: string): void {
-        const response = Network.changeUser(username, email);
+        const response = NetworkUser.changeUser(username, email);
         response.then((response) => {
             const code = response.code;
             switch (code) {
@@ -111,7 +111,7 @@ export default class ProfileModel {
     }
 
     updatePassword(oldPassword: string, password: string): void {
-        const response = Network.updatePassword(oldPassword, password);
+        const response = NetworkUser.updatePassword(oldPassword, password);
         response.then((response) => {
             const code = response.code;
             switch (code) {

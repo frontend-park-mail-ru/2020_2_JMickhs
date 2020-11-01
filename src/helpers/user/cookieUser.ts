@@ -1,4 +1,4 @@
-import Network from '@network/network';
+import NetworkUser from '@network/networkUser';
 import Events from '@eventBus/eventbus';
 import {
     HAVE_USER,
@@ -6,13 +6,14 @@ import {
     HAVNT_USER,
 } from '@eventBus/constants';
 import User from '@user/user';
+import { UserData } from '../interfaces/structsData/userData';
 
 export default function userFromCookie(): void {
     const user = User.getInstance();
-    const response = Network.user();
+    const response = NetworkUser.user();
     response.then((r) => {
         const code = r.code;
-        const data = r.data;
+        const data = r.data as UserData;
         switch (code) {
         case 200:
             user.isAuth = true;
@@ -31,6 +32,5 @@ export default function userFromCookie(): void {
             });
             break;
         }
-    })
-
+    });
 }

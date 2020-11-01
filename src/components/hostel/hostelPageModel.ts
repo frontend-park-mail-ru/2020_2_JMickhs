@@ -1,10 +1,11 @@
-import {HostelData} from '@interfaces/hostelData';
-import Network from '@network/network';
+import {HostelData} from '@interfaces/structsData/hostelData';
+import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
     REDIRECT_ERROR,
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
+import HotelFromServer from '@network/structsServer/HotelData';
 
 export default class HostelPageModel {
     private name: string;
@@ -14,6 +15,7 @@ export default class HostelPageModel {
     private location: string;
     private rating: number;
     private description: string;
+    private countComments: number;
 
     constructor() {
         this.id = -1;
@@ -27,7 +29,7 @@ export default class HostelPageModel {
     }
 
     getData(): HostelData {
-        const data = {
+        return {
             name: this.name,
             id: this.id,
             image: this.image,
@@ -35,8 +37,8 @@ export default class HostelPageModel {
             location: this.location,
             rating: this.rating,
             description: this.description,
-        }
-        return data;
+            countComments: this.countComments,
+        };
     }
 
     fillModel(id: number): void {
@@ -44,17 +46,20 @@ export default class HostelPageModel {
             Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
         }
         
-        const response = Network.getHostel(id);
+        const response = NetworkHostel.getHostel(id);
         response.then((response) => {
             const code = response.code;
             switch (code) {
             case 200:
-                const hostel = response.data.hotel;
+                const data = response.data as HotelFromServer;
+                const hostel = data.hotel;
                 this.description = hostel.description;
                 this.id = hostel.hotel_id;
                 this.name = hostel.name;
                 this.image = hostel.image;
+                this.photos = hostel.photos;
                 this.location = hostel.location;
+                this.countComments = hostel.comm_count;
                 Events.trigger(UPDATE_HOSTEL, this.getData());
                 break;
             case 400:

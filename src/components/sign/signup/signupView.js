@@ -7,8 +7,8 @@ import {
     SIGNUP_USER,
 } from '@eventBus/constants';
 
-import signupTemplate from '@signup/templates/templateSignup.hbs';
-import promtTemplate from '@signup/templates/tempalatePromt.hbs';
+import signupTemplate from '@sign/templates/signup.hbs';
+import promtTemplate from '@sign/templates/signupPromt.hbs';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView extends PageView {
@@ -62,10 +62,10 @@ export default class SignupView extends PageView {
         const pass1 = passInput1.value;
         const pass2 = passInput2.value;
 
-        loginInput.className = 'input-sign';
-        emailInput.className = 'input-sign';
-        passInput1.className = 'input-sign';
-        passInput2.className = 'input-sign';
+        loginInput.className = 'sign__input';
+        emailInput.className = 'sign__input';
+        passInput1.className = 'sign__input';
+        passInput2.className = 'sign__input';
 
         Events.trigger(SUBMIT_SIGNUP, {login: login, email: email, psw1: pass1, psw2: pass2});
     }
@@ -156,16 +156,16 @@ export default class SignupView extends PageView {
 
         switch (numberInputErr) {
         case 1: {
-            document.getElementById('signup-login').className = 'input-error';
+            document.getElementById('signup-login').className += ' sign__input--error';
             break;
         }
         case 2: {
-            document.getElementById('signup-email').className = 'input-error';
+            document.getElementById('signup-email').className += ' sign__input--error';
             break;
         }
         case 3: {
-            document.getElementById('signup-password1').className = 'input-error';
-            document.getElementById('signup-password2').className = 'input-error';
+            document.getElementById('signup-password1').className += ' sign__input--error';
+            document.getElementById('signup-password2').className += ' sign__input--error';
             break;
         }
         }
@@ -175,10 +175,10 @@ export default class SignupView extends PageView {
             const loginElem = document.getElementById('signup-login');
             // тут не очевидно, но писать снова мне лень, так что см. одноименную ф-цию в signinView.js
             if (loginElem !== null) {
-                loginElem.className = 'input-sign';
-                document.getElementById('signup-password1').className = 'input-sign';
-                document.getElementById('signup-email').className = 'input-sign';
-                document.getElementById('signup-password2').className = 'input-sign';
+                loginElem.className = 'sign__input';
+                document.getElementById('signup-password1').className = 'sign__input';
+                document.getElementById('signup-email').className = 'sign__input';
+                document.getElementById('signup-password2').className = 'sign__input';
             }
             this._model.timerId = -1;
         }, 5000);

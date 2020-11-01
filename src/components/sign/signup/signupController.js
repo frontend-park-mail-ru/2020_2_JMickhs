@@ -1,5 +1,5 @@
-import SignupModel from '@signup/signupModel';
-import SignupView from '@signup/signupView';
+import SignupModel from '@sign/signup/signupModel';
+import SignupView from '@sign/signup/signupView';
 import Events from '@eventBus/eventbus';
 import {
     PAGE_SIGNUP,

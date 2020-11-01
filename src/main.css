@@ -1,10 +1,10 @@
 @import "@css/colors.css" all;
-@import "@css/buttons.css" all;
 @import "@navbar/templates/navbar.css" all;
 @import "@profile/templates/profile.css" all;
-@import "@css/sign.css" all;
+@import "@sign/templates/sign.css" all;
 @import "@css/hostels.css" all;
 @import "@css/errorPage.css" all;
+@import "@hostel/templates/hostel.css" all;
 @import "@home/templates/home.css" all;
 
 body {

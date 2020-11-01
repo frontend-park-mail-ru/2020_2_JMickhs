@@ -2,8 +2,8 @@ import Router from '@router/router';
 import HomeController from '@home/homeController';
 import NavbarController from '@navbar/navController';
 import ListController from '@list/listController';
-import SigninController from '@signin/signinController';
-import SignupController from '@signup/signupController';
+import SigninController from '@sign/signin/signinController';
+import SignupController from '@sign/signup/signupController';
 import ProfileController from '@profile/profileController';
 import HostelPageController from '@hostel/HostelPageController';
 import ErrorPageController from '@pageError/errorPageController';
@@ -55,11 +55,11 @@ import '@/main.css';
     Router.start();
 
     Events.subscribe(REDIRECT, (arg) => {
-        const {url, data} = arg;
+        const {url, data} = arg as {url: string, data: unknown};
         Router.pushState(url, data);
     });
     Events.subscribe(REDIRECT_ERROR, (arg) => {
-        const {url, err} = arg;
+        const {url, err} = arg as {url: string, err: string};
         Router.pushState(url, err);
     });
 })();

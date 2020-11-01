@@ -15,6 +15,11 @@
             "@interfaces/*": ["src/helpers/interfaces/*"],
             "@hostel/*": ["src/components/hostel/*"],
             "@pageError/*": ["src/components/pageError/*"],
+            "@router/*": ["src/helpers/router/*"],
+            "@home/*": ["src/components/home/*"],
+            "@list/*": ["src/components/list/*"],
+            "@sign/*": ["src/components/sign/*"],
+            "@profile/*": ["src/components/profile/*"]
         },
     },
 }

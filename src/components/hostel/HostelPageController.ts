@@ -6,13 +6,14 @@ import {
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
 
-import {HostelData} from '@interfaces/hostelData';
+import {HostelData} from '@interfaces/structsData/hostelData';
+import {AbstractController} from '@/helpers/interfaces/controllers';
 
 interface Handlers {
     renderView: (data: HostelData) => void,
 }
 
-export default class HostelPageController {
+export default class HostelPageController implements AbstractController {
 
     private model: HostelPageModel;
     private view: HostelPageView;
@@ -28,7 +29,7 @@ export default class HostelPageController {
     private makeHadlers(): Handlers {
         const handlers = {
             renderView: this.view.render.bind(this.view),
-        }
+        };
         return handlers;
     }
 

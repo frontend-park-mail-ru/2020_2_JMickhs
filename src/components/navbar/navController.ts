@@ -11,7 +11,7 @@ import {
     SIGNUP_USER,
 } from '@eventBus/constants';
 
-import {UserData} from '@interfaces/userData';
+import {UserData} from '@interfaces/structsData/userData';
 
 export default class NavController {
 

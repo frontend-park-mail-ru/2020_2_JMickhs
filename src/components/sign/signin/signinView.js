@@ -7,7 +7,7 @@ import {
     REDIRECT,
 } from '@eventBus/constants';
 
-import signinTemplate from '@signin/templates/templateSignin.hbs';
+import signinTemplate from '@sign/templates/signin.hbs';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView extends PageView {
@@ -54,8 +54,8 @@ export default class SigninView extends PageView {
                 const passInput = document.getElementById('signin-password');
                 const login = loginInput.value;
                 const password = passInput.value;
-                document.getElementById('signin-login').className = 'input-sign';
-                document.getElementById('signin-password').className = 'input-sign';
+                document.getElementById('signin-login').className = 'sign__input';
+                document.getElementById('signin-password').className = 'sign__input';
                 Events.trigger(SUBMIT_SIGNIN, {login: login, password: password});
             },
         };
@@ -81,10 +81,10 @@ export default class SigninView extends PageView {
             clearTimeout(this.timerId);
         }
         if (numberInputErr === 1) {
-            document.getElementById('signin-login').className = 'input-error';
+            document.getElementById('signin-login').className += ' sign__input--error';
         }
         if (numberInputErr === 2) {
-            document.getElementById('signin-password').className = 'input-error';
+            document.getElementById('signin-password').className += ' sign__input--error';
         }
         const errLine = document.getElementById('text-error');
         errLine.textContent = errstr;
@@ -98,8 +98,8 @@ export default class SigninView extends PageView {
             // котрые используются функцией. Бах, и jserror в консоль! Но мы это предвидим :) и проверяем, есть ли
             // нужные теги(одного достаточно на самом деле) на странице
             if (loginElem !== null) {
-                loginElem.className = 'input-sign';
-                document.getElementById('signin-password').className = 'input-sign';
+                loginElem.className = 'sign__input';
+                document.getElementById('signin-password').className = 'sign__input';
             }
             this.timerId = -1;
         }, 5000);

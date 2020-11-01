@@ -1,10 +1,11 @@
 import User from '@user/user';
-import Network from '@network/network';
+import NetworkUser from '@network/networkUser';
 import Events from '@eventBus/eventbus';
 import {
     SIGNIN_USER,
     ERROR_SIGNIN,
 } from '@eventBus/constants';
+import {UserData} from '@interfaces/structsData/userData';
 
 export default class SigninModel {
     private user: User;
@@ -18,10 +19,10 @@ export default class SigninModel {
     }
 
     signin(username: string, password: string): void {
-        const response = Network.signin(username, password);
+        const response = NetworkUser.signin(username, password);
         response.then((response) => {
             const code = response.code;
-            const data = response.data;
+            const data = response.data as UserData;
             switch (code) {
             case 200:
                 this.user.isAuth = true;

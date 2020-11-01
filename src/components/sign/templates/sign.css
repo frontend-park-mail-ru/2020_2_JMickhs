@@ -1,0 +1,76 @@
+.sign__container {
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    transition: 0.3s;
+    width: 35%;
+    min-width: 300px;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 7%;
+    margin-bottom: 1%;
+    padding: 17px;
+    border: 4px solid var(--blue);
+    background-color: var(--white);
+}
+
+.sign__text--center {
+    text-align: center;
+}
+
+.sign__text--left {
+    text-align: left;
+}    
+
+.sign__text--blue {
+    color: var(--blue);
+}
+
+.sign__text--orange {
+    color: var(--orange);
+}
+
+.sign__text--error {
+    color: var(--red);
+}
+
+.sign__input {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: var(--gray-light);
+    border-radius: 5px;
+}
+
+.sign__input:focus {
+    background-color: var(--gray);
+    outline: none;
+}
+
+.sign__input--error {
+    border: 3px solid var(--red);
+}
+
+.sign__place-bottom {
+    height: 90px;
+    position: relative;
+}
+
+.sign__btn {
+    position: absolute;
+    bottom:0;
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    border-radius: 5px;
+    text-decoration: none;
+    outline: none;
+}
+
+.sign__btn:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    background-color: var(--blue-dark);
+}
