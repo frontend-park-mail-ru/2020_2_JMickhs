@@ -11,16 +11,6 @@
     padding: 0 15px;
 }
 
-/*.background-image {*/
-/*    height: 100%;*/
-/*    background-image: url('http://127.0.0.1/AppImage4k.jpg');*/
-/*    background-repeat: no-repeat;*/
-/*    !*background-position: center;*!*/
-/*    background-attachment: fixed;*/
-/*    background-size: cover;*/
-/*    background-position:0px 0px;*/
-/*}*/
-
 .home__search {
     grid-area: search;
     width: 75%;
@@ -67,4 +57,22 @@
         min-width: 110px;
         align-self: center;
     }
+}
+
+.btn-regular-orange {
+    border-radius: 1000px;
+    background-color: var(--orange-new);
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 9px 30px;
+    border: none;
+    outline: none;
+    height: 45px;
+}
+
+.btn-regular-orange:hover {
+
 }

@@ -1,8 +1,6 @@
 .navbar {
     background-color: var(--blue);
     display: flex;
-    flex-direction: row;
-    align-items: center;
     font-family: sans-serif;
     color: white;
     position: fixed;
@@ -10,6 +8,8 @@
     left: 0;
     right: 0;
     height: 72px;
+    align-items: center;
+    justify-items: center;
     z-index: 99999;
 }
 
@@ -28,7 +28,6 @@
 }
 
 .navbar__items--right {
-    display: flex;
     margin-right: 7%;
     margin-left: auto;
 }
@@ -38,14 +37,13 @@
     margin-right: auto;
 }
 
-.big-font {
-    font-size: 24px;
+.navbar__items-mbnone {
 }
 
 .navbar__btn {
     font-weight: 500;
     font-size: 17px;
-    padding: 9px 30px;
+    padding: 11px 15px;
     box-shadow: none;
     outline: none;
     cursor: pointer;
@@ -77,4 +75,8 @@
 
 .navbar__btn--text-orange:hover {
     color: var(--orange);
+}
+
+.navbar__btn_big-font {
+    font-size: 24px;
 }
