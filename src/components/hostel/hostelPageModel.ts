@@ -15,6 +15,7 @@ export default class HostelPageModel {
     private location: string;
     private rating: number;
     private description: string;
+    private countComments: number;
 
     constructor() {
         this.id = -1;
@@ -28,7 +29,7 @@ export default class HostelPageModel {
     }
 
     getData(): HostelData {
-        const data = {
+        return {
             name: this.name,
             id: this.id,
             image: this.image,
@@ -36,8 +37,8 @@ export default class HostelPageModel {
             location: this.location,
             rating: this.rating,
             description: this.description,
-        }
-        return data;
+            countComments: this.countComments,
+        };
     }
 
     fillModel(id: number): void {
@@ -56,7 +57,9 @@ export default class HostelPageModel {
                 this.id = hostel.hotel_id;
                 this.name = hostel.name;
                 this.image = hostel.image;
+                this.photos = hostel.photos;
                 this.location = hostel.location;
+                this.countComments = hostel.comm_count;
                 Events.trigger(UPDATE_HOSTEL, this.getData());
                 break;
             case 400:

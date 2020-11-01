@@ -4,6 +4,7 @@
 @import "@sign/templates/sign.css" all;
 @import "@css/hostels.css" all;
 @import "@css/errorPage.css" all;
+@import "@hostel/templates/hostel.css" all;
 
 body {
     background: var(--main-background-color);

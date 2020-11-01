@@ -32,6 +32,5 @@ export default function userFromCookie(): void {
             });
             break;
         }
-    })
-
+    });
 }

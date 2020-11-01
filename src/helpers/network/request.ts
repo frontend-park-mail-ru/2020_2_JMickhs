@@ -46,7 +46,7 @@ class Request {
             } else {
                 headers = {
                     'X-Csrf-Token': this.token
-                }
+                };
             } 
         }
 
