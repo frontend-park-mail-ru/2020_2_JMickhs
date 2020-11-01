@@ -1,14 +1,12 @@
-
-    <div class="list__container-all">
-        {{#each this}}
+ <div class="list__container-all">
+     {{#each this}}
         <a class="hostels-card" href="/hostel/{{hotel_id}}">
-            <img class="hostel-image" src="{{image}}" alt="image">
-                <div class="hostel-title text-italic">{{name}}</div>
-                <div class="text-cnt">
-                    <p class="hostel-title text-blue">{{location}}
-                    <p class="hostel-title text-red">7/10
-                </div>
+            <img class="hostel-card__image" src="{{image}}" alt="image">
+            <div class="hostel-card__text hostel-card__text_type_italic">{{name}}</div>
+            <div class="hostel-card__text-cnt">
+                <p class="hostel-card__text hostel-card__text_color_blue">{{location}}
+                <p class="hostel-card__text hostel-card__text_color_red">{{rating}}/10
+            </div>
         </a>
-        {{/each}}
-    </div>
-
+     {{/each}}
+ </div>
