@@ -19,10 +19,20 @@ class NetworkHostel {
         return Request.ajax('POST', '/api/v1/comments', body, true);
     }
 
-
     searchHostel(pattern: string, page=0) {
         return Request.ajax('GET', `/api/v1/hotels/search?pattern=${pattern}&page=${page}`);
     }
+
+    editComment(idComment: number, message: string, rating: number) {
+        const body = {
+            comn_id: idComment,
+            message: message,
+            rating: rating,
+        };
+
+        return Request.ajax('PUT', '/api/v1/comments', body, true);
+    }
+
 }
 
 export default new NetworkHostel();
