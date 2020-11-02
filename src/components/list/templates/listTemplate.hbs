@@ -2,10 +2,10 @@
      {{#each this}}
         <a class="hostels-card" href="/hostel/{{hotel_id}}">
             <img class="hostel-card__image" src="{{image}}" alt="image">
-            <div class="hostel-card__text hostel-card__text_type_italic">{{name}}</div>
+            <div class="hostel-card__text hostel-card__text--italic">{{name}}</div>
             <div class="hostel-card__text-cnt">
-                <p class="hostel-card__text hostel-card__text_color_blue">{{location}}
-                <p class="hostel-card__text hostel-card__text_color_red">{{rating}}/10
+                <p class="hostel-card__text hostel-card__text--blue">{{location}}
+                <p class="hostel-card__text hostel-card__text--red">{{rating}}/10
             </div>
         </a>
      {{/each}}
