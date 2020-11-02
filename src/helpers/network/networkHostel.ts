@@ -14,7 +14,7 @@ class NetworkHostel {
         const body = {
             hotel_id: idHostel,
             message: message,
-            rate: rate,
+            rating: rate,
         };
 
         return Request.ajax('POST', '/api/v1/comments', body, true);
