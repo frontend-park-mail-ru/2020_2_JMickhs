@@ -5,18 +5,14 @@ import {
     REDIRECT_ERROR,
 } from '@eventBus/constants';
 
-/** Класс модели для страницы списка отелей */
 export default class ListModel {
-    /**
-     * Инициализация класса
-     */
+    public hostels: unknown; // на самом деле, это массив объектов
+
     constructor() {
         this.hostels = [];
     }
-    /**
-     * Получить список отелей с сервера
-     */
-    fillModel() {
+
+    fillModel(): void {
         const response = NetworkHostel.getHostels();
         response.then((response) => {
             const code = response.code;
@@ -35,11 +31,8 @@ export default class ListModel {
             }
         });
     }
-    /**
-     * Получить список отелей с сервера
-     * @return {Object}
-     */
-    getData() {
+
+    getData(): unknown {
         return this.hostels;
     }
 }
