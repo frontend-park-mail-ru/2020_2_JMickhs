@@ -78,9 +78,10 @@ export default class HostelDataController implements AbstractController {
 
 
     private subscribeEvents(): void {
+        // Events.trigger(UPDATE_RATING_HOSTEL, this.comment.rating);
+
         const btnNext = document.getElementById('btn-image-next');
         btnNext.addEventListener('click', this.handlers.nextImg);
-
         const btnPrev = document.getElementById('btn-image-prev');
         btnPrev.addEventListener('click', this.handlers.prevImg);
     }

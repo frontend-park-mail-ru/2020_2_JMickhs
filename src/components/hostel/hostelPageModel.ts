@@ -1,4 +1,5 @@
 import {HostelData} from '@interfaces/structsData/hostelData';
+import { CommentData } from "@interfaces/structsData/commentData";
 import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
@@ -8,37 +9,21 @@ import {
 import HotelFromServer from '@network/structsServer/HotelData';
 
 export default class HostelPageModel {
-    private name: string;
-    private id: number;
-    private image: string;
-    private photos: string[];
-    private location: string;
-    private rating: number;
-    private description: string;
-    private countComments: number;
+
+    private hostel: HostelData;
+    private comment: CommentData;
 
     constructor() {
-        this.id = -1;
+        this.hostel = {};
+        this.comment = {};
     }
 
-    haveHostel(id: number): boolean {
-        if (id <= 0) {
-            return false;
-        }
-        return id == this.id;
+    getHostel(): HostelData {
+        return this.hostel;
     }
 
-    getData(): HostelData {
-        return {
-            name: this.name,
-            id: this.id,
-            image: this.image,
-            photos: this.photos,
-            location: this.location,
-            rating: this.rating,
-            description: this.description,
-            countComments: this.countComments,
-        };
+    getComment(): CommentData {
+        return this.comment;
     }
 
     fillModel(id: number): void {
@@ -52,15 +37,19 @@ export default class HostelPageModel {
             switch (code) {
             case 200:
                 const data = response.data as HotelFromServer;
-                const hostel = data.hotel;
-                this.description = hostel.description;
-                this.id = hostel.hotel_id;
-                this.name = hostel.name;
-                this.image = hostel.image;
-                this.photos = hostel.photos;
-                this.location = hostel.location;
-                this.countComments = hostel.comm_count;
-                Events.trigger(UPDATE_HOSTEL, this.getData());
+                const hotel = data.hotel;
+                this.hostel.description = hotel.description;
+                this.hostel.id = hotel.hotel_id;
+                this.hostel.name = hotel.name;
+                this.hostel.image = hotel.image;
+                this.hostel.photos = hotel.photos;
+                this.hostel.location = hotel.location;
+                this.hostel.countComments = hotel.comm_count;
+                this.hostel.rating = hotel.rating;
+
+                this.comment = data.comment;
+
+                Events.trigger(UPDATE_HOSTEL, {hostel: this.hostel, comment: this.comment});
                 break;
             case 400:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
