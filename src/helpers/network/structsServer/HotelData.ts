@@ -6,8 +6,10 @@ interface HotelData {
         image: string;
         photos: string[];
         location: string;
+        rating: number;
         comm_count: number;
     }
+    rate: number;
 }
 
 export default HotelData;

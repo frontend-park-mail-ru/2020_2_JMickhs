@@ -8,6 +8,7 @@ import {
 import HotelFromServer from '@network/structsServer/HotelData';
 
 export default class HostelPageModel {
+    
     private name: string;
     private id: number;
     private image: string;
@@ -60,6 +61,7 @@ export default class HostelPageModel {
                 this.photos = hostel.photos;
                 this.location = hostel.location;
                 this.countComments = hostel.comm_count;
+                this.rating = hostel.rating;
                 Events.trigger(UPDATE_HOSTEL, this.getData());
                 break;
             case 400:
