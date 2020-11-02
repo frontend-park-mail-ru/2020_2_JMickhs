@@ -4,9 +4,10 @@ import {
     LOAD_HOSTELS,
     REDIRECT_ERROR,
 } from '@eventBus/constants';
+import {HostelData} from "@interfaces/structsData/hostelData";
 
 export default class ListModel {
-    public hostels: unknown; // на самом деле, это массив объектов
+    public hostels: HostelData[]; // на самом деле, это массив объектов
 
     constructor() {
         this.hostels = [];
@@ -18,7 +19,7 @@ export default class ListModel {
             const code = response.code;
             switch (code) {
             case 200:
-                this.hostels = response.data;
+                this.hostels = response.data as HostelData[];
                 Events.trigger(LOAD_HOSTELS, this.getData());
                 break;
             case 400:
