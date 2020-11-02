@@ -40,6 +40,12 @@ export default class CommentUserController implements AbstractController {
         this.comment = arg.comment;
 
         this.render();
+
+        this.btnAdd = document.getElementById('btn-add-comment');
+        this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
+        this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
+
+        this.subscribeEvents();
     }
 
     deactivate(): void {
@@ -50,12 +56,6 @@ export default class CommentUserController implements AbstractController {
 
     private render(): void {
         this.place.innerHTML = templateUser({isAuth: User.getInstance().isAuth, comment: this.comment});
-
-        this.btnAdd = document.getElementById('btn-add-comment');
-        this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
-        this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
-
-        this.subscribeEvents();
     }
 
     private subscribeEvents(): void {
@@ -87,8 +87,5 @@ export default class CommentUserController implements AbstractController {
                 this.render();
             }
         });
-
-        
     }
-
 }
