@@ -1,9 +1,11 @@
 import {HostelData} from '@interfaces/structsData/hostelData';
+import { CommentData } from "@interfaces/structsData/commentData";
 import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
     REDIRECT_ERROR,
     UPDATE_HOSTEL,
+    UPDATE_COMMENT_USER
 } from '@eventBus/constants';
 import HotelFromServer from '@network/structsServer/HotelData';
 
@@ -17,6 +19,8 @@ export default class HostelPageModel {
     private rating: number;
     private description: string;
     private countComments: number;
+
+    private comment: CommentData;
 
     constructor() {
         this.id = -1;
@@ -50,6 +54,7 @@ export default class HostelPageModel {
         const response = NetworkHostel.getHostel(id);
         response.then((response) => {
             const code = response.code;
+            console.log(response);
             switch (code) {
             case 200:
                 const data = response.data as HotelFromServer;
@@ -62,7 +67,11 @@ export default class HostelPageModel {
                 this.location = hostel.location;
                 this.countComments = hostel.comm_count;
                 this.rating = hostel.rating;
+
+                this.comment = data.comment;
+
                 Events.trigger(UPDATE_HOSTEL, this.getData());
+                Events.trigger(UPDATE_COMMENT_USER, this.comment);
                 break;
             case 400:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});

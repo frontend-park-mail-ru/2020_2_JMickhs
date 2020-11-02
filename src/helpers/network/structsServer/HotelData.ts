@@ -1,3 +1,5 @@
+import { CommentData } from "@interfaces/structsData/commentData";
+
 interface HotelData {
     hotel: {
         description: string,
@@ -9,7 +11,7 @@ interface HotelData {
         rating: number;
         comm_count: number;
     }
-    rate: number;
+    comment: CommentData;
 }
 
 export default HotelData;

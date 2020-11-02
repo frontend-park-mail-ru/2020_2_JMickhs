@@ -24,3 +24,4 @@ export const ERR_FIX_USER = 'errFixUser';
 export const CHANGE_USER = 'changeUser';
 export const SIGNOUT_CLICK = 'signoutClick';
 export const AVATAR_UPDATE_CLICK = 'avatarUpdateClick';
+export const UPDATE_COMMENT_USER = 'updateCommentUser';
