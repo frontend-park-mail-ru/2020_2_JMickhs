@@ -83,8 +83,30 @@ export default class CommentUserController implements AbstractController {
                     comment: CommentData;
                 };
                 this.comment = data.comment;
-                Events.trigger(UPDATE_RATING_HOSTEL, this.comment.rating);
+                Events.trigger(UPDATE_RATING_HOSTEL, {rating: data.new_rate, delta: 1});
+
+                this.btnAdd.removeEventListener('click', this.handlers.addComment);
                 this.render();
+                break;
+            }
+        });
+    }
+
+    private editComment(idComment: number, message: string, rating: number): void {
+        const response = NetworkHostel.editComment(idComment, message, rating);
+
+        response.then((value) => {
+            const code = value.code;
+            switch(code) {
+            case 200: 
+                const data = value.data as {
+                    new_rate: number,
+                    comment: CommentData;
+                };
+                this.comment = data.comment;
+                Events.trigger(UPDATE_RATING_HOSTEL, {rating: data.new_rate, delta: 0});
+                this.render();
+                break;
             }
         });
     }

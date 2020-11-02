@@ -20,6 +20,16 @@ class NetworkHostel {
         return Request.ajax('POST', '/api/v1/comments', body, true);
     }
 
+    editComment(idComment: number, message: string, rating: number) {
+        const body = {
+            comn_id: idComment,
+            message: message,
+            rating: rating,
+        };
+
+        return Request.ajax('PUT', '/api/v1/comments', body, true);
+    }
+
 }
 
 export default new NetworkHostel();

@@ -4,6 +4,11 @@ import { HostelData } from "@interfaces/structsData/hostelData";
 import * as dataTemplate from "@hostel/templates/hostelData.hbs";
 import * as imagesTemplate from "@hostel/templates/hostelImages.hbs";
 
+import Events from '@eventBus/eventbus';
+import {
+    UPDATE_RATING_HOSTEL,
+} from '@eventBus/constants';
+
 export default class HostelDataController implements AbstractController {
 
     private placeData: HTMLElement;
@@ -12,6 +17,8 @@ export default class HostelDataController implements AbstractController {
 
     private photos: string[];
     private curPhoto: number;
+
+    private hostel: HostelData;
 
     private handlers: Record<string, (arg: unknown) => void>;
 
@@ -27,12 +34,19 @@ export default class HostelDataController implements AbstractController {
     
                 this.prevImage();
             },
+            updateTextData: (arg: {rating: number, delta: number}) => {
+                this.hostel.countComments += arg.delta;
+                this.hostel.rating = arg.rating;
+
+                this.placeData.innerHTML = dataTemplate(this.hostel);
+            }
         };
     }
 
     activate(arg: {placeData: HTMLElement, placeImages: HTMLElement, hostel: HostelData}): void {
         this.placeData = arg.placeData;
         this.placeImages = arg.placeImages;
+        this.hostel = arg.hostel;
 
         this.photos = arg.hostel.photos;
         this.photos.unshift(arg.hostel.image);
@@ -78,7 +92,7 @@ export default class HostelDataController implements AbstractController {
 
 
     private subscribeEvents(): void {
-        // Events.trigger(UPDATE_RATING_HOSTEL, this.comment.rating);
+        Events.subscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);
 
         const btnNext = document.getElementById('btn-image-next');
         btnNext.addEventListener('click', this.handlers.nextImg);
@@ -87,6 +101,8 @@ export default class HostelDataController implements AbstractController {
     }
 
     private unsubscribeEvents(): void {
+        Events.unsubscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);
+
         const btnNext = document.getElementById('btn-image-next');
         btnNext.removeEventListener('click', this.handlers.nextImg);
         const btnPrev = document.getElementById('btn-image-prev');
