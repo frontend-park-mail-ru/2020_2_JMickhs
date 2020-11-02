@@ -1,7 +1,6 @@
 import Request from '@network/request';
 
 class NetworkHostel {
-
     getHostels() {
         return Request.ajax('GET', '/api/v1/hotels?from=0');
     }
@@ -20,6 +19,10 @@ class NetworkHostel {
         return Request.ajax('POST', '/api/v1/comments', body, true);
     }
 
+
+    searchHostel(pattern: string, page=0) {
+        return Request.ajax('GET', `/api/v1/hotels/search?pattern=${pattern}&page=${page}`);
+    }
 }
 
 export default new NetworkHostel();
