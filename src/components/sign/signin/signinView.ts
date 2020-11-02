@@ -7,51 +7,36 @@ import {
     REDIRECT,
 } from '@eventBus/constants';
 
-import signinTemplate from '@sign/templates/signin.hbs';
+import * as signinTemplate from '@sign/templates/signin.hbs';
+import { UserData } from '@/helpers/interfaces/structsData/userData';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView extends PageView {
-    /**
-     * Инициализация класса
-     * @param {HTMLElement} parent - родительский элемент html-страницы
-     */
-    constructor(parent) {
+
+    private handlers: Record<string, (arg: unknown) => void>;
+
+    private timerId: number;
+
+    constructor(parent: HTMLElement) {
         super(parent);
 
-        this._handlers = this._makeHandlers();
+        this.handlers = this.makeHadlers();
     }
-    /**
-     * Подписка на события страницы авторизации
-     */
-    subscribeEvents() {
-        Events.subscribe(ERROR_SIGNIN, this._handlers.renderErr);
-        Events.subscribe(SIGNIN_USER, this._handlers.signinUser);
-    }
-    /**
-     * Отписка от событий страницы авторизации
-     */
-    unsubscribeEvents() {
-        Events.unsubscribe(ERROR_SIGNIN, this._handlers.renderErr);
-        Events.unsubscribe(SIGNIN_USER, this._handlers.signinUser);
-    }
-    /**
-     * Функция создает обработчики событий
-     * @return {Object} - возвращает обьект с обработчиками
-     */
-    _makeHandlers() {
+
+    private makeHadlers(): Record<string, (arg: unknown) => void> {
         const handlers = {
-            signinUser: (isAuth) => {
-                if (isAuth) {
+            signinUser: (user: UserData) => {
+                if (user) {
                     Events.trigger(REDIRECT, {url: '/profile'});
                 } else {
                     Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
                 }
             },
             renderErr: this.renderError.bind(this),
-            submitSigninForm: (evt) => {
+            submitSigninForm: (evt: Event) => {
                 evt.preventDefault();
-                const loginInput = document.getElementById('signin-login');
-                const passInput = document.getElementById('signin-password');
+                const loginInput = document.getElementById('signin-login') as HTMLInputElement;
+                const passInput = document.getElementById('signin-password') as HTMLInputElement;
                 const login = loginInput.value;
                 const password = passInput.value;
                 document.getElementById('signin-login').className = 'sign__input';
@@ -61,22 +46,8 @@ export default class SigninView extends PageView {
         };
         return handlers;
     }
-    /**
-     * Отрисовка страницы авторизации
-     */
-    render() {
-        window.scrollTo(0, 0);
-        this.page.innerHTML = signinTemplate();
 
-        const form = document.getElementById('signinform');
-        form.addEventListener('submit', this._handlers.submitSigninForm);
-    }
-    /**
-     * Отрисовка сообщения об ошибке
-     * @param {string} errstr - ощибка, которую нужно отобразить
-     * @param {Number} numberInputErr 1 - логин, 2 пароль
-     */
-    renderError(errstr, numberInputErr = 0) {
+    renderError(errstr: string, numberInputErr = 0): void {
         if (this.timerId !== -1) {
             clearTimeout(this.timerId);
         }
@@ -89,7 +60,7 @@ export default class SigninView extends PageView {
         const errLine = document.getElementById('text-error');
         errLine.textContent = errstr;
 
-        this.timerId = setTimeout(() => {
+        this.timerId = window.setTimeout(() => {
             errLine.textContent = '';
             const loginElem = document.getElementById('signin-login');
             // тут не очевидно, так что поясню.
@@ -104,15 +75,33 @@ export default class SigninView extends PageView {
             this.timerId = -1;
         }, 5000);
     }
-    /**
-     * Скрытие страницы страницы авторизации
-     */
-    hide() {
+
+    render(): void {
+        window.scrollTo(0, 0);
+        this.page.innerHTML = signinTemplate();
+
+        const form = document.getElementById('signinform');
+        form.addEventListener('submit', this.handlers.submitSigninForm);
+    }
+
+    hide(): void {
         const form = document.getElementById('signinform');
         if (!form) {
             return;
         }
-        form.removeEventListener('submit', this._handlers.submitSigninForm);
+        form.removeEventListener('submit', this.handlers.submitSigninForm);
         this.page.innerHTML = '';
+    }
+
+    subscribeEvents(): void {
+        Events.subscribe(ERROR_SIGNIN, this.handlers.renderErr);
+        Events.subscribe(SIGNIN_USER, this.handlers.signinUser);
+    }
+    /**
+     * Отписка от событий страницы авторизации
+     */
+    unsubscribeEvents(): void {
+        Events.unsubscribe(ERROR_SIGNIN, this.handlers.renderErr);
+        Events.unsubscribe(SIGNIN_USER, this.handlers.signinUser);
     }
 }

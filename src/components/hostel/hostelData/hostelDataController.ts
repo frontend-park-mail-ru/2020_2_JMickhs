@@ -82,7 +82,6 @@ export default class HostelDataController implements AbstractController {
 
         const btnNext = document.getElementById('btn-image-next');
         btnNext.addEventListener('click', this.handlers.nextImg);
-
         const btnPrev = document.getElementById('btn-image-prev');
         btnPrev.addEventListener('click', this.handlers.prevImg);
     }
