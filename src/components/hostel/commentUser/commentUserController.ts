@@ -3,6 +3,7 @@ import { CommentData } from "@interfaces/structsData/commentData";
 
 import * as templateUser from "@hostel/templates/hostelComment.hbs";
 import NetworkHostel from "@/helpers/network/networkHostel";
+import User from "@/helpers/user/user";
 
 
 export default class CommentUserController implements AbstractController {
@@ -40,19 +41,24 @@ export default class CommentUserController implements AbstractController {
     }
 
     private render(): void {
-        this.place.innerHTML = templateUser(this.comment);
+        this.place.innerHTML = templateUser({isAuth: User.getInstance().isAuth, comment: this.comment});
 
-        this.btn = document.getElementById('btn-user-comment');
+        this.btn = document.getElementById('btn-add-comment');
 
         this.subscribeEvents();
     }
 
     private subscribeEvents(): void {
-        this.btn.addEventListener('click', this.handlers.addComment);
+        if (this.btn) {
+            this.btn.addEventListener('click', this.handlers.addComment);
+        }
+        
     }
 
     private unsubscribeEvents(): void {
-        this.btn.removeEventListener('click', this.handlers.addComment);
+        if (this.btn) {
+            this.btn.removeEventListener('click', this.handlers.addComment);
+        }
     }
 
     private addComment(idHostel: number, message: string, rate: number): void {

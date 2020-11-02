@@ -39,12 +39,6 @@ export default class HostelPageController implements AbstractController {
             return;
         }
 
-        if (this.model.haveHostel(id)) {
-            const data = this.model.getData();
-            this.view.render(data);
-            return;
-        }
-
         Events.subscribe(UPDATE_HOSTEL, this.hadlers.renderView);
 
         this.model.fillModel(id);
