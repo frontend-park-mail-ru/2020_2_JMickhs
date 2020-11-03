@@ -1,4 +1,3 @@
-// import {PageView} from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {LOAD_HOSTELS} from '@eventBus/constants';
 import * as listTemplate from '@list/templates/listTemplate.hbs';
@@ -8,6 +7,7 @@ export default class ListView {
     private page: HTMLElement;
 
     constructor(parent: HTMLElement) {
+        // TODO: сменить на place
         const page = document.createElement('div');
         page.id = 'page1';
         parent.appendChild(page);

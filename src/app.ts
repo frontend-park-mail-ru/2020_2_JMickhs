@@ -16,14 +16,6 @@ import userFromCookie from '@user/cookieUser';
 
 import '@/main.css';
 
-// if ('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('../serviceWorker.js', {scope: '/'}).then((reg) => {
-//         console.log('Worker registrated!!!');
-//     }).catch((err) => {
-//         console.log('Worker fucked up:(', err);
-//     });
-// }
-
 /**
  *  Старт нашего приложения =)
  */
@@ -37,7 +29,6 @@ import '@/main.css';
     navbarController.activate();
 
     const homeController = new HomeController(application);
-    // const listController = new ListController(application);
     const signinController = new SigninController(application);
     const signupController = new SignupController(application);
     const profileController = new ProfileController(application);
@@ -48,7 +39,6 @@ import '@/main.css';
     Router.append('/signin', signinController);
     Router.append('/signup', signupController);
     Router.append('/profile', profileController);
-    // Router.append('/list', listController);
     Router.append('/hostel', hostelPageController);
 
     Router.errorController = errorPageController;

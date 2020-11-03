@@ -1,11 +1,30 @@
-@import "@css/colors.css" all;
 @import "@navbar/templates/navbar.css" all;
 @import "@profile/templates/profile.css" all;
 @import "@sign/templates/sign.css" all;
 @import "@list/templates/hostels.css" all;
-@import "@css/errorPage.css" all;
 @import "@hostel/templates/hostel.css" all;
 @import "@home/templates/home.css" all;
+@import "@pageError/templates/errorPage.css" all;
+
+:root {
+    --main-background-color: #ffffff;
+    --blue: #312da4;
+    --blue-dark: #6200ea;
+    --violet-light: #5c6bc0;
+    --violet-dark: #000051;
+    --orange: #ff6f00;
+    --orange-new: #f38000;
+    --orange-dark: #ff3d00;
+    --red: #c62828;
+    --new-red: #D50000;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --white: white;
+    --opacity-white: rgba(255, 255, 255, 0.8);
+    --gray-light: #f1f1f1;
+    --gray: #ddd;
+    --gray-dark: #757575;
+    --gray-new: #3c3f41;
+}
 
 body {
     background: var(--main-background-color);

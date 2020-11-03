@@ -46,6 +46,7 @@ export default class HomeController implements AbstractController {
         this.view.subscribeEvents();
         this.view.render({});
         this.listComponent = new ListController(this.view.listElem);
+        // TODO: это не должно быть в контроллере
         if (location.search) {
             this.updateParams(location.href);
         }
@@ -59,6 +60,7 @@ export default class HomeController implements AbstractController {
     }
 
     updateParams(urlStr: string): void {
+        // TODO: переработать
         const url = new URL(urlStr);
         const pattern = url.searchParams.get('pattern');
         if (pattern === null) {

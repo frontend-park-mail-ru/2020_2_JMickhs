@@ -1,9 +1,9 @@
-.text {
+.error__text {
     color: var(--blue);
     text-align: center;
 }
 
-.text-first {
+.error__text-first {
     margin-top: 300px;
     color: var(--orange);
     text-align: center;
