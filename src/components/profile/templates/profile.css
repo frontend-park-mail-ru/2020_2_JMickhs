@@ -61,6 +61,7 @@
     color: var(--orange);
     cursor: pointer;
     text-decoration: none;
+    background-color: rgba(0, 0, 0, 0);
     border: none;
     outline: none;
 }

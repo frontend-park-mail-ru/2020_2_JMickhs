@@ -79,6 +79,10 @@
     color: var(--orange);
 }
 
+.hostel__text--red {
+    color: var(--new-red);
+}
+
 .hostel__comments {
     grid-area: comments;
 }

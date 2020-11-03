@@ -25,7 +25,7 @@ export default class ListModel {
             const code = response.code;
             switch (code) {
             case 200:
-                const data = response.data as {hotels: HostelData[]};
+                const data = response.data as {hotels: HostelData[], Pag_info: unknown};
                 this.hostels = data.hotels;
                 Events.trigger(LOAD_HOSTELS, this.getData());
                 break;
