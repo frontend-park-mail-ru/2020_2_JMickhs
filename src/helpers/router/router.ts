@@ -67,8 +67,9 @@ class Router {
         const arg = splitUrl[2];
         const controller = this.findControllerByPath(path) || this.errorController;
 
-        if (this.currController === controller) {
-            controller.updateParams();
+        const url = new URL(location.href);
+        if (this.currController === controller && controller.updateParams) {
+            controller.updateParams(url.searchParams);
             return;
         }
 
@@ -82,6 +83,10 @@ class Router {
         this.curUrl = location.href;
         this.currController = controller;
         controller.activate(arg);
+
+        if (url.searchParams && controller.updateParams) {
+            controller.updateParams(url.searchParams);
+        }
     }
 
 }

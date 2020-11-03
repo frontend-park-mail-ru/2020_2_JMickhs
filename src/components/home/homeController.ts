@@ -46,10 +46,6 @@ export default class HomeController implements AbstractController {
         this.view.subscribeEvents();
         this.view.render({});
         this.listComponent = new ListController(this.view.listElem);
-        
-        if (location.search) {
-            this.updateParams();
-        }
     }
 
     deactivate(): void {
@@ -59,9 +55,8 @@ export default class HomeController implements AbstractController {
         this.unsubscribeEvents();
     }
 
-    updateParams(): void {
-        const url = new URL(location.href);
-        const pattern = url.searchParams.get('pattern');
+    updateParams(params: URLSearchParams): void {
+        const pattern = params.get('pattern');
         if (pattern === null) {
             this.listComponent.deactivate();
             Events.trigger(CHANGE_CNT_TO_SEARCH);

@@ -1,5 +1,5 @@
 export interface AbstractController {
     activate(arg: unknown): void;
     deactivate(): void;
-    updateParams?(): void;
+    updateParams?(params: URLSearchParams): void;
 }
