@@ -8,10 +8,7 @@ export default class ListView {
     private page: HTMLElement;
 
     constructor(parent: HTMLElement) {
-        const page = document.createElement('div');
-        page.id = 'page1';
-        parent.appendChild(page);
-        this.page = page;
+        this.page = parent;
 
         this.handlers = {
             render: this.render.bind(this),
