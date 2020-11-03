@@ -1,13 +1,17 @@
-import {PageView} from '@interfaces/views';
+// import {PageView} from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {LOAD_HOSTELS} from '@eventBus/constants';
 import * as listTemplate from '@list/templates/listTemplate.hbs';
 
-export default class ListView extends PageView {
+export default class ListView {
     private handlers: Record<string, (arg: unknown) => void>;
+    private page: HTMLElement;
 
     constructor(parent: HTMLElement) {
-        super(parent);
+        const page = document.createElement('div');
+        page.id = 'page1';
+        parent.appendChild(page);
+        this.page = page;
 
         this.handlers = {
             render: this.render.bind(this),

@@ -1,7 +1,7 @@
 import Router from '@router/router';
 import HomeController from '@home/homeController';
 import NavbarController from '@navbar/navController';
-import ListController from '@list/listController';
+// import ListController from '@list/listController';
 import SigninController from '@sign/signin/signinController';
 import SignupController from '@sign/signup/signupController';
 import ProfileController from '@profile/profileController';
@@ -37,7 +37,7 @@ import '@/main.css';
     navbarController.activate();
 
     const homeController = new HomeController(application);
-    const listController = new ListController(application);
+    // const listController = new ListController(application);
     const signinController = new SigninController(application);
     const signupController = new SignupController(application);
     const profileController = new ProfileController(application);
@@ -48,7 +48,7 @@ import '@/main.css';
     Router.append('/signin', signinController);
     Router.append('/signup', signupController);
     Router.append('/profile', profileController);
-    Router.append('/list', listController);
+    // Router.append('/list', listController);
     Router.append('/hostel', hostelPageController);
 
     Router.errorController = errorPageController;

@@ -5,6 +5,7 @@ import {
     REDIRECT_ERROR,
 } from '@eventBus/constants';
 import {HostelData} from "@interfaces/structsData/hostelData";
+import {ResponseData} from "@interfaces/structsData/resposeData";
 
 export default class ListModel {
     public hostels: HostelData[]; // на самом деле, это массив объектов
@@ -13,13 +14,18 @@ export default class ListModel {
         this.hostels = [];
     }
 
-    fillModel(): void {
-        const response = NetworkHostel.getHostels();
+    fillModel(promiseData?: Promise<ResponseData>): void {
+        let response: Promise<ResponseData>;
+        if (promiseData === undefined) {
+            response = NetworkHostel.getHostels();
+        } else {
+            response = promiseData;
+        }
         response.then((response) => {
             const code = response.code;
             switch (code) {
             case 200:
-                this.hostels = response.data as HostelData[];
+                this.hostels = response.data.hotels as HostelData[];
                 Events.trigger(LOAD_HOSTELS, this.getData());
                 break;
             case 400:

@@ -11,10 +11,29 @@
     padding: 0 15px;
 }
 
+.home__container-list-all {
+    height: 100%;
+    display: grid;
+    grid-template-areas: "search"
+                         "list";
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 86%;
+    margin: 0 7%;
+    padding: 0 15px;
+}
+
 .home__search {
     grid-area: search;
     width: 75%;
     display: flex;
+    padding-top: 5%;
+}
+
+.home__list {
+    grid-area: list;
 }
 
 .btn-search-cnt {

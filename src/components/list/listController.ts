@@ -1,5 +1,6 @@
 import ListModel from '@list/listModel';
 import ListView from '@list/listView';
+import {ResponseData} from "@interfaces/structsData/resposeData";
 
 export default class ListController {
     private model: ListModel;
@@ -12,10 +13,10 @@ export default class ListController {
         this.haveInfo = false;
     }
 
-    activate(): void {
+    activate(handler?: Promise<ResponseData>): void {
         this.view.subscribeEvents();
         if (!this.haveInfo) {
-            this.model.fillModel();
+            this.model.fillModel(handler);
         }
     }
 

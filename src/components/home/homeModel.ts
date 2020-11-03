@@ -1,3 +1,6 @@
+import NetworkHostel from "@network/networkHostel";
+import {ResponseData} from "@interfaces/structsData/resposeData";
+
 export default class HomeModel {
 
     private username: string;
@@ -17,5 +20,9 @@ export default class HomeModel {
     setData(name: string): void {
         this.isAuth = !(name === '');
         this.username = name;
+    }
+
+    search(pattern: string, page?: number): Promise<ResponseData> {
+        return NetworkHostel.searchHostel(pattern, page);
     }
 }

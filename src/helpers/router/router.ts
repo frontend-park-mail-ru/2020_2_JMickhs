@@ -49,16 +49,20 @@ class Router {
         if (evt instanceof Event) {
             evt.preventDefault();
         }
-
         const splitUrl = location.pathname.split('/');
         const path = '/' + splitUrl[1];
         const arg = splitUrl[2];
         const controller = this.findControllerByPath(path) || this.errorController;
 
+        if (this.currController === controller) {
+            controller.updateParams(location.href);
+            return;
+        }
+
         if (this.currController) {
             this.currController.deactivate();
         }
-        
+
         this.currController = controller;
         controller.activate(arg);
     }

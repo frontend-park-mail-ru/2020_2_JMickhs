@@ -26,3 +26,6 @@ export const SIGNOUT_CLICK = 'signoutClick';
 export const AVATAR_UPDATE_CLICK = 'avatarUpdateClick';
 export const UPDATE_COMMENT_USER = 'updateCommentUser';
 export const UPDATE_RATING_HOSTEL = 'updateRatingHostel';
+export const SEARCH_HOSTELS = 'searchHostels';
+export const CHANGE_CNT_TO_SEARCH = 'changeCntToSearch';
+export const CHANGE_CNT_TO_LIST = 'changeCntToList';

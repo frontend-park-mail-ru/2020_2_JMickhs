@@ -1,8 +1,4 @@
-interface ResponseData {
-    code?: number;
-    error?: unknown;
-    data?: unknown;
-}
+import {ResponseData} from "@interfaces/structsData/resposeData";
 
 class Request {
 
@@ -20,7 +16,7 @@ class Request {
 
     ajax(method: string,
         url: string,
-        body?: unknown, 
+        body?: unknown,
         csrf?: boolean,
         headers?: Record<string, string>
     ): Promise<ResponseData> {
@@ -47,7 +43,7 @@ class Request {
                 headers = {
                     'X-Csrf-Token': this.token
                 };
-            } 
+            }
         }
 
         return fetch(this.domain + this.port + url, {
