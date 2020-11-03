@@ -1,16 +1,24 @@
+{{#if count}}
 <div class="hostel__comment-card">
-    <p class="hostel__title hostel__title--orange">Alkirus</p>
-    <p class="hostel__text hostel__title--orange">Рейтинг: 3/5</p>
+    <p class="hostel__title hostel__title--orange">Пользователь: {{comment.username}}</p>
+    <p class="hostel__star hostel__title hostel__title--orange">{{comment.rating}}</p>
     <p class="hostel__text hostel__text--blue">
-        Вилла Domina находится в городе Сплит, всего в 5 минутах ходьбы от дворца Диоклетиана,
-        находящегося
-    </p>
+        {{#if comment.message}}
+        {{comment.message}}
+        {{else}}
+        Комментарий не оставлен
+        {{/if}}
+        </p>
 </div>
 
 <div class="hostel__comment-switch">
-    <button class="hostel__btn-round">
+    <button class="hostel__btn-round" id="comment-prev">
         < </button>
-    <button class="hostel__btn-round">
+    <button class="hostel__btn-round" id="comment-next">
         >
     </button>
 </div>
+{{else}}
+<p class="hostel__text hostel__title--orange">Другие пользователи пока не оставили комментарии!</p>
+{{/if}}
+

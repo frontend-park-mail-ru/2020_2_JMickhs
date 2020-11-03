@@ -1,17 +1,18 @@
-import { AbstractController } from "@interfaces/controllers";
-import { CommentData } from "@/helpers/network/structsServer/commentData";
+import { AbstractController } from '@interfaces/controllers';
+import { CommentData } from '@network/structsServer/commentData';
 
 
 import Events from '@eventBus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
     HAVE_USER,
+    REDIRECT_ERROR
 } from '@eventBus/constants';
 
-import * as templateUser from "@hostel/templates/hostelComment.hbs";
-import NetworkHostel from "@/helpers/network/networkHostel";
-import User from "@/helpers/user/user";
-import { UserData } from "@/helpers/interfaces/structsData/userData";
+import * as templateUser from '@hostel/templates/hostelComment.hbs';
+import NetworkHostel from '@network/networkHostel';
+import User from '@/helpers/user/user';
+import { UserData } from '@interfaces/structsData/userData';
 
 
 export default class CommentUserController implements AbstractController {
@@ -112,6 +113,18 @@ export default class CommentUserController implements AbstractController {
                 this.btnAdd.removeEventListener('click', this.handlers.addComment);
                 this.render();
                 break;
+            case 400:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'bad request'});
+                break;
+            case 403:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Нет csrf'});
+                break;
+            case 423:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Второй раз ставите ошибку!'});
+                break;
+            default:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: `Ошибка сервера: статус - ${code}`});
+                break;
             }
         });
     }
@@ -130,6 +143,18 @@ export default class CommentUserController implements AbstractController {
                 this.comment = data.comment;
                 Events.trigger(UPDATE_RATING_HOSTEL, {rating: data.new_rate, delta: 0});
                 this.render();
+                break;
+            case 400:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'bad request'});
+                break;
+            case 403:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Нет csrf'});
+                break;
+            case 423:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Второй раз ставите ошибку!'});
+                break;
+            default:
+                Events.trigger(REDIRECT_ERROR, {url: '/error', err: `Ошибка сервера: статус - ${code}`});
                 break;
             }
         });
