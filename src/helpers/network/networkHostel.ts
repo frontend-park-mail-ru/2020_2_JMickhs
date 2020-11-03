@@ -25,12 +25,21 @@ class NetworkHostel {
 
     editComment(idComment: number, message: string, rating: number) {
         const body = {
-            comn_id: idComment,
+            comm_id: idComment,
             message: message,
             rating: rating,
         };
 
         return Request.ajax('PUT', '/api/v1/comments', body, true);
+    }
+
+    getComments(page: number, idHostel: number) {
+        const url = new URL('http://www.hostelscan.ru/api/v1/comments');
+        url.searchParams.set('page', page.toString());
+        url.searchParams.set('id', idHostel.toString());
+        const urlStr = url.pathname + url.search;
+
+        return Request.ajax('GET', urlStr);
     }
 
 }

@@ -1,5 +1,5 @@
 import {HostelData} from '@interfaces/structsData/hostelData';
-import { CommentData } from "@interfaces/structsData/commentData";
+import { CommentData } from "@/helpers/network/structsServer/commentData";
 import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
