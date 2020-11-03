@@ -174,7 +174,6 @@
 }
 
 .hostel__select {
-    border: 2px solid var(--orange);
     color: var(--orange);
     border-radius: 3px;
     cursor: pointer;

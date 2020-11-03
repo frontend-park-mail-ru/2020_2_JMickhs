@@ -6,12 +6,8 @@ export default class ListView {
     private handlers: Record<string, (arg: unknown) => void>;
     private page: HTMLElement;
 
-    constructor(parent: HTMLElement) {
-        // TODO: сменить на place
-        const page = document.createElement('div');
-        page.id = 'page1';
-        parent.appendChild(page);
-        this.page = page;
+    constructor(place: HTMLElement) {
+        this.page = place;
 
         this.handlers = {
             render: this.render.bind(this),

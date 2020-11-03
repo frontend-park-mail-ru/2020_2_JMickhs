@@ -67,11 +67,10 @@ class Router {
         const arg = splitUrl[2];
         const controller = this.findControllerByPath(path) || this.errorController;
 
-        // TODO:
-        // if (this.currController === controller) {
-        // controller.updateParams(location.href);
-        //     return;
-        // }
+        if (this.currController === controller) {
+            controller.updateParams();
+            return;
+        }
 
         if (this.currController) {
             this.currController.deactivate();

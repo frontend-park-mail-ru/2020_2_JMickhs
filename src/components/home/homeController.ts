@@ -46,9 +46,9 @@ export default class HomeController implements AbstractController {
         this.view.subscribeEvents();
         this.view.render({});
         this.listComponent = new ListController(this.view.listElem);
-        // TODO: это не должно быть в контроллере
+        
         if (location.search) {
-            this.updateParams(location.href);
+            this.updateParams();
         }
     }
 
@@ -59,9 +59,8 @@ export default class HomeController implements AbstractController {
         this.unsubscribeEvents();
     }
 
-    updateParams(urlStr: string): void {
-        // TODO: переработать
-        const url = new URL(urlStr);
+    updateParams(): void {
+        const url = new URL(location.href);
         const pattern = url.searchParams.get('pattern');
         if (pattern === null) {
             this.listComponent.deactivate();

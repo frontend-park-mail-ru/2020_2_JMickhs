@@ -48,8 +48,6 @@
     grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
     align-items: center;
     justify-content: space-between;
-    margin: 0 7%;
-    padding: 0 15px;
 }
 
 .hostel-card__text-cnt {
@@ -60,6 +58,7 @@
 
 @media only screen and (max-width: 750px) {
     .list__container-all {
+        padding-top: 8%;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
         grid-gap: 4%;
