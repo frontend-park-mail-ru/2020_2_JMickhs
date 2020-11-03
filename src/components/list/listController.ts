@@ -1,10 +1,12 @@
 import ListModel from '@list/listModel';
 import ListView from '@list/listView';
-import {ResponseData} from '@interfaces/structsData/resposeData';
+import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 
 export default class ListController {
     private model: ListModel;
+
     private view: ListView;
+
     public haveInfo: boolean;
 
     constructor(parent: HTMLElement) {

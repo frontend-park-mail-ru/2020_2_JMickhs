@@ -10,12 +10,14 @@ import {
 } from '@eventBus/constants';
 
 export default class HostelDataController implements AbstractController {
-
     private placeData: HTMLElement;
+
     private placeImages: HTMLElement;
+
     private image: HTMLImageElement;
 
     private photos: string[];
+
     private curPhoto: number;
 
     private hostel: HostelData;
@@ -39,7 +41,7 @@ export default class HostelDataController implements AbstractController {
                 this.hostel.rating = arg.rating;
 
                 this.placeData.innerHTML = dataTemplate(this.hostel);
-            }
+            },
         };
     }
 
@@ -51,9 +53,11 @@ export default class HostelDataController implements AbstractController {
         this.photos = arg.hostel.photos;
         this.photos.unshift(arg.hostel.image);
         this.curPhoto = 0;
-        arg.hostel.image = this.photos[0];
 
-        this.render(arg.hostel);
+        const image = this.photos[0];
+        this.hostel.image = image;
+
+        this.render(this.hostel);
     }
 
     private render(hostel: HostelData) {
@@ -89,7 +93,6 @@ export default class HostelDataController implements AbstractController {
         this.placeData.innerHTML = '';
         this.placeImages.innerHTML = '';
     }
-
 
     private subscribeEvents(): void {
         Events.subscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);

@@ -21,6 +21,7 @@ export default class ProfileController {
         this._view = new ProfileView(parent);
         this._handlers = this._makeHandlers();
     }
+
     /**
      * Активация работы контроллера
      */
@@ -32,6 +33,7 @@ export default class ProfileController {
             this._view.render(this._model.getData());
         }
     }
+
     /**
      * Отключение работы контроллера и чистка памяти
      */
@@ -40,6 +42,7 @@ export default class ProfileController {
         this._view.unsubscribeEvents();
         this._view.hide();
     }
+
     /**
      * Подписка на события
      */
@@ -49,6 +52,7 @@ export default class ProfileController {
         Events.subscribe(SIGNOUT_CLICK, this._handlers.signout);
         Events.subscribe(AVATAR_UPDATE_CLICK, this._handlers.updateAvatar);
     }
+
     /**
      *  Отписка от событий
      */
@@ -58,12 +62,13 @@ export default class ProfileController {
         Events.unsubscribe(SIGNOUT_CLICK, this._handlers.signout);
         Events.unsubscribe(AVATAR_UPDATE_CLICK, this._handlers.updateAvatar);
     }
+
     /**
      * Проверка данных, переданных для изменения
      * @param {Object} arg - {login: string, email: string}
      */
     _validateDataChange(arg) {
-        const {username, email} = arg;
+        const { username, email } = arg;
         const user = this._model.getData();
         if (username === user.username && email === user.email) {
             this._view.renderMsgDataSettings('Вы ничего не изменили =)');
@@ -98,6 +103,7 @@ export default class ProfileController {
 
         this._model.changeUser(username, email);
     }
+
     /**
      * Проверка изменения пароля
      * @param {Object} arg
@@ -137,6 +143,7 @@ export default class ProfileController {
 
         this._model.updatePassword(oldPsw, newPsw2);
     }
+
     /**
      * Функция создает обработчики событий
      * @return {Object} - возвращает обьект с обработчиками

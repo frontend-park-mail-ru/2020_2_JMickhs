@@ -5,7 +5,7 @@ import {
     SIGNUP_USER,
     ERROR_SIGNUP,
 } from '@eventBus/constants';
-import {UserData} from '@interfaces/structsData/userData';
+import { UserData } from '@interfaces/structsData/userData';
 
 export default class SignupModel {
     private user: User;
@@ -20,29 +20,28 @@ export default class SignupModel {
 
     signup(username: string, email: string, password: string): void {
         const response = NetworkUser.signup(username, email, password);
-        response.then((response) => {
-            const code = response.code;
-            const data = response.data as UserData;
+        response.then((value) => {
+            const { code } = value;
+            const data = value.data as UserData;
             switch (code) {
-            case 200:
-                this.user.id = data.id;
-                this.user.avatar = data.avatar;
-                this.user.isAuth = true;
-                this.user.username = data.username;
-                this.user.email = data.email;
-                Events.trigger(SIGNUP_USER, this.user.getData());
-                break;
-            case 400:
-                Events.trigger(ERROR_SIGNUP, 'Неверный формат запроса');
-                break;
-            case 409:
-                Events.trigger(ERROR_SIGNUP, 'Пользователь с таким логином уже существует!');
-                break;
-            default:
-                Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${code}`);
-                break;
+                case 200:
+                    this.user.id = data.id;
+                    this.user.avatar = data.avatar;
+                    this.user.isAuth = true;
+                    this.user.username = data.username;
+                    this.user.email = data.email;
+                    Events.trigger(SIGNUP_USER, this.user.getData());
+                    break;
+                case 400:
+                    Events.trigger(ERROR_SIGNUP, 'Неверный формат запроса');
+                    break;
+                case 409:
+                    Events.trigger(ERROR_SIGNUP, 'Пользователь с таким логином уже существует!');
+                    break;
+                default:
+                    Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${code}`);
+                    break;
             }
         });
     }
-
 }

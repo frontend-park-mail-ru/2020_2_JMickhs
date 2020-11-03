@@ -1,4 +1,4 @@
-import {PageView} from '@interfaces/views';
+import { PageView } from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
@@ -13,10 +13,10 @@ export default class HomeView extends PageView {
     constructor(parent: HTMLElement) {
         super(parent);
 
-        this.handlers = this.makeHadlers();
+        this.handlers = HomeView.makeHadlers();
     }
 
-    private makeHadlers(): Record<string, (arg: unknown) => void> {
+    private static makeHadlers(): Record<string, (arg: unknown) => void> {
         const handlers = {
             cntToList: () => {
                 const cnt = document.getElementById('cnt') as HTMLDivElement;
@@ -29,12 +29,12 @@ export default class HomeView extends PageView {
             searchClick: () => {
                 const input = document.getElementById('input') as HTMLInputElement;
                 Events.trigger(SEARCH_HOSTELS, input.value);
-            }
+            },
         };
         return handlers;
     }
 
-    get listElem(): HTMLElement {
+    static listElem(): HTMLElement {
         return document.getElementById('list');
     }
 

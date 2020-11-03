@@ -1,39 +1,40 @@
 import Request from '@network/request';
+import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 
 class NetworkHostel {
-    getHostels() {
+    static getHostels(): Promise<ResponseData> {
         return Request.ajax('GET', '/api/v1/hotels?from=0');
     }
 
-    getHostel(id: number) {
+    static getHostel(id: number): Promise<ResponseData> {
         return Request.ajax('GET', `/api/v1/hotels/${id}`);
     }
 
-    addComment(idHostel: number, message: string, rate: number) {
+    static addComment(idHostel: number, message: string, rate: number): Promise<ResponseData> {
         const body = {
             hotel_id: idHostel,
-            message: message,
+            message,
             rating: rate,
         };
 
         return Request.ajax('POST', '/api/v1/comments', body, true);
     }
 
-    searchHostel(pattern: string, page=0) {
+    static searchHostel(pattern: string, page = 0): Promise<ResponseData> {
         return Request.ajax('GET', `/api/v1/hotels/search?pattern=${pattern}&page=${page}`);
     }
 
-    editComment(idComment: number, message: string, rating: number) {
+    static editComment(idComment: number, message: string, rating: number): Promise<ResponseData> {
         const body = {
             comm_id: idComment,
-            message: message,
-            rating: rating,
+            message,
+            rating,
         };
 
         return Request.ajax('PUT', '/api/v1/comments', body, true);
     }
 
-    getComments(page: number, idHostel: number) {
+    static getComments(page: number, idHostel: number): Promise<ResponseData> {
         const url = new URL('http://www.hostelscan.ru/api/v1/comments');
         url.searchParams.set('page', page.toString());
         url.searchParams.set('id', idHostel.toString());
@@ -41,7 +42,6 @@ class NetworkHostel {
 
         return Request.ajax('GET', urlStr);
     }
-
 }
 
-export default new NetworkHostel();
+export default NetworkHostel;

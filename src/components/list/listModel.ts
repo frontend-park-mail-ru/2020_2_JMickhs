@@ -4,8 +4,8 @@ import {
     LOAD_HOSTELS,
     REDIRECT_ERROR,
 } from '@eventBus/constants';
-import {HostelData} from '@interfaces/structsData/hostelData';
-import {ResponseData} from '@interfaces/structsData/resposeData';
+import { HostelData } from '@interfaces/structsData/hostelData';
+import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 
 export default class ListModel {
     public hostels: HostelData[]; // на самом деле, это массив объектов
@@ -21,21 +21,24 @@ export default class ListModel {
         } else {
             response = promiseData;
         }
-        response.then((response) => {
-            const code = response.code;
+        response.then((value) => {
+            const { code } = value;
+            const data = value.data as {hotels: HostelData[], Pag_info: unknown};
             switch (code) {
-            case 200:
-                const data = response.data as {hotels: HostelData[], Pag_info: unknown};
-                this.hostels = data.hotels;
-                Events.trigger(LOAD_HOSTELS, this.getData());
-                break;
-            case 400:
-                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
-                break;
-            default:
-                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Что-то страшное произошло c нишим сервером...' +
-                        ` Он говорит: ${code}`});
-                break;
+                case 200:
+                    this.hostels = data.hotels;
+                    Events.trigger(LOAD_HOSTELS, this.getData());
+                    break;
+                case 400:
+                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Неверный формат запроса' });
+                    break;
+                default:
+                    Events.trigger(REDIRECT_ERROR, {
+                        url: '/error',
+                        err: 'Что-то страшное произошло c нишим сервером...'
+                        + ` Он говорит: ${code}`,
+                    });
+                    break;
             }
         });
     }

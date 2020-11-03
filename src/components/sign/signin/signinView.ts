@@ -1,10 +1,10 @@
-import {PageView} from '@interfaces/views';
+import { PageView } from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {
     SUBMIT_SIGNIN,
     ERROR_SIGNIN,
     SIGNIN_USER,
-    REDIRECT_BACK
+    REDIRECT_BACK,
 } from '@eventBus/constants';
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
@@ -12,7 +12,6 @@ import { UserData } from '@/helpers/interfaces/structsData/userData';
 
 /** Класс представления для страницы авторизации */
 export default class SigninView extends PageView {
-
     private handlers: Record<string, (arg: unknown) => void>;
 
     private timerId: number;
@@ -41,7 +40,7 @@ export default class SigninView extends PageView {
                 const password = passInput.value;
                 document.getElementById('signin-login').className = 'sign__input';
                 document.getElementById('signin-password').className = 'sign__input';
-                Events.trigger(SUBMIT_SIGNIN, {login: login, password: password});
+                Events.trigger(SUBMIT_SIGNIN, { login, password });
             },
         };
         return handlers;
@@ -97,6 +96,7 @@ export default class SigninView extends PageView {
         Events.subscribe(ERROR_SIGNIN, this.handlers.renderErr);
         Events.subscribe(SIGNIN_USER, this.handlers.signinUser);
     }
+
     /**
      * Отписка от событий страницы авторизации
      */

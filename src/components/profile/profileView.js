@@ -1,4 +1,4 @@
-import {PageView} from '@interfaces/views';
+import { PageView } from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {
     UPDATE_PASSWORD,
@@ -36,6 +36,7 @@ export default class ProfileView extends PageView {
 
         this._handlers = this._makeHandlers();
     }
+
     /**
      * Подписка на события страницы профиля
      */
@@ -50,6 +51,7 @@ export default class ProfileView extends PageView {
         Events.subscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
+
     /**
      * Отписка от событий страницы профиля
      */
@@ -64,6 +66,7 @@ export default class ProfileView extends PageView {
         Events.unsubscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
+
     /**
      * Функция создает обработчики событий
      * @return {Object} - возвращает обьект с обработчиками
@@ -90,7 +93,7 @@ export default class ProfileView extends PageView {
                 this.renderMessageAvatar(arg, true);
             },
             redirectSignin: () => {
-                Events.trigger(REDIRECT, {url: '/signin'});
+                Events.trigger(REDIRECT, { url: '/signin' });
             },
             updatePswClick: (evt) => {
                 evt.preventDefault();
@@ -100,8 +103,8 @@ export default class ProfileView extends PageView {
                 Events.trigger(UPDATE_PASSWORD, {
                     oldPassword: oldPsw,
                     newPassword1: newPsw1,
-                    newPassword2: newPsw2},
-                );
+                    newPassword2: newPsw2,
+                });
             },
             inputAvatarFile: (evt) => {
                 const inputFile = document.getElementById('profile-pic');
@@ -113,7 +116,7 @@ export default class ProfileView extends PageView {
                 const reader = new FileReader();
                 const img = document.getElementById('img-profile');
                 img.title = file.name;
-                reader.onload = function(event) {
+                reader.onload = function (event) {
                     img.src = event.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -137,7 +140,7 @@ export default class ProfileView extends PageView {
                 evt.preventDefault();
                 const username = document.getElementById('login-profile').value;
                 const email = document.getElementById('email-profile').value;
-                Events.trigger(CHANGE_USER, {username: username, email: email});
+                Events.trigger(CHANGE_USER, { username, email });
             },
             okChangeUser: (user) => {
                 document.getElementById('label-login').textContent = user.username;
@@ -150,6 +153,7 @@ export default class ProfileView extends PageView {
         };
         return handlers;
     }
+
     /**
      * Отрисовка страницы профиля
      * @param {Object} data - данные, по которым рисуется вьюшка
@@ -167,10 +171,10 @@ export default class ProfileView extends PageView {
         const btnSaveData = document.getElementById('btn-save-data');
         btnSaveData.addEventListener('click', this._handlers.saveDataClick);
 
-
         const btnSavePsw = document.getElementById('btn-save-sequr');
         btnSavePsw.addEventListener('click', this._handlers.updatePswClick);
     }
+
     /**
      * Отрисовка уведомления об изменении автарки
      * @param {string} [text=''] - текст уведомления
@@ -181,7 +185,7 @@ export default class ProfileView extends PageView {
             clearTimeout(this._avatarTimerId);
         }
         const div = document.getElementById('div-avatar-bottom');
-        div.innerHTML = messageTemplate({text: text});
+        div.innerHTML = messageTemplate({ text });
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
             msg.className += ' profile__text--red';
@@ -193,6 +197,7 @@ export default class ProfileView extends PageView {
             this._avatarTimerId = -1;
         }, 5000);
     }
+
     /**
      * Отрисовка уведомления об изменении логина или почты
      * @param {string} [text=''] - текст уведомления
@@ -218,6 +223,7 @@ export default class ProfileView extends PageView {
             this._dataTimerId = -1;
         }, 5000);
     }
+
     /**
      * Выделение инпута логина
      */
@@ -230,6 +236,7 @@ export default class ProfileView extends PageView {
             }
         }, 5000);
     }
+
     /**
      * Выделение инпута email
      */
@@ -242,6 +249,7 @@ export default class ProfileView extends PageView {
             }
         }, 5000);
     }
+
     /**
      * Выделение инпута старого пароля
      */
@@ -254,6 +262,7 @@ export default class ProfileView extends PageView {
             }
         }, 5000);
     }
+
     /**
      * Выделение инпута новых пароля
      */
@@ -261,7 +270,7 @@ export default class ProfileView extends PageView {
         const input1 = document.getElementById('new-psw1');
         const input2 = document.getElementById('new-psw2');
         input1.className += ' profile__input--error';
-        input2.className+= ' profile__input--error';
+        input2.className += ' profile__input--error';
         setTimeout(() => {
             if (input1 && input2) {
                 input1.className = 'profile__input';
@@ -269,6 +278,7 @@ export default class ProfileView extends PageView {
             }
         }, 5000);
     }
+
     /**
      * Отрисовка уведомления об изменении пароля
      * @param {string} [text=''] - текст уведомления
@@ -296,6 +306,7 @@ export default class ProfileView extends PageView {
             this._pswTimerId = -1;
         }, 5000);
     }
+
     /**
      * Скрытие страницы профиля
      */

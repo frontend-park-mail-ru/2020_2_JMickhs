@@ -1,7 +1,6 @@
 import * as navbarTemplate from '@navbar/templates/navbar.hbs';
 
 export default class NavView {
-
     private navbar: HTMLElement;
 
     constructor(parent: HTMLElement) {
@@ -13,7 +12,7 @@ export default class NavView {
         }
         this.navbar = nav;
     }
-    
+
     render(data: {isAuth: boolean, username: string}): void {
         this.navbar.innerHTML = navbarTemplate(data);
     }

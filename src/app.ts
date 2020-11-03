@@ -46,11 +46,11 @@ import '@/main.css';
     Router.start();
 
     Events.subscribe(REDIRECT, (arg) => {
-        const {url, data} = arg as {url: string, data: unknown};
+        const { url, data } = arg as {url: string, data: unknown};
         Router.pushState(url, data);
     });
     Events.subscribe(REDIRECT_ERROR, (arg) => {
-        const {url, err} = arg as {url: string, err: string};
+        const { url, err } = arg as {url: string, err: string};
         Router.pushState(url, err);
     });
     Events.subscribe(REDIRECT_BACK, () => {

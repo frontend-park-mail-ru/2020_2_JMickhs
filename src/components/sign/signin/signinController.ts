@@ -10,8 +10,8 @@ import {
 } from '@eventBus/constants';
 
 export default class SigninController implements AbstractController {
-
     private view: SigninView;
+
     private model: SigninModel;
 
     private handlers: Record<string, (arg: unknown) => void>;
@@ -34,7 +34,7 @@ export default class SigninController implements AbstractController {
         this.view.subscribeEvents();
         Events.trigger(PAGE_SIGNIN);
         if (this.model.isAuth()) {
-            this.redirectToProfile();
+            SigninController.redirectToProfile();
             return;
         }
         this.view.render();
@@ -48,16 +48,16 @@ export default class SigninController implements AbstractController {
 
     private subscribeEvents(): void {
         Events.subscribe(SUBMIT_SIGNIN, this.handlers.validate);
-        Events.subscribe(HAVE_USER, this.redirectToProfile);
+        Events.subscribe(HAVE_USER, SigninController.redirectToProfile);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(SUBMIT_SIGNIN, this.handlers.validate);
-        Events.unsubscribe(HAVE_USER, this.redirectToProfile);
+        Events.unsubscribe(HAVE_USER, SigninController.redirectToProfile);
     }
 
-    private redirectToProfile(): void {
-        Events.trigger(REDIRECT, {url: '/profile'});
+    private static redirectToProfile(): void {
+        Events.trigger(REDIRECT, { url: '/profile' });
     }
 
     private validate(arg: {login: string, password: string}): void {

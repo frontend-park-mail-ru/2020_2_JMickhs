@@ -1,9 +1,10 @@
 import Events from '@eventBus/eventbus';
-import {LOAD_HOSTELS} from '@eventBus/constants';
+import { LOAD_HOSTELS } from '@eventBus/constants';
 import * as listTemplate from '@list/templates/listTemplate.hbs';
 
 export default class ListView {
     private handlers: Record<string, (arg: unknown) => void>;
+
     private page: HTMLElement;
 
     constructor(place: HTMLElement) {

@@ -21,12 +21,13 @@ export default class SignupController {
 
         this._handlers = this._makeHandlers();
     }
+
     /**
      * Активация работы контроллера
      */
     activate() {
         if (this._model.isAuth()) {
-            Events.trigger(REDIRECT, {url: '/profile'});
+            Events.trigger(REDIRECT, { url: '/profile' });
             return;
         }
         this.subscribeEvents();
@@ -35,6 +36,7 @@ export default class SignupController {
 
         this._view.render();
     }
+
     /**
      * Отключение работы контроллера и чистка памяти
      */
@@ -42,12 +44,14 @@ export default class SignupController {
         this._view.unsubscribeEvents();
         this._view.hide();
     }
+
     /**
      * Редирект на страницу пользователя
      */
     redirectToProfile() {
-        Events.trigger(REDIRECT, {url: '/profile'});
+        Events.trigger(REDIRECT, { url: '/profile' });
     }
+
     /**
      * Проверка формы авторизации
      * @param {Object} arg
@@ -58,9 +62,9 @@ export default class SignupController {
      */
     validate(arg) {
         const username = arg.login;
-        const email = arg.email;
-        const psw1 = arg.psw1;
-        const psw2 = arg.psw2;
+        const { email } = arg;
+        const { psw1 } = arg;
+        const { psw2 } = arg;
 
         let resolution = true;
 
@@ -108,6 +112,7 @@ export default class SignupController {
             this._model.signup(username, email, psw2);
         }
     }
+
     /**
      * Подписка на необходимые события
      */
@@ -115,6 +120,7 @@ export default class SignupController {
         Events.subscribe(SUBMIT_SIGNUP, this._handlers.validate);
         Events.subscribe(HAVE_USER, this.redirectToProfile);
     }
+
     /**
      * Отписка от необходимые события
      */
@@ -122,6 +128,7 @@ export default class SignupController {
         Events.unsubscribe(SUBMIT_SIGNUP, this._handlers.validate);
         Events.unsubscribe(HAVE_USER, this.redirectToProfile);
     }
+
     /**
      * Функция создает обработчики событий
      * @return {Object} - возвращает обьект с обработчиками

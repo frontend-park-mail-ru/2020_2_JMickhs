@@ -1,4 +1,4 @@
-import {PageView} from '@interfaces/views';
+import { PageView } from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {
     ERROR_SIGNUP,
@@ -24,6 +24,7 @@ export default class SignupView extends PageView {
 
         this._handlers = this._makeHandlers();
     }
+
     /**
      * Функция создает обработчики событий
      * @return {Object} - возвращает обьект с обработчиками
@@ -46,6 +47,7 @@ export default class SignupView extends PageView {
         };
         return handlers;
     }
+
     /**
      * Обработчик сабмита формы
      * @param {Event} evt - евент сабмита
@@ -67,8 +69,11 @@ export default class SignupView extends PageView {
         passInput1.className = 'sign__input';
         passInput2.className = 'sign__input';
 
-        Events.trigger(SUBMIT_SIGNUP, {login: login, email: email, psw1: pass1, psw2: pass2});
+        Events.trigger(SUBMIT_SIGNUP, {
+            login, email, psw1: pass1, psw2: pass2,
+        });
     }
+
     /**
      * Обработчик клика по инпуту пароля
      */
@@ -83,13 +88,14 @@ export default class SignupView extends PageView {
             form.removeChild(loginPromt);
         }
         const promts = [];
-        promts.push({text: 'Пароль может включать только буквы английского алфавита и цифры'});
-        promts.push({text: 'Длина пароля должна быть в пределах от 5 до 30 символов'});
+        promts.push({ text: 'Пароль может включать только буквы английского алфавита и цифры' });
+        promts.push({ text: 'Длина пароля должна быть в пределах от 5 до 30 символов' });
         const promt = document.createElement('div');
         promt.id = 'pass-promt';
         promt.innerHTML = promtTemplate(promts);
         form.insertBefore(promt, passInput1);
     }
+
     /**
      * Обработчик клика по инпуту логина
      */
@@ -104,13 +110,14 @@ export default class SignupView extends PageView {
             form.removeChild(passPromt);
         }
         const promts = [];
-        promts.push({text: 'Логин может включать только буквы, цифры и символы _ - .'});
-        promts.push({text: 'Длина логина должна быть в пределе от 3 до 15 символов'});
+        promts.push({ text: 'Логин может включать только буквы, цифры и символы _ - .' });
+        promts.push({ text: 'Длина логина должна быть в пределе от 3 до 15 символов' });
         const promt = document.createElement('div');
         promt.id = 'login-promt';
         promt.innerHTML = promtTemplate(promts);
         form.insertBefore(promt, loginInput);
     }
+
     /**
      * Подписка на события страницы регистрации
      */
@@ -118,6 +125,7 @@ export default class SignupView extends PageView {
         Events.subscribe(ERROR_SIGNUP, this._handlers.errSignup);
         Events.subscribe(SIGNUP_USER, this._handlers.userSignup);
     }
+
     /**
      * Отписка от событий сраницы регистрации
      */
@@ -125,6 +133,7 @@ export default class SignupView extends PageView {
         Events.unsubscribe(ERROR_SIGNUP, this._handlers.errSignup);
         Events.unsubscribe(SIGNUP_USER, this._handlers.userSignup);
     }
+
     /**
      * Отрисовка страницы регистрации
      */
@@ -142,6 +151,7 @@ export default class SignupView extends PageView {
         passInput2.addEventListener('click', this._handlers.clickPassInput);
         form.addEventListener('submit', this._handlers.submitSignupForm);
     }
+
     /**
      * Отрисовка сообщения об ошибке
      * @param {string} errstr - ощибка, которую нужно отобразить
@@ -155,19 +165,19 @@ export default class SignupView extends PageView {
         errLine.textContent = errstr;
 
         switch (numberInputErr) {
-        case 1: {
-            document.getElementById('signup-login').className += ' sign__input--error';
-            break;
-        }
-        case 2: {
-            document.getElementById('signup-email').className += ' sign__input--error';
-            break;
-        }
-        case 3: {
-            document.getElementById('signup-password1').className += ' sign__input--error';
-            document.getElementById('signup-password2').className += ' sign__input--error';
-            break;
-        }
+            case 1: {
+                document.getElementById('signup-login').className += ' sign__input--error';
+                break;
+            }
+            case 2: {
+                document.getElementById('signup-email').className += ' sign__input--error';
+                break;
+            }
+            case 3: {
+                document.getElementById('signup-password1').className += ' sign__input--error';
+                document.getElementById('signup-password2').className += ' sign__input--error';
+                break;
+            }
         }
 
         this._model.timerId = setTimeout(() => {
@@ -183,6 +193,7 @@ export default class SignupView extends PageView {
             this._model.timerId = -1;
         }, 5000);
     }
+
     /**
      * Скрытие страницы регистрации
      */

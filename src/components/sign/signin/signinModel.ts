@@ -5,7 +5,7 @@ import {
     SIGNIN_USER,
     ERROR_SIGNIN,
 } from '@eventBus/constants';
-import {UserData} from '@interfaces/structsData/userData';
+import { UserData } from '@interfaces/structsData/userData';
 
 export default class SigninModel {
     private user: User;
@@ -20,27 +20,27 @@ export default class SigninModel {
 
     signin(username: string, password: string): void {
         const response = NetworkUser.signin(username, password);
-        response.then((response) => {
-            const code = response.code;
-            const data = response.data as UserData;
+        response.then((value) => {
+            const { code } = value;
+            const data = value.data as UserData;
             switch (code) {
-            case 200:
-                this.user.isAuth = true;
-                this.user.id = data.id;
-                this.user.avatar = data.avatar;
-                this.user.username = data.username;
-                this.user.email = data.email;
-                Events.trigger(SIGNIN_USER, this.user.getData());
-                break;
-            case 400:
-                Events.trigger(ERROR_SIGNIN, 'Неверный формат запроса');
-                break;
-            case 401:
-                Events.trigger(ERROR_SIGNIN, 'Вы ввели неправильный логин или пароль');
-                break;
-            default:
-                Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${code}`);
-                break;
+                case 200:
+                    this.user.isAuth = true;
+                    this.user.id = data.id;
+                    this.user.avatar = data.avatar;
+                    this.user.username = data.username;
+                    this.user.email = data.email;
+                    Events.trigger(SIGNIN_USER, this.user.getData());
+                    break;
+                case 400:
+                    Events.trigger(ERROR_SIGNIN, 'Неверный формат запроса');
+                    break;
+                case 401:
+                    Events.trigger(ERROR_SIGNIN, 'Вы ввели неправильный логин или пароль');
+                    break;
+                default:
+                    Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${code}`);
+                    break;
             }
         });
     }

@@ -1,8 +1,8 @@
-import {ResponseData} from '@interfaces/structsData/resposeData';
+import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 
 class Request {
-
     private domain: string;
+
     private port: string;
 
     private token: string;
@@ -18,8 +18,7 @@ class Request {
         url: string,
         body?: unknown,
         csrf?: boolean,
-        headers?: Record<string, string>
-    ): Promise<ResponseData> {
+        headers?: Record<string, string>): Promise<ResponseData> {
         let reqBody: BodyInit;
 
         if (body instanceof FormData) {
@@ -30,37 +29,32 @@ class Request {
             try {
                 reqBody = JSON.stringify(body);
             } catch (err) {
-                return Promise.reject(err).catch((e) => {
-                    return {error: e};
-                });
+                return Promise.reject(err).catch((e) => ({ error: e }));
             }
         }
 
+        let reqHeaders = headers;
+
         if (csrf) {
-            if (headers) {
-                headers['X-Csrf-Token'] = this.token;
+            if (reqHeaders) {
+                reqHeaders['X-Csrf-Token'] = this.token;
             } else {
-                headers = {
-                    'X-Csrf-Token': this.token
+                reqHeaders = {
+                    'X-Csrf-Token': this.token,
                 };
             }
         }
 
         return fetch(this.domain + this.port + url, {
-            method: method,
+            method,
             mode: 'cors',
             credentials: 'include',
             body: reqBody,
-            headers: headers,
+            headers: reqHeaders,
         }).then((response) => {
             this.token = response.headers.get('csrf');
             return response.json();
-        }).then((json) => {
-            return { code: json.code, data: json.data };
-        }).catch((err) => {
-            return { error: err };
-        });
-
+        }).then((json) => ({ code: json.code, data: json.data })).catch((err) => ({ error: err }));
     }
 }
 

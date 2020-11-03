@@ -8,17 +8,22 @@ import Events from '@eventBus/eventbus';
 import { REDIRECT_ERROR } from '@eventBus/constants';
 
 export default class CommentsController implements AbstractController {
-
     private place: HTMLElement;
+
     private nextBtn: HTMLButtonElement;
+
     private prevBtn: HTMLButtonElement;
 
     private idHotel: number;
+
     private pageNumber: number;
+
     private comment: CommentData;
+
     private countComments: number;
 
     private handlers: Record<string, (arg: unknown) => void>;
+
     private subscribesBtn: boolean;
 
     constructor() {
@@ -59,35 +64,35 @@ export default class CommentsController implements AbstractController {
         const response = NetworkHostel.getComments(this.pageNumber, this.idHotel);
 
         response.then((value) => {
-            const code = value.code;
+            const { code } = value;
+            const data = value.data as {
+                list: CommentData[],
+                pag_info: PageInfo,
+            };
+            const comment = data.list[0];
             switch (code) {
-            case 200:
-                const data = value.data as {
-                    list: CommentData[],
-                    pag_info: PageInfo,
-                };
-                this.comment = data.list[0];
-                this.countComments = data.pag_info.num_pages;
-                this.pageNumber = data.pag_info.page_num;
-                this.unsubscribeEvents();
-                this.render();
-                this.subscribeEvents();
-                break;
-            case 400:
-                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'bad request'});
-                break;
-            case 403:
-                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Нет csrf'});
-                break;
-            case 423:
-                Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Второй раз ставите ошибку!'});
-                break;
-            default:
-                Events.trigger(REDIRECT_ERROR, {url: '/error', err: `Ошибка сервера: статус - ${code}`});
-                break;
+                case 200:
+                    this.comment = comment;
+                    this.countComments = data.pag_info.num_pages;
+                    this.pageNumber = data.pag_info.page_num;
+                    this.unsubscribeEvents();
+                    this.render();
+                    this.subscribeEvents();
+                    break;
+                case 400:
+                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'bad request' });
+                    break;
+                case 403:
+                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Нет csrf' });
+                    break;
+                case 423:
+                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Второй раз ставите ошибку!' });
+                    break;
+                default:
+                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: `Ошибка сервера: статус - ${code}` });
+                    break;
             }
         });
-
     }
 
     deactivate(): void {
@@ -96,16 +101,14 @@ export default class CommentsController implements AbstractController {
     }
 
     private render() {
-        this.place.innerHTML = template({count: this.countComments, comment: this.comment});
+        this.place.innerHTML = template({ count: this.countComments, comment: this.comment });
 
         this.nextBtn = document.getElementById('comment-next') as HTMLButtonElement;
         this.prevBtn = document.getElementById('comment-prev') as HTMLButtonElement;
-
     }
 
     private subscribeEvents(): void {
         if (!this.subscribesBtn && this.nextBtn) {
-
             this.nextBtn.addEventListener('click', this.handlers.nextComment);
             this.prevBtn.addEventListener('click', this.handlers.prevComment);
 
@@ -115,12 +118,10 @@ export default class CommentsController implements AbstractController {
 
     private unsubscribeEvents(): void {
         if (this.subscribesBtn) {
-
             this.nextBtn.removeEventListener('click', this.handlers.nextComment);
             this.prevBtn.removeEventListener('click', this.handlers.prevComment);
 
             this.subscribesBtn = false;
         }
     }
-
 }

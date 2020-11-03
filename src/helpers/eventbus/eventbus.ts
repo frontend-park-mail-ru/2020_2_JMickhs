@@ -1,5 +1,4 @@
 class EvenBus {
-
     events: Record<string, Array<(arg?: unknown) => void>>;
 
     constructor() {
@@ -14,15 +13,12 @@ class EvenBus {
         if (!this.events[evt]) {
             return;
         }
-        this.events[evt] = this.events[evt].filter((func) => {
-            return func !== callback;
-        });
+        this.events[evt] = this.events[evt].filter((func) => func !== callback);
     }
 
     trigger(evt: string, arg?: unknown): void {
         (this.events[evt] || []).slice().forEach((lsn) => lsn(arg));
     }
-
 }
 
 export default new EvenBus();

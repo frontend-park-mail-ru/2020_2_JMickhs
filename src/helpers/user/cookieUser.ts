@@ -12,25 +12,26 @@ export default function userFromCookie(): void {
     const user = User.getInstance();
     const response = NetworkUser.user();
     response.then((r) => {
-        const code = r.code;
+        const { code } = r;
         const data = r.data as UserData;
         switch (code) {
-        case 200:
-            user.isAuth = true;
-            user.username = data.username;
-            user.id = data.id;
-            user.avatar = data.avatar;
-            user.email = data.email;
-            Events.trigger(HAVE_USER, user);
-            break;
-        case 401:
-            Events.trigger(HAVNT_USER);
-            break;
-        default:
-            Events.trigger(REDIRECT_ERROR, {url: '/error',
-                err: 'Что-то страшное произошло c нишим сервером...' + ` Он говорит: ${code}`
-            });
-            break;
+            case 200:
+                user.isAuth = true;
+                user.username = data.username;
+                user.id = data.id;
+                user.avatar = data.avatar;
+                user.email = data.email;
+                Events.trigger(HAVE_USER, user);
+                break;
+            case 401:
+                Events.trigger(HAVNT_USER);
+                break;
+            default:
+                Events.trigger(REDIRECT_ERROR, {
+                    url: '/error',
+                    err: `Что-то страшное произошло c нишим сервером...  Он говорит: ${code}`,
+                });
+                break;
         }
     });
 }

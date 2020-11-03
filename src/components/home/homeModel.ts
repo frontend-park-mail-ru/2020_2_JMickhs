@@ -1,9 +1,9 @@
 import NetworkHostel from '@network/networkHostel';
-import {ResponseData} from '@interfaces/structsData/resposeData';
+import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 
 export default class HomeModel {
-
     private username: string;
+
     private isAuth: boolean;
 
     constructor() {
@@ -13,7 +13,7 @@ export default class HomeModel {
     getData(): {isAuth: boolean, username: string} {
         return {
             isAuth: this.isAuth,
-            username: this.username
+            username: this.username,
         };
     }
 
@@ -22,7 +22,7 @@ export default class HomeModel {
         this.username = name;
     }
 
-    search(pattern: string, page?: number): Promise<ResponseData> {
+    static search(pattern: string, page?: number): Promise<ResponseData> {
         return NetworkHostel.searchHostel(pattern, page);
     }
 }

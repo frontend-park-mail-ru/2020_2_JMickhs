@@ -6,19 +6,20 @@ import {
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
 
-import {HostelData} from '@interfaces/structsData/hostelData';
-import {AbstractController} from '@/helpers/interfaces/controllers';
+import { HostelData } from '@interfaces/structsData/hostelData';
+import { AbstractController } from '@/helpers/interfaces/controllers';
 
 interface Handlers {
     renderView: (data: HostelData) => void,
 }
 
 export default class HostelPageController implements AbstractController {
-
     private model: HostelPageModel;
+
     private view: HostelPageView;
+
     private hadlers: Handlers;
-    
+
     constructor(parent: HTMLElement) {
         this.model = new HostelPageModel();
         this.view = new HostelPageView(parent);
@@ -35,7 +36,7 @@ export default class HostelPageController implements AbstractController {
 
     activate(id: number): void {
         if (id <= 0) {
-            Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Такого отеля не существует'});
+            Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Такого отеля не существует' });
             return;
         }
 

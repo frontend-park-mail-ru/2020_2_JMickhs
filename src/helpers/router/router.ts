@@ -1,12 +1,14 @@
-import {AbstractController} from '@interfaces/controllers';
+import { AbstractController } from '@interfaces/controllers';
 
 class Router {
-
     private routes: Record<string, AbstractController>;
 
     private currController: AbstractController;
+
     public errorController: AbstractController;
+
     private prevUrl: string;
+
     private curUrl: string;
 
     constructor() {
@@ -45,10 +47,10 @@ class Router {
     }
 
     pushState(url = '/', state: unknown = null): void {
-        if (url !== location.pathname) {
-            history.pushState(state, document.title, url);
+        if (url !== window.location.pathname) {
+            window.history.pushState(state, document.title, url);
         } else {
-            history.replaceState(state, document.title, url);
+            window.history.replaceState(state, document.title, url);
         }
         this.route();
     }
@@ -62,12 +64,12 @@ class Router {
             evt.preventDefault();
         }
 
-        const splitUrl = location.pathname.split('/');
-        const path = '/' + splitUrl[1];
+        const splitUrl = window.location.pathname.split('/');
+        const path = `/${splitUrl[1]}`;
         const arg = splitUrl[2];
         const controller = this.findControllerByPath(path) || this.errorController;
 
-        const url = new URL(location.href);
+        const url = new URL(window.location.href);
         if (this.currController === controller && controller.updateParams) {
             controller.updateParams(url.searchParams);
             return;
@@ -80,7 +82,7 @@ class Router {
         if (this.curUrl) {
             this.prevUrl = this.curUrl;
         }
-        this.curUrl = location.href;
+        this.curUrl = window.location.href;
         this.currController = controller;
         controller.activate(arg);
 
@@ -88,7 +90,6 @@ class Router {
             controller.updateParams(url.searchParams);
         }
     }
-
 }
 
 export default new Router();
