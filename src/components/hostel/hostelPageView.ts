@@ -5,7 +5,7 @@ import HostelDataController from './hostelData/hostelDataController';
 
 import * as hostelCardTemplate from '@hostel/templates/hostelPage.hbs';
 import CommentUserController from './commentUser/commentUserController';
-import { CommentData } from '@/helpers/interfaces/structsData/commentData';
+import { CommentData } from '@/helpers/network/structsServer/commentData';
 
 export default class HostelPageView extends PageView {
 

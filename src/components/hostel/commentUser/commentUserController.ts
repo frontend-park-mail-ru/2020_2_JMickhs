@@ -1,15 +1,17 @@
 import { AbstractController } from "@interfaces/controllers";
-import { CommentData } from "@interfaces/structsData/commentData";
+import { CommentData } from "@/helpers/network/structsServer/commentData";
 
 
 import Events from '@eventBus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
+    HAVE_USER,
 } from '@eventBus/constants';
 
 import * as templateUser from "@hostel/templates/hostelComment.hbs";
 import NetworkHostel from "@/helpers/network/networkHostel";
 import User from "@/helpers/user/user";
+import { UserData } from "@/helpers/interfaces/structsData/userData";
 
 
 export default class CommentUserController implements AbstractController {
@@ -19,6 +21,7 @@ export default class CommentUserController implements AbstractController {
     private idHostel: number;
 
     private btnAdd: HTMLElement;
+    private btnEdit: HTMLElement;
     private textArea: HTMLTextAreaElement;
     private selectRating: HTMLSelectElement;
 
@@ -31,6 +34,15 @@ export default class CommentUserController implements AbstractController {
 
                 this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
             },
+            editComment: (evt: Event) => {
+                evt.preventDefault();
+                this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
+            },
+            haveUser: (user: UserData) => {
+                if (user) {
+                    this.render();
+                }
+            }
         };
     }
 
@@ -42,6 +54,7 @@ export default class CommentUserController implements AbstractController {
         this.render();
 
         this.btnAdd = document.getElementById('btn-add-comment');
+        this.btnEdit = document.getElementById('btn-edit-comment');
         this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
         this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
 
@@ -59,15 +72,26 @@ export default class CommentUserController implements AbstractController {
     }
 
     private subscribeEvents(): void {
+        Events.subscribe(HAVE_USER, this.handlers.haveUser);
+        
         if (this.btnAdd) {
             this.btnAdd.addEventListener('click', this.handlers.addComment);
+        }
+
+        if (this.btnEdit) {
+            this.btnEdit.addEventListener('click', this.handlers.editComment);
         }
         
     }
 
     private unsubscribeEvents(): void {
+        Events.unsubscribe(HAVE_USER, this.handlers.haveUser);
+
         if (this.btnAdd) {
             this.btnAdd.removeEventListener('click', this.handlers.addComment);
+        }
+        if (this.btnEdit) {
+            this.btnEdit.removeEventListener('click', this.handlers.editComment);
         }
     }
 
