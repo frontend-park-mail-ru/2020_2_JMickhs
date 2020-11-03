@@ -1,6 +1,5 @@
 import Request from '@network/request';
 
-/** Класс для работы с сетью */
 class NetworkUser {
 
     user() {

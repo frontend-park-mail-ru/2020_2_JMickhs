@@ -8,7 +8,7 @@ import {HostelData} from '@interfaces/structsData/hostelData';
 import {ResponseData} from '@interfaces/structsData/resposeData';
 
 export default class ListModel {
-    public hostels: HostelData[]; // на самом деле, это массив объектов
+    public hostels: HostelData[];
 
     constructor() {
         this.hostels = [];

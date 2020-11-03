@@ -1,8 +1,5 @@
 import {UserData} from '@interfaces/structsData/userData';
 
-/** Информация о пользователе,
- *  Синглтон, чтобы проще шарить в разные части проекта
- */
 export default class User {
 
     isAuth: boolean;
@@ -12,7 +9,7 @@ export default class User {
     avatar: string;
 
     private static instance: User;
-    
+
     static getInstance(): User {
         if (this.instance === undefined) {
             this.instance = new User();
