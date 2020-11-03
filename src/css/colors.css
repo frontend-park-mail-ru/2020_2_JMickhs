@@ -16,4 +16,5 @@
     --gray: #ddd;
     --gray-dark: #757575;
     --gray-new: #3c3f41;
+    --transparent: rgba(0, 0, 0, 0);
 }

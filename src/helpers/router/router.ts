@@ -55,7 +55,7 @@ class Router {
         const controller = this.findControllerByPath(path) || this.errorController;
 
         if (this.currController === controller) {
-            controller.updateParams(location.href);
+            controller.updateParams();
             return;
         }
 
