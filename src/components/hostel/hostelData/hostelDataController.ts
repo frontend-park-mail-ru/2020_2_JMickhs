@@ -1,8 +1,8 @@
-import { AbstractController } from "@interfaces/controllers";
-import { HostelData } from "@interfaces/structsData/hostelData";
+import { AbstractController } from '@interfaces/controllers';
+import { HostelData } from '@interfaces/structsData/hostelData';
 
-import * as dataTemplate from "@hostel/templates/hostelData.hbs";
-import * as imagesTemplate from "@hostel/templates/hostelImages.hbs";
+import * as dataTemplate from '@hostel/templates/hostelData.hbs';
+import * as imagesTemplate from '@hostel/templates/hostelImages.hbs';
 
 import Events from '@eventBus/eventbus';
 import {
@@ -26,12 +26,12 @@ export default class HostelDataController implements AbstractController {
         this.handlers = {
             prevImg: (evt: Event) => {
                 evt.preventDefault();
-    
+
                 this.nextImage();
-            }, 
+            },
             nextImg: (evt: Event) => {
                 evt.preventDefault();
-    
+
                 this.prevImage();
             },
             updateTextData: (arg: {rating: number, delta: number}) => {
@@ -52,7 +52,7 @@ export default class HostelDataController implements AbstractController {
         this.photos.unshift(arg.hostel.image);
         this.curPhoto = 0;
         arg.hostel.image = this.photos[0];
-        
+
         this.render(arg.hostel);
     }
 

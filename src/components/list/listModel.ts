@@ -4,8 +4,8 @@ import {
     LOAD_HOSTELS,
     REDIRECT_ERROR,
 } from '@eventBus/constants';
-import {HostelData} from "@interfaces/structsData/hostelData";
-import {ResponseData} from "@interfaces/structsData/resposeData";
+import {HostelData} from '@interfaces/structsData/hostelData';
+import {ResponseData} from '@interfaces/structsData/resposeData';
 
 export default class ListModel {
     public hostels: HostelData[]; // на самом деле, это массив объектов

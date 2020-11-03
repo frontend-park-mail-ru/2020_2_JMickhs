@@ -1,6 +1,6 @@
 import ListModel from '@list/listModel';
 import ListView from '@list/listView';
-import {ResponseData} from "@interfaces/structsData/resposeData";
+import {ResponseData} from '@interfaces/structsData/resposeData';
 
 export default class ListController {
     private model: ListModel;

@@ -1,4 +1,4 @@
-import { AbstractController } from "@interfaces/controllers";
+import { AbstractController } from '@interfaces/controllers';
 import SigninModel from '@sign/signin/signinModel';
 import SigninView from '@sign/signin/signinView';
 import Events from '@eventBus/eventbus';

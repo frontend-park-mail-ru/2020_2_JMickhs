@@ -1,14 +1,14 @@
-import HomeModel from "@/components/home/homeModel";
-import HomeView from "@/components/home/homeView";
-import ListController from "@list/listController";
+import HomeModel from '@/components/home/homeModel';
+import HomeView from '@/components/home/homeView';
+import ListController from '@list/listController';
 import Events from '@eventBus/eventbus';
 import {
     CHANGE_CNT_TO_LIST,
     CHANGE_CNT_TO_SEARCH,
     REDIRECT,
     SEARCH_HOSTELS
-} from "@eventBus/constants";
-import {AbstractController} from "@interfaces/controllers";
+} from '@eventBus/constants';
+import {AbstractController} from '@interfaces/controllers';
 
 export default class HomeController implements AbstractController {
     private model: HomeModel;

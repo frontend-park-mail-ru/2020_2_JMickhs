@@ -5,7 +5,7 @@ import {
     CHANGE_CNT_TO_LIST,
     CHANGE_CNT_TO_SEARCH,
     SEARCH_HOSTELS,
-} from "@eventBus/constants";
+} from '@eventBus/constants';
 
 export default class HomeView extends PageView {
     private handlers: Record<string, (arg: unknown) => void>;
@@ -20,11 +20,11 @@ export default class HomeView extends PageView {
         const handlers = {
             cntToList: () => {
                 const cnt = document.getElementById('cnt') as HTMLDivElement;
-                cnt.className = "home__container-list-all";
+                cnt.className = 'home__container-list-all';
             },
             cntToSearch: () => {
                 const cnt = document.getElementById('cnt') as HTMLDivElement;
-                cnt.className = "home__container-all";
+                cnt.className = 'home__container-all';
             },
             searchClick: () => {
                 const input = document.getElementById('input') as HTMLInputElement;

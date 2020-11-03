@@ -1,4 +1,4 @@
-import {ResponseData} from "@interfaces/structsData/resposeData";
+import {ResponseData} from '@interfaces/structsData/resposeData';
 
 class Request {
 

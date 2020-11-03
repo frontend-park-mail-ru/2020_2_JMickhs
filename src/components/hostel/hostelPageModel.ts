@@ -1,5 +1,5 @@
 import {HostelData} from '@interfaces/structsData/hostelData';
-import { CommentData } from "@/helpers/network/structsServer/commentData";
+import { CommentData } from '@/helpers/network/structsServer/commentData';
 import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
@@ -30,7 +30,7 @@ export default class HostelPageModel {
         if (id <= 0) {
             Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'Неверный формат запроса'});
         }
-        
+
         const response = NetworkHostel.getHostel(id);
         response.then((response) => {
             const code = response.code;

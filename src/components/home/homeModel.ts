@@ -1,5 +1,5 @@
-import NetworkHostel from "@network/networkHostel";
-import {ResponseData} from "@interfaces/structsData/resposeData";
+import NetworkHostel from '@network/networkHostel';
+import {ResponseData} from '@interfaces/structsData/resposeData';
 
 export default class HomeModel {
 
