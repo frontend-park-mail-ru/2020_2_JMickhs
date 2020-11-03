@@ -37,6 +37,11 @@ export default class CommentUserController implements AbstractController {
             },
             editComment: (evt: Event) => {
                 evt.preventDefault();
+                
+                if (this.textArea.value === this.comment.message && +this.selectRating.value === this.comment.rating) {
+                    return;
+                }
+
                 this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
             },
             haveUser: (user: UserData) => {
@@ -54,11 +59,6 @@ export default class CommentUserController implements AbstractController {
 
         this.render();
 
-        this.btnAdd = document.getElementById('btn-add-comment');
-        this.btnEdit = document.getElementById('btn-edit-comment');
-        this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
-        this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
-
         this.subscribeEvents();
     }
 
@@ -70,6 +70,11 @@ export default class CommentUserController implements AbstractController {
 
     private render(): void {
         this.place.innerHTML = templateUser({isAuth: User.getInstance().isAuth, comment: this.comment});
+
+        this.btnAdd = document.getElementById('btn-add-comment');
+        this.btnEdit = document.getElementById('btn-edit-comment');
+        this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
+        this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
     }
 
     private subscribeEvents(): void {
@@ -111,7 +116,9 @@ export default class CommentUserController implements AbstractController {
                 Events.trigger(UPDATE_RATING_HOSTEL, {rating: data.new_rate, delta: 1});
 
                 this.btnAdd.removeEventListener('click', this.handlers.addComment);
+                this.unsubscribeEvents();
                 this.render();
+                this.subscribeEvents();
                 break;
             case 400:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'bad request'});
@@ -142,7 +149,9 @@ export default class CommentUserController implements AbstractController {
                 };
                 this.comment = data.comment;
                 Events.trigger(UPDATE_RATING_HOSTEL, {rating: data.new_rate, delta: 0});
+                this.unsubscribeEvents();
                 this.render();
+                this.subscribeEvents();
                 break;
             case 400:
                 Events.trigger(REDIRECT_ERROR, {url: '/error', err: 'bad request'});
