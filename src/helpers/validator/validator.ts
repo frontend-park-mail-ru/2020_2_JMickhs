@@ -1,4 +1,3 @@
-/** Класс, занимающийся валидацией данных */
 class Validator {
     private loginTableCheckup: {regular: RegExp, error: string}[];
 

@@ -1,7 +1,6 @@
 import Router from '@router/router';
 import HomeController from '@home/homeController';
 import NavbarController from '@navbar/navController';
-// import ListController from '@list/listController';
 import SigninController from '@sign/signin/signinController';
 import SignupController from '@sign/signup/signupController';
 import ProfileController from '@profile/profileController';
@@ -17,9 +16,6 @@ import userFromCookie from '@user/cookieUser';
 
 import '@/main.css';
 
-/**
- *  Старт нашего приложения =)
- */
 (() => {
     const application = document.getElementById('app');
 

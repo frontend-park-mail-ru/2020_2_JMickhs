@@ -1,7 +1,6 @@
 import Request from '@network/request';
 import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 
-/** Класс для работы с сетью */
 class NetworkUser {
     static user(): Promise<ResponseData> {
         return Request.ajax('GET', '/api/v1/users');

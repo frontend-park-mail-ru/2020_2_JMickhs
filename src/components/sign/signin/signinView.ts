@@ -10,7 +10,6 @@ import {
 import * as signinTemplate from '@sign/templates/signin.hbs';
 import { UserData } from '@/helpers/interfaces/structsData/userData';
 
-/** Класс представления для страницы авторизации */
 export default class SigninView extends PageView {
     private handlers: Record<string, (arg: unknown) => void>;
 
@@ -97,9 +96,6 @@ export default class SigninView extends PageView {
         Events.subscribe(SIGNIN_USER, this.handlers.signinUser);
     }
 
-    /**
-     * Отписка от событий страницы авторизации
-     */
     unsubscribeEvents(): void {
         Events.unsubscribe(ERROR_SIGNIN, this.handlers.renderErr);
         Events.unsubscribe(SIGNIN_USER, this.handlers.signinUser);

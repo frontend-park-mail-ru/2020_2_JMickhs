@@ -1,8 +1,5 @@
 import { UserData } from '@interfaces/structsData/userData';
 
-/** Информация о пользователе,
- *  Синглтон, чтобы проще шарить в разные части проекта
- */
 export default class User {
     isAuth: boolean;
 
