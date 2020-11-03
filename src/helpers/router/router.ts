@@ -32,6 +32,10 @@ class Router {
         });
     }
 
+    goBack() {
+        window.history.back();
+    }
+
     pushState(url = '/', state: unknown = null): void {
         if (url !== location.pathname) {
             history.pushState(state, document.title, url);

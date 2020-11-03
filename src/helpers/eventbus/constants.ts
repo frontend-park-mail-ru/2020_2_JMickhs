@@ -29,3 +29,4 @@ export const UPDATE_RATING_HOSTEL = 'updateRatingHostel';
 export const SEARCH_HOSTELS = 'searchHostels';
 export const CHANGE_CNT_TO_SEARCH = 'changeCntToSearch';
 export const CHANGE_CNT_TO_LIST = 'changeCntToList';
+export const REDIRECT_BACK = 'redirectBack';

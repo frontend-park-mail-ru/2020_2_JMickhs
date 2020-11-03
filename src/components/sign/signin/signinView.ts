@@ -4,7 +4,7 @@ import {
     SUBMIT_SIGNIN,
     ERROR_SIGNIN,
     SIGNIN_USER,
-    REDIRECT,
+    REDIRECT_BACK
 } from '@eventBus/constants';
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
@@ -27,7 +27,7 @@ export default class SigninView extends PageView {
         const handlers = {
             signinUser: (user: UserData) => {
                 if (user) {
-                    Events.trigger(REDIRECT, {url: '/profile'});
+                    Events.trigger(REDIRECT_BACK);
                 } else {
                     Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
                 }

@@ -3,8 +3,8 @@ import Events from '@eventBus/eventbus';
 import {
     ERROR_SIGNUP,
     SUBMIT_SIGNUP,
-    REDIRECT,
     SIGNUP_USER,
+    REDIRECT_BACK,
 } from '@eventBus/constants';
 
 import signupTemplate from '@sign/templates/signup.hbs';
@@ -32,7 +32,7 @@ export default class SignupView extends PageView {
         const handlers = {
             userSignup: (isAuth) => {
                 if (isAuth) {
-                    Events.trigger(REDIRECT, {url: '/profile'});
+                    Events.trigger(REDIRECT_BACK);
                 } else {
                     Events.trigger(ERROR_SIGNUP, 'Вы не смогли зарегистрироваться =)');
                 }

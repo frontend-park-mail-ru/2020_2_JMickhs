@@ -11,6 +11,7 @@ import Events from '@eventBus/eventbus';
 import {
     REDIRECT,
     REDIRECT_ERROR,
+    REDIRECT_BACK,
 } from '@eventBus/constants';
 import userFromCookie from '@user/cookieUser';
 
@@ -51,5 +52,8 @@ import '@/main.css';
     Events.subscribe(REDIRECT_ERROR, (arg) => {
         const {url, err} = arg as {url: string, err: string};
         Router.pushState(url, err);
+    });
+    Events.subscribe(REDIRECT_BACK, () => {
+        Router.goBack();
     });
 })();
