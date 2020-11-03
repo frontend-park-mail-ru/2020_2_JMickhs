@@ -25,13 +25,14 @@ export default class SignupController {
      * Активация работы контроллера
      */
     activate() {
-        this.subscribeEvents();
-        this._view.subscribeEvents();
-        Events.trigger(PAGE_SIGNUP);
         if (this._model.isAuth()) {
             Events.trigger(REDIRECT, {url: '/profile'});
             return;
         }
+        this.subscribeEvents();
+        this._view.subscribeEvents();
+        Events.trigger(PAGE_SIGNUP);
+
         this._view.render();
     }
     /**

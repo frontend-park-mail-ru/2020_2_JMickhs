@@ -192,10 +192,12 @@ export default class SignupView extends PageView {
         const passInput1 = document.getElementById('signup-password1');
         const passInput2 = document.getElementById('signup-password2');
 
-        loginInput.removeEventListener('click', this._handlers.clickLoginInput);
-        passInput1.removeEventListener('click', this._handlers.clickPassInput);
-        passInput2.removeEventListener('click', this._handlers.clickPassInput);
-        form.removeEventListener('submit', this._handlers.submitSignupForm);
+        if (form) {
+            loginInput.removeEventListener('click', this._handlers.clickLoginInput);
+            passInput1.removeEventListener('click', this._handlers.clickPassInput);
+            passInput2.removeEventListener('click', this._handlers.clickPassInput);
+            form.removeEventListener('submit', this._handlers.submitSignupForm);
+        }
 
         this.page.innerHTML = '';
     }

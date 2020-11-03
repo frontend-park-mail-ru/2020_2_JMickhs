@@ -54,6 +54,10 @@ import '@/main.css';
         Router.pushState(url, err);
     });
     Events.subscribe(REDIRECT_BACK, () => {
-        Router.goBack();
+        if (Router.canBack()) {
+            Router.goBack();
+            return;
+        }
+        Router.pushState('/');
     });
 })();
