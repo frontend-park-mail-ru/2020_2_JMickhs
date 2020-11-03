@@ -2,7 +2,7 @@
     background-color: var(--blue);
     display: flex;
     font-family: sans-serif;
-    color: white;
+    color: var(--white);
     position: fixed;
     top: 0;
     left: 0;
@@ -37,9 +37,6 @@
     margin-right: auto;
 }
 
-.navbar__items-mbnone {
-}
-
 .navbar__btn {
     font-weight: 500;
     font-size: 17px;
@@ -48,7 +45,7 @@
     outline: none;
     cursor: pointer;
     text-decoration: none;
-    color: white;
+    color: var(--white);
     transition: 0.3s;
 }
 

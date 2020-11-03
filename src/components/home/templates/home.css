@@ -83,15 +83,11 @@
     background-color: var(--orange-new);
     text-decoration: none;
     cursor: pointer;
-    color: white;
+    color: var(--white);
     font-weight: 500;
     font-size: 17px;
     padding: 9px 30px;
     border: none;
     outline: none;
     height: 45px;
-}
-
-.btn-regular-orange:hover {
-
 }

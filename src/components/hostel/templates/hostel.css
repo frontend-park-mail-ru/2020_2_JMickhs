@@ -87,9 +87,9 @@
     padding: 1px 5%;
     width: 90%;
     margin: auto;
-    border: 2px solid #ccc;
+    border: 2px solid var(--gray);
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: var(--gray-light);
     height: 11rem;
     transition: 0.3s;
     overflow: auto;
@@ -112,9 +112,9 @@
 
 .hostel__textarea {
     padding: 12px 20px;
-    border: 2px solid #ccc;
+    border: 2px solid var(--gray);
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: var(--gray-light);
     resize: none;
     outline: none;
     width: 100%;

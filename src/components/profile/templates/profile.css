@@ -58,10 +58,9 @@
 }
 
 .profile__btn-out {
-    color: var(--gray-dark);
+    color: var(--orange);
     cursor: pointer;
     text-decoration: none;
-    background-color: var(--main-background-color);
     border: none;
     outline: none;
 }
