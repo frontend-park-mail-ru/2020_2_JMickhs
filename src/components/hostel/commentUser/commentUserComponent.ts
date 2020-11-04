@@ -1,4 +1,3 @@
-import { AbstractController } from '@interfaces/controllers';
 import { CommentData } from '@network/structsServer/commentData';
 
 import Events from '@eventBus/eventbus';
@@ -6,14 +5,16 @@ import {
     UPDATE_RATING_HOSTEL,
     HAVE_USER,
 } from '@eventBus/constants';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 
 import * as templateUser from '@hostel/templates/hostelComment.hbs';
 import NetworkHostel from '@network/networkHostel';
-import User from '@/helpers/user/user';
+import User from '@user/user';
 import { UserData } from '@interfaces/structsData/userData';
+import { AbstractComponent } from '@interfaces/components';
+import { Handler } from '@interfaces/functions';
 
-export default class CommentUserComponent implements AbstractController {
+export default class CommentUserComponent implements AbstractComponent {
     private place: HTMLDivElement;
 
     private comment?: CommentData;
@@ -28,7 +29,7 @@ export default class CommentUserComponent implements AbstractController {
 
     private selectRating: HTMLSelectElement;
 
-    private handlers: Record<string, (arg: unknown) => void>;
+    private handlers: Record<string, Handler>;
 
     constructor(place: HTMLDivElement) {
         this.place = place;
@@ -51,7 +52,7 @@ export default class CommentUserComponent implements AbstractController {
         this.unsubscribeEvents();
     }
 
-    private makeHandlers(): Record<string, (arg: unknown) => void> {
+    private makeHandlers(): Record<string, Handler> {
         return {
             addComment: (evt: Event) => {
                 evt.preventDefault();

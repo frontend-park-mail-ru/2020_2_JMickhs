@@ -25,6 +25,7 @@ export default class User {
         this.id = -1;
         this.username = '';
         this.avatar = '';
+        this.email = '';
     }
 
     getData(): UserData {

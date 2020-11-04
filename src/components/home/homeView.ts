@@ -6,9 +6,10 @@ import {
     SET_CONTAINER_FOR_SEARCH,
     SEARCH_HOSTELS,
 } from '@eventBus/constants';
+import { Handler } from '@interfaces/functions';
 
 export default class HomeView extends PageView {
-    private handlers: Record<string, (arg: unknown) => void>;
+    private handlers: Record<string, Handler>;
 
     private mainContainerElement: HTMLDivElement;
 
@@ -18,7 +19,7 @@ export default class HomeView extends PageView {
         this.handlers = this.makeHadlers();
     }
 
-    private makeHadlers(): Record<string, (arg: unknown) => void> {
+    private makeHadlers(): Record<string, Handler> {
         const handlers = {
             cntToList: () => {
                 this.mainContainerElement.className = 'home__container-list-all';
