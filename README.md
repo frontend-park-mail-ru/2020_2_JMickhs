@@ -18,4 +18,4 @@
 [Ссылка](https://github.com/go-park-mail-ru/2020_2_JMickhs)
 
 ## Ссылка на сайт проекта
-[HostelScan](https://hostelscan.ru/)
+[HostelScan](https://www.hostelscan.ru/)

@@ -4,11 +4,11 @@ import {
     ERROR_SIGNUP,
     SUBMIT_SIGNUP,
     SIGNUP_USER,
-    REDIRECT_BACK,
 } from '@eventBus/constants';
 
 import signupTemplate from '@sign/templates/signup.hbs';
 import promtTemplate from '@sign/templates/signupPromt.hbs';
+import Redirector from '@/helpers/router/redirector';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView extends PageView {
@@ -33,7 +33,7 @@ export default class SignupView extends PageView {
         const handlers = {
             userSignup: (isAuth) => {
                 if (isAuth) {
-                    Events.trigger(REDIRECT_BACK);
+                    Redirector.redirectBack();
                 } else {
                     Events.trigger(ERROR_SIGNUP, 'Вы не смогли зарегистрироваться =)');
                 }
