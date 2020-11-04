@@ -2,8 +2,8 @@ import { PageView } from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
-    CHANGE_CNT_TO_LIST,
-    CHANGE_CNT_TO_SEARCH,
+    SET_CONTAINER_FOR_LIST,
+    SET_CONTAINER_FOR_SEARCH,
     SEARCH_HOSTELS,
 } from '@eventBus/constants';
 import { Handler } from '@interfaces/functions';
@@ -11,7 +11,7 @@ import { Handler } from '@interfaces/functions';
 export default class HomeView extends PageView {
     private handlers: Record<string, Handler>;
 
-    private cntElement: HTMLDivElement;
+    private mainContainerElement: HTMLDivElement;
 
     constructor(parent: HTMLElement) {
         super(parent);
@@ -22,10 +22,10 @@ export default class HomeView extends PageView {
     private makeHadlers(): Record<string, Handler> {
         const handlers = {
             cntToList: () => {
-                this.cntElement.className = 'home__container-list-all';
+                this.mainContainerElement.className = 'home__container-list-all';
             },
             cntToSearch: () => {
-                this.cntElement.className = 'home__container-all';
+                this.mainContainerElement.className = 'home__container-all';
             },
             searchClick: () => {
                 const input = document.getElementById('input') as HTMLInputElement;
@@ -47,7 +47,7 @@ export default class HomeView extends PageView {
 
         this.subscribeEvents();
 
-        this.cntElement = document.getElementById('cnt') as HTMLDivElement;
+        this.mainContainerElement = document.getElementById('cnt') as HTMLDivElement;
     }
 
     hide(): void {
@@ -60,12 +60,12 @@ export default class HomeView extends PageView {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(CHANGE_CNT_TO_SEARCH, this.handlers.cntToSearch);
-        Events.subscribe(CHANGE_CNT_TO_LIST, this.handlers.cntToList);
+        Events.subscribe(SET_CONTAINER_FOR_SEARCH, this.handlers.cntToSearch);
+        Events.subscribe(SET_CONTAINER_FOR_LIST, this.handlers.cntToList);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(CHANGE_CNT_TO_SEARCH, this.handlers.cntToSearch);
-        Events.unsubscribe(CHANGE_CNT_TO_LIST, this.handlers.cntToList);
+        Events.unsubscribe(SET_CONTAINER_FOR_SEARCH, this.handlers.cntToSearch);
+        Events.unsubscribe(SET_CONTAINER_FOR_LIST, this.handlers.cntToList);
     }
 }
