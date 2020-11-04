@@ -35,10 +35,7 @@ export default class ProfileModel {
             const { code } = r;
             switch (code) {
                 case 200:
-                    this.user.id = -1;
-                    this.user.username = '';
-                    this.user.isAuth = false;
-                    this.user.avatar = '';
+                    this.user.clear();
                     Events.trigger(SIGNOUT);
                     break;
                 default:

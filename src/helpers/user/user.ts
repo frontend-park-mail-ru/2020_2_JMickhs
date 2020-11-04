@@ -45,4 +45,12 @@ export default class User {
         this.id = user.id;
         this.avatar = user.avatar;
     }
+
+    clear(): void {
+        this.isAuth = false;
+        this.id = -1;
+        this.username = '';
+        this.avatar = '';
+        this.email = '';
+    }
 }

@@ -54,7 +54,12 @@ class Request {
         }).then((response) => {
             this.token = response.headers.get('csrf');
             return response.json();
-        }).then((json) => ({ code: json.code, data: json.data })).catch((err) => ({ error: err }));
+        }).then((json) => ({
+            code: json.code,
+            data: json.data,
+        })).catch((err) => ({
+            error: err,
+        }));
     }
 }
 
