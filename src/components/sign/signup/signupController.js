@@ -3,11 +3,11 @@ import SignupView from '@sign/signup/signupView';
 import Events from '@eventBus/eventbus';
 import {
     PAGE_SIGNUP,
-    REDIRECT,
     SUBMIT_SIGNUP,
     HAVE_USER,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
+import Redirector from '@/helpers/router/redirector';
 
 /** Класс контроллера для страницы регистрации */
 export default class SignupController {
@@ -27,7 +27,7 @@ export default class SignupController {
      */
     activate() {
         if (this._model.isAuth()) {
-            Events.trigger(REDIRECT, {url: '/profile'});
+            Redirector.redirectTo('/profile');
             return;
         }
         this.subscribeEvents();
@@ -49,7 +49,7 @@ export default class SignupController {
      * Редирект на страницу пользователя
      */
     redirectToProfile() {
-        Events.trigger(REDIRECT, {url: '/profile'});
+        Redirector.redirectTo('/profile');
     }
 
     /**
