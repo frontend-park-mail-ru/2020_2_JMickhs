@@ -27,6 +27,7 @@ export default class ListModel {
                 case 200:
                     const data = value.data as {hotels: HostelData[], Pag_info: unknown};
                     this.hostels = data.hotels;
+                    this.locationSlicer();
                     Events.trigger(LOAD_HOSTELS, this.getData());
                     break;
                 case 400:
@@ -41,5 +42,14 @@ export default class ListModel {
 
     getData(): unknown {
         return this.hostels;
+    }
+
+    locationSlicer(): void {
+        this.hostels.forEach((curr, index) => {
+            if (curr.location) {
+                const tmp = curr.location.split(', ');
+                this.hostels[index].location = `${tmp[tmp.length - 1]}, ${tmp[tmp.length - 2]}`;
+            }
+        });
     }
 }
