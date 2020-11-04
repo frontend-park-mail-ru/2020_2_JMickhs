@@ -6,28 +6,24 @@ import {
 } from '@eventBus/constants';
 import Redirector from '@/helpers/router/redirector';
 
-import { HostelData } from '@interfaces/structsData/hostelData';
 import { PageController } from '@/helpers/interfaces/controllers';
-
-interface Handlers {
-    renderView: (data: HostelData) => void,
-}
+import { Handler } from '@/helpers/interfaces/functions';
 
 export default class HostelPageController implements PageController {
     private model: HostelPageModel;
 
     private view: HostelPageView;
 
-    private hadlers: Handlers;
+    private handlers: Record<string, Handler>;
 
     constructor(parent: HTMLElement) {
         this.model = new HostelPageModel();
         this.view = new HostelPageView(parent);
 
-        this.hadlers = this.makeHadlers();
+        this.handlers = this.makeHadlers();
     }
 
-    private makeHadlers(): Handlers {
+    private makeHadlers(): Record<string, Handler> {
         const handlers = {
             renderView: this.view.render.bind(this.view),
         };
@@ -40,13 +36,13 @@ export default class HostelPageController implements PageController {
             return;
         }
 
-        Events.subscribe(UPDATE_HOSTEL, this.hadlers.renderView);
+        Events.subscribe(UPDATE_HOSTEL, this.handlers.renderView);
 
         this.model.fillModel(id);
     }
 
     deactivate(): void {
-        Events.unsubscribe(UPDATE_HOSTEL, this.hadlers.renderView);
+        Events.unsubscribe(UPDATE_HOSTEL, this.handlers.renderView);
         this.view.hide();
     }
 }

@@ -1,12 +1,13 @@
-import { AbstractController } from '@interfaces/controllers';
 import NetworkHostel from '@network/networkHostel';
 import { CommentData } from '@network/structsServer/commentData';
 import PageInfo from '@network/structsServer/pageInfo';
 
 import * as template from '@hostel/templates/hostelComments.hbs';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
+import { AbstractComponent } from '@interfaces/components';
+import { Handler } from '@interfaces/functions';
 
-export default class CommentsComponent implements AbstractController {
+export default class CommentsComponent implements AbstractComponent {
     private place: HTMLDivElement;
 
     private nextBtn: HTMLButtonElement;
@@ -21,7 +22,7 @@ export default class CommentsComponent implements AbstractController {
 
     private countComments: number;
 
-    private handlers: Record<string, (arg: unknown) => void>;
+    private handlers: Record<string, Handler>;
 
     private subscribesBtn: boolean;
 
@@ -44,7 +45,7 @@ export default class CommentsComponent implements AbstractController {
         this.place.innerHTML = '';
     }
 
-    private makeHandlers(): Record<string, (arg: unknown) => void> {
+    private makeHandlers(): Record<string, Handler> {
         return {
             nextComment: (evt: Event) => {
                 evt.preventDefault();

@@ -1,4 +1,3 @@
-import { AbstractController } from '@interfaces/controllers';
 import { HostelData } from '@interfaces/structsData/hostelData';
 
 import * as dataTemplate from '@hostel/templates/hostelData.hbs';
@@ -8,8 +7,10 @@ import Events from '@eventBus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
 } from '@eventBus/constants';
+import { AbstractComponent } from '@interfaces/components';
+import { Handler } from '@interfaces/functions';
 
-export default class HostelDataComponent implements AbstractController {
+export default class HostelDataComponent implements AbstractComponent {
     private placeData: HTMLDivElement;
 
     private placeImages: HTMLDivElement;
@@ -22,7 +23,7 @@ export default class HostelDataComponent implements AbstractController {
 
     private hostel: HostelData;
 
-    private handlers: Record<string, (arg: unknown) => void>;
+    private handlers: Record<string, Handler>;
 
     constructor(placeText: HTMLDivElement, placePhotos: HTMLDivElement) {
         this.placeData = placeText;
@@ -95,7 +96,7 @@ export default class HostelDataComponent implements AbstractController {
         btnPrev.removeEventListener('click', this.handlers.prevImg);
     }
 
-    private makeHandlers(): Record<string, (arg: unknown) => void> {
+    private makeHandlers(): Record<string, Handler> {
         return {
             prevImg: (evt: Event) => {
                 evt.preventDefault();
