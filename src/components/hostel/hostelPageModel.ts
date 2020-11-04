@@ -5,7 +5,7 @@ import Events from '@eventBus/eventbus';
 import {
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 import HotelFromServer from '@network/structsServer/HotelData';
 
 export default class HostelPageModel {

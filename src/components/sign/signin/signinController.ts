@@ -7,7 +7,7 @@ import {
     SUBMIT_SIGNIN,
     HAVE_USER,
 } from '@eventBus/constants';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 
 export default class SigninController implements PageController {
     private view: SigninView;

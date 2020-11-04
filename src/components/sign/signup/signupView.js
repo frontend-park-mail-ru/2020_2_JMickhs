@@ -8,7 +8,7 @@ import {
 
 import signupTemplate from '@sign/templates/signup.hbs';
 import promtTemplate from '@sign/templates/signupPromt.hbs';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView extends PageView {

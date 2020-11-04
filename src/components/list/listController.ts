@@ -4,7 +4,7 @@ import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 import { AbstractController } from '@interfaces/controllers';
 import Events from '@eventBus/eventbus';
 import { LOAD_HOSTELS } from '@eventBus/constants';
-import { Handler } from '@/helpers/interfaces/functions';
+import { Handler } from '@interfaces/functions';
 
 export default class ListController implements AbstractController {
     private model: ListModel;

@@ -1,5 +1,5 @@
 import NetworkHostel from '@network/networkHostel';
-import { ResponseData } from '@/helpers/network/structsServer/resposeData';
+import { ResponseData } from '@network/structsServer/resposeData';
 
 export default class HomeModel {
     private userName: string;

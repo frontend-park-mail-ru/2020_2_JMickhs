@@ -4,10 +4,10 @@ import Events from '@eventBus/eventbus';
 import {
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 
-import { PageController } from '@/helpers/interfaces/controllers';
-import { Handler } from '@/helpers/interfaces/functions';
+import { PageController } from '@interfaces/controllers';
+import { Handler } from '@interfaces/functions';
 
 export default class HostelPageController implements PageController {
     private model: HostelPageModel;

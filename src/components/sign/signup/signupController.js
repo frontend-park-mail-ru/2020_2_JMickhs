@@ -7,7 +7,7 @@ import {
     HAVE_USER,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 
 /** Класс контроллера для страницы регистрации */
 export default class SignupController {

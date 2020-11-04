@@ -12,7 +12,7 @@ import {
 } from '@eventBus/constants';
 
 import { UserData } from '@interfaces/structsData/userData';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 
 export default class ProfileModel {
     private user: User;

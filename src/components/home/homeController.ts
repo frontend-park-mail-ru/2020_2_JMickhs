@@ -1,5 +1,5 @@
-import HomeModel from '@/components/home/homeModel';
-import HomeView from '@/components/home/homeView';
+import HomeModel from '@home/homeModel';
+import HomeView from '@home/homeView';
 import ListController from '@list/listController';
 import Events from '@eventBus/eventbus';
 import {
@@ -8,7 +8,7 @@ import {
     SEARCH_HOSTELS,
 } from '@eventBus/constants';
 import { PageController } from '@interfaces/controllers';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 import { Handler } from '@interfaces/functions';
 
 export default class HomeController implements PageController {

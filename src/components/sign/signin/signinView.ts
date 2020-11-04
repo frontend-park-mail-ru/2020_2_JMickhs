@@ -7,11 +7,12 @@ import {
 } from '@eventBus/constants';
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
-import { UserData } from '@/helpers/interfaces/structsData/userData';
-import Redirector from '@/helpers/router/redirector';
+import { UserData } from '@interfaces/structsData/userData';
+import Redirector from '@router/redirector';
+import { Handler } from '@interfaces/functions';
 
 export default class SigninView extends PageView {
-    private handlers: Record<string, (arg: unknown) => void>;
+    private handlers: Record<string, Handler>;
 
     private timerId: number;
 
@@ -21,7 +22,7 @@ export default class SigninView extends PageView {
         this.handlers = this.makeHadlers();
     }
 
-    private makeHadlers(): Record<string, (arg: unknown) => void> {
+    private makeHadlers(): Record<string, Handler> {
         const handlers = {
             signinUser: (user: UserData) => {
                 if (user) {

@@ -4,8 +4,8 @@ import {
     LOAD_HOSTELS,
 } from '@eventBus/constants';
 import { HostelData } from '@interfaces/structsData/hostelData';
-import { ResponseData } from '@/helpers/network/structsServer/resposeData';
-import Redirector from '@/helpers/router/redirector';
+import { ResponseData } from '@network/structsServer/resposeData';
+import Redirector from '@router/redirector';
 
 export default class ListModel {
     public hostels: HostelData[];

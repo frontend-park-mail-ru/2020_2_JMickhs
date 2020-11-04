@@ -19,7 +19,7 @@ import {
 import profileTemplate from '@profile/templates/profileTemplate.hbs';
 import profileButtonTemplate from '@profile/templates/profileButtonTemplate.hbs';
 import messageTemplate from '@profile/templates/profileMessage.hbs';
-import Redirector from '@/helpers/router/redirector';
+import Redirector from '@router/redirector';
 
 /** Класс представления для страницы профиля */
 export default class ProfileView extends PageView {
