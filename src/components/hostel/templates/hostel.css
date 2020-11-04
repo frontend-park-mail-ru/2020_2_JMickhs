@@ -132,10 +132,7 @@
 }
 
 .hostel__btn-round {
-    border-top-right-radius: 25px;
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+    border-radius: 25px;
     background-color: var(--orange);
     color: var(--white);
     padding: 16px 20px;
@@ -146,11 +143,10 @@
     outline: none;
     z-index: 2000;
     transition: 0.3s;
-    opacity: 0.7;
 }
 
 .hostel__btn-round:hover {
-    opacity: 1;
+    background-color: var(--orange-dark);
 }
 
 
