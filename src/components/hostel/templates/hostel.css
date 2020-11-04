@@ -59,6 +59,16 @@
     align-self: center;
 }
 
+.hostel__card {
+    padding: 1px 5%;
+    width: 90%;
+    margin: auto;
+    border: 2px solid var(--gray);
+    border-radius: 4px;
+    background-color: var(--gray-light);
+    overflow: auto;
+}
+
 .hostel__title {
     font-weight: bolder;
 }

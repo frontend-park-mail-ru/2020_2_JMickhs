@@ -1,13 +1,15 @@
-<p class="hostel__title hostel__title--orange">{{name}}</p>
-<p class="hostel__star hostel__title hostel__title--orange">
-    {{#if rating}}
-    Рейтинг: {{rating}}
-    {{else}}
-    Поставьте оценку первым!
-    {{/if}}
-</p>
-<p class="hostel__title hostel__text--blue">Количество комментариев: {{countComments}}</p>
-<p class="hostel__title hostel__title--orange">{{location}}</p>
-<p class="hostel__text hostel__text--blue">
-    {{description}}
-</p>
+<div class="hostel__card">
+    <p class="hostel__title hostel__title--orange">{{name}}</p>
+    <p class="hostel__star hostel__title hostel__title--orange">
+        {{#if rating}}
+        Рейтинг: {{rating}}
+        {{else}}
+        Поставьте оценку первым!
+        {{/if}}
+    </p>
+    <p class="hostel__title hostel__text--blue">Количество комментариев: {{countComments}}</p>
+    <p class="hostel__title hostel__title--orange">{{location}}</p>
+    <p class="hostel__text hostel__text--blue">
+        {{description}}
+    </p>
+</div>
