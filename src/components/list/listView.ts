@@ -1,6 +1,7 @@
 import Events from '@eventBus/eventbus';
 import { LOAD_HOSTELS } from '@eventBus/constants';
 import * as listTemplate from '@list/templates/listTemplate.hbs';
+import { HostelData } from '@interfaces/structsData/hostelData';
 
 export default class ListView {
     private handlers: Record<string, (arg: unknown) => void>;
@@ -23,7 +24,7 @@ export default class ListView {
         Events.unsubscribe(LOAD_HOSTELS, this.handlers.render);
     }
 
-    render(data: unknown): void {
+    render(data: HostelData): void {
         window.scrollTo(0, 0);
         this.page.innerHTML = listTemplate(data);
     }

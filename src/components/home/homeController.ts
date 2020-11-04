@@ -46,14 +46,12 @@ export default class HomeController implements PageController {
 
     activate(): void {
         this.subscribeEvents();
-        this.view.subscribeEvents();
-        this.view.render({});
+        this.view.render();
         this.listComponent = new ListController(HomeView.listElem());
     }
 
     deactivate(): void {
         this.listComponent.deactivate();
-        this.view.unsubscribeEvents();
         this.view.hide();
         this.unsubscribeEvents();
     }
