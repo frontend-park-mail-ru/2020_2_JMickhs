@@ -8,7 +8,7 @@ class Request {
     private token: string;
 
     constructor() {
-        this.domain = 'https://www.hostelscan.ru';
+        this.domain = 'https://hostelscan.ru';
         this.port = ':8080';
 
         this.token = '';
