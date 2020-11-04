@@ -22,9 +22,9 @@ export default class SignupModel {
         const response = NetworkUser.signup(username, email, password);
         response.then((value) => {
             const { code } = value;
-            const data = value.data as UserData;
             switch (code) {
                 case 200:
+                    const data = value.data as UserData;
                     this.user.id = data.id;
                     this.user.avatar = data.avatar;
                     this.user.isAuth = true;

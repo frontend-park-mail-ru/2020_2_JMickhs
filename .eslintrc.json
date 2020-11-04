@@ -33,7 +33,8 @@
                 "semi": [2, "always"],
                 "quotes": ["error", "single"],
                 "no-console": 2,
-                "@typescript-eslint/indent": ["error", 4]
+                "@typescript-eslint/indent": ["error", 4],
+                "no-case-declarations": "off"
             }
         }
     ]

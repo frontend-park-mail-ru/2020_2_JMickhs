@@ -23,9 +23,9 @@ export default class ListModel {
         }
         response.then((value) => {
             const { code } = value;
-            const data = value.data as {hotels: HostelData[], Pag_info: unknown};
             switch (code) {
                 case 200:
+                    const data = value.data as {hotels: HostelData[], Pag_info: unknown};
                     this.hostels = data.hotels;
                     Events.trigger(LOAD_HOSTELS, this.getData());
                     break;

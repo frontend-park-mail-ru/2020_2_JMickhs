@@ -112,12 +112,12 @@ export default class CommentUserController implements AbstractController {
 
         response.then((value) => {
             const { code } = value;
-            const data = value.data as {
-                new_rate: number,
-                comment: CommentData;
-            };
             switch (code) {
                 case 200:
+                    const data = value.data as {
+                        new_rate: number,
+                        comment: CommentData;
+                    };
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 1 });
 
@@ -147,12 +147,12 @@ export default class CommentUserController implements AbstractController {
 
         response.then((value) => {
             const { code } = value;
-            const data = value.data as {
-                new_rate: number,
-                comment: CommentData;
-            };
             switch (code) {
                 case 200:
+                    const data = value.data as {
+                        new_rate: number,
+                        comment: CommentData;
+                    };
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 0 });
                     this.unsubscribeEvents();

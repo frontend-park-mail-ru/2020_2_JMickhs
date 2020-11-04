@@ -31,9 +31,11 @@ export default class HostelPageView extends PageView {
     }
 
     hide(): void {
-        this.dataComponent.deactivate();
-        this.userCommentComponent.deactivate();
-        this.commentsComponent.deactivate();
+        if (this.dataComponent) {
+            this.dataComponent.deactivate();
+            this.userCommentComponent.deactivate();
+            this.commentsComponent.deactivate();
+        }
         this.page.innerHTML = '';
     }
 }

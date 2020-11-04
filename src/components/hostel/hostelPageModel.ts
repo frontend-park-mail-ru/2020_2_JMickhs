@@ -34,10 +34,10 @@ export default class HostelPageModel {
         const response = NetworkHostel.getHostel(id);
         response.then((value) => {
             const { code } = value;
-            const data = value.data as HotelFromServer;
-            const { hotel } = data;
             switch (code) {
                 case 200:
+                    const data = value.data as HotelFromServer;
+                    const { hotel } = data;
                     this.hostel.description = hotel.description;
                     this.hostel.id = hotel.hotel_id;
                     this.hostel.name = hotel.name;
