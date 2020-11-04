@@ -23,7 +23,7 @@ export default class HomeModel {
         this.userName = name;
     }
 
-    static search(pattern: string, page?: number): Promise<ResponseData> {
+    search(pattern: string, page?: number): Promise<ResponseData> {
         return NetworkHostel.searchHostel(pattern, page);
     }
 }

@@ -34,7 +34,8 @@
                 "quotes": ["error", "single"],
                 "no-console": 2,
                 "@typescript-eslint/indent": ["error", 4],
-                "no-case-declarations": "off"
+                "no-case-declarations": "off",
+                "class-methods-use-this": "off"
             }
         }
     ]

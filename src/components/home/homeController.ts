@@ -31,7 +31,7 @@ export default class HomeController implements PageController {
         const handlers = {
             searchHostels: (arg: string) => {
                 Redirector.redirectTo(`?pattern=${arg}&page=0`);
-                this.listComponent.activate(HomeModel.search(arg));
+                this.listComponent.activate(this.model.search(arg));
             },
         };
         return handlers;
@@ -48,7 +48,7 @@ export default class HomeController implements PageController {
     activate(): void {
         this.subscribeEvents();
         this.view.render();
-        this.listComponent = new ListController(HomeView.listElem());
+        this.listComponent = new ListController(this.view.listElem());
     }
 
     deactivate(): void {
@@ -64,7 +64,7 @@ export default class HomeController implements PageController {
             Events.trigger(SET_CONTAINER_FOR_SEARCH);
         } else {
             Events.trigger(SET_CONTAINER_FOR_LIST);
-            this.listComponent.activate(HomeModel.search(pattern));
+            this.listComponent.activate(this.model.search(pattern));
         }
     }
 }

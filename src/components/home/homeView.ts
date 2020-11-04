@@ -35,7 +35,7 @@ export default class HomeView extends PageView {
         return handlers;
     }
 
-    static listElem(): HTMLElement {
+    listElem(): HTMLElement {
         return document.getElementById('list');
     }
 
