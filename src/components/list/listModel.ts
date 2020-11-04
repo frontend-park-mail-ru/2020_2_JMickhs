@@ -2,10 +2,10 @@ import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
     LOAD_HOSTELS,
-    REDIRECT_ERROR,
 } from '@eventBus/constants';
 import { HostelData } from '@interfaces/structsData/hostelData';
 import { ResponseData } from '@/helpers/network/structsServer/resposeData';
+import Redirector from '@/helpers/router/redirector';
 
 export default class ListModel {
     public hostels: HostelData[];
@@ -30,14 +30,10 @@ export default class ListModel {
                     Events.trigger(LOAD_HOSTELS, this.getData());
                     break;
                 case 400:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Неверный формат запроса' });
+                    Redirector.redirectError('Неверный формат запроса');
                     break;
                 default:
-                    Events.trigger(REDIRECT_ERROR, {
-                        url: '/error',
-                        err: 'Что-то страшное произошло c нишим сервером...'
-                        + ` Он говорит: ${code}`,
-                    });
+                    Redirector.redirectError(`Ошибка сервера - ${code}`);
                     break;
             }
         });

@@ -5,10 +5,10 @@ import Events from '@eventBus/eventbus';
 import {
     CHANGE_CNT_TO_LIST,
     CHANGE_CNT_TO_SEARCH,
-    REDIRECT,
     SEARCH_HOSTELS,
 } from '@eventBus/constants';
 import { PageController } from '@interfaces/controllers';
+import Redirector from '@/helpers/router/redirector';
 
 export default class HomeController implements PageController {
     private model: HomeModel;
@@ -29,7 +29,7 @@ export default class HomeController implements PageController {
     private makeHadlers(): Record<string, (arg: unknown) => void> {
         const handlers = {
             searchHostels: (arg: string) => {
-                Events.trigger(REDIRECT, { url: `?pattern=${arg}&page=${0}` });
+                Redirector.redirectTo(`?pattern=${arg}&page=${0}`);
                 this.listComponent.activate(HomeModel.search(arg));
             },
         };

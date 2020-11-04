@@ -4,8 +4,7 @@ import { CommentData } from '@network/structsServer/commentData';
 import PageInfo from '@network/structsServer/pageInfo';
 
 import * as template from '@hostel/templates/hostelComments.hbs';
-import Events from '@eventBus/eventbus';
-import { REDIRECT_ERROR } from '@eventBus/constants';
+import Redirector from '@/helpers/router/redirector';
 
 export default class CommentsController implements AbstractController {
     private place: HTMLDivElement;
@@ -90,16 +89,16 @@ export default class CommentsController implements AbstractController {
                     this.subscribeEvents();
                     break;
                 case 400:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'bad request' });
+                    Redirector.redirectError('bad request');
                     break;
                 case 403:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Нет csrf' });
+                    Redirector.redirectError('Нет csrf');
                     break;
                 case 423:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Второй раз ставите ошибку!' });
+                    Redirector.redirectError('Второй раз ставите оценку!');
                     break;
                 default:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: `Ошибка сервера: статус - ${code}` });
+                    Redirector.redirectError(`Ошибка сервера: статус - ${code}`);
                     break;
             }
         });

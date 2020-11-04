@@ -3,9 +3,9 @@ import { CommentData } from '@/helpers/network/structsServer/commentData';
 import NetworkHostel from '@network/networkHostel';
 import Events from '@eventBus/eventbus';
 import {
-    REDIRECT_ERROR,
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
+import Redirector from '@/helpers/router/redirector';
 import HotelFromServer from '@network/structsServer/HotelData';
 
 export default class HostelPageModel {
@@ -28,7 +28,7 @@ export default class HostelPageModel {
 
     fillModel(id: number): void {
         if (id <= 0) {
-            Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Неверный формат запроса' });
+            Redirector.redirectError('Такого отеля не существует');
         }
 
         const response = NetworkHostel.getHostel(id);
@@ -52,17 +52,13 @@ export default class HostelPageModel {
                     Events.trigger(UPDATE_HOSTEL, { hostel: this.hostel, comment: this.comment });
                     break;
                 case 400:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Неверный формат запроса' });
+                    Redirector.redirectError('Неверный формат запроса');
                     break;
                 case 410:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Такого отеля не существует' });
+                    Redirector.redirectError('Такого отеля не существует');
                     break;
                 default:
-                    Events.trigger(REDIRECT_ERROR, {
-                        url: '/error',
-                        err: 'Что-то страшное произошло c нишим сервером...'
-                        + ` Он говорит: ${code}`,
-                    });
+                    Redirector.redirectError(`Ошибка сервера: ${code}`);
                     break;
             }
         });

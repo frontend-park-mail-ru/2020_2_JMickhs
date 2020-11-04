@@ -2,9 +2,9 @@ import HostelPageModel from '@hostel/hostelPageModel';
 import HostelPageView from '@hostel/hostelPageView';
 import Events from '@eventBus/eventbus';
 import {
-    REDIRECT_ERROR,
     UPDATE_HOSTEL,
 } from '@eventBus/constants';
+import Redirector from '@/helpers/router/redirector';
 
 import { HostelData } from '@interfaces/structsData/hostelData';
 import { PageController } from '@/helpers/interfaces/controllers';
@@ -36,7 +36,7 @@ export default class HostelPageController implements PageController {
 
     activate(id: number): void {
         if (id <= 0) {
-            Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Такого отеля не существует' });
+            Redirector.redirectError('Такого отеля не существует');
             return;
         }
 

@@ -1,8 +1,3 @@
-// События редиректов
-export const REDIRECT = 'redirect';
-export const REDIRECT_ERROR = 'redirectError';
-export const REDIRECT_BACK = 'redirectBack';
-
 // Собыия списка отелей(List)
 export const LOAD_HOSTELS = 'loadHostels';
 

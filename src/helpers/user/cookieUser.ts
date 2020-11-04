@@ -2,11 +2,11 @@ import NetworkUser from '@network/networkUser';
 import Events from '@eventBus/eventbus';
 import {
     HAVE_USER,
-    REDIRECT_ERROR,
     HAVNT_USER,
 } from '@eventBus/constants';
 import User from '@user/user';
 import { UserData } from '../interfaces/structsData/userData';
+import Redirector from '../router/redirector';
 
 export default function userFromCookie(): void {
     const user = User.getInstance();
@@ -27,10 +27,7 @@ export default function userFromCookie(): void {
                 Events.trigger(HAVNT_USER);
                 break;
             default:
-                Events.trigger(REDIRECT_ERROR, {
-                    url: '/error',
-                    err: `Что-то страшное произошло c нишим сервером...  Он говорит: ${code}`,
-                });
+                Redirector.redirectError(`Ошибка сервера: ${code}`);
                 break;
         }
     });

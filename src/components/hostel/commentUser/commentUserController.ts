@@ -5,8 +5,8 @@ import Events from '@eventBus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
     HAVE_USER,
-    REDIRECT_ERROR,
 } from '@eventBus/constants';
+import Redirector from '@/helpers/router/redirector';
 
 import * as templateUser from '@hostel/templates/hostelComment.hbs';
 import NetworkHostel from '@network/networkHostel';
@@ -127,16 +127,16 @@ export default class CommentUserController implements AbstractController {
                     this.subscribeEvents();
                     break;
                 case 400:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'bad request' });
+                    Redirector.redirectError('bad request');
                     break;
                 case 403:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Нет csrf' });
+                    Redirector.redirectError('Нет csrf');
                     break;
                 case 423:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Второй раз ставите ошибку!' });
+                    Redirector.redirectError('Второй раз ставите оценку!');
                     break;
                 default:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: `Ошибка сервера: статус - ${code}` });
+                    Redirector.redirectError(`Ошибка сервера: статус - ${code}`);
                     break;
             }
         });
@@ -160,16 +160,16 @@ export default class CommentUserController implements AbstractController {
                     this.subscribeEvents();
                     break;
                 case 400:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'bad request' });
+                    Redirector.redirectError('bad request');
                     break;
                 case 403:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Нет csrf' });
+                    Redirector.redirectError('Нет csrf');
                     break;
                 case 423:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Второй раз ставите ошибку!' });
+                    Redirector.redirectError('Второй раз ставите оценку!');
                     break;
                 default:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: `Ошибка сервера: статус - ${code}` });
+                    Redirector.redirectError(`Ошибка сервера: статус - ${code}`);
                     break;
             }
         });

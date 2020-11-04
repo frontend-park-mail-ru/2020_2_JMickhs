@@ -3,11 +3,11 @@ import SigninModel from '@sign/signin/signinModel';
 import SigninView from '@sign/signin/signinView';
 import Events from '@eventBus/eventbus';
 import {
-    REDIRECT,
     PAGE_SIGNIN,
     SUBMIT_SIGNIN,
     HAVE_USER,
 } from '@eventBus/constants';
+import Redirector from '@/helpers/router/redirector';
 
 export default class SigninController implements PageController {
     private view: SigninView;
@@ -57,7 +57,7 @@ export default class SigninController implements PageController {
     }
 
     private static redirectToProfile(): void {
-        Events.trigger(REDIRECT, { url: '/profile' });
+        Redirector.redirectTo('profile');
     }
 
     private validate(arg: {login: string, password: string}): void {

@@ -1,11 +1,12 @@
 import { PageController } from '@interfaces/controllers';
+import { AbstractRouter } from '@interfaces/routers';
 
-class Router {
+class Router implements AbstractRouter {
     private routes: Record<string, PageController>;
 
     private currController: PageController;
 
-    public errorController: PageController;
+    errorController: PageController;
 
     private prevUrl: string;
 
@@ -35,7 +36,7 @@ class Router {
         });
     }
 
-    canBack() {
+    canBack(): boolean {
         return this.prevUrl !== undefined;
     }
 
@@ -46,7 +47,7 @@ class Router {
         this.pushState(this.prevUrl);
     }
 
-    pushState(url = '/', state: unknown = null): void {
+    pushState(url = '/', state?: unknown): void {
         if (url !== window.location.pathname) {
             window.history.pushState(state, document.title, url);
         } else {

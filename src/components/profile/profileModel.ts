@@ -6,14 +6,13 @@ import {
     UPDATE_AVATAR,
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
-    REDIRECT,
     ERR_UPDATE_AVATAR,
-    REDIRECT_ERROR,
     CHANGE_USER_OK,
     ERR_FIX_USER,
 } from '@eventBus/constants';
 
 import { UserData } from '@interfaces/structsData/userData';
+import Redirector from '@/helpers/router/redirector';
 
 export default class ProfileModel {
     private user: User;
@@ -63,10 +62,10 @@ export default class ProfileModel {
                     break;
                 case 401:
                     this.user.isAuth = false;
-                    Events.trigger(REDIRECT, { url: '/signin' });
+                    Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Нет csrf' });
+                    Redirector.redirectError('Нет csrf');
                     break;
                 case 415:
                     Events.trigger(ERR_UPDATE_AVATAR, 'Можно загружать только файлы с расширением jpg, png');
@@ -95,10 +94,10 @@ export default class ProfileModel {
                     break;
                 case 401:
                     this.user.isAuth = false;
-                    Events.trigger(REDIRECT, { url: '/signin' });
+                    Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Нет csrf' });
+                    Redirector.redirectError('Нет csrf');
                     break;
                 case 409:
                     Events.trigger(ERR_FIX_USER, 'Пользователь с такими данными уже зарегистрирован');
@@ -123,20 +122,16 @@ export default class ProfileModel {
                     break;
                 case 401:
                     this.user.isAuth = false;
-                    Events.trigger(REDIRECT, { url: '/signin' });
+                    Redirector.redirectTo('/signin');
                     break;
                 case 402:
                     Events.trigger(PASSWORD_UPDATE_ERROR, 'Вы ввели неверный пароль');
                     break;
                 case 403:
-                    Events.trigger(REDIRECT_ERROR, { url: '/error', err: 'Нет csrf' });
+                    Redirector.redirectError('Нет csrf');
                     break;
                 default:
-                    Events.trigger(REDIRECT_ERROR, {
-                        url: '/error',
-                        err: 'Что-то страшное произошло c нишим сервером...'
-                        + ` Он говорит: ${code}`,
-                    });
+                    Redirector.redirectError(`Ошибка сервера - ${code}`);
                     break;
             }
         });
