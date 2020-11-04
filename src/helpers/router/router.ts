@@ -1,11 +1,11 @@
-import { AbstractController } from '@interfaces/controllers';
+import { PageController } from '@interfaces/controllers';
 
 class Router {
-    private routes: Record<string, AbstractController>;
+    private routes: Record<string, PageController>;
 
-    private currController: AbstractController;
+    private currController: PageController;
 
-    public errorController: AbstractController;
+    public errorController: PageController;
 
     private prevUrl: string;
 
@@ -15,7 +15,7 @@ class Router {
         this.routes = {};
     }
 
-    append(path: string, controller: AbstractController): void {
+    append(path: string, controller: PageController): void {
         this.routes[path] = controller;
     }
 
@@ -55,7 +55,7 @@ class Router {
         this.route();
     }
 
-    private findControllerByPath(path: string): AbstractController {
+    private findControllerByPath(path: string): PageController {
         return this.routes[path];
     }
 

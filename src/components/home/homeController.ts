@@ -8,9 +8,9 @@ import {
     REDIRECT,
     SEARCH_HOSTELS,
 } from '@eventBus/constants';
-import { AbstractController } from '@interfaces/controllers';
+import { PageController } from '@interfaces/controllers';
 
-export default class HomeController implements AbstractController {
+export default class HomeController implements PageController {
     private model: HomeModel;
 
     private view: HomeView;

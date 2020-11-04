@@ -7,13 +7,13 @@ import {
 } from '@eventBus/constants';
 
 import { HostelData } from '@interfaces/structsData/hostelData';
-import { AbstractController } from '@/helpers/interfaces/controllers';
+import { PageController } from '@/helpers/interfaces/controllers';
 
 interface Handlers {
     renderView: (data: HostelData) => void,
 }
 
-export default class HostelPageController implements AbstractController {
+export default class HostelPageController implements PageController {
     private model: HostelPageModel;
 
     private view: HostelPageView;

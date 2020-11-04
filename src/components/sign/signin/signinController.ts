@@ -1,4 +1,4 @@
-import { AbstractController } from '@interfaces/controllers';
+import { PageController } from '@interfaces/controllers';
 import SigninModel from '@sign/signin/signinModel';
 import SigninView from '@sign/signin/signinView';
 import Events from '@eventBus/eventbus';
@@ -9,7 +9,7 @@ import {
     HAVE_USER,
 } from '@eventBus/constants';
 
-export default class SigninController implements AbstractController {
+export default class SigninController implements PageController {
     private view: SigninView;
 
     private model: SigninModel;
