@@ -8,7 +8,7 @@ import Events from '@eventBus/eventbus';
 import { REDIRECT_ERROR } from '@eventBus/constants';
 
 export default class CommentsController implements AbstractController {
-    private place: HTMLElement;
+    private place: HTMLDivElement;
 
     private nextBtn: HTMLButtonElement;
 
@@ -26,8 +26,27 @@ export default class CommentsController implements AbstractController {
 
     private subscribesBtn: boolean;
 
-    constructor() {
-        this.handlers = {
+    constructor(place : HTMLDivElement) {
+        this.place = place;
+
+        this.handlers = this.makeHandlers();
+    }
+
+    activate(idHostel: number): void {
+        this.idHotel = idHostel;
+        this.pageNumber = 0;
+        this.subscribesBtn = false;
+
+        this.getComment();
+    }
+
+    deactivate(): void {
+        this.unsubscribeEvents();
+        this.place.innerHTML = '';
+    }
+
+    private makeHandlers(): Record<string, (arg: unknown) => void> {
+        return {
             nextComment: (evt: Event) => {
                 evt.preventDefault();
 
@@ -35,7 +54,7 @@ export default class CommentsController implements AbstractController {
                     this.pageNumber = 0;
                 }
 
-                this.getComments();
+                this.getComment();
             },
             prevComment: (evt: Event) => {
                 evt.preventDefault();
@@ -46,21 +65,12 @@ export default class CommentsController implements AbstractController {
                     this.pageNumber = this.countComments - 1;
                 }
 
-                this.getComments();
+                this.getComment();
             },
         };
     }
 
-    activate(arg: {place: HTMLElement, idHostel: number}): void {
-        this.place = arg.place;
-        this.idHotel = arg.idHostel;
-        this.pageNumber = 0;
-        this.subscribesBtn = false;
-
-        this.getComments();
-    }
-
-    private getComments(): void {
+    private getComment(): void {
         const response = NetworkHostel.getComments(this.pageNumber, this.idHotel);
 
         response.then((value) => {
@@ -93,11 +103,6 @@ export default class CommentsController implements AbstractController {
                     break;
             }
         });
-    }
-
-    deactivate(): void {
-        this.unsubscribeEvents();
-        this.place.innerHTML = '';
     }
 
     private render() {

@@ -8,20 +8,7 @@
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
-    "extends": ["plugin:@typescript-eslint/eslint-recommended",
-                "plugin:@typescript-eslint/recommended",
-                "airbnb-typescript/base"],
-    "rules": {
-        "max-len": ["error", { "code": 120 }],
-        "indent": "off",
-        "semi": [2, "always"],
-        "quotes": ["error", "single"],
-        "no-console": 2,
-        "@typescript-eslint/indent": ["error", 4]
-    },
+
     "overrides": [
         {
             "files": ["*.js"],
@@ -30,6 +17,23 @@
             "rules": {
                 "max-len": ["error", { "code": 120 }],
                 "indent": ["error", 4]
+            }
+        },
+        {
+            "files": ["*.ts"],
+            "plugins": [
+                "@typescript-eslint"
+            ],
+            "extends": ["plugin:@typescript-eslint/eslint-recommended",
+                        "plugin:@typescript-eslint/recommended",
+                        "airbnb-typescript/base"],
+            "rules": {
+                "max-len": ["error", { "code": 120 }],
+                "indent": "off",
+                "semi": [2, "always"],
+                "quotes": ["error", "single"],
+                "no-console": 2,
+                "@typescript-eslint/indent": ["error", 4]
             }
         }
     ]
