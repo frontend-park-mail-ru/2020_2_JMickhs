@@ -2,17 +2,17 @@ import { PageView } from '@interfaces/views';
 import { HostelData } from '@interfaces/structsData/hostelData';
 import * as hostelCardTemplate from '@hostel/templates/hostelPage.hbs';
 import { CommentData } from '@/helpers/network/structsServer/commentData';
-import HostelDataController from './hostelData/hostelDataController';
 
-import CommentUserController from './commentUser/commentUserController';
-import CommentsController from './comments/commentsController';
+import HostelDataComponent from './hostelData/hostelDataComponent';
+import CommentUserComponent from './commentUser/commentUserComponent';
+import CommentsComponent from './comments/commentsComponent';
 
 export default class HostelPageView extends PageView {
-    private dataComponent: HostelDataController;
+    private dataComponent: HostelDataComponent;
 
-    private userCommentComponent: CommentUserController;
+    private userCommentComponent: CommentUserComponent;
 
-    private commentsComponent: CommentsController;
+    private commentsComponent: CommentsComponent;
 
     render(data: {hostel: HostelData, comment: CommentData}): void {
         window.scrollTo(0, 0);
@@ -20,13 +20,13 @@ export default class HostelPageView extends PageView {
 
         const dataPlace = document.getElementById('hostel-data') as HTMLDivElement;
         const imagesPlace = document.getElementById('hostel-images') as HTMLDivElement;
-        this.dataComponent = new HostelDataController(dataPlace, imagesPlace);
+        this.dataComponent = new HostelDataComponent(dataPlace, imagesPlace);
         this.dataComponent.activate(data.hostel);
         const placeUserComment = document.getElementById('user-comment') as HTMLDivElement;
-        this.userCommentComponent = new CommentUserController(placeUserComment);
+        this.userCommentComponent = new CommentUserComponent(placeUserComment);
         this.userCommentComponent.activate(data.hostel.id, data.comment);
         const placeComments = document.getElementById('hostel-comments') as HTMLDivElement;
-        this.commentsComponent = new CommentsController(placeComments);
+        this.commentsComponent = new CommentsComponent(placeComments);
         this.commentsComponent.activate(data.hostel.id);
     }
 

@@ -13,7 +13,7 @@ import NetworkHostel from '@network/networkHostel';
 import User from '@/helpers/user/user';
 import { UserData } from '@interfaces/structsData/userData';
 
-export default class CommentUserController implements AbstractController {
+export default class CommentUserComponent implements AbstractController {
     private place: HTMLDivElement;
 
     private comment?: CommentData;

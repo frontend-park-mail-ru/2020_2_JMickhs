@@ -9,7 +9,7 @@ import {
     UPDATE_RATING_HOSTEL,
 } from '@eventBus/constants';
 
-export default class HostelDataController implements AbstractController {
+export default class HostelDataComponent implements AbstractController {
     private placeData: HTMLDivElement;
 
     private placeImages: HTMLDivElement;

@@ -6,7 +6,7 @@ import PageInfo from '@network/structsServer/pageInfo';
 import * as template from '@hostel/templates/hostelComments.hbs';
 import Redirector from '@/helpers/router/redirector';
 
-export default class CommentsController implements AbstractController {
+export default class CommentsComponent implements AbstractController {
     private place: HTMLDivElement;
 
     private nextBtn: HTMLButtonElement;
