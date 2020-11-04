@@ -37,5 +37,5 @@ export const UPDATE_HOSTEL = 'updateHostel';
 
 // События домашней сраницы(Home)
 export const SEARCH_HOSTELS = 'searchHostels';
-export const CHANGE_CNT_TO_SEARCH = 'changeCntToSearch';
-export const CHANGE_CNT_TO_LIST = 'changeCntToList';
+export const SET_CONTAINER_FOR_SEARCH = 'changeCntToSearch';
+export const SET_CONTAINER_FOR_LIST = 'changeCntToList';
