@@ -3,8 +3,8 @@ import HomeView from '@/components/home/homeView';
 import ListController from '@list/listController';
 import Events from '@eventBus/eventbus';
 import {
-    CHANGE_CNT_TO_LIST,
-    CHANGE_CNT_TO_SEARCH,
+    SET_CONTAINER_FOR_LIST,
+    SET_CONTAINER_FOR_SEARCH,
     SEARCH_HOSTELS,
 } from '@eventBus/constants';
 import { PageController } from '@interfaces/controllers';
@@ -29,7 +29,7 @@ export default class HomeController implements PageController {
     private makeHadlers(): Record<string, (arg: unknown) => void> {
         const handlers = {
             searchHostels: (arg: string) => {
-                Redirector.redirectTo(`?pattern=${arg}&page=${0}`);
+                Redirector.redirectTo(`?pattern=${arg}&page=0`);
                 this.listComponent.activate(HomeModel.search(arg));
             },
         };
@@ -60,9 +60,9 @@ export default class HomeController implements PageController {
         const pattern = params.get('pattern');
         if (pattern === null) {
             this.listComponent.deactivate();
-            Events.trigger(CHANGE_CNT_TO_SEARCH);
+            Events.trigger(SET_CONTAINER_FOR_SEARCH);
         } else {
-            Events.trigger(CHANGE_CNT_TO_LIST);
+            Events.trigger(SET_CONTAINER_FOR_LIST);
             this.listComponent.activate(HomeModel.search(pattern));
         }
     }
