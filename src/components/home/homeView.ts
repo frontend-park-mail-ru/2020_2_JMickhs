@@ -58,12 +58,12 @@ export default class HomeView extends PageView {
         this.page.innerHTML = '';
     }
 
-    subscribeEvents(): void {
+    private subscribeEvents(): void {
         Events.subscribe(CHANGE_CNT_TO_SEARCH, this.handlers.cntToSearch);
         Events.subscribe(CHANGE_CNT_TO_LIST, this.handlers.cntToList);
     }
 
-    unsubscribeEvents(): void {
+    private unsubscribeEvents(): void {
         Events.unsubscribe(CHANGE_CNT_TO_SEARCH, this.handlers.cntToSearch);
         Events.unsubscribe(CHANGE_CNT_TO_LIST, this.handlers.cntToList);
     }
