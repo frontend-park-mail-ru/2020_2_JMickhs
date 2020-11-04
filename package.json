@@ -40,7 +40,7 @@
         "build": "webpack",
         "linter": "eslint src",
         "dev": "webpack --watch --mode=development",
-        "prod": "webpack --mode=prodcution"
+        "prod": "webpack --mode=production"
     },
     "pre-commit": [
         "linter"
