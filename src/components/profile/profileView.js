@@ -7,7 +7,6 @@ import {
     UPDATE_AVATAR,
     ERR_UPDATE_AVATAR,
     SIGNOUT,
-    REDIRECT,
     HAVE_USER,
     HAVNT_USER,
     CHANGE_USER,
@@ -20,6 +19,7 @@ import {
 import profileTemplate from '@profile/templates/profileTemplate.hbs';
 import profileButtonTemplate from '@profile/templates/profileButtonTemplate.hbs';
 import messageTemplate from '@profile/templates/profileMessage.hbs';
+import Redirector from '@/helpers/router/redirector';
 
 /** Класс представления для страницы профиля */
 export default class ProfileView extends PageView {
@@ -93,7 +93,7 @@ export default class ProfileView extends PageView {
                 this.renderMessageAvatar(arg, true);
             },
             redirectSignin: () => {
-                Events.trigger(REDIRECT, {url: '/signin'});
+                Redirector.redirectTo('/signin');
             },
             updatePswClick: (evt) => {
                 evt.preventDefault();
