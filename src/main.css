@@ -1,10 +1,10 @@
-@import "@navbar/templates/navbar.css" all;
-@import "@profile/templates/profile.css" all;
-@import "@sign/templates/sign.css" all;
-@import "@list/templates/hostels.css" all;
-@import "@hostel/templates/hostel.css" all;
-@import "@home/templates/home.css" all;
-@import "@pageError/templates/errorPage.css" all;
+@import "@navbar/templates/navbar.css";
+@import "@profile/templates/profile.css";
+@import "@sign/templates/sign.css";
+@import "@list/templates/hostels.css";
+@import "@hostel/templates/hostel.css";
+@import "@home/templates/home.css";
+@import "@pageError/templates/errorPage.css";
 
 :root {
     --main-background-color: #ffffff;
