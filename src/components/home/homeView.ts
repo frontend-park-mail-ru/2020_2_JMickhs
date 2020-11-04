@@ -10,21 +10,21 @@ import {
 export default class HomeView extends PageView {
     private handlers: Record<string, (arg: unknown) => void>;
 
+    private cntElement: HTMLDivElement;
+
     constructor(parent: HTMLElement) {
         super(parent);
 
-        this.handlers = HomeView.makeHadlers();
+        this.handlers = this.makeHadlers();
     }
 
-    private static makeHadlers(): Record<string, (arg: unknown) => void> {
+    private makeHadlers(): Record<string, (arg: unknown) => void> {
         const handlers = {
             cntToList: () => {
-                const cnt = document.getElementById('cnt') as HTMLDivElement;
-                cnt.className = 'home__container-list-all';
+                this.cntElement.className = 'home__container-list-all';
             },
             cntToSearch: () => {
-                const cnt = document.getElementById('cnt') as HTMLDivElement;
-                cnt.className = 'home__container-all';
+                this.cntElement.className = 'home__container-all';
             },
             searchClick: () => {
                 const input = document.getElementById('input') as HTMLInputElement;
@@ -38,26 +38,32 @@ export default class HomeView extends PageView {
         return document.getElementById('list');
     }
 
-    render(data: unknown): void {
-        this.page.innerHTML = homeTemplate(data);
+    render(): void {
+        this.page.innerHTML = homeTemplate();
 
         const searchBtn = document.getElementById('btn');
         searchBtn.addEventListener('click', this.handlers.searchClick);
+
+        this.subscribeEvents();
+
+        this.cntElement = document.getElementById('cnt') as HTMLDivElement;
     }
 
     hide(): void {
         const searchBtn = document.getElementById('btn');
         searchBtn.removeEventListener('click', this.handlers.searchClick);
 
+        this.unsubscribeEvents();
+
         this.page.innerHTML = '';
     }
 
-    subscribeEvents(): void {
+    private subscribeEvents(): void {
         Events.subscribe(CHANGE_CNT_TO_SEARCH, this.handlers.cntToSearch);
         Events.subscribe(CHANGE_CNT_TO_LIST, this.handlers.cntToList);
     }
 
-    unsubscribeEvents(): void {
+    private unsubscribeEvents(): void {
         Events.unsubscribe(CHANGE_CNT_TO_SEARCH, this.handlers.cntToSearch);
         Events.unsubscribe(CHANGE_CNT_TO_LIST, this.handlers.cntToList);
     }
