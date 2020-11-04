@@ -10,9 +10,9 @@ import {
 } from '@eventBus/constants';
 
 export default class HostelDataController implements AbstractController {
-    private placeData: HTMLElement;
+    private placeData: HTMLDivElement;
 
-    private placeImages: HTMLElement;
+    private placeImages: HTMLDivElement;
 
     private image: HTMLImageElement;
 
@@ -24,34 +24,17 @@ export default class HostelDataController implements AbstractController {
 
     private handlers: Record<string, (arg: unknown) => void>;
 
-    constructor() {
-        this.handlers = {
-            prevImg: (evt: Event) => {
-                evt.preventDefault();
-
-                this.nextImage();
-            },
-            nextImg: (evt: Event) => {
-                evt.preventDefault();
-
-                this.prevImage();
-            },
-            updateTextData: (arg: {rating: number, delta: number}) => {
-                this.hostel.countComments += arg.delta;
-                this.hostel.rating = arg.rating;
-
-                this.placeData.innerHTML = dataTemplate(this.hostel);
-            },
-        };
+    constructor(placeText: HTMLDivElement, placePhotos: HTMLDivElement) {
+        this.placeData = placeText;
+        this.placeImages = placePhotos;
+        this.handlers = this.makeHandlers();
     }
 
-    activate(arg: {placeData: HTMLElement, placeImages: HTMLElement, hostel: HostelData}): void {
-        this.placeData = arg.placeData;
-        this.placeImages = arg.placeImages;
-        this.hostel = arg.hostel;
+    activate(hostel: HostelData): void {
+        this.hostel = hostel;
 
-        this.photos = arg.hostel.photos;
-        this.photos.unshift(arg.hostel.image);
+        this.photos = hostel.photos;
+        this.photos.unshift(hostel.image);
         this.curPhoto = 0;
 
         const image = this.photos[0];
@@ -110,5 +93,26 @@ export default class HostelDataController implements AbstractController {
         btnNext.removeEventListener('click', this.handlers.nextImg);
         const btnPrev = document.getElementById('btn-image-prev');
         btnPrev.removeEventListener('click', this.handlers.prevImg);
+    }
+
+    private makeHandlers(): Record<string, (arg: unknown) => void> {
+        return {
+            prevImg: (evt: Event) => {
+                evt.preventDefault();
+
+                this.nextImage();
+            },
+            nextImg: (evt: Event) => {
+                evt.preventDefault();
+
+                this.prevImage();
+            },
+            updateTextData: (arg: {rating: number, delta: number}) => {
+                this.hostel.countComments += arg.delta;
+                this.hostel.rating = arg.rating;
+
+                this.placeData.innerHTML = dataTemplate(this.hostel);
+            },
+        };
     }
 }

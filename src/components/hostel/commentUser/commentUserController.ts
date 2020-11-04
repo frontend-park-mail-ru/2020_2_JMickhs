@@ -14,7 +14,7 @@ import User from '@/helpers/user/user';
 import { UserData } from '@interfaces/structsData/userData';
 
 export default class CommentUserController implements AbstractController {
-    private place: HTMLElement;
+    private place: HTMLDivElement;
 
     private comment?: CommentData;
 
@@ -30,8 +30,29 @@ export default class CommentUserController implements AbstractController {
 
     private handlers: Record<string, (arg: unknown) => void>;
 
-    constructor() {
-        this.handlers = {
+    constructor(place: HTMLDivElement) {
+        this.place = place;
+
+        this.handlers = this.makeHandlers();
+    }
+
+    activate(idHostel: number, comment?: CommentData): void {
+        this.idHostel = idHostel;
+        this.comment = comment;
+
+        this.render();
+
+        this.subscribeEvents();
+    }
+
+    deactivate(): void {
+        this.place.innerHTML = '';
+
+        this.unsubscribeEvents();
+    }
+
+    private makeHandlers(): Record<string, (arg: unknown) => void> {
+        return {
             addComment: (evt: Event) => {
                 evt.preventDefault();
 
@@ -52,22 +73,6 @@ export default class CommentUserController implements AbstractController {
                 }
             },
         };
-    }
-
-    activate(arg: {place: HTMLElement, idHostel: number, comment?: CommentData}): void {
-        this.place = arg.place;
-        this.idHostel = arg.idHostel;
-        this.comment = arg.comment;
-
-        this.render();
-
-        this.subscribeEvents();
-    }
-
-    deactivate(): void {
-        this.place.innerHTML = '';
-
-        this.unsubscribeEvents();
     }
 
     private render(): void {

@@ -27,7 +27,7 @@ export default class SignupController {
      */
     activate() {
         if (this._model.isAuth()) {
-            Events.trigger(REDIRECT, { url: '/profile' });
+            Events.trigger(REDIRECT, {url: '/profile'});
             return;
         }
         this.subscribeEvents();
@@ -49,7 +49,7 @@ export default class SignupController {
      * Редирект на страницу пользователя
      */
     redirectToProfile() {
-        Events.trigger(REDIRECT, { url: '/profile' });
+        Events.trigger(REDIRECT, {url: '/profile'});
     }
 
     /**
@@ -62,9 +62,9 @@ export default class SignupController {
      */
     validate(arg) {
         const username = arg.login;
-        const { email } = arg;
-        const { psw1 } = arg;
-        const { psw2 } = arg;
+        const {email} = arg;
+        const {psw1} = arg;
+        const {psw2} = arg;
 
         let resolution = true;
 

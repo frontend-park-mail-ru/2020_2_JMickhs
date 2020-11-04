@@ -1,4 +1,4 @@
-import { PageView } from '@interfaces/views';
+import {PageView} from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {
     ERROR_SIGNUP,
@@ -88,8 +88,8 @@ export default class SignupView extends PageView {
             form.removeChild(loginPromt);
         }
         const promts = [];
-        promts.push({ text: 'Пароль может включать только буквы английского алфавита и цифры' });
-        promts.push({ text: 'Длина пароля должна быть в пределах от 5 до 30 символов' });
+        promts.push({text: 'Пароль может включать только буквы английского алфавита и цифры'});
+        promts.push({text: 'Длина пароля должна быть в пределах от 5 до 30 символов'});
         const promt = document.createElement('div');
         promt.id = 'pass-promt';
         promt.innerHTML = promtTemplate(promts);
@@ -110,8 +110,8 @@ export default class SignupView extends PageView {
             form.removeChild(passPromt);
         }
         const promts = [];
-        promts.push({ text: 'Логин может включать только буквы, цифры и символы _ - .' });
-        promts.push({ text: 'Длина логина должна быть в пределе от 3 до 15 символов' });
+        promts.push({text: 'Логин может включать только буквы, цифры и символы _ - .'});
+        promts.push({text: 'Длина логина должна быть в пределе от 3 до 15 символов'});
         const promt = document.createElement('div');
         promt.id = 'login-promt';
         promt.innerHTML = promtTemplate(promts);
@@ -165,19 +165,19 @@ export default class SignupView extends PageView {
         errLine.textContent = errstr;
 
         switch (numberInputErr) {
-            case 1: {
-                document.getElementById('signup-login').className += ' sign__input--error';
-                break;
-            }
-            case 2: {
-                document.getElementById('signup-email').className += ' sign__input--error';
-                break;
-            }
-            case 3: {
-                document.getElementById('signup-password1').className += ' sign__input--error';
-                document.getElementById('signup-password2').className += ' sign__input--error';
-                break;
-            }
+        case 1: {
+            document.getElementById('signup-login').className += ' sign__input--error';
+            break;
+        }
+        case 2: {
+            document.getElementById('signup-email').className += ' sign__input--error';
+            break;
+        }
+        case 3: {
+            document.getElementById('signup-password1').className += ' sign__input--error';
+            document.getElementById('signup-password2').className += ' sign__input--error';
+            break;
+        }
         }
 
         this._model.timerId = setTimeout(() => {

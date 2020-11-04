@@ -1,4 +1,4 @@
-import { PageView } from '@interfaces/views';
+import {PageView} from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import {
     UPDATE_PASSWORD,
@@ -93,7 +93,7 @@ export default class ProfileView extends PageView {
                 this.renderMessageAvatar(arg, true);
             },
             redirectSignin: () => {
-                Events.trigger(REDIRECT, { url: '/signin' });
+                Events.trigger(REDIRECT, {url: '/signin'});
             },
             updatePswClick: (evt) => {
                 evt.preventDefault();
@@ -116,7 +116,7 @@ export default class ProfileView extends PageView {
                 const reader = new FileReader();
                 const img = document.getElementById('img-profile');
                 img.title = file.name;
-                reader.onload = function (event) {
+                reader.onload = function(event) {
                     img.src = event.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -140,7 +140,7 @@ export default class ProfileView extends PageView {
                 evt.preventDefault();
                 const username = document.getElementById('login-profile').value;
                 const email = document.getElementById('email-profile').value;
-                Events.trigger(CHANGE_USER, { username, email });
+                Events.trigger(CHANGE_USER, {username, email});
             },
             okChangeUser: (user) => {
                 document.getElementById('label-login').textContent = user.username;
@@ -185,7 +185,7 @@ export default class ProfileView extends PageView {
             clearTimeout(this._avatarTimerId);
         }
         const div = document.getElementById('div-avatar-bottom');
-        div.innerHTML = messageTemplate({ text });
+        div.innerHTML = messageTemplate({text});
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
             msg.className += ' profile__text--red';

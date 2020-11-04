@@ -14,29 +14,20 @@ export default class HostelPageView extends PageView {
 
     private commentsComponent: CommentsController;
 
-    constructor(parent: HTMLElement) {
-        super(parent);
-
-        this.dataComponent = new HostelDataController();
-        this.userCommentComponent = new CommentUserController();
-        this.commentsComponent = new CommentsController();
-    }
-
     render(data: {hostel: HostelData, comment: CommentData}): void {
         window.scrollTo(0, 0);
         this.page.innerHTML = hostelCardTemplate(data);
 
-        const dataPlace = document.getElementById('hostel-data');
-        const imagesPlace = document.getElementById('hostel-images');
-        this.dataComponent.activate({ placeData: dataPlace, placeImages: imagesPlace, hostel: data.hostel });
-        const placeUserComment = document.getElementById('user-comment');
-        this.userCommentComponent.activate({
-            place: placeUserComment,
-            idHostel: data.hostel.id,
-            comment: data.comment,
-        });
-        const placeComments = document.getElementById('hostel-comments');
-        this.commentsComponent.activate({ place: placeComments, idHostel: data.hostel.id });
+        const dataPlace = document.getElementById('hostel-data') as HTMLDivElement;
+        const imagesPlace = document.getElementById('hostel-images') as HTMLDivElement;
+        this.dataComponent = new HostelDataController(dataPlace, imagesPlace);
+        this.dataComponent.activate(data.hostel);
+        const placeUserComment = document.getElementById('user-comment') as HTMLDivElement;
+        this.userCommentComponent = new CommentUserController(placeUserComment);
+        this.userCommentComponent.activate(data.hostel.id, data.comment);
+        const placeComments = document.getElementById('hostel-comments') as HTMLDivElement;
+        this.commentsComponent = new CommentsController(placeComments);
+        this.commentsComponent.activate(data.hostel.id);
     }
 
     hide(): void {
