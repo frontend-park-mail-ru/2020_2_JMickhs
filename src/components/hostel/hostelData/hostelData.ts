@@ -80,19 +80,19 @@ export default class HostelDataComponent implements AbstractComponent {
     private subscribeEvents(): void {
         Events.subscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);
 
-        const btnNext = document.getElementById('btn-image-next');
-        btnNext.addEventListener('click', this.handlers.nextImg);
-        const btnPrev = document.getElementById('btn-image-prev');
-        btnPrev.addEventListener('click', this.handlers.prevImg);
+        const buttonNext = document.getElementById('button-image-next');
+        buttonNext.addEventListener('click', this.handlers.nextImg);
+        const buttonPrev = document.getElementById('button-image-prev');
+        buttonPrev.addEventListener('click', this.handlers.prevImg);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);
 
-        const btnNext = document.getElementById('btn-image-next');
-        btnNext.removeEventListener('click', this.handlers.nextImg);
-        const btnPrev = document.getElementById('btn-image-prev');
-        btnPrev.removeEventListener('click', this.handlers.prevImg);
+        const buttonNext = document.getElementById('button-image-next');
+        buttonNext.removeEventListener('click', this.handlers.nextImg);
+        const buttonPrev = document.getElementById('button-image-prev');
+        buttonPrev.removeEventListener('click', this.handlers.prevImg);
     }
 
     private makeHandlers(): Record<string, HandlerEvent> {

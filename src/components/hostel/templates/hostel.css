@@ -141,7 +141,7 @@
     border-color: var(--orange);
 }
 
-.hostel__btn-round {
+.hostel__button-round {
     border-radius: 25px;
     background-color: var(--orange);
     color: var(--white);
@@ -155,12 +155,12 @@
     transition: 0.3s;
 }
 
-.hostel__btn-round:hover {
+.hostel__button-round:hover {
     background-color: var(--orange-dark);
 }
 
 
-.hostel__img-btn-container {
+.hostel__img-button-container {
     width: 105%;
     margin-left: -2.5%;
     position: absolute;

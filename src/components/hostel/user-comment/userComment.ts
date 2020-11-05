@@ -79,8 +79,8 @@ export default class CommentUserComponent implements AbstractComponent {
     private render(): void {
         this.place.innerHTML = templateUser({ isAuth: User.getInstance().isAuth, comment: this.comment });
 
-        this.addButton = document.getElementById('btn-add-comment') as HTMLButtonElement;
-        this.editButton = document.getElementById('btn-edit-comment') as HTMLButtonElement;
+        this.addButton = document.getElementById('button-add-comment') as HTMLButtonElement;
+        this.editButton = document.getElementById('button-edit-comment') as HTMLButtonElement;
         this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
         this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
     }

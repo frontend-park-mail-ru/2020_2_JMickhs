@@ -37,7 +37,7 @@
     margin-right: auto;
 }
 
-.navbar__btn {
+.navbar__button {
     font-weight: 500;
     font-size: 17px;
     padding: 11px 15px;
@@ -49,31 +49,31 @@
     transition: 0.3s;
 }
 
-.navbar__btn--beaty {
+.navbar__button--beaty {
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
 }
 
-.navbar__btn--orange {
+.navbar__button--orange {
     background-color: var(--orange);
 }
 
-.navbar__btn--orange:hover {
+.navbar__button--orange:hover {
     background-color: var(--violet-light);
 }
 
-.navbar__btn--violet {
+.navbar__button--violet {
     background-color: var(--violet-light);
 }
 
-.navbar__btn--violet:hover {
+.navbar__button--violet:hover {
     background-color: var(--orange);
 }
 
-.navbar__btn--text-orange:hover {
+.navbar__button--text-orange:hover {
     color: var(--orange);
 }
 
-.navbar__btn_big-font {
+.navbar__button_big-font {
     font-size: 24px;
 }

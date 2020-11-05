@@ -1,18 +1,18 @@
 <div class="navbar">
     <nav class="navbar__items navbar__items--left">
-        <a class="navbar__btn navbar__btn_big-font navbar__btn--text-orange" href="/">HostelScan</a>
+        <a class="navbar__button navbar__button_big-font navbar__button--text-orange" href="/">HostelScan</a>
     </nav>
     <nav class="navbar__items navbar__items--right">
         {{#if isAuth}}
             <div class="navbar__link">
-                <a class="navbar__btn navbar__btn--beaty navbar__btn--violet" href="/profile">{{username}}</a>
+                <a class="navbar__button navbar__button--beaty navbar__button--violet" href="/profile">{{username}}</a>
             </div>
         {{else}}
             <div class="navbar__link">
-                <a class="navbar__btn navbar__btn--text-orange" href="/signin">Вход</a>
+                <a class="navbar__button navbar__button--text-orange" href="/signin">Вход</a>
             </div>
             <div class="navbar__link navbar__items-mbnone">
-                <a class="navbar__btn navbar__btn--beaty navbar__btn--orange" href="/signup">Регистрация</a>
+                <a class="navbar__button navbar__button--beaty navbar__button--orange" href="/signup">Регистрация</a>
             </div>
         {{/if}}
     </nav>

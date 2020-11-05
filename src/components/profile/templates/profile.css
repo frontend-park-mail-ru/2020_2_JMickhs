@@ -57,7 +57,7 @@
     width: 300px;
 }
 
-.profile__btn-out {
+.profile__button-out {
     color: var(--orange);
     cursor: pointer;
     text-decoration: none;
@@ -66,7 +66,7 @@
     outline: none;
 }
 
-.profile__btn-out:hover {
+.profile__button-out:hover {
     text-decoration: underline;
     outline: none;
 }
@@ -134,7 +134,7 @@
     color: var(--red);
 }
 
-.profile__btn {
+.profile__button {
     box-shadow: none;
     outline: none;
     cursor: pointer;
@@ -147,16 +147,16 @@
     border-radius: 5px;
 }
 
-.profile__btn--blue {
+.profile__button--blue {
     opacity: 0.8;
     background-color: var(--blue);
 }
 
-.profile__btn--blue:hover {
+.profile__button--blue:hover {
     box-shadow: 0 8px 16px 0 var(--shadow-color);
     opacity: 1;
 }
 
-.profile__btn--w300px {
+.profile__button--w300px {
     width: 300px;
 }

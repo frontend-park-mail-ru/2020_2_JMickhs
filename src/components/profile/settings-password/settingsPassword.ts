@@ -39,7 +39,7 @@ export default class DataUserComponent implements AbstractComponent {
     activate(): void {
         this.place.innerHTML = template();
 
-        this.saveButton = document.getElementById('btn-save-sequr') as HTMLButtonElement;
+        this.saveButton = document.getElementById('button-save-sequr') as HTMLButtonElement;
         this.oldPasswordInput = document.getElementById('old-psw') as HTMLInputElement;
         this.newPasswordFirstInput = document.getElementById('new-psw1') as HTMLInputElement;
         this.newPasswordSecondInput = document.getElementById('new-psw2') as HTMLInputElement;

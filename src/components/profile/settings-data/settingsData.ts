@@ -52,7 +52,7 @@ export default class DataUserComponent implements AbstractComponent {
     activate(): void {
         this.place.innerHTML = template(this.user.getData());
 
-        this.saveButton = document.getElementById('btn-save-data') as HTMLButtonElement;
+        this.saveButton = document.getElementById('button-save-data') as HTMLButtonElement;
         this.loginInput = document.getElementById('login-profile') as HTMLInputElement;
         this.emailInput = document.getElementById('email-profile') as HTMLInputElement;
 

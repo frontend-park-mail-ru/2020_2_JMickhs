@@ -39,7 +39,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.place.innerHTML = dataTemplate(user);
 
         this.inputAvatar = document.getElementById('profile-pic') as HTMLInputElement;
-        this.exitButton = document.getElementById('btn-exit') as HTMLButtonElement;
+        this.exitButton = document.getElementById('button-exit') as HTMLButtonElement;
         this.avatarImage = document.getElementById('img-profile') as HTMLImageElement;
         this.avatarForm = document.getElementById('avatar-form') as HTMLFormElement;
         this.divAvatarBottom = document.getElementById('div-avatar-bottom') as HTMLDivElement;
@@ -52,7 +52,7 @@ export default class DataUserComponent implements AbstractComponent {
             newImage: (event: Event): void => {
                 event.preventDefault();
                 this.divAvatarBottom.innerHTML = buttonTemplate();
-                this.reloadAvatarButton = document.getElementById('btn-reload') as HTMLButtonElement;
+                this.reloadAvatarButton = document.getElementById('button-reload') as HTMLButtonElement;
                 this.reloadAvatarButton.addEventListener('click', this.handlers.updateAvatarClick);
                 const file = this.inputAvatar.files[0];
                 const reader = new FileReader();
