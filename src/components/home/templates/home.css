@@ -38,7 +38,7 @@
     height: 100%;
 }
 
-.btn-search-cnt {
+.btn-search-container {
     flex: 0 0 170px;
     margin-left: 4%;
     max-width: 170px;
@@ -67,7 +67,7 @@
         flex-direction: column;
     }
 
-    .btn-search-cnt {
+    .btn-search-container {
         margin-top: 10px;
         max-height: 45px;
         min-width: 85px;

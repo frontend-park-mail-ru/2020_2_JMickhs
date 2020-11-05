@@ -21,10 +21,10 @@ export default class HomeView extends PageView {
 
     private makeHadlers(): Record<string, HandlerEvent> {
         const handlers = {
-            cntToList: (): void => {
+            containerToList: (): void => {
                 this.mainContainerElement.className = 'home__container-list-all';
             },
-            cntToSearch: (): void => {
+            containerToSearch: (): void => {
                 this.mainContainerElement.className = 'home__container-all';
             },
             searchClick: (): void => {
@@ -47,7 +47,7 @@ export default class HomeView extends PageView {
 
         this.subscribeEvents();
 
-        this.mainContainerElement = document.getElementById('cnt') as HTMLDivElement;
+        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
     }
 
     hide(): void {
@@ -60,12 +60,12 @@ export default class HomeView extends PageView {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(SET_CONTAINER_FOR_SEARCH, this.handlers.cntToSearch);
-        Events.subscribe(SET_CONTAINER_FOR_LIST, this.handlers.cntToList);
+        Events.subscribe(SET_CONTAINER_FOR_SEARCH, this.handlers.containerToSearch);
+        Events.subscribe(SET_CONTAINER_FOR_LIST, this.handlers.containerToList);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(SET_CONTAINER_FOR_SEARCH, this.handlers.cntToSearch);
-        Events.unsubscribe(SET_CONTAINER_FOR_LIST, this.handlers.cntToList);
+        Events.unsubscribe(SET_CONTAINER_FOR_SEARCH, this.handlers.containerToSearch);
+        Events.unsubscribe(SET_CONTAINER_FOR_LIST, this.handlers.containerToList);
     }
 }
