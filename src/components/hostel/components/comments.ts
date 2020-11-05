@@ -47,7 +47,7 @@ export default class CommentsComponent implements AbstractComponent {
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            nextComment: (event: Event) => {
+            nextComment: (event: Event): void => {
                 event.preventDefault();
 
                 if (this.pageNumber === this.countComments) {
@@ -56,7 +56,7 @@ export default class CommentsComponent implements AbstractComponent {
 
                 this.getComment();
             },
-            prevComment: (event: Event) => {
+            prevComment: (event: Event): void => {
                 event.preventDefault();
 
                 this.pageNumber -= 2;
@@ -105,7 +105,7 @@ export default class CommentsComponent implements AbstractComponent {
         });
     }
 
-    private render() {
+    private render(): void {
         this.place.innerHTML = template({ switch: this.countComments > 1, comment: this.comment });
 
         this.nextButton = document.getElementById('comment-next') as HTMLButtonElement;

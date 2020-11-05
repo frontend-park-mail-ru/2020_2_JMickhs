@@ -35,20 +35,20 @@ export default class SignupView extends PageView {
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            userSignup: (user) => {
+            userSignup: (user): void => {
                 if (user) {
                     Redirector.redirectTo('/profile');
                 } else {
                     Events.trigger(ERROR_SIGNUP, 'Вы не смогли зарегистрироваться =)');
                 }
             },
-            errorSignup: (err: string) => {
+            errorSignup: (err: string): void => {
                 this.renderError(err);
             },
-            clickLoginInput: () => {
+            clickLoginInput: (): void => {
                 this.clickInput('login');
             },
-            clickPassInput: () => {
+            clickPassInput: (): void => {
                 this.clickInput('password');
             },
             submitSignupForm: this.submitSignup.bind(this),
@@ -159,7 +159,7 @@ export default class SignupView extends PageView {
         this.form.insertBefore(promtDiv, input);
     }
 
-    private submitSignup(event: Event) {
+    private submitSignup(event: Event): void {
         event.preventDefault();
         const loginInput = document.getElementById('signup-login');
         const emailInput = document.getElementById('signup-email');

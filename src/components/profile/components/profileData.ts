@@ -49,7 +49,7 @@ export default class DataUserComponent implements AbstractComponent {
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            newImage: (event: Event) => {
+            newImage: (event: Event): void => {
                 event.preventDefault();
                 this.divAvatarBottom.innerHTML = buttonTemplate();
                 this.reloadAvatarButton = document.getElementById('btn-reload') as HTMLButtonElement;
@@ -57,19 +57,19 @@ export default class DataUserComponent implements AbstractComponent {
                 const file = this.inputAvatar.files[0];
                 const reader = new FileReader();
                 this.avatarImage.title = file.name;
-                reader.onload = (evt) => {
+                reader.onload = (evt): void => {
                     this.avatarImage.src = evt.target.result as string;
                 };
                 reader.readAsDataURL(file);
             },
-            updateAvatarClick: (event: Event) => {
+            updateAvatarClick: (event: Event): void => {
                 event.preventDefault();
                 this.updateAvatar(this.avatarForm);
                 this.reloadAvatarButton.removeEventListener('click', this.handlers.updateAvatarClick);
                 this.divAvatarBottom.innerHTML = '';
                 this.inputAvatar.value = '';
             },
-            signoutClick: (event: Event) => {
+            signoutClick: (event: Event): void => {
                 event.preventDefault();
                 this.signout();
             },

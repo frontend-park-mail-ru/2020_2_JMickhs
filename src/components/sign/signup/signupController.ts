@@ -55,7 +55,7 @@ export default class SignupController {
         Events.unsubscribe(AUTH_USER, this.redirectToProfile);
     }
 
-    private validate(arg: {login: string, email: string, passwordFirst: string, passwordSecond: string}) {
+    private validate(arg: {login: string, email: string, passwordFirst: string, passwordSecond: string}): void {
         const {
             login,
             email,

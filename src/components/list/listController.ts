@@ -25,7 +25,7 @@ export default class ListController implements AbstractController {
 
     private makeHadlers(): Record<string, HandlerEvent> {
         const handlers = {
-            renderHoslels: () => {
+            renderHoslels: (): void => {
                 this.view.render(this.model.hostels);
             },
         };

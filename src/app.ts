@@ -10,7 +10,7 @@ import userFromCookie from '@user/cookieUser';
 
 import '@/main.css';
 
-(() => {
+((): void => {
     const application = document.getElementById('app');
 
     const navbarController = new NavbarController(application);

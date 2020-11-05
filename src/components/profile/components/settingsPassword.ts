@@ -57,7 +57,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.validate();
     }
 
-    private validate() {
+    private validate(): void {
         const oldPassword = this.oldPasswordInput.value;
         const newPasswordFirst = this.newPasswordFirstInput.value;
         const newPasswordSecond = this.newPasswordSecondInput.value;

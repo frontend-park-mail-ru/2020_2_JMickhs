@@ -29,7 +29,7 @@ export default class HomeController implements PageController {
 
     private makeHadlers(): Record<string, HandlerEvent> {
         const handlers = {
-            searchHostels: (arg: string) => {
+            searchHostels: (arg: string): void => {
                 Redirector.redirectTo(`?pattern=${arg}&page=0`);
                 this.listComponent.activate(this.model.search(arg));
             },

@@ -21,13 +21,13 @@ export default class HomeView extends PageView {
 
     private makeHadlers(): Record<string, HandlerEvent> {
         const handlers = {
-            cntToList: () => {
+            cntToList: (): void => {
                 this.mainContainerElement.className = 'home__container-list-all';
             },
-            cntToSearch: () => {
+            cntToSearch: (): void => {
                 this.mainContainerElement.className = 'home__container-all';
             },
-            searchClick: () => {
+            searchClick: (): void => {
                 const input = document.getElementById('input') as HTMLInputElement;
                 Events.trigger(SEARCH_HOSTELS, input.value);
             },

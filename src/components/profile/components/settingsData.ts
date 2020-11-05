@@ -37,7 +37,7 @@ export default class DataUserComponent implements AbstractComponent {
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            saveDataClick: (event: Event) => {
+            saveDataClick: (event: Event): void => {
                 event.preventDefault();
                 const username = this.loginInput.value;
                 const email = this.emailInput.value;
@@ -105,7 +105,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.changeUser(username, email);
     }
 
-    private renderMessage(text: string, isErr = true) {
+    private renderMessage(text: string, isErr = true): void {
         if (this.idTimer !== -1) {
             window.clearTimeout(this.idTimer);
         }

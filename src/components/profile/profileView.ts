@@ -40,7 +40,7 @@ export default class ProfileView extends PageView {
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
             render: this.render.bind(this),
-            okChangeUser: (user: UserData) => {
+            okChangeUser: (user: UserData): void => {
                 this.dataComponent.updateData(user.username, user.email);
             },
         };

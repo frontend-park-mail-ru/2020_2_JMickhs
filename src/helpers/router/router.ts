@@ -60,7 +60,7 @@ class Router implements AbstractRouter {
         return this.routes[path];
     }
 
-    private route(evt?: unknown) {
+    private route(evt?: unknown): void {
         if (evt instanceof Event) {
             evt.preventDefault();
         }

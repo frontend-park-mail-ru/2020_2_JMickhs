@@ -26,7 +26,7 @@ export default class SigninView extends PageView {
 
     private makeHadlers(): Record<string, HandlerEvent> {
         return {
-            signinUser: (user: UserData) => {
+            signinUser: (user: UserData): void => {
                 if (user) {
                     Redirector.redirectBack();
                 } else {
@@ -34,7 +34,7 @@ export default class SigninView extends PageView {
                 }
             },
             renderErr: this.renderError.bind(this),
-            submitSigninForm: (evt: Event) => {
+            submitSigninForm: (evt: Event): void => {
                 evt.preventDefault();
                 const loginInput = document.getElementById('signin-login') as HTMLInputElement;
                 const passInput = document.getElementById('signin-password') as HTMLInputElement;

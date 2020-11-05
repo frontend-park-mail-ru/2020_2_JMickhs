@@ -54,12 +54,12 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            addComment: (event: Event) => {
+            addComment: (event: Event): void => {
                 event.preventDefault();
 
                 this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
             },
-            editComment: (event: Event) => {
+            editComment: (event: Event): void => {
                 event.preventDefault();
 
                 if (this.textArea.value === this.comment.message && +this.selectRating.value === this.comment.rating) {
@@ -68,7 +68,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
                 this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
             },
-            userAppear: (user: UserData) => {
+            userAppear: (user: UserData): void => {
                 if (user) {
                     this.render();
                 }

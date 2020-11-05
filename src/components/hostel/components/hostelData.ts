@@ -43,7 +43,7 @@ export default class HostelDataComponent implements AbstractComponent {
         this.render(this.hostel);
     }
 
-    private render(hostel: HostelData) {
+    private render(hostel: HostelData): void {
         this.placeData.innerHTML = dataTemplate(hostel);
         this.placeImages.innerHTML = imagesTemplate(hostel);
 
@@ -52,7 +52,7 @@ export default class HostelDataComponent implements AbstractComponent {
         this.subscribeEvents();
     }
 
-    private nextImage() {
+    private nextImage(): void {
         this.currentPhoto += 1;
         if (this.currentPhoto === this.photos.length) {
             this.currentPhoto = 0;
@@ -61,7 +61,7 @@ export default class HostelDataComponent implements AbstractComponent {
         this.image.src = this.photos[this.currentPhoto];
     }
 
-    private prevImage() {
+    private prevImage(): void {
         this.currentPhoto -= 1;
         if (this.currentPhoto === -1) {
             this.currentPhoto = this.photos.length - 1;
@@ -97,17 +97,17 @@ export default class HostelDataComponent implements AbstractComponent {
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            prevImg: (event: Event) => {
+            prevImg: (event: Event): void => {
                 event.preventDefault();
 
                 this.nextImage();
             },
-            nextImg: (event: Event) => {
+            nextImg: (event: Event): void => {
                 event.preventDefault();
 
                 this.prevImage();
             },
-            updateTextData: (arg: {rating: number, delta: number}) => {
+            updateTextData: (arg: {rating: number, delta: number}): void => {
                 this.hostel.countComments += arg.delta;
                 this.hostel.rating = arg.rating;
 
