@@ -5,10 +5,10 @@ import {
     CHANGE_USER_OK,
 } from '@eventBus/constants';
 
-import * as profileTemplate from '@profile/templates/profilePage.hbs';
-import DataUserComponent from '@profile/components/profileData';
-import SettingsDataComponent from '@profile/components/settingsData';
-import SettingsPasswordComponent from '@profile/components/settingsPassword';
+import * as profileTemplate from '@profile/templates/profile.hbs';
+import DataUserComponent from '@/components/profile/profile-data/profileData';
+import SettingsDataComponent from '@/components/profile/settings-data/settingsData';
+import SettingsPasswordComponent from '@/components/profile/settings-password/settingsPassword';
 import { HandlerEvent } from '@interfaces/functions';
 import { UserData } from '@/helpers/interfaces/structsData/userData';
 

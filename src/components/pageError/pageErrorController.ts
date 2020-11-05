@@ -1,4 +1,4 @@
-import ErrorPageView from '@pageError/errorPageView';
+import ErrorPageView from '@/components/pageError/pageErrorView';
 
 export default class ErrorPageController {
     private view: ErrorPageView;

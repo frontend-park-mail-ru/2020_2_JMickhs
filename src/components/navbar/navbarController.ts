@@ -1,5 +1,5 @@
-import NavModel from '@navbar/navModel';
-import NavView from '@navbar/navView';
+import NavModel from '@/components/navbar/navbarModel';
+import NavView from '@/components/navbar/navbarView';
 import Events from '@eventBus/eventbus';
 import {
     PAGE_SIGNIN,

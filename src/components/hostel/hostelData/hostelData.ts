@@ -1,7 +1,7 @@
 import { HostelData } from '@interfaces/structsData/hostelData';
 
-import * as dataTemplate from '@hostel/templates/hostelData.hbs';
-import * as imagesTemplate from '@hostel/templates/hostelImages.hbs';
+import * as dataTemplate from '@hostel/hostelData/hostelData.hbs';
+import * as imagesTemplate from '@hostel/hostelData/hostelImages.hbs';
 
 import Events from '@eventBus/eventbus';
 import {

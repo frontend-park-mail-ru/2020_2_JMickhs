@@ -8,7 +8,7 @@ import {
     CHANGE_USER_OK,
 } from '@eventBus/constants';
 
-import * as template from '@profile/templates/settingsData.hbs';
+import * as template from '@profile/settings-data/settingsData.hbs';
 import Redirector from '@router/redirector';
 import { HandlerEvent } from '@/helpers/interfaces/functions';
 

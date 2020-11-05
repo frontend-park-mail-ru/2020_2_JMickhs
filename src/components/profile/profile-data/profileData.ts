@@ -2,9 +2,9 @@ import { UserData } from '@interfaces/structsData/userData';
 import { AbstractComponent } from '@interfaces/components';
 import { HandlerEvent } from '@interfaces/functions';
 
-import * as dataTemplate from '@profile/templates/profileData.hbs';
-import * as buttonTemplate from '@profile/templates/profileButtonTemplate.hbs';
-import * as messageTemplate from '@profile/templates/profileMessage.hbs';
+import * as dataTemplate from '@profile/profile-data/profileData.hbs';
+import * as buttonTemplate from '@profile/profile-data/profileButton.hbs';
+import * as messageTemplate from '@profile/profile-data/profileMessage.hbs';
 import User from '@user/user';
 import NetworkUser from '@network/networkUser';
 import Redirector from '@/helpers/router/redirector';

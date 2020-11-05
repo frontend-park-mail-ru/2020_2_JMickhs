@@ -1,6 +1,6 @@
 import HomeModel from '@home/homeModel';
 import HomeView from '@home/homeView';
-import ListController from '@list/listController';
+import ListController from '@/components/listHostel/listController';
 import Events from '@eventBus/eventbus';
 import {
     SET_CONTAINER_FOR_LIST,

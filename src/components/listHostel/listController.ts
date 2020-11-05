@@ -1,5 +1,5 @@
-import ListModel from '@list/listModel';
-import ListView from '@list/listView';
+import ListModel from '@/components/listHostel/listModel';
+import ListView from '@/components/listHostel/listView';
 import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 import { AbstractController } from '@interfaces/controllers';
 import Events from '@eventBus/eventbus';

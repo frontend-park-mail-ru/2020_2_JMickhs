@@ -42,7 +42,7 @@ module.exports = {
             '@': path.resolve(__dirname, 'src'),
             '@home': path.resolve(__dirname, 'src/components/home'),
             '@hostel': path.resolve(__dirname, 'src/components/hostel'),
-            '@list': path.resolve(__dirname, 'src/components/list'),
+            '@list': path.resolve(__dirname, 'src/components/listHostel'),
             '@navbar': path.resolve(__dirname, 'src/components/navbar'),
             '@pageError': path.resolve(__dirname, 'src/components/pageError'),
             '@profile': path.resolve(__dirname, 'src/components/profile'),

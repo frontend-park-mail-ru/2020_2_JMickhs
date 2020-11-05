@@ -1,11 +1,11 @@
 import Router from '@router/router';
 import HomeController from '@home/homeController';
-import NavbarController from '@navbar/navController';
+import NavbarController from '@/components/navbar/navbarController';
 import SigninController from '@sign/signin/signinController';
 import SignupController from '@sign/signup/signupController';
 import ProfileController from '@profile/profileController';
 import HostelPageController from '@hostel/HostelPageController';
-import ErrorPageController from '@pageError/errorPageController';
+import ErrorPageController from '@/components/pageError/pageErrorController';
 import userFromCookie from '@user/cookieUser';
 
 import '@/main.css';

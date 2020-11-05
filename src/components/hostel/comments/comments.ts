@@ -2,7 +2,7 @@ import NetworkHostel from '@network/networkHostel';
 import { CommentData } from '@network/structsServer/commentData';
 import PageInfo from '@network/structsServer/pageInfo';
 
-import * as template from '@hostel/templates/hostelComments.hbs';
+import * as template from '@hostel/comments/comments.hbs';
 import Redirector from '@router/redirector';
 import { AbstractComponent } from '@interfaces/components';
 import { HandlerEvent } from '@interfaces/functions';
