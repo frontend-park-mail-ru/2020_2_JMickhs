@@ -19,12 +19,18 @@ export default class DataUserComponent implements AbstractComponent {
 
     private idTimer: number;
 
+    private newPasswordInputIdTimer: number;
+
+    private oldPasswordInputIdTimer: number;
+
     private handlers: Record<string, HandlerEvent>;
 
     constructor(place: HTMLDivElement) {
         this.place = place;
 
         this.idTimer = -1;
+        this.oldPasswordInputIdTimer = -1;
+        this.newPasswordInputIdTimer = -1;
         this.handlers = {
             clickSave: this.clickSave.bind(this),
         };
@@ -95,22 +101,30 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private renderOldPswInputError(): void {
+        if (this.oldPasswordInputIdTimer !== -1) {
+            window.clearTimeout(this.oldPasswordInputIdTimer);
+        }
         this.oldPasswordInput.className += ' profile__input--error';
-        window.setTimeout(() => {
+        this.oldPasswordInputIdTimer = window.setTimeout(() => {
             if (this.oldPasswordInput) {
                 this.oldPasswordInput.className = 'profile__input';
             }
+            this.oldPasswordInputIdTimer = -1;
         }, 5000);
     }
 
     private renderNewPswInputError(): void {
+        if (this.newPasswordInputIdTimer !== -1) {
+            window.clearTimeout(this.newPasswordInputIdTimer);
+        }
         this.newPasswordFirstInput.className += ' profile__input--error';
         this.newPasswordSecondInput.className += ' profile__input--error';
-        window.setTimeout(() => {
+        this.newPasswordInputIdTimer = window.setTimeout(() => {
             if (this.newPasswordFirstInput) {
                 this.newPasswordFirstInput.className = 'profile__input';
                 this.newPasswordSecondInput.className = 'profile__input';
             }
+            this.newPasswordInputIdTimer = -1;
         }, 5000);
     }
 
