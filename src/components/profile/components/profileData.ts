@@ -128,6 +128,7 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     user.avatar = value.data as string;
                     this.avatarImage.src = user.avatar;
+                    this.renderMessage('Аватарка обновлена');
                     break;
                 case 400:
                     this.renderMessage('Неверный формат запроса');
