@@ -179,7 +179,10 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectError('Нет csrf');
                     break;
                 case 409:
-                    this.renderMessage('Пользователь с такими данными уже зарегистрирован', true);
+                    this.renderMessage('Пользователь с таким логином уже зарегистрирован', true);
+                    break;
+                case 422:
+                    this.renderMessage('Пользователь с таким email уже зарегистрирован', true);
                     break;
                 default:
                     this.renderMessage(`Ошибка сервера: статус ${code}`, true);
