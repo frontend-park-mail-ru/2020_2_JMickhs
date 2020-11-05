@@ -27,7 +27,6 @@ export default class ProfileController {
      * Активация работы контроллера
      */
     activate() {
-        console.log(this._model.getData());
         Events.trigger(PAGE_PROFILE, this._model.getData());
         this.subscribeEvents();
         this._view.subscribeEvents();

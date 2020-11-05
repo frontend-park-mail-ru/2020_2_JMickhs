@@ -3,9 +3,9 @@ import { HostelData } from '@interfaces/structsData/hostelData';
 import * as hostelCardTemplate from '@hostel/templates/hostelPage.hbs';
 import { CommentData } from '@network/structsServer/commentData';
 
-import HostelDataComponent from './hostelData/hostelDataComponent';
-import CommentUserComponent from './commentUser/commentUserComponent';
-import CommentsComponent from './comments/commentsComponent';
+import HostelDataComponent from './components/hostelData';
+import CommentUserComponent from './components/commentUser';
+import CommentsComponent from './components/comments';
 
 export default class HostelPageView extends PageView {
     private dataComponent: HostelDataComponent;

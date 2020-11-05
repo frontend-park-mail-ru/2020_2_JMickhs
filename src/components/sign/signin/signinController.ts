@@ -32,7 +32,6 @@ export default class SigninController implements PageController {
 
     activate(): void {
         this.subscribeEvents();
-        this.view.subscribeEvents();
         Events.trigger(PAGE_SIGNIN);
         if (this.model.isAuth()) {
             this.redirectToProfile();
@@ -42,7 +41,6 @@ export default class SigninController implements PageController {
     }
 
     deactivate(): void {
-        this.view.unsubscribeEvents();
         this.view.hide();
         this.unsubscribeEvents();
     }
@@ -58,7 +56,7 @@ export default class SigninController implements PageController {
     }
 
     private redirectToProfile(): void {
-        Redirector.redirectTo('profile');
+        Redirector.redirectTo('/profile');
     }
 
     private validate(arg: {login: string, password: string}): void {

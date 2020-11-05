@@ -16,6 +16,8 @@ export default class SigninView extends PageView {
 
     private timerId: number;
 
+    private form?: HTMLFormElement;
+
     constructor(parent: HTMLElement) {
         super(parent);
 
@@ -78,26 +80,29 @@ export default class SigninView extends PageView {
         window.scrollTo(0, 0);
         this.page.innerHTML = signinTemplate();
 
-        const form = document.getElementById('signinform');
-        form.addEventListener('submit', this.handlers.submitSigninForm);
+        this.form = document.getElementById('signinform') as HTMLFormElement;
+
+        this.subscribeEvents();
     }
 
     hide(): void {
-        const form = document.getElementById('signinform');
-        if (!form) {
-            return;
-        }
-        form.removeEventListener('submit', this.handlers.submitSigninForm);
+        this.unsubscribeEvents();
         this.page.innerHTML = '';
     }
 
-    subscribeEvents(): void {
+    private subscribeEvents(): void {
         Events.subscribe(ERROR_SIGNIN, this.handlers.renderErr);
         Events.subscribe(SIGNIN_USER, this.handlers.signinUser);
+
+        this.form.addEventListener('submit', this.handlers.submitSigninForm);
     }
 
-    unsubscribeEvents(): void {
+    private unsubscribeEvents(): void {
         Events.unsubscribe(ERROR_SIGNIN, this.handlers.renderErr);
         Events.unsubscribe(SIGNIN_USER, this.handlers.signinUser);
+
+        if (this.form) {
+            this.form.removeEventListener('submit', this.handlers.submitSigninForm);
+        }
     }
 }
