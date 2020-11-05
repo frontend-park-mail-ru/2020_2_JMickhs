@@ -23,7 +23,9 @@ export default class DataUserComponent implements AbstractComponent {
 
     private user: User;
 
-    private idTimer: number;
+    private messageIdTimer: number;
+
+    private inputIdTimer: number;
 
     private handlers: Record<string, HandlerEvent>;
 
@@ -31,7 +33,8 @@ export default class DataUserComponent implements AbstractComponent {
         this.place = place;
 
         this.user = User.getInstance();
-        this.idTimer = -1;
+        this.messageIdTimer = -1;
+        this.inputIdTimer = -1;
         this.handlers = this.makeHandlers();
     }
 
@@ -106,8 +109,8 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private renderMessage(text: string, isErr = true) {
-        if (this.idTimer !== -1) {
-            window.clearTimeout(this.idTimer);
+        if (this.messageIdTimer !== -1) {
+            window.clearTimeout(this.messageIdTimer);
         }
         const errLine = document.getElementById('text-error-data');
         if (isErr) {
@@ -117,18 +120,18 @@ export default class DataUserComponent implements AbstractComponent {
         }
         errLine.textContent = text;
 
-        this.idTimer = window.setTimeout(() => {
+        this.messageIdTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
                 errLine.className = 'profile__text profile__text--center';
             }
-            this.idTimer = -1;
+            this.messageIdTimer = -1;
         }, 5000);
     }
 
     private renderInputError(what: string): void {
-        if (this.idTimer !== -1) {
-            window.clearTimeout(this.idTimer);
+        if (this.inputIdTimer !== -1) {
+            window.clearTimeout(this.inputIdTimer);
         }
         let input: HTMLElement;
 
@@ -146,11 +149,11 @@ export default class DataUserComponent implements AbstractComponent {
             }
         }
         input.className += ' profile__input--error';
-        this.idTimer = window.setTimeout(() => {
+        this.inputIdTimer = window.setTimeout(() => {
             if (input) {
                 input.className = 'profile__input';
             }
-            this.idTimer = -1;
+            this.inputIdTimer = -1;
         }, 5000);
     }
 
