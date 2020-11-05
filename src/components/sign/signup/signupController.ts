@@ -99,10 +99,10 @@ export default class SignupController {
             this.view.renderError(emailErrors[0], 2);
         }
 
-        const pswErrors = Validator.validatePassword(passwordFirst);
-        if (pswErrors.length > 0) {
+        const passwordErrors = Validator.validatePassword(passwordFirst);
+        if (passwordErrors.length > 0) {
             resolution = false;
-            this.view.renderError(pswErrors[0], 3);
+            this.view.renderError(passwordErrors[0], 3);
         }
 
         if (resolution) {

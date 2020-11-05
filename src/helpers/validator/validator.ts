@@ -46,10 +46,10 @@ class Validator {
         return result;
     }
 
-    validatePassword(psw: string) : string[] {
+    validatePassword(password: string) : string[] {
         const result: string[] = [];
         this.passwordTableCheckup.forEach((checkup) => {
-            if (!checkup.regular.exec(psw)) {
+            if (!checkup.regular.exec(password)) {
                 result.push(checkup.error);
             }
         });

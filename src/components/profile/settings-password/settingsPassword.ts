@@ -69,38 +69,38 @@ export default class DataUserComponent implements AbstractComponent {
         const newPasswordSecond = this.newPasswordSecondInput.value;
 
         if (oldPassword === '') {
-            this.renderOldPswInputError();
+            this.renderOldPasswordInputError();
             this.renderMessage('Необходимо заполнить все поля');
             return;
         }
         if (newPasswordFirst === '') {
-            this.renderNewPswInputError();
+            this.renderNewPasswordInputError();
             this.renderMessage('Необходимо заполнить все поля');
             return;
         }
         if (newPasswordFirst !== newPasswordSecond) {
-            this.renderNewPswInputError();
+            this.renderNewPasswordInputError();
             this.renderMessage('Пароли не совпадают');
             return;
         }
         if (oldPassword === newPasswordFirst) {
-            this.renderNewPswInputError();
-            this.renderOldPswInputError();
+            this.renderNewPasswordInputError();
+            this.renderOldPasswordInputError();
             this.renderMessage('Старый и новый пароль совпадает');
             return;
         }
 
-        const pswErrors = Validator.validatePassword(newPasswordFirst);
-        if (pswErrors.length > 0) {
-            this.renderNewPswInputError();
-            this.renderMessage(pswErrors[0]);
+        const passwordErrors = Validator.validatePassword(newPasswordFirst);
+        if (passwordErrors.length > 0) {
+            this.renderNewPasswordInputError();
+            this.renderMessage(passwordErrors[0]);
             return;
         }
 
         this.updatePassword(oldPassword, newPasswordFirst);
     }
 
-    private renderOldPswInputError(): void {
+    private renderOldPasswordInputError(): void {
         if (this.oldPasswordInputIdTimer !== -1) {
             window.clearTimeout(this.oldPasswordInputIdTimer);
         }
@@ -113,7 +113,7 @@ export default class DataUserComponent implements AbstractComponent {
         }, 5000);
     }
 
-    private renderNewPswInputError(): void {
+    private renderNewPasswordInputError(): void {
         if (this.newPasswordInputIdTimer !== -1) {
             window.clearTimeout(this.newPasswordInputIdTimer);
         }

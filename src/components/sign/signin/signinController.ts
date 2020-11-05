@@ -60,20 +60,19 @@ export default class SigninController implements PageController {
     }
 
     private validate(arg: {login: string, password: string}): void {
-        const username = arg.login;
-        const psw = arg.password;
+        const { login, password } = arg;
         let resolution = true;
-        if (username === '') {
+        if (login === '') {
             resolution = false;
             this.view.renderError('Заполните все поля!', 1);
         }
-        if (psw === '') {
+        if (password === '') {
             resolution = false;
             this.view.renderError('Заполните все поля!', 2);
         }
 
         if (resolution) {
-            this.model.signin(username, psw);
+            this.model.signin(login, password);
         }
     }
 }
