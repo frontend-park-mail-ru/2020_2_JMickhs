@@ -105,7 +105,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.changeUser(username, email);
     }
 
-    private renderMessage(text: string, isErr = false) {
+    private renderMessage(text: string, isErr = true) {
         if (this.idTimer !== -1) {
             window.clearTimeout(this.idTimer);
         }
@@ -126,7 +126,7 @@ export default class DataUserComponent implements AbstractComponent {
         }, 5000);
     }
 
-    renderInputError(what: string): void {
+    private renderInputError(what: string): void {
         if (this.idTimer !== -1) {
             window.clearTimeout(this.idTimer);
         }
@@ -162,6 +162,7 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     this.user.username = username;
                     this.user.email = email;
+                    this.renderMessage('Вы успешно все поменяли', false);
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
                     break;
                 case 400:
