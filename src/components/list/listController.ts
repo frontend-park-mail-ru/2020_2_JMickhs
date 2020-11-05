@@ -4,7 +4,7 @@ import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 import { AbstractController } from '@interfaces/controllers';
 import Events from '@eventBus/eventbus';
 import { LOAD_HOSTELS } from '@eventBus/constants';
-import { Handler } from '@interfaces/functions';
+import { HandlerEvent } from '@interfaces/functions';
 
 export default class ListController implements AbstractController {
     private model: ListModel;
@@ -13,7 +13,7 @@ export default class ListController implements AbstractController {
 
     public haveInfo: boolean;
 
-    private handlers: Record<string, Handler>;
+    private handlers: Record<string, HandlerEvent>;
 
     constructor(parent: HTMLElement) {
         this.model = new ListModel();
@@ -23,7 +23,7 @@ export default class ListController implements AbstractController {
         this.handlers = this.makeHadlers();
     }
 
-    private makeHadlers(): Record<string, Handler> {
+    private makeHadlers(): Record<string, HandlerEvent> {
         const handlers = {
             renderHoslels: () => {
                 this.view.render(this.model.hostels);

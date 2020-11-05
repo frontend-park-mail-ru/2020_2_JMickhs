@@ -7,8 +7,8 @@ import {
     UPDATE_AVATAR,
     ERR_UPDATE_AVATAR,
     SIGNOUT,
-    HAVE_USER,
-    HAVNT_USER,
+    AUTH_USER,
+    NOT_AUTH_USER,
     CHANGE_USER,
     CHANGE_USER_OK,
     ERR_FIX_USER,
@@ -41,8 +41,8 @@ export default class ProfileView extends PageView {
      * Подписка на события страницы профиля
      */
     subscribeEvents() {
-        Events.subscribe(HAVE_USER, this._handlers.render);
-        Events.subscribe(HAVNT_USER, this._handlers.redirectSignin);
+        Events.subscribe(AUTH_USER, this._handlers.render);
+        Events.subscribe(NOT_AUTH_USER, this._handlers.redirectSignin);
         Events.subscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
@@ -61,8 +61,8 @@ export default class ProfileView extends PageView {
         Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
         Events.unsubscribe(SIGNOUT, this._handlers.redirectSignin);
         Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
-        Events.unsubscribe(HAVE_USER, this._handlers.render);
-        Events.unsubscribe(HAVNT_USER, this._handlers.redirectSignin);
+        Events.unsubscribe(AUTH_USER, this._handlers.render);
+        Events.unsubscribe(NOT_AUTH_USER, this._handlers.redirectSignin);
         Events.unsubscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
         Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }

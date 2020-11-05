@@ -1,1 +1,1 @@
-export type Handler = (arg: unknown) => void;
+export type HandlerEvent = (arg: unknown) => void;

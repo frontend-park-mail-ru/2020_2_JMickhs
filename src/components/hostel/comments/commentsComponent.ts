@@ -5,14 +5,14 @@ import PageInfo from '@network/structsServer/pageInfo';
 import * as template from '@hostel/templates/hostelComments.hbs';
 import Redirector from '@router/redirector';
 import { AbstractComponent } from '@interfaces/components';
-import { Handler } from '@interfaces/functions';
+import { HandlerEvent } from '@interfaces/functions';
 
 export default class CommentsComponent implements AbstractComponent {
     private place: HTMLDivElement;
 
-    private nextBtn: HTMLButtonElement;
+    private nextButton: HTMLButtonElement;
 
-    private prevBtn: HTMLButtonElement;
+    private prevButton: HTMLButtonElement;
 
     private idHotel: number;
 
@@ -22,7 +22,7 @@ export default class CommentsComponent implements AbstractComponent {
 
     private countComments: number;
 
-    private handlers: Record<string, Handler>;
+    private handlers: Record<string, HandlerEvent>;
 
     private subscribesBtn: boolean;
 
@@ -45,10 +45,10 @@ export default class CommentsComponent implements AbstractComponent {
         this.place.innerHTML = '';
     }
 
-    private makeHandlers(): Record<string, Handler> {
+    private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            nextComment: (evt: Event) => {
-                evt.preventDefault();
+            nextComment: (event: Event) => {
+                event.preventDefault();
 
                 if (this.pageNumber === this.countComments) {
                     this.pageNumber = 0;
@@ -56,8 +56,8 @@ export default class CommentsComponent implements AbstractComponent {
 
                 this.getComment();
             },
-            prevComment: (evt: Event) => {
-                evt.preventDefault();
+            prevComment: (event: Event) => {
+                event.preventDefault();
 
                 this.pageNumber -= 2;
 
@@ -106,16 +106,16 @@ export default class CommentsComponent implements AbstractComponent {
     }
 
     private render() {
-        this.place.innerHTML = template({ count: this.countComments, comment: this.comment });
+        this.place.innerHTML = template({ switch: this.countComments > 1, comment: this.comment });
 
-        this.nextBtn = document.getElementById('comment-next') as HTMLButtonElement;
-        this.prevBtn = document.getElementById('comment-prev') as HTMLButtonElement;
+        this.nextButton = document.getElementById('comment-next') as HTMLButtonElement;
+        this.prevButton = document.getElementById('comment-prev') as HTMLButtonElement;
     }
 
     private subscribeEvents(): void {
-        if (!this.subscribesBtn && this.nextBtn) {
-            this.nextBtn.addEventListener('click', this.handlers.nextComment);
-            this.prevBtn.addEventListener('click', this.handlers.prevComment);
+        if (!this.subscribesBtn && this.nextButton) {
+            this.nextButton.addEventListener('click', this.handlers.nextComment);
+            this.prevButton.addEventListener('click', this.handlers.prevComment);
 
             this.subscribesBtn = true;
         }
@@ -123,8 +123,8 @@ export default class CommentsComponent implements AbstractComponent {
 
     private unsubscribeEvents(): void {
         if (this.subscribesBtn) {
-            this.nextBtn.removeEventListener('click', this.handlers.nextComment);
-            this.prevBtn.removeEventListener('click', this.handlers.prevComment);
+            this.nextButton.removeEventListener('click', this.handlers.nextComment);
+            this.prevButton.removeEventListener('click', this.handlers.prevComment);
 
             this.subscribesBtn = false;
         }

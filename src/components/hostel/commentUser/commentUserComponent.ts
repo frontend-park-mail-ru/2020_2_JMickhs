@@ -3,7 +3,7 @@ import { CommentData } from '@network/structsServer/commentData';
 import Events from '@eventBus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
-    HAVE_USER,
+    AUTH_USER,
 } from '@eventBus/constants';
 import Redirector from '@router/redirector';
 
@@ -12,7 +12,7 @@ import NetworkHostel from '@network/networkHostel';
 import User from '@user/user';
 import { UserData } from '@interfaces/structsData/userData';
 import { AbstractComponent } from '@interfaces/components';
-import { Handler } from '@interfaces/functions';
+import { HandlerEvent } from '@interfaces/functions';
 
 export default class CommentUserComponent implements AbstractComponent {
     private place: HTMLDivElement;
@@ -21,15 +21,15 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private idHostel: number;
 
-    private btnAdd: HTMLElement;
+    private addButton: HTMLButtonElement;
 
-    private btnEdit: HTMLElement;
+    private editButton: HTMLButtonElement;
 
     private textArea: HTMLTextAreaElement;
 
     private selectRating: HTMLSelectElement;
 
-    private handlers: Record<string, Handler>;
+    private handlers: Record<string, HandlerEvent>;
 
     constructor(place: HTMLDivElement) {
         this.place = place;
@@ -52,15 +52,15 @@ export default class CommentUserComponent implements AbstractComponent {
         this.unsubscribeEvents();
     }
 
-    private makeHandlers(): Record<string, Handler> {
+    private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            addComment: (evt: Event) => {
-                evt.preventDefault();
+            addComment: (event: Event) => {
+                event.preventDefault();
 
                 this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
             },
-            editComment: (evt: Event) => {
-                evt.preventDefault();
+            editComment: (event: Event) => {
+                event.preventDefault();
 
                 if (this.textArea.value === this.comment.message && +this.selectRating.value === this.comment.rating) {
                     return;
@@ -68,7 +68,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
                 this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
             },
-            haveUser: (user: UserData) => {
+            userAppear: (user: UserData) => {
                 if (user) {
                     this.render();
                 }
@@ -79,32 +79,32 @@ export default class CommentUserComponent implements AbstractComponent {
     private render(): void {
         this.place.innerHTML = templateUser({ isAuth: User.getInstance().isAuth, comment: this.comment });
 
-        this.btnAdd = document.getElementById('btn-add-comment');
-        this.btnEdit = document.getElementById('btn-edit-comment');
+        this.addButton = document.getElementById('btn-add-comment') as HTMLButtonElement;
+        this.editButton = document.getElementById('btn-edit-comment') as HTMLButtonElement;
         this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
         this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(HAVE_USER, this.handlers.haveUser);
+        Events.subscribe(AUTH_USER, this.handlers.userAppear);
 
-        if (this.btnAdd) {
-            this.btnAdd.addEventListener('click', this.handlers.addComment);
+        if (this.addButton) {
+            this.addButton.addEventListener('click', this.handlers.addComment);
         }
 
-        if (this.btnEdit) {
-            this.btnEdit.addEventListener('click', this.handlers.editComment);
+        if (this.editButton) {
+            this.editButton.addEventListener('click', this.handlers.editComment);
         }
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(HAVE_USER, this.handlers.haveUser);
+        Events.unsubscribe(AUTH_USER, this.handlers.userAppear);
 
-        if (this.btnAdd) {
-            this.btnAdd.removeEventListener('click', this.handlers.addComment);
+        if (this.addButton) {
+            this.addButton.removeEventListener('click', this.handlers.addComment);
         }
-        if (this.btnEdit) {
-            this.btnEdit.removeEventListener('click', this.handlers.editComment);
+        if (this.editButton) {
+            this.editButton.removeEventListener('click', this.handlers.editComment);
         }
     }
 
@@ -122,7 +122,7 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 1 });
 
-                    this.btnAdd.removeEventListener('click', this.handlers.addComment);
+                    this.addButton.removeEventListener('click', this.handlers.addComment);
                     this.unsubscribeEvents();
                     this.render();
                     this.subscribeEvents();

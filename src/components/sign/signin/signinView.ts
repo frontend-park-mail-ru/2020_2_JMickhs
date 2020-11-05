@@ -9,10 +9,10 @@ import {
 import * as signinTemplate from '@sign/templates/signin.hbs';
 import { UserData } from '@interfaces/structsData/userData';
 import Redirector from '@router/redirector';
-import { Handler } from '@interfaces/functions';
+import { HandlerEvent } from '@interfaces/functions';
 
 export default class SigninView extends PageView {
-    private handlers: Record<string, Handler>;
+    private handlers: Record<string, HandlerEvent>;
 
     private timerId: number;
 
@@ -22,8 +22,8 @@ export default class SigninView extends PageView {
         this.handlers = this.makeHadlers();
     }
 
-    private makeHadlers(): Record<string, Handler> {
-        const handlers = {
+    private makeHadlers(): Record<string, HandlerEvent> {
+        return {
             signinUser: (user: UserData) => {
                 if (user) {
                     Redirector.redirectBack();
@@ -43,7 +43,6 @@ export default class SigninView extends PageView {
                 Events.trigger(SUBMIT_SIGNIN, { login, password });
             },
         };
-        return handlers;
     }
 
     renderError(errstr: string, numberInputErr = 0): void {

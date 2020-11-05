@@ -6,7 +6,7 @@ import {
     PAGE_SIGNUP,
     PAGE_PROFILE,
     CHANGE_USER_OK,
-    HAVE_USER,
+    AUTH_USER,
     SIGNIN_USER,
     SIGNUP_USER,
 } from '@eventBus/constants';
@@ -30,7 +30,7 @@ export default class NavController {
         Events.subscribe(PAGE_PROFILE, this.updateUsr.bind(this));
         Events.subscribe(SIGNIN_USER, this.updateUsr.bind(this));
         Events.subscribe(SIGNUP_USER, this.updateUsr.bind(this));
-        Events.subscribe(HAVE_USER, this.updateUsr.bind(this));
+        Events.subscribe(AUTH_USER, this.updateUsr.bind(this));
         Events.subscribe(CHANGE_USER_OK, this.updateUsr.bind(this));
     }
 

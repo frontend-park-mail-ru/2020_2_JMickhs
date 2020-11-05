@@ -30,10 +30,10 @@ export default class SignupView extends PageView {
      * @return {Object} - возвращает обьект с обработчиками
      */
     _makeHandlers() {
-        const handlers = {
+        return {
             userSignup: (isAuth) => {
                 if (isAuth) {
-                    Redirector.redirectBack();
+                    Redirector.redirectTo('/profile');
                 } else {
                     Events.trigger(ERROR_SIGNUP, 'Вы не смогли зарегистрироваться =)');
                 }
@@ -45,7 +45,6 @@ export default class SignupView extends PageView {
             clickPassInput: this._clickPswInput.bind(this),
             submitSignupForm: this._submitSignup.bind(this),
         };
-        return handlers;
     }
 
     /**

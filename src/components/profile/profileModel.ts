@@ -31,8 +31,8 @@ export default class ProfileModel {
 
     signout(): void {
         const response = NetworkUser.signout();
-        response.then((r) => {
-            const { code } = r;
+        response.then((value) => {
+            const { code } = value;
             switch (code) {
                 case 200:
                     this.user.clear();
@@ -46,12 +46,12 @@ export default class ProfileModel {
     }
 
     updateAvatar(formAvatar: HTMLFormElement): void {
-        const avaResponse = NetworkUser.updateAvatar(new FormData(formAvatar));
-        avaResponse.then((response) => {
-            const { code } = response;
+        const response = NetworkUser.updateAvatar(new FormData(formAvatar));
+        response.then((value) => {
+            const { code } = value;
             switch (code) {
                 case 200:
-                    this.user.avatar = response.data as string;
+                    this.user.avatar = value.data as string;
                     Events.trigger(UPDATE_AVATAR, this.user.avatar);
                     break;
                 case 400:

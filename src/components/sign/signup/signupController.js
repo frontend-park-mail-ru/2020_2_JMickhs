@@ -4,7 +4,7 @@ import Events from '@eventBus/eventbus';
 import {
     PAGE_SIGNUP,
     SUBMIT_SIGNUP,
-    HAVE_USER,
+    AUTH_USER,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
 import Redirector from '@router/redirector';
@@ -62,9 +62,7 @@ export default class SignupController {
      */
     validate(arg) {
         const username = arg.login;
-        const {email} = arg;
-        const {psw1} = arg;
-        const {psw2} = arg;
+        const {email, psw1, psw2} = arg;
 
         let resolution = true;
 
@@ -118,7 +116,7 @@ export default class SignupController {
      */
     subscribeEvents() {
         Events.subscribe(SUBMIT_SIGNUP, this._handlers.validate);
-        Events.subscribe(HAVE_USER, this.redirectToProfile);
+        Events.subscribe(AUTH_USER, this.redirectToProfile);
     }
 
     /**
@@ -126,7 +124,7 @@ export default class SignupController {
      */
     unsubscribeEvents() {
         Events.unsubscribe(SUBMIT_SIGNUP, this._handlers.validate);
-        Events.unsubscribe(HAVE_USER, this.redirectToProfile);
+        Events.unsubscribe(AUTH_USER, this.redirectToProfile);
     }
 
     /**

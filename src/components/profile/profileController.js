@@ -9,6 +9,7 @@ import {
     PAGE_PROFILE,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
+import Redirector from '@router/redirector';
 
 /** Класс контроллера для страницы профиля */
 export default class ProfileController {
@@ -26,11 +27,14 @@ export default class ProfileController {
      * Активация работы контроллера
      */
     activate() {
+        console.log(this._model.getData());
         Events.trigger(PAGE_PROFILE, this._model.getData());
         this.subscribeEvents();
         this._view.subscribeEvents();
         if (this._model.isAuth()) {
             this._view.render(this._model.getData());
+        } else {
+            Redirector.redirectTo('/signin');
         }
     }
 

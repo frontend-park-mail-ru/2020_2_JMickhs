@@ -25,11 +25,7 @@ export default class SigninModel {
             switch (code) {
                 case 200:
                     const data = value.data as UserData;
-                    this.user.isAuth = true;
-                    this.user.id = data.id;
-                    this.user.avatar = data.avatar;
-                    this.user.username = data.username;
-                    this.user.email = data.email;
+                    this.user.setData(data);
                     Events.trigger(SIGNIN_USER, this.user.getData());
                     break;
                 case 400:

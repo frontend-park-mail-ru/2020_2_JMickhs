@@ -9,7 +9,7 @@ import {
 } from '@eventBus/constants';
 import { PageController } from '@interfaces/controllers';
 import Redirector from '@router/redirector';
-import { Handler } from '@interfaces/functions';
+import { HandlerEvent } from '@interfaces/functions';
 
 export default class HomeController implements PageController {
     private model: HomeModel;
@@ -18,7 +18,7 @@ export default class HomeController implements PageController {
 
     private listComponent: ListController;
 
-    private handlers: Record<string, Handler>;
+    private handlers: Record<string, HandlerEvent>;
 
     constructor(parent: HTMLElement) {
         this.model = new HomeModel();
@@ -27,7 +27,7 @@ export default class HomeController implements PageController {
         this.handlers = this.makeHadlers();
     }
 
-    private makeHadlers(): Record<string, Handler> {
+    private makeHadlers(): Record<string, HandlerEvent> {
         const handlers = {
             searchHostels: (arg: string) => {
                 Redirector.redirectTo(`?pattern=${arg}&page=0`);

@@ -1,19 +1,19 @@
 import * as navbarTemplate from '@navbar/templates/navbar.hbs';
 
 export default class NavView {
-    private navbar: HTMLElement;
+    private place: HTMLDivElement;
 
     constructor(parent: HTMLElement) {
-        let nav = document.getElementById('navbar');
-        if (nav == null) {
-            nav = document.createElement('div');
-            nav.id = 'navbar';
-            parent.appendChild(nav);
+        let place = document.getElementById('navbar') as HTMLDivElement;
+        if (place == null) {
+            place = document.createElement('div');
+            place.id = 'navbar';
+            parent.appendChild(place);
         }
-        this.navbar = nav;
+        this.place = place;
     }
 
     render(data: {isAuth: boolean, username: string}): void {
-        this.navbar.innerHTML = navbarTemplate(data);
+        this.place.innerHTML = navbarTemplate(data);
     }
 }

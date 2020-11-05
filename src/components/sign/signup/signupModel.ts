@@ -25,11 +25,7 @@ export default class SignupModel {
             switch (code) {
                 case 200:
                     const data = value.data as UserData;
-                    this.user.id = data.id;
-                    this.user.avatar = data.avatar;
-                    this.user.isAuth = true;
-                    this.user.username = data.username;
-                    this.user.email = data.email;
+                    this.user.setData(data);
                     Events.trigger(SIGNUP_USER, this.user.getData());
                     break;
                 case 400:

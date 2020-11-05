@@ -20,8 +20,8 @@ export const GET_NEW_PASSWORD = 'getNewPassword';
 export const PASSWORD_UPDATE_ERROR = 'passwordUpdateError';
 export const ERR_UPDATE_AVATAR = 'errUpdateAvatar';
 export const ERR_FIX_USER = 'errFixUser';
-export const HAVNT_USER = 'haventUser';
-export const HAVE_USER = 'haveUser';
+export const NOT_AUTH_USER = 'haventUser';
+export const AUTH_USER = 'haveUser';
 
 // События страницы автризации(SignIn)
 export const SUBMIT_SIGNIN = 'submitSignin';

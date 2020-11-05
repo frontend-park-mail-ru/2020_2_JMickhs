@@ -5,6 +5,7 @@ export default class NavModel {
 
     constructor() {
         this.isAuth = false;
+        this.username = '';
     }
 
     getData(): {isAuth: boolean, username: string} {

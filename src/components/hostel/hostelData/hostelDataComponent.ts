@@ -8,7 +8,7 @@ import {
     UPDATE_RATING_HOSTEL,
 } from '@eventBus/constants';
 import { AbstractComponent } from '@interfaces/components';
-import { Handler } from '@interfaces/functions';
+import { HandlerEvent } from '@interfaces/functions';
 
 export default class HostelDataComponent implements AbstractComponent {
     private placeData: HTMLDivElement;
@@ -19,11 +19,11 @@ export default class HostelDataComponent implements AbstractComponent {
 
     private photos: string[];
 
-    private curPhoto: number;
+    private currentPhoto: number;
 
     private hostel: HostelData;
 
-    private handlers: Record<string, Handler>;
+    private handlers: Record<string, HandlerEvent>;
 
     constructor(placeText: HTMLDivElement, placePhotos: HTMLDivElement) {
         this.placeData = placeText;
@@ -36,10 +36,9 @@ export default class HostelDataComponent implements AbstractComponent {
 
         this.photos = hostel.photos;
         this.photos.unshift(hostel.image);
-        this.curPhoto = 0;
-
-        const image = this.photos[0];
-        this.hostel.image = image;
+        this.currentPhoto = 0;
+        const [imagePath] = this.photos;
+        this.hostel.image = imagePath;
 
         this.render(this.hostel);
     }
@@ -54,21 +53,21 @@ export default class HostelDataComponent implements AbstractComponent {
     }
 
     private nextImage() {
-        this.curPhoto += 1;
-        if (this.curPhoto === this.photos.length) {
-            this.curPhoto = 0;
+        this.currentPhoto += 1;
+        if (this.currentPhoto === this.photos.length) {
+            this.currentPhoto = 0;
         }
 
-        this.image.src = this.photos[this.curPhoto];
+        this.image.src = this.photos[this.currentPhoto];
     }
 
     private prevImage() {
-        this.curPhoto -= 1;
-        if (this.curPhoto === -1) {
-            this.curPhoto = this.photos.length - 1;
+        this.currentPhoto -= 1;
+        if (this.currentPhoto === -1) {
+            this.currentPhoto = this.photos.length - 1;
         }
 
-        this.image.src = this.photos[this.curPhoto];
+        this.image.src = this.photos[this.currentPhoto];
     }
 
     deactivate(): void {
@@ -96,15 +95,15 @@ export default class HostelDataComponent implements AbstractComponent {
         btnPrev.removeEventListener('click', this.handlers.prevImg);
     }
 
-    private makeHandlers(): Record<string, Handler> {
+    private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            prevImg: (evt: Event) => {
-                evt.preventDefault();
+            prevImg: (event: Event) => {
+                event.preventDefault();
 
                 this.nextImage();
             },
-            nextImg: (evt: Event) => {
-                evt.preventDefault();
+            nextImg: (event: Event) => {
+                event.preventDefault();
 
                 this.prevImage();
             },

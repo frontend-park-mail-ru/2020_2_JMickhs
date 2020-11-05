@@ -7,27 +7,26 @@ import {
 import Redirector from '@router/redirector';
 
 import { PageController } from '@interfaces/controllers';
-import { Handler } from '@interfaces/functions';
+import { HandlerEvent } from '@interfaces/functions';
 
 export default class HostelPageController implements PageController {
     private model: HostelPageModel;
 
     private view: HostelPageView;
 
-    private handlers: Record<string, Handler>;
+    private handlers: Record<string, HandlerEvent>;
 
     constructor(parent: HTMLElement) {
         this.model = new HostelPageModel();
         this.view = new HostelPageView(parent);
 
-        this.handlers = this.makeHadlers();
+        this.handlers = this.makeHandlers();
     }
 
-    private makeHadlers(): Record<string, Handler> {
-        const handlers = {
+    private makeHandlers(): Record<string, HandlerEvent> {
+        return {
             renderView: this.view.render.bind(this.view),
         };
-        return handlers;
     }
 
     activate(id: number): void {

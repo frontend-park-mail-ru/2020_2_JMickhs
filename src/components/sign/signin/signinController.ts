@@ -5,16 +5,17 @@ import Events from '@eventBus/eventbus';
 import {
     PAGE_SIGNIN,
     SUBMIT_SIGNIN,
-    HAVE_USER,
+    AUTH_USER,
 } from '@eventBus/constants';
 import Redirector from '@router/redirector';
+import { HandlerEvent } from '@interfaces/functions';
 
 export default class SigninController implements PageController {
     private view: SigninView;
 
     private model: SigninModel;
 
-    private handlers: Record<string, (arg: unknown) => void>;
+    private handlers: Record<string, HandlerEvent>;
 
     constructor(parent: HTMLElement) {
         this.view = new SigninView(parent);
@@ -23,7 +24,7 @@ export default class SigninController implements PageController {
         this.handlers = this.makeHandlers();
     }
 
-    private makeHandlers(): Record<string, (arg: unknown) => void> {
+    private makeHandlers(): Record<string, HandlerEvent> {
         return {
             validate: this.validate.bind(this),
         };
@@ -48,12 +49,12 @@ export default class SigninController implements PageController {
 
     private subscribeEvents(): void {
         Events.subscribe(SUBMIT_SIGNIN, this.handlers.validate);
-        Events.subscribe(HAVE_USER, this.redirectToProfile);
+        Events.subscribe(AUTH_USER, this.redirectToProfile);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(SUBMIT_SIGNIN, this.handlers.validate);
-        Events.unsubscribe(HAVE_USER, this.redirectToProfile);
+        Events.unsubscribe(AUTH_USER, this.redirectToProfile);
     }
 
     private redirectToProfile(): void {
