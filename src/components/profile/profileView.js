@@ -13,13 +13,11 @@ import {
     CHANGE_USER_OK,
     ERR_FIX_USER,
     SIGNOUT_CLICK,
-    AVATAR_UPDATE_CLICK,
 } from '@eventBus/constants';
 
-import profileTemplate from '@profile/templates/profileTemplate.hbs';
-import profileButtonTemplate from '@profile/templates/profileButtonTemplate.hbs';
-import messageTemplate from '@profile/templates/profileMessage.hbs';
+import profileTemplate from '@profile/templates/profilePage.hbs';
 import Redirector from '@router/redirector';
+import DataUserComponent from '@profile/components/profileData';
 
 /** Класс представления для страницы профиля */
 export default class ProfileView extends PageView {
@@ -106,33 +104,6 @@ export default class ProfileView extends PageView {
                     newPassword2: newPsw2,
                 });
             },
-            inputAvatarFile: (evt) => {
-                const inputFile = document.getElementById('profile-pic');
-                const btnReload = document.getElementById('div-avatar-bottom');
-                btnReload.innerHTML = profileButtonTemplate();
-                const btn = document.getElementById('btn-reload');
-                btn.addEventListener('click', this._handlers.updateAvatarClick);
-                const file = evt.target.files[0];
-                const reader = new FileReader();
-                const img = document.getElementById('img-profile');
-                img.title = file.name;
-                reader.onload = function(event) {
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
-                inputFile.addEventListener('change', this._handlers.updateAvatarBtnRender);
-            },
-            updateAvatarClick: (evt) => {
-                evt.preventDefault();
-                const inputFile = document.getElementById('profile-pic');
-                const btnReload = document.getElementById('div-avatar-bottom');
-                const formAvatar = document.getElementById('avatar-form');
-                const btn = document.getElementById('btn-reload');
-                Events.trigger(AVATAR_UPDATE_CLICK, formAvatar);
-                btn.removeEventListener('click', this._handlers.updateAvatarClick);
-                btnReload.innerHTML = '';
-                inputFile.value = '';
-            },
             signoutClick: () => {
                 Events.trigger(SIGNOUT_CLICK);
             },
@@ -162,40 +133,16 @@ export default class ProfileView extends PageView {
         window.scrollTo(0, 0);
         this.page.innerHTML = profileTemplate(data);
 
-        const inputFile = document.getElementById('profile-pic');
-        inputFile.addEventListener('change', this._handlers.inputAvatarFile);
+        const dataPlace = document.getElementById('profile-data');
+        this.dataComponent = new DataUserComponent(dataPlace);
 
-        const btnExit = document.getElementById('btn-exit');
-        btnExit.addEventListener('click', this._handlers.signoutClick);
+        this.dataComponent.activate(data);
 
         const btnSaveData = document.getElementById('btn-save-data');
         btnSaveData.addEventListener('click', this._handlers.saveDataClick);
 
         const btnSavePsw = document.getElementById('btn-save-sequr');
         btnSavePsw.addEventListener('click', this._handlers.updatePswClick);
-    }
-
-    /**
-     * Отрисовка уведомления об изменении автарки
-     * @param {string} [text=''] - текст уведомления
-     * @param {boolean} [isErr=false] - тип уведомления(false - ошибка)
-     */
-    renderMessageAvatar(text = '', isErr = false) {
-        if (this._avatarTimerId !== -1) {
-            clearTimeout(this._avatarTimerId);
-        }
-        const div = document.getElementById('div-avatar-bottom');
-        div.innerHTML = messageTemplate({text});
-        const msg = document.getElementById('msg-avatar');
-        if (isErr) {
-            msg.className += ' profile__text--red';
-        } else {
-            msg.className += ' profile__text--blue';
-        }
-        this._avatarTimerId = setTimeout(() => {
-            div.removeChild(msg);
-            this._avatarTimerId = -1;
-        }, 5000);
     }
 
     /**
@@ -314,23 +261,15 @@ export default class ProfileView extends PageView {
         if (this.page.innerHTML === '') {
             return;
         }
-        const btnExit = document.getElementById('btn-exit');
-        btnExit.removeEventListener('click', this._handlers.signoutClick);
-
-        const btnReload = document.getElementById('btn-reload');
-        if (btnReload) {
-            btnReload.removeEventListener('click', this._handlers.updateAvatarClick);
-        }
-
-        const inputFile = document.getElementById('profile-pic');
-        inputFile.removeEventListener('change', this._handlers.updateAvatarBtnRender);
-        inputFile.removeEventListener('change', this._handlers.inputAvatarFile);
 
         const btnSaveData = document.getElementById('btn-save-data');
         btnSaveData.removeEventListener('click', this._handlers.saveDataClick);
 
         const btnSavePsw = document.getElementById('btn-save-sequr');
         btnSavePsw.removeEventListener('click', this._handlers.updatePswClick);
+
+        this.dataComponent.deactivate();
+
         this.page.innerHTML = '';
     }
 }

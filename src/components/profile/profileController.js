@@ -5,7 +5,6 @@ import {
     CHANGE_USER,
     UPDATE_PASSWORD,
     SIGNOUT_CLICK,
-    AVATAR_UPDATE_CLICK,
     PAGE_PROFILE,
 } from '@eventBus/constants';
 import Validator from '@validator/validator';
@@ -53,7 +52,6 @@ export default class ProfileController {
         Events.subscribe(CHANGE_USER, this._handlers.changeUser);
         Events.subscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
         Events.subscribe(SIGNOUT_CLICK, this._handlers.signout);
-        Events.subscribe(AVATAR_UPDATE_CLICK, this._handlers.updateAvatar);
     }
 
     /**
@@ -63,7 +61,6 @@ export default class ProfileController {
         Events.unsubscribe(CHANGE_USER, this._handlers.changeUser);
         Events.unsubscribe(UPDATE_PASSWORD, this._handlers.updatePsw);
         Events.unsubscribe(SIGNOUT_CLICK, this._handlers.signout);
-        Events.unsubscribe(AVATAR_UPDATE_CLICK, this._handlers.updateAvatar);
     }
 
     /**
@@ -155,8 +152,6 @@ export default class ProfileController {
         const handlers = {
             changeUser: this._validateDataChange.bind(this),
             updatePsw: this._validatePswChange.bind(this),
-            signout: this._model.signout.bind(this._model),
-            updateAvatar: this._model.updateAvatar.bind(this._model),
         };
         return handlers;
     }
