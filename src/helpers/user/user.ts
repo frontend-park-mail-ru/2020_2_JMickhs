@@ -5,7 +5,7 @@ export default class User {
 
     id: number;
 
-    username: string;
+    userName: string;
 
     email: string;
 
@@ -23,14 +23,14 @@ export default class User {
     private constructor() {
         this.isAuth = false;
         this.id = -1;
-        this.username = '';
+        this.userName = '';
         this.avatar = '';
         this.email = '';
     }
 
     getData(): UserData {
         return {
-            username: this.username,
+            username: this.userName,
             email: this.email,
             id: this.id,
             avatar: this.avatar,
@@ -40,7 +40,7 @@ export default class User {
 
     setData(user: UserData): void {
         this.isAuth = true;
-        this.username = user.username;
+        this.userName = user.username;
         this.email = user.email;
         this.id = user.id;
         this.avatar = user.avatar;
@@ -49,7 +49,7 @@ export default class User {
     clear(): void {
         this.isAuth = false;
         this.id = -1;
-        this.username = '';
+        this.userName = '';
         this.avatar = '';
         this.email = '';
     }

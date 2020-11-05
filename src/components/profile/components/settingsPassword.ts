@@ -19,9 +19,9 @@ export default class DataUserComponent implements AbstractComponent {
 
     private idTimer: number;
 
-    private newPswInputIdTimer: number;
+    private newPasswordInputIdTimer: number;
 
-    private oldPswInputIdTimer: number;
+    private oldPasswordInputIdTimer: number;
 
     private handlers: Record<string, HandlerEvent>;
 
@@ -29,8 +29,8 @@ export default class DataUserComponent implements AbstractComponent {
         this.place = place;
 
         this.idTimer = -1;
-        this.oldPswInputIdTimer = -1;
-        this.newPswInputIdTimer = -1;
+        this.oldPasswordInputIdTimer = -1;
+        this.newPasswordInputIdTimer = -1;
         this.handlers = {
             clickSave: this.clickSave.bind(this),
         };
@@ -101,30 +101,30 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private renderOldPswInputError(): void {
-        if (this.oldPswInputIdTimer !== -1) {
-            window.clearTimeout(this.oldPswInputIdTimer);
+        if (this.oldPasswordInputIdTimer !== -1) {
+            window.clearTimeout(this.oldPasswordInputIdTimer);
         }
         this.oldPasswordInput.className += ' profile__input--error';
-        this.oldPswInputIdTimer = window.setTimeout(() => {
+        this.oldPasswordInputIdTimer = window.setTimeout(() => {
             if (this.oldPasswordInput) {
                 this.oldPasswordInput.className = 'profile__input';
             }
-            this.oldPswInputIdTimer = -1;
+            this.oldPasswordInputIdTimer = -1;
         }, 5000);
     }
 
     private renderNewPswInputError(): void {
-        if (this.newPswInputIdTimer !== -1) {
-            window.clearTimeout(this.newPswInputIdTimer);
+        if (this.newPasswordInputIdTimer !== -1) {
+            window.clearTimeout(this.newPasswordInputIdTimer);
         }
         this.newPasswordFirstInput.className += ' profile__input--error';
         this.newPasswordSecondInput.className += ' profile__input--error';
-        this.newPswInputIdTimer = window.setTimeout(() => {
+        this.newPasswordInputIdTimer = window.setTimeout(() => {
             if (this.newPasswordFirstInput) {
                 this.newPasswordFirstInput.className = 'profile__input';
                 this.newPasswordSecondInput.className = 'profile__input';
             }
-            this.newPswInputIdTimer = -1;
+            this.newPasswordInputIdTimer = -1;
         }, 5000);
     }
 

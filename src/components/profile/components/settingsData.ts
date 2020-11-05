@@ -74,7 +74,7 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private validate(username: string, email: string): void {
-        if (username === this.user.username && email === this.user.email) {
+        if (username === this.user.userName && email === this.user.email) {
             this.renderMessage('Вы ничего не изменили =)');
             return;
         }
@@ -163,7 +163,7 @@ export default class DataUserComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    this.user.username = username;
+                    this.user.userName = username;
                     this.user.email = email;
                     this.renderMessage('Вы успешно все поменяли', false);
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
@@ -178,11 +178,11 @@ export default class DataUserComponent implements AbstractComponent {
                 case 403:
                     Redirector.redirectError('Нет csrf');
                     break;
+                case 406:
+                    this.renderMessage('Пользователь с таким email уже зарегистрирован', true);
+                    break;
                 case 409:
                     this.renderMessage('Пользователь с таким логином уже зарегистрирован', true);
-                    break;
-                case 422:
-                    this.renderMessage('Пользователь с таким email уже зарегистрирован', true);
                     break;
                 default:
                     this.renderMessage(`Ошибка сервера: статус ${code}`, true);
