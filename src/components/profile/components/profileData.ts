@@ -1,10 +1,10 @@
 import { UserData } from '@interfaces/structsData/userData';
 import { AbstractComponent } from '@interfaces/components';
+import { HandlerEvent } from '@interfaces/functions';
 
 import * as dataTemplate from '@profile/templates/profileData.hbs';
 import * as buttonTemplate from '@profile/templates/profileButtonTemplate.hbs';
 import * as messageTemplate from '@profile/templates/profileMessage.hbs';
-import { HandlerEvent } from '@interfaces/functions';
 import User from '@user/user';
 import NetworkUser from '@network/networkUser';
 import Redirector from '@/helpers/router/redirector';
@@ -31,6 +31,7 @@ export default class DataUserComponent implements AbstractComponent {
     constructor(place: HTMLDivElement) {
         this.place = place;
 
+        this.idTimer = -1;
         this.handlers = this.makeHandlers();
     }
 

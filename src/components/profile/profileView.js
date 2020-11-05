@@ -4,19 +4,15 @@ import {
     UPDATE_PASSWORD,
     GET_NEW_PASSWORD,
     PASSWORD_UPDATE_ERROR,
-    UPDATE_AVATAR,
-    ERR_UPDATE_AVATAR,
-    SIGNOUT,
     AUTH_USER,
     NOT_AUTH_USER,
-    CHANGE_USER,
     CHANGE_USER_OK,
-    ERR_FIX_USER,
 } from '@eventBus/constants';
 
 import profileTemplate from '@profile/templates/profilePage.hbs';
 import Redirector from '@router/redirector';
 import DataUserComponent from '@profile/components/profileData';
+import SettingsDataComponent from '@profile/components/settingsData';
 
 /** Класс представления для страницы профиля */
 export default class ProfileView extends PageView {
@@ -27,8 +23,6 @@ export default class ProfileView extends PageView {
     constructor(parent) {
         super(parent);
 
-        this._avatarTimerId = -1;
-        this._dataTimerId = -1;
         this._pswTimerId = -1;
 
         this._handlers = this._makeHandlers();
@@ -40,13 +34,9 @@ export default class ProfileView extends PageView {
     subscribeEvents() {
         Events.subscribe(AUTH_USER, this._handlers.render);
         Events.subscribe(NOT_AUTH_USER, this._handlers.redirectSignin);
-        Events.subscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.subscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.subscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
-        Events.subscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.subscribe(SIGNOUT, this._handlers.redirectSignin);
         Events.subscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
-        Events.subscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
 
     /**
@@ -55,13 +45,9 @@ export default class ProfileView extends PageView {
     unsubscribeEvents() {
         Events.unsubscribe(GET_NEW_PASSWORD, this._handlers.getNewPsw);
         Events.unsubscribe(PASSWORD_UPDATE_ERROR, this._handlers.pswUpdateError);
-        Events.unsubscribe(UPDATE_AVATAR, this._handlers.updateAvatar);
-        Events.unsubscribe(SIGNOUT, this._handlers.redirectSignin);
-        Events.unsubscribe(ERR_UPDATE_AVATAR, this._handlers.errUpdateAvatar);
         Events.unsubscribe(AUTH_USER, this._handlers.render);
         Events.unsubscribe(NOT_AUTH_USER, this._handlers.redirectSignin);
         Events.unsubscribe(CHANGE_USER_OK, this._handlers.okChangeUser);
-        Events.unsubscribe(ERR_FIX_USER, this._handlers.errFixUser);
     }
 
     /**
@@ -98,18 +84,9 @@ export default class ProfileView extends PageView {
                     newPassword2: newPsw2,
                 });
             },
-            saveDataClick: (evt) => {
-                evt.preventDefault();
-                const username = document.getElementById('login-profile').value;
-                const email = document.getElementById('email-profile').value;
-                Events.trigger(CHANGE_USER, {username, email});
-            },
             okChangeUser: (user) => {
                 this.dataComponent.updateData(user.username, user.email);
                 this.renderMsgDataSettings('Изменения применены!', false);
-            },
-            errFixUser: (text) => {
-                this.renderMsgDataSettings(text);
             },
         };
         return handlers;
@@ -125,66 +102,16 @@ export default class ProfileView extends PageView {
 
         const dataPlace = document.getElementById('profile-data');
         this.dataComponent = new DataUserComponent(dataPlace);
+        const settingsDataPlace = document.getElementById('settings-data');
+        this.settingsDataComponent = new SettingsDataComponent(settingsDataPlace);
 
         this.dataComponent.activate(data);
-
-        const btnSaveData = document.getElementById('btn-save-data');
-        btnSaveData.addEventListener('click', this._handlers.saveDataClick);
+        this.settingsDataComponent.activate();
 
         const btnSavePsw = document.getElementById('btn-save-sequr');
         btnSavePsw.addEventListener('click', this._handlers.updatePswClick);
-    }
 
-    /**
-     * Отрисовка уведомления об изменении логина или почты
-     * @param {string} [text=''] - текст уведомления
-     * @param {boolean} [isErr=true] - тип уведомления(true - ошибка)
-     */
-    renderMsgDataSettings(text = '', isErr = true) {
-        if (this._dataTimerId !== -1) {
-            clearTimeout(this._dataTimerId);
-        }
-        const errLine = document.getElementById('text-error-data');
-        if (isErr) {
-            errLine.className += ' profile__text--red';
-        } else {
-            errLine.className += ' profile__text--blue';
-        }
-        errLine.textContent = text;
-
-        this._dataTimerId = setTimeout(() => {
-            if (errLine) {
-                errLine.textContent = '';
-                errLine.className = 'profile__text profile__text--center';
-            }
-            this._dataTimerId = -1;
-        }, 5000);
-    }
-
-    /**
-     * Выделение инпута логина
-     */
-    renderLoginInputError() {
-        const input = document.getElementById('login-profile');
-        input.className += ' profile__input--error';
-        setTimeout(() => {
-            if (input) {
-                input.className = 'profile__input';
-            }
-        }, 5000);
-    }
-
-    /**
-     * Выделение инпута email
-     */
-    renderEmailInputError() {
-        const input = document.getElementById('email-profile');
-        input.className += ' profile__input--error';
-        setTimeout(() => {
-            if (input) {
-                input.className = 'profile__input';
-            }
-        }, 5000);
+        this.subscribeEvents();
     }
 
     /**
@@ -252,13 +179,13 @@ export default class ProfileView extends PageView {
             return;
         }
 
-        const btnSaveData = document.getElementById('btn-save-data');
-        btnSaveData.removeEventListener('click', this._handlers.saveDataClick);
+        this.unsubscribeEvents();
 
         const btnSavePsw = document.getElementById('btn-save-sequr');
         btnSavePsw.removeEventListener('click', this._handlers.updatePswClick);
 
         this.dataComponent.deactivate();
+        this.settingsDataComponent.deactivate();
 
         this.page.innerHTML = '';
     }

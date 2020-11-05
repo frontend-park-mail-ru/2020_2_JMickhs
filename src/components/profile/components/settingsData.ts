@@ -1,0 +1,186 @@
+import NetworkUser from '@/helpers/network/networkUser';
+import User from '@/helpers/user/user';
+import Validator from '@/helpers/validator/validator';
+import { AbstractComponent } from '@interfaces/components';
+
+import Events from '@eventBus/eventbus';
+import {
+    CHANGE_USER_OK,
+} from '@eventBus/constants';
+
+import * as template from '@profile/templates/settingsData.hbs';
+import Redirector from '@router/redirector';
+import { HandlerEvent } from '@/helpers/interfaces/functions';
+
+export default class DataUserComponent implements AbstractComponent {
+    private place: HTMLDivElement;
+
+    private saveButton?: HTMLButtonElement;
+
+    private loginInput?: HTMLInputElement;
+
+    private emailInput?: HTMLInputElement;
+
+    private user: User;
+
+    private idTimer: number;
+
+    private handlers: Record<string, HandlerEvent>;
+
+    constructor(place: HTMLDivElement) {
+        this.place = place;
+
+        this.user = User.getInstance();
+        this.idTimer = -1;
+        this.handlers = this.makeHandlers();
+    }
+
+    private makeHandlers(): Record<string, HandlerEvent> {
+        return {
+            saveDataClick: (event: Event) => {
+                event.preventDefault();
+                const username = this.loginInput.value;
+                const email = this.emailInput.value;
+                this.validate(username, email);
+            },
+        };
+    }
+
+    activate(): void {
+        this.place.innerHTML = template(this.user.getData());
+
+        this.saveButton = document.getElementById('btn-save-data') as HTMLButtonElement;
+        this.loginInput = document.getElementById('login-profile') as HTMLInputElement;
+        this.emailInput = document.getElementById('email-profile') as HTMLInputElement;
+
+        this.subscribeEvents();
+    }
+
+    private subscribeEvents(): void {
+        this.saveButton.addEventListener('click', this.handlers.saveDataClick);
+    }
+
+    private unsubscribeEvents(): void {
+        this.saveButton.removeEventListener('click', this.handlers.saveDataClick);
+    }
+
+    deactivate(): void {
+        this.unsubscribeEvents();
+
+        this.place.innerHTML = '';
+    }
+
+    private validate(username: string, email: string): void {
+        if (username === this.user.username && email === this.user.email) {
+            this.renderMessage('Вы ничего не изменили =)');
+            return;
+        }
+
+        if (username === '') {
+            this.renderMessage('Заполните поле логина');
+            this.renderInputError('login');
+            return;
+        }
+
+        if (email === '') {
+            this.renderMessage('Заполните поле c почтой');
+            this.renderInputError('email');
+            return;
+        }
+
+        const loginErrors = Validator.validateLogin(username);
+        if (loginErrors.length > 0) {
+            this.renderMessage(loginErrors[0]);
+            this.renderInputError('login');
+            return;
+        }
+
+        const emailErrors = Validator.validateEmail(email);
+        if (emailErrors.length > 0) {
+            this.renderMessage(emailErrors[0]);
+            this.renderInputError('email');
+            return;
+        }
+
+        this.changeUser(username, email);
+    }
+
+    private renderMessage(text: string, isErr = false) {
+        if (this.idTimer !== -1) {
+            window.clearTimeout(this.idTimer);
+        }
+        const errLine = document.getElementById('text-error-data');
+        if (isErr) {
+            errLine.className += ' profile__text--red';
+        } else {
+            errLine.className += ' profile__text--blue';
+        }
+        errLine.textContent = text;
+
+        this.idTimer = window.setTimeout(() => {
+            if (errLine) {
+                errLine.textContent = '';
+                errLine.className = 'profile__text profile__text--center';
+            }
+            this.idTimer = -1;
+        }, 5000);
+    }
+
+    renderInputError(what: string): void {
+        if (this.idTimer !== -1) {
+            window.clearTimeout(this.idTimer);
+        }
+        let input: HTMLElement;
+
+        switch (what) {
+            case 'login': {
+                input = document.getElementById('login-profile') as HTMLInputElement;
+                break;
+            }
+            case 'email': {
+                input = document.getElementById('email-profile') as HTMLInputElement;
+                break;
+            }
+            default: {
+                return;
+            }
+        }
+        input.className += ' profile__input--error';
+        this.idTimer = window.setTimeout(() => {
+            if (input) {
+                input.className = 'profile__input';
+            }
+            this.idTimer = -1;
+        }, 5000);
+    }
+
+    private changeUser(username: string, email: string): void {
+        const response = NetworkUser.changeUser(username, email);
+        response.then((value) => {
+            const { code } = value;
+            switch (code) {
+                case 200:
+                    this.user.username = username;
+                    this.user.email = email;
+                    Events.trigger(CHANGE_USER_OK, this.user.getData());
+                    break;
+                case 400:
+                    this.renderMessage('Неверный формат запроса', true);
+                    break;
+                case 401:
+                    this.user.isAuth = false;
+                    Redirector.redirectTo('/signin');
+                    break;
+                case 403:
+                    Redirector.redirectError('Нет csrf');
+                    break;
+                case 409:
+                    this.renderMessage('Пользователь с такими данными уже зарегистрирован', true);
+                    break;
+                default:
+                    this.renderMessage(`Ошибка сервера: статус ${code}`, true);
+                    break;
+            }
+        });
+    }
+}
