@@ -42,8 +42,8 @@ export default class HomeView extends PageView {
     render(): void {
         this.page.innerHTML = homeTemplate();
 
-        const searchbutton = document.getElementById('button');
-        searchbutton.addEventListener('click', this.handlers.searchClick);
+        const searchButton = document.getElementById('button');
+        searchButton.addEventListener('click', this.handlers.searchClick);
 
         this.subscribeEvents();
 
@@ -51,8 +51,8 @@ export default class HomeView extends PageView {
     }
 
     hide(): void {
-        const searchbutton = document.getElementById('button');
-        searchbutton.removeEventListener('click', this.handlers.searchClick);
+        const searchButton = document.getElementById('button');
+        searchButton.removeEventListener('click', this.handlers.searchClick);
 
         this.unsubscribeEvents();
 

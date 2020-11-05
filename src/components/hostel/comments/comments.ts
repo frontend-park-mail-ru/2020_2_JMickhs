@@ -24,7 +24,7 @@ export default class CommentsComponent implements AbstractComponent {
 
     private handlers: Record<string, HandlerEvent>;
 
-    private subscribesbutton: boolean;
+    private subscribesButton: boolean;
 
     constructor(place : HTMLDivElement) {
         this.place = place;
@@ -35,7 +35,7 @@ export default class CommentsComponent implements AbstractComponent {
     activate(idHostel: number): void {
         this.idHotel = idHostel;
         this.pageNumber = 0;
-        this.subscribesbutton = false;
+        this.subscribesButton = false;
 
         this.getComment();
     }
@@ -113,20 +113,20 @@ export default class CommentsComponent implements AbstractComponent {
     }
 
     private subscribeEvents(): void {
-        if (!this.subscribesbutton && this.nextButton) {
+        if (!this.subscribesButton && this.nextButton) {
             this.nextButton.addEventListener('click', this.handlers.nextComment);
             this.prevButton.addEventListener('click', this.handlers.prevComment);
 
-            this.subscribesbutton = true;
+            this.subscribesButton = true;
         }
     }
 
     private unsubscribeEvents(): void {
-        if (this.subscribesbutton) {
+        if (this.subscribesButton) {
             this.nextButton.removeEventListener('click', this.handlers.nextComment);
             this.prevButton.removeEventListener('click', this.handlers.prevComment);
 
-            this.subscribesbutton = false;
+            this.subscribesButton = false;
         }
     }
 }
