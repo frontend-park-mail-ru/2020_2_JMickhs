@@ -12,7 +12,6 @@ import {
     CHANGE_USER,
     CHANGE_USER_OK,
     ERR_FIX_USER,
-    SIGNOUT_CLICK,
 } from '@eventBus/constants';
 
 import profileTemplate from '@profile/templates/profilePage.hbs';
@@ -82,11 +81,6 @@ export default class ProfileView extends PageView {
                 this.renderOldPswInputError();
                 this.renderMsgPswSettings(arg);
             },
-            updateAvatar: (avatar) => {
-                const img = document.getElementById('img-profile');
-                img.src = avatar;
-                this.renderMessageAvatar('Аватар успешно изменен');
-            },
             errUpdateAvatar: (arg) => {
                 this.renderMessageAvatar(arg, true);
             },
@@ -104,9 +98,6 @@ export default class ProfileView extends PageView {
                     newPassword2: newPsw2,
                 });
             },
-            signoutClick: () => {
-                Events.trigger(SIGNOUT_CLICK);
-            },
             saveDataClick: (evt) => {
                 evt.preventDefault();
                 const username = document.getElementById('login-profile').value;
@@ -114,8 +105,7 @@ export default class ProfileView extends PageView {
                 Events.trigger(CHANGE_USER, {username, email});
             },
             okChangeUser: (user) => {
-                document.getElementById('label-login').textContent = user.username;
-                document.getElementById('label-email').textContent = user.email;
+                this.dataComponent.updateData(user.username, user.email);
                 this.renderMsgDataSettings('Изменения применены!', false);
             },
             errFixUser: (text) => {

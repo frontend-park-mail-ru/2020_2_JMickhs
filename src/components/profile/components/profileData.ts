@@ -97,8 +97,10 @@ export default class DataUserComponent implements AbstractComponent {
         this.place.innerHTML = '';
     }
 
-    // updateData(username: string, email: string): void {
-    // }
+    updateData(username: string, email: string): void {
+        document.getElementById('label-login').textContent = username;
+        document.getElementById('label-email').textContent = email;
+    }
 
     private renderMessage(message: string, isErr = false): void {
         if (this.idTimer !== -1) {
