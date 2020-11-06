@@ -7,7 +7,7 @@ import {
 } from '@eventBus/constants';
 import Redirector from '@router/redirector';
 
-import * as templateUser from '@hostel/user-comment/userComment.hbs';
+import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 import NetworkHostel from '@network/networkHostel';
 import User from '@user/user';
 import { UserData } from '@interfaces/structsData/userData';

@@ -3,8 +3,8 @@ import { HostelData } from '@interfaces/structsData/hostelData';
 import * as hostelCardTemplate from '@hostel/templates/hostel.hbs';
 import { CommentData } from '@network/structsServer/commentData';
 
-import HostelDataComponent from './hostelData/hostelData';
-import CommentUserComponent from './user-comment/userComment';
+import HostelDataComponent from './hostel-data/hostel-data';
+import CommentUserComponent from './comment-user/comment-user';
 import CommentsComponent from './comments/comments';
 
 export default class HostelPageView extends PageView {
