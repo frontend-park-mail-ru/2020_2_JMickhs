@@ -1,11 +1,3 @@
-@import "@navbar/templates/navbar.css";
-@import "@profile/templates/profile.css";
-@import "@sign/templates/sign.css";
-@import "@/components/listHostel/templates/hostels.css";
-@import "@hostel/templates/hostel.css";
-@import "@home/templates/home.css";
-@import "@pageError/templates/pageError.css";
-
 :root {
     --main-background-color: #ffffff;
     --blue: #312da4;

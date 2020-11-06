@@ -7,6 +7,7 @@ import {
 } from '@eventBus/constants';
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
+import '@sign/templates/sign.css';
 import { UserData } from '@interfaces/structsData/userData';
 import Redirector from '@router/redirector';
 import { HandlerEvent } from '@interfaces/functions';

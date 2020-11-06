@@ -1,4 +1,5 @@
 import * as listTemplate from '@list/templates/listTemplate.hbs';
+import '@/components/listHostel/templates/hostels.css';
 import { HostelData } from '@interfaces/structsData/hostelData';
 
 export default class ListView {

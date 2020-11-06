@@ -32,8 +32,8 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
-            },
+                use:  [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+              }
         ],
     },
     resolve: {
@@ -65,7 +65,7 @@ module.exports = {
             entryPoint: 'app',
         }),
         new MiniCssExtractPlugin({
-            filename: 'bundle.css',
+            filename: '[name].css',
         }),
     ],
 };

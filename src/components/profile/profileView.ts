@@ -4,13 +4,14 @@ import {
     AUTH_USER,
     CHANGE_USER_OK,
 } from '@eventBus/constants';
-
-import * as profileTemplate from '@profile/templates/profile.hbs';
 import DataUserComponent from '@/components/profile/profile-data/profileData';
 import SettingsDataComponent from '@/components/profile/settings-data/settingsData';
 import SettingsPasswordComponent from '@/components/profile/settings-password/settingsPassword';
 import { HandlerEvent } from '@interfaces/functions';
 import { UserData } from '@/helpers/interfaces/structsData/userData';
+
+import * as profileTemplate from '@profile/templates/profile.hbs';
+import '@profile/templates/profile.css';
 
 export default class ProfileView extends PageView {
     private handlers: Record<string, HandlerEvent>;

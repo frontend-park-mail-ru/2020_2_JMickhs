@@ -8,6 +8,7 @@ import {
 
 import * as signupTemplate from '@sign/templates/signup.hbs';
 import * as promtTemplate from '@sign/templates/signupPromt.hbs';
+import '@sign/templates/sign.css';
 import Redirector from '@router/redirector';
 import { HandlerEvent } from '@interfaces/functions';
 
