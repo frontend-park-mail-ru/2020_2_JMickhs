@@ -17,7 +17,7 @@ export default function userFromCookie(): void {
         switch (code) {
             case 200:
                 user.setData(data);
-                Events.trigger(AUTH_USER, user);
+                Events.trigger(AUTH_USER, data);
                 break;
             case 401:
                 Events.trigger(NOT_AUTH_USER);
