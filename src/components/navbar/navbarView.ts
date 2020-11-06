@@ -1,4 +1,5 @@
 import * as navbarTemplate from '@navbar/templates/navbar.hbs';
+import '@navbar/templates/navbar.css';
 
 export default class NavView {
     private place: HTMLDivElement;

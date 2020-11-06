@@ -7,6 +7,8 @@ import HostelDataComponent from './hostel-data/hostel-data';
 import CommentUserComponent from './comment-user/comment-user';
 import CommentsComponent from './comments/comments';
 
+import '@hostel/templates/hostel.css';
+
 export default class HostelPageView extends PageView {
     private dataComponent: HostelDataComponent;
 

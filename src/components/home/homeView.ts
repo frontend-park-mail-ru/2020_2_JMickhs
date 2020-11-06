@@ -8,6 +8,8 @@ import {
 } from '@eventBus/constants';
 import { HandlerEvent } from '@interfaces/functions';
 
+import '@home/templates/home.css';
+
 export default class HomeView extends PageView {
     private handlers: Record<string, HandlerEvent>;
 

@@ -7,6 +7,6 @@ package-lock.json
 .idea
 .vscode
 public/bundle.js
-public/bundle.css
+public/main.css
 public/index.html
 docs
