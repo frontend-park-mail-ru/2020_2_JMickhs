@@ -1,0 +1,15 @@
+<label>
+    <form id="avatar-form">
+        <input type="file" id="profile-pic" style="display: none" name="avatar" accept=".jpg, .jpeg, .png">
+    </form>
+    <img class="profile__avatar" id="img-profile" src="{{avatar}}" alt="avatar">
+    <div id="div-avatar-bottom"></div>
+</label>
+<hr class="profile__line">
+<b class="profile__text profile__text--center profile__text--blue">Логин:</b>
+<b class="profile__text profile__text--center profile__text--orange" id="label-login">{{username}}</b>
+<hr class="profile__line">
+<b class="profile__text profile__text--center profile__text--blue">Email:</b>
+<b class="profile__text profile__text--center profile__text--orange" id="label-email">{{email}}</b>
+<hr class="profile__line">
+<button type="submit" class="profile__button-out" id="button-exit">Выйти</button>

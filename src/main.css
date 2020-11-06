@@ -1,13 +1,40 @@
-@import "@css/colors.css" all;
-@import "@css/buttons.css" all;
-@import "@navbar/templates/navbar.css" all;
-@import "@profile/templates/profile.css" all;
-@import "@css/sign.css" all;
-@import "@css/hostels.css" all;
-@import "@css/errorPage.css" all;
+@import "@navbar/templates/navbar.css";
+@import "@profile/templates/profile.css";
+@import "@sign/templates/sign.css";
+@import "@/components/listHostel/templates/hostels.css";
+@import "@hostel/templates/hostel.css";
+@import "@home/templates/home.css";
+@import "@pageError/templates/pageError.css";
+
+:root {
+    --main-background-color: #ffffff;
+    --blue: #312da4;
+    --blue-dark: #6200ea;
+    --violet-light: #5c6bc0;
+    --violet-dark: #000051;
+    --orange: #ff6f00;
+    --orange-new: #f38000;
+    --orange-dark: #e65100;
+    --red: #c62828;
+    --new-red: #D50000;
+    --white: white;
+    --opacity-white: rgba(255, 255, 255, 0.8);
+    --gray-light: #f8f8f8;
+    --gray: #ccc;
+    --gray-dark: #757575;
+    --gray-new: #3c3f41;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
 
 body {
     background: var(--main-background-color);
+    margin: 0;
+    height: 100%;
+    background-image: url('https://hostelscan.ru/AppImage4k.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 * {
@@ -16,5 +43,9 @@ body {
 }
 
 #page {
-    margin-top: 80px;
+    padding-top: 72px;
+}
+
+#app, #page {
+    height: 100vh;
 }
