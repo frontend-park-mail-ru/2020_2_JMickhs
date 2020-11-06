@@ -6,6 +6,7 @@ import * as template from '@hostel/comments/comments.hbs';
 import Redirector from '@router/redirector';
 import { AbstractComponent } from '@interfaces/components';
 import { HandlerEvent } from '@interfaces/functions';
+import { ResponseData } from '@/helpers/network/structsServer/resposeData';
 
 export default class CommentsComponent implements AbstractComponent {
     private place: HTMLDivElement;
@@ -14,9 +15,7 @@ export default class CommentsComponent implements AbstractComponent {
 
     private prevButton: HTMLButtonElement;
 
-    private idHotel: number;
-
-    private pageNumber: number;
+    private idHostel: number;
 
     private comment: CommentData;
 
@@ -24,7 +23,11 @@ export default class CommentsComponent implements AbstractComponent {
 
     private handlers: Record<string, HandlerEvent>;
 
-    private subscribesButton: boolean;
+    private subscribesButtons: boolean;
+
+    private nextUrl: string;
+
+    private prevUrl: string;
 
     constructor(place : HTMLDivElement) {
         this.place = place;
@@ -33,9 +36,8 @@ export default class CommentsComponent implements AbstractComponent {
     }
 
     activate(idHostel: number): void {
-        this.idHotel = idHostel;
-        this.pageNumber = 0;
-        this.subscribesButton = false;
+        this.idHostel = idHostel;
+        this.subscribesButtons = false;
 
         this.getComment();
     }
@@ -50,41 +52,37 @@ export default class CommentsComponent implements AbstractComponent {
             nextComment: (event: Event): void => {
                 event.preventDefault();
 
-                if (this.pageNumber === this.countComments) {
-                    this.pageNumber = 0;
-                }
-
-                this.getComment();
+                this.getComment(this.nextUrl);
             },
             prevComment: (event: Event): void => {
                 event.preventDefault();
 
-                this.pageNumber -= 2;
-
-                if (this.pageNumber < 0) {
-                    this.pageNumber = this.countComments - 1;
-                }
-
-                this.getComment();
+                this.getComment(this.prevUrl);
             },
         };
     }
 
-    private getComment(): void {
-        const response = NetworkHostel.getComments(this.pageNumber, this.idHotel);
+    private getComment(url?: string): void {
+        let response: Promise<ResponseData>;
+        if (url) {
+            response = NetworkHostel.getCommentsFromUrl(url);
+        } else {
+            response = NetworkHostel.getComments(0, 1, this.idHostel);
+        }
 
         response.then((value) => {
             const { code } = value;
             const data = value.data as {
-                list: CommentData[],
+                comments: CommentData[],
                 pag_info: PageInfo,
             };
-            const comment = data.list[0];
+            const comment = data.comments[0];
             switch (code) {
                 case 200:
                     this.comment = comment;
-                    this.countComments = data.pag_info.num_pages;
-                    this.pageNumber = data.pag_info.page_num;
+                    this.countComments = data.pag_info.items_count;
+                    this.nextUrl = data.pag_info.next;
+                    this.prevUrl = data.pag_info.prev;
                     this.unsubscribeEvents();
                     this.render();
                     this.subscribeEvents();
@@ -113,20 +111,20 @@ export default class CommentsComponent implements AbstractComponent {
     }
 
     private subscribeEvents(): void {
-        if (!this.subscribesButton && this.nextButton) {
+        if (!this.subscribesButtons && this.nextButton) {
             this.nextButton.addEventListener('click', this.handlers.nextComment);
             this.prevButton.addEventListener('click', this.handlers.prevComment);
 
-            this.subscribesButton = true;
+            this.subscribesButtons = true;
         }
     }
 
     private unsubscribeEvents(): void {
-        if (this.subscribesButton) {
+        if (this.subscribesButtons) {
             this.nextButton.removeEventListener('click', this.handlers.nextComment);
             this.prevButton.removeEventListener('click', this.handlers.prevComment);
 
-            this.subscribesButton = false;
+            this.subscribesButtons = false;
         }
     }
 }

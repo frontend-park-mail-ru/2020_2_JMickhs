@@ -34,13 +34,18 @@ class NetworkHostel {
         return Request.ajax('PUT', '/api/v1/comments', body, true);
     }
 
-    static getComments(page: number, idHostel: number): Promise<ResponseData> {
-        const url = new URL('http://www.hostelscan.ru/api/v1/comments');
-        url.searchParams.set('page', page.toString());
-        url.searchParams.set('id', idHostel.toString());
-        const urlStr = url.pathname + url.search;
+    static getComments(offset: number, limit: number, idHostel: number): Promise<ResponseData> {
+        const searchParams = new URLSearchParams('');
+        searchParams.set('offset', offset.toString());
+        searchParams.set('limit', limit.toString());
+        searchParams.set('id', idHostel.toString());
 
-        return Request.ajax('GET', urlStr);
+        const url = `/api/v1/comments?${searchParams}`;
+        return Request.ajax('GET', url);
+    }
+
+    static getCommentsFromUrl(url: string): Promise<ResponseData> {
+        return Request.ajax('GET', url);
     }
 }
 
