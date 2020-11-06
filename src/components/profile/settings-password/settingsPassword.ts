@@ -163,7 +163,7 @@ export default class DataUserComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    this.renderMessage('Вы успешно обновили пароль!', true);
+                    this.renderMessage('Вы успешно обновили пароль!', false);
                     this.clearInputs();
                     break;
                 case 400:
