@@ -1,8 +1,7 @@
 interface PageInfo {
-    has_next: boolean,
-    has_prev: boolean,
-    num_pages: number,
-    page_num: number,
+    items_count: number,
+    next: string,
+    prev: string;
 }
 
 export default PageInfo;
