@@ -35,7 +35,8 @@ export default class HomeView extends PageView {
                 this.mainContainerElement.className = 'home__container-all';
                 this.listComponent.deactivate();
             },
-            searchClick: (): void => {
+            searchClick: (evt: Event): void => {
+                evt.preventDefault();
                 const input = document.getElementById('input') as HTMLInputElement;
                 Redirector.redirectTo(`?pattern=${input.value}&page=0`);
             },
@@ -50,8 +51,8 @@ export default class HomeView extends PageView {
     render(): void {
         this.page.innerHTML = homeTemplate();
 
-        const searchButton = document.getElementById('button');
-        searchButton.addEventListener('click', this.handlers.searchClick);
+        const searchForm = document.getElementById('search-form');
+        searchForm.addEventListener('submit', this.handlers.searchClick);
 
         this.subscribeEvents();
 
