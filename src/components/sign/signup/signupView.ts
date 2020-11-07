@@ -162,7 +162,7 @@ export default class SignupView extends PageView {
         const promtDiv = document.createElement('div');
         promtDiv.id = 'sign-promt';
         promtDiv.innerHTML = promtTemplate(promts);
-        this.form.insertBefore(promtDiv, input);
+        input.after(promtDiv);
     }
 
     private submitSignup(event: Event): void {
