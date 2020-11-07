@@ -1,5 +1,8 @@
 import NetworkHostel from '@network/networkHostel';
-import { ResponseData } from '@network/structsServer/resposeData';
+import { HostelData } from '@interfaces/structsData/hostelData';
+import Events from '@eventBus/eventbus';
+import { FILL_HOSTELS } from '@eventBus/constants';
+import Redirector from '@router/redirector';
 
 export default class HomeModel {
     private userName: string;
@@ -23,7 +26,23 @@ export default class HomeModel {
         this.userName = name;
     }
 
-    search(pattern: string, page?: number): Promise<ResponseData> {
-        return NetworkHostel.searchHostel(pattern, page);
+    search(pattern: string, page?: number): void {
+        const response = NetworkHostel.searchHostel(pattern, page);
+
+        response.then((value) => {
+            const { code } = value;
+            switch (code) {
+                case 200:
+                    const data = value.data as {hotels: HostelData[], Pag_info: unknown};
+                    Events.trigger(FILL_HOSTELS, data.hotels);
+                    break;
+                case 400:
+                    Redirector.redirectError('Неверный формат запроса');
+                    break;
+                default:
+                    Redirector.redirectError(`Ошибка сервера - ${code}`);
+                    break;
+            }
+        });
     }
 }
