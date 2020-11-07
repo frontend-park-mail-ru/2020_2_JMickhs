@@ -3,8 +3,8 @@ import Events from '@eventBus/eventbus';
 import { LOAD_HOSTELS } from '@eventBus/constants';
 import { HandlerEvent } from '@interfaces/functions';
 import * as listTemplate from '@list/templates/listTemplate.hbs';
-import '@home/list-hostels/hostels.css';
 import { HostelData } from '@interfaces/structsData/hostelData';
+import '@home/list-hostels/hotels.css';
 
 export default class ListComponent implements AbstractController {
     public haveInfo: boolean;
