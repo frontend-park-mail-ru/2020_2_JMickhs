@@ -2,9 +2,7 @@ import HomeModel from '@home/homeModel';
 import HomeView from '@home/homeView';
 import Events from '@eventBus/eventbus';
 import {
-    SET_CONTAINER_FOR_SEARCH,
     SEARCH_HOSTELS,
-    SET_CONTAINER_FOR_LIST,
 } from '@eventBus/constants';
 import { PageController } from '@interfaces/controllers';
 import { HandlerEvent } from '@interfaces/functions';
@@ -53,10 +51,10 @@ export default class HomeController implements PageController {
     updateParams(params: URLSearchParams): void {
         const pattern = params.get('pattern');
         if (pattern === null) {
-            Events.trigger(SET_CONTAINER_FOR_SEARCH);
+            this.view.containerToSearch();
         } else {
             this.model.search(pattern);
-            Events.trigger(SET_CONTAINER_FOR_LIST);
+            this.view.containerToList();
         }
     }
 }
