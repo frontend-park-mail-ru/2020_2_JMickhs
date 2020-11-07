@@ -1,22 +1,18 @@
 import HomeModel from '@home/homeModel';
 import HomeView from '@home/homeView';
-import ListController from '@/components/listHostel/listController';
 import Events from '@eventBus/eventbus';
 import {
-    SET_CONTAINER_FOR_LIST,
     SET_CONTAINER_FOR_SEARCH,
     SEARCH_HOSTELS,
+    SET_CONTAINER_FOR_LIST,
 } from '@eventBus/constants';
 import { PageController } from '@interfaces/controllers';
-import Redirector from '@router/redirector';
 import { HandlerEvent } from '@interfaces/functions';
 
 export default class HomeController implements PageController {
     private model: HomeModel;
 
     private view: HomeView;
-
-    private listComponent: ListController;
 
     private handlers: Record<string, HandlerEvent>;
 
@@ -30,8 +26,7 @@ export default class HomeController implements PageController {
     private makeHadlers(): Record<string, HandlerEvent> {
         const handlers = {
             searchHostels: (arg: string): void => {
-                Redirector.redirectTo(`?pattern=${arg}&page=0`);
-                this.listComponent.activate(this.model.search(arg));
+                this.model.search(arg);
             },
         };
         return handlers;
@@ -48,11 +43,9 @@ export default class HomeController implements PageController {
     activate(): void {
         this.subscribeEvents();
         this.view.render();
-        this.listComponent = new ListController(this.view.listElem());
     }
 
     deactivate(): void {
-        this.listComponent.deactivate();
         this.view.hide();
         this.unsubscribeEvents();
     }
@@ -60,11 +53,10 @@ export default class HomeController implements PageController {
     updateParams(params: URLSearchParams): void {
         const pattern = params.get('pattern');
         if (pattern === null) {
-            this.listComponent.deactivate();
             Events.trigger(SET_CONTAINER_FOR_SEARCH);
         } else {
+            this.model.search(pattern);
             Events.trigger(SET_CONTAINER_FOR_LIST);
-            this.listComponent.activate(this.model.search(pattern));
         }
     }
 }

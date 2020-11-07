@@ -31,7 +31,7 @@ body {
 
 * {
     box-sizing: border-box;
-    font-family: TT Norms Pro,Arial,Helvetica,sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 #page {
@@ -40,4 +40,12 @@ body {
 
 #app, #page {
     height: 100vh;
+}
+
+button, a {
+    font-family: 'Comfortaa', cursive;
+}
+
+::placeholder {
+    font-family: 'Comfortaa', cursive;
 }
