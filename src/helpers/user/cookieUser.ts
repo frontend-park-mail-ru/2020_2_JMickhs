@@ -23,7 +23,7 @@ export default function userFromCookie(): void {
                 Events.trigger(NOT_AUTH_USER);
                 break;
             default:
-                Redirector.redirectError(`Ошибка сервера: ${code}`);
+                Redirector.redirectError(`Ошибка сервера: ${code || value.error}`);
                 break;
         }
     });

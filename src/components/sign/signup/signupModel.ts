@@ -35,7 +35,7 @@ export default class SignupModel {
                     Events.trigger(ERROR_SIGNUP, 'Пользователь с таким логином уже существует!');
                     break;
                 default:
-                    Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${code}`);
+                    Events.trigger(ERROR_SIGNUP, `Ошибка сервера: статус ${code || value.error}`);
                     break;
             }
         });

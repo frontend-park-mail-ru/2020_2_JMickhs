@@ -182,7 +182,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectError('Нет csrf');
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера - ${code}`);
+                    this.renderMessage(`Ошибка сервера - ${code || value.error}`);
                     break;
             }
         });

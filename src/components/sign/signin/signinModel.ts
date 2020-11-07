@@ -35,7 +35,7 @@ export default class SigninModel {
                     Events.trigger(ERROR_SIGNIN, 'Вы ввели неправильный логин или пароль');
                     break;
                 default:
-                    Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${code}`);
+                    Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${code || value.error}`);
                     break;
             }
         });

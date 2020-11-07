@@ -1,10 +1,40 @@
-.error__text {
-    color: var(--blue);
+.page-error__text {
     text-align: center;
 }
 
-.error__text-first {
-    margin-top: 300px;
+.page-error__text--blue {
+    color: var(--blue);
+}
+
+.page-error__text--orange {
     color: var(--orange);
-    text-align: center;
+}
+
+.page-error__container {
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 20%;
+    padding: 1px 5%;
+    border: 2px solid var(--gray);
+    border-radius: 4px;
+    background-color: var(--gray-light);
+    overflow: auto;
+}
+
+.page-error__button {
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--white);
+    transition: 0.3s;
+    padding: 16px 20px;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.page-error__button--blue {
+    opacity: 0.8;
+    background-color: var(--blue);
 }

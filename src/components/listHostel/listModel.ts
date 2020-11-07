@@ -34,7 +34,7 @@ export default class ListModel {
                     Redirector.redirectError('Неверный формат запроса');
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code}`);
+                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
                     break;
             }
         });

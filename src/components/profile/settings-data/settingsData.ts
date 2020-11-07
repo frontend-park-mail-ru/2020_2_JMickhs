@@ -185,7 +185,7 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage('Пользователь с таким логином уже зарегистрирован', true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера: статус ${code}`, true);
+                    this.renderMessage(`Ошибка сервера: статус ${code || value.error}`, true);
                     break;
             }
         });
