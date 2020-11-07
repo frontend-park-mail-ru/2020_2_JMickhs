@@ -52,6 +52,9 @@ export default class SignupView extends PageView {
             clickPassInput: (): void => {
                 this.clickInput('password');
             },
+            clickInput: (): void => {
+                this.clickInput();
+            },
             submitSignupForm: this.submitSignup.bind(this),
         };
     }
@@ -75,6 +78,7 @@ export default class SignupView extends PageView {
 
         this.form.addEventListener('submit', this.handlers.submitSignupForm);
         this.loginInput.addEventListener('click', this.handlers.clickLoginInput);
+        this.emailInput.addEventListener('click', this.handlers.clickInput);
         this.passwordInputFirst.addEventListener('click', this.handlers.clickPassInput);
         this.passwordInputSecond.addEventListener('click', this.handlers.clickPassInput);
     }
@@ -85,9 +89,10 @@ export default class SignupView extends PageView {
 
         if (this.form) {
             this.form.removeEventListener('submit', this.handlers.submitSignupForm);
-            this.loginInput.addEventListener('click', this.handlers.clickLoginInput);
-            this.passwordInputFirst.addEventListener('click', this.handlers.clickPassInput);
-            this.passwordInputSecond.addEventListener('click', this.handlers.clickPassInput);
+            this.loginInput.removeEventListener('click', this.handlers.clickLoginInput);
+            this.emailInput.removeEventListener('click', this.handlers.clickInput);
+            this.passwordInputFirst.removeEventListener('click', this.handlers.clickPassInput);
+            this.passwordInputSecond.removeEventListener('click', this.handlers.clickPassInput);
         }
     }
 
