@@ -38,3 +38,8 @@
     opacity: 0.8;
     background-color: var(--blue);
 }
+
+.page-error__button--blue:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    opacity: 1;
+}
