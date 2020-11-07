@@ -2,7 +2,7 @@ import { AbstractController } from '@interfaces/controllers';
 import Events from '@eventBus/eventbus';
 import { LOAD_HOSTELS } from '@eventBus/constants';
 import { HandlerEvent } from '@interfaces/functions';
-import * as listTemplate from '@list/templates/listTemplate.hbs';
+import * as listTemplate from '@home/list-hostels/listTemplate.hbs';
 import { HostelData } from '@interfaces/structsData/hostelData';
 import '@home/list-hostels/hotels.css';
 
