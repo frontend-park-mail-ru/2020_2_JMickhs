@@ -62,12 +62,12 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'HostelScan',
-            filename: 'index.html',
+            filename: 'index.[chunkhash].html',
             template: './src/template.html',
             entryPoint: 'app',
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: 'bundle.[hash].css',
         }),
     ],
 };
