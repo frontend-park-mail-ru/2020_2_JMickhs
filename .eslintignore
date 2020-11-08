@@ -2,4 +2,4 @@ webpack.config.js
 postcss.config.js
 server.js
 public
-serviceWorker.ts
+src/worker/worker.ts

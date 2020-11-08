@@ -47,5 +47,6 @@ function useFallback() {
     const tmp = {code: 'Вы оффлайн'};
     return Promise.resolve(new Response(JSON.stringify(tmp), { headers: {
             'Content-Type': 'application/json;charset=utf-8'
-        }}));
+        }
+    }));
 }
