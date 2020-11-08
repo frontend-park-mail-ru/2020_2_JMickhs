@@ -9,6 +9,4 @@ package-lock.json
 public/bundle.js
 public/main.css
 public/index.html
-public/sw.js
-public/bundle.css
 docs
