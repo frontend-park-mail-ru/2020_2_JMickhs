@@ -19,6 +19,12 @@
         grid-template-rows: repeat(4, auto);
         grid-template-columns: 1fr;
     }
+    .hostel__images {
+        margin-top: 5%;
+    }
+    .hostel__comments {
+        margin-bottom: 5%;
+    }
 }
 
 .hostel__images {
@@ -54,8 +60,6 @@
 
 .hostel__data {
     grid-area: data;
-    margin-left: 5%;
-    margin-right: 5%;
     align-self: center;
 }
 
@@ -120,6 +124,30 @@
     box-shadow: 0 8px 16px 0 var(--shadow-color);
 }
 
+.hostel__comment-user {
+    margin-top: 5px;
+    display: flex;
+    height: 36px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 36px;
+}
+
+.hostel__comment-avatar {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--gray);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.hostel__comment-username {
+    margin-left: 5px;
+    font-weight: bolder;
+    color: var(--orange);
+}
+
 .hostel__rating-left {
     margin-left: 2%;
 }
@@ -131,8 +159,6 @@
 
 .hostel__user-comment {
     grid-area: comment;
-    margin-left: 5%;
-    margin-right: 5%;
 }
 
 .hostel__textarea {
