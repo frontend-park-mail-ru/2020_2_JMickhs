@@ -61,12 +61,18 @@
 
 .hostel__card {
     padding: 1px 5%;
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    transition: 0.3s;
     width: 90%;
     margin: auto;
     border: 2px solid var(--gray);
     border-radius: 4px;
     background-color: var(--gray-light);
     overflow: auto;
+}
+
+.hostel__card:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
 }
 
 .hostel__title {
@@ -98,6 +104,7 @@
 }
 
 .hostel__comment-card {
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
     padding: 1px 5%;
     width: 90%;
     margin: auto;
@@ -107,6 +114,10 @@
     height: 11rem;
     transition: 0.3s;
     overflow: auto;
+}
+
+.hostel__comment-card:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
 }
 
 .hostel__rating-left {

@@ -65,7 +65,7 @@ module.exports = {
             entryPoint: 'app',
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: 'bundle.css',
         }),
     ],
 };
