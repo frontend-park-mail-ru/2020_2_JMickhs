@@ -37,8 +37,8 @@ export default class ListComponent implements AbstractController {
     }
 
     set hotels(hotels: HostelData[]) {
-        this.hostels = hotels;
         this.haveInfo = false;
+        this.hostels = hotels;
         this.locationSlicer();
     }
 

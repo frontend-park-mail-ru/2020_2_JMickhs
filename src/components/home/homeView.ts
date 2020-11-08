@@ -30,7 +30,7 @@ export default class HomeView extends PageView {
             searchClick: (evt: Event): void => {
                 evt.preventDefault();
                 const input = document.getElementById('input') as HTMLInputElement;
-                Redirector.redirectTo(`?pattern=${input.value}&page=0`);
+                Redirector.redirectTo(`?pattern=${input.value}`);
             },
             renderHostelList: (hostels: HostelData[]): void => {
                 this.mainContainerElement.className = 'home__container-list-all';
@@ -40,12 +40,14 @@ export default class HomeView extends PageView {
         return handlers;
     }
 
-    containerToSearch(): void {
+    listComponentOn(): void {
         this.mainContainerElement.className = 'home__container-all';
         this.listComponent.deactivate();
     }
 
-    containerToList(): void {
+    listComponentOff(pattern: string): void {
+        const input = document.getElementById('input') as HTMLInputElement;
+        input.value = pattern;
         this.mainContainerElement.className = 'home__container-list-all';
     }
 
