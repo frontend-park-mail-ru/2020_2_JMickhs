@@ -70,7 +70,7 @@ export default class DataUserComponent implements AbstractComponent {
 
         if (oldPassword === '') {
             this.renderOldPasswordInputError();
-            this.renderMessage('Необходимо заполнить все поля');
+            this.renderMessage('Вы не ввели старый пароль!');
             return;
         }
         if (newPasswordFirst === '') {
@@ -151,7 +151,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.idTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'profile__text profile__text--center';
+                errLine.className = 'profile__message profile__text profile__text--center';
             }
             this.idTimer = -1;
         }, 5000);

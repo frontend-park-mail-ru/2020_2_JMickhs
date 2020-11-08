@@ -123,7 +123,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.messageIdTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'profile__text profile__text--center';
+                errLine.className = 'profile__message profile__text profile__text--center';
             }
             this.messageIdTimer = -1;
         }, 5000);

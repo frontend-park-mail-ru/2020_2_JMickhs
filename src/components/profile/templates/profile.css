@@ -162,3 +162,7 @@
 .profile__button--w300px {
     width: 300px;
 }
+
+.profile__message {
+    height: 14px;
+}
