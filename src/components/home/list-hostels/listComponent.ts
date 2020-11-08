@@ -8,7 +8,7 @@ export default class ListComponent implements AbstractController {
 
     private hostels: HostelData[];
 
-    private page: HTMLElement;
+    private place: HTMLElement;
 
     constructor() {
         this.haveInfo = false;
@@ -16,6 +16,9 @@ export default class ListComponent implements AbstractController {
     }
 
     activate(hostels: HostelData[]): void {
+        if (!this.place) {
+            return;
+        }
         this.hotels = hostels;
         if (hostels.length > 0) {
             this.haveInfo = true;
@@ -30,11 +33,12 @@ export default class ListComponent implements AbstractController {
     }
 
     setPlace(place: HTMLElement): void {
-        this.page = place;
+        this.place = place;
     }
 
     set hotels(hotels: HostelData[]) {
         this.hostels = hotels;
+        this.haveInfo = false;
         this.locationSlicer();
     }
 
@@ -53,10 +57,10 @@ export default class ListComponent implements AbstractController {
 
     render(data: { hotels: HostelData[], haveInfo: boolean }): void {
         window.scrollTo(0, 0);
-        this.page.innerHTML = listTemplate(data);
+        this.place.innerHTML = listTemplate(data);
     }
 
     hide(): void {
-        this.page.innerHTML = '';
+        this.place.innerHTML = '';
     }
 }
