@@ -9,4 +9,6 @@ package-lock.json
 public/bundle.js
 public/bundle.css
 public/index.html
+public/sw.js
+public/bundle.css
 docs
