@@ -4,12 +4,12 @@
     "description": "Веб сервис, который помогает найти подходящий отель в поездку",
     "private": true,
     "dependencies": {
-        "@types/service_worker_api": "0.0.9",
         "express": "^4.17.1"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^4.6.1",
         "@typescript-eslint/parser": "^4.5.0",
+        "@types/service_worker_api": "0.0.9",
         "autoprefixer": "^10.0.1",
         "css-loader": "^5.0.0",
         "css-mqpacker": "^7.0.0",
