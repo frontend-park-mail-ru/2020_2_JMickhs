@@ -6,9 +6,7 @@ package-lock.json
 
 .idea
 .vscode
-public/bundle.js
-public/bundle.css
-public/index.html
-public/worker.js
-public/bundle.css
+public/bundle.*
+public/index.*
+public/worker.*
 docs

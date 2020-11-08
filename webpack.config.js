@@ -10,7 +10,7 @@ module.exports = {
     devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, './public'),
-        filename: '[name].js',
+        filename: '[name].[chunkhash].js',
         publicPath: '../',
     },
     module: {
@@ -62,12 +62,12 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'HostelScan',
-            filename: 'index.html',
+            filename: 'index.[chunkhash].html',
             template: './src/template.html',
             entryPoint: 'app',
         }),
         new MiniCssExtractPlugin({
-            filename: 'bundle.css',
+            filename: 'bundle.[hash].css',
         }),
     ],
 };
