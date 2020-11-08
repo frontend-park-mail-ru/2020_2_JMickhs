@@ -121,7 +121,7 @@ export default class DataUserComponent implements AbstractComponent {
         if (isErr) {
             errLine.className += ' profile__text--red';
         } else {
-            errLine.className += ' profile__text--blue';
+            errLine.className += 'profile__message profile__text profile__text--center profile__text--blue';
         }
         errLine.textContent = text;
 
