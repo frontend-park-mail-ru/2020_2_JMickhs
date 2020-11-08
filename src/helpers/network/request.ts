@@ -57,10 +57,9 @@ class Request {
         }).then((json) => ({
             code: json.code,
             data: json.data,
-        }))
-            .catch((err) => ({
-                error: err,
-            }));
+        })).catch((err) => ({
+            error: err,
+        }));
     }
 }
 
