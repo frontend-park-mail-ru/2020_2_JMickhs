@@ -1,12 +1,16 @@
  <div class="list__container-all">
-     {{#each this}}
-        <a class="hostels-card" href="/hostel/{{hotel_id}}">
-            <img class="hostel-card__image" src="{{image}}" alt="image">
-            <div class="hostel-card__text hostel-card__text--center">{{name}}</div>
-            <div class="hostel-card__text-container">
-                <p class="hostel-card__text hostel-card__text--blue">{{location}}
-                <p class="hostel-card__text hostel-card__text--red">{{rating}}/5
-            </div>
-        </a>
-     {{/each}}
+     {{#if haveInfo}}
+         {{#each hotels}}
+            <a class="hostels-card" href="/hostel/{{hotel_id}}">
+                <img class="hostel-card__image" src="{{image}}" alt="image">
+                <div class="hostel-card__text hostel-card__text--center">{{name}}</div>
+                <div class="hostel-card__text-container">
+                    <p class="hostel-card__text hostel-card__text--blue">{{location}}
+                    <p class="hostel-card__text hostel-card__text--red">{{rating}}/5
+                </div>
+            </a>
+         {{/each}}
+     {{else}}
+             <div class="hostel__text--blue"><h4>По данному запросу отелей не нашлось</h4></div>
+     {{/if}}
  </div>

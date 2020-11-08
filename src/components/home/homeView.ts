@@ -20,6 +20,7 @@ export default class HomeView extends PageView {
 
     constructor(parent: HTMLElement) {
         super(parent);
+        this.listComponent = new ListComponent();
 
         this.handlers = this.makeHadlers();
     }
@@ -55,9 +56,8 @@ export default class HomeView extends PageView {
         searchForm.addEventListener('submit', this.handlers.searchClick);
 
         this.subscribeEvents();
-
+        this.listComponent.setPlace(document.getElementById('list'));
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
-        this.listComponent = new ListComponent(document.getElementById('list'));
     }
 
     hide(): void {
