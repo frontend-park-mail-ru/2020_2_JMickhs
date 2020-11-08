@@ -2,8 +2,6 @@ import { PageView } from '@interfaces/views';
 import Events from '@eventBus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
-    SET_CONTAINER_FOR_LIST,
-    SET_CONTAINER_FOR_SEARCH,
     FILL_HOSTELS,
 } from '@eventBus/constants';
 import { HandlerEvent } from '@interfaces/functions';
@@ -28,14 +26,8 @@ export default class HomeView extends PageView {
 
     private makeHadlers(): Record<string, HandlerEvent> {
         const handlers = {
-            containerToList: (): void => {
-                this.mainContainerElement.className = 'home__container-list-all';
-            },
-            containerToSearch: (): void => {
-                this.mainContainerElement.className = 'home__container-all';
-                this.listComponent.deactivate();
-            },
-            searchClick: (): void => {
+            searchClick: (evt: Event): void => {
+                evt.preventDefault();
                 const input = document.getElementById('input') as HTMLInputElement;
                 Redirector.redirectTo(`?pattern=${input.value}&page=0`);
             },
@@ -47,11 +39,20 @@ export default class HomeView extends PageView {
         return handlers;
     }
 
+    containerToSearch(): void {
+        this.mainContainerElement.className = 'home__container-all';
+        this.listComponent.deactivate();
+    }
+
+    containerToList(): void {
+        this.mainContainerElement.className = 'home__container-list-all';
+    }
+
     render(): void {
         this.page.innerHTML = homeTemplate();
 
-        const searchButton = document.getElementById('button');
-        searchButton.addEventListener('click', this.handlers.searchClick);
+        const searchForm = document.getElementById('search-form');
+        searchForm.addEventListener('submit', this.handlers.searchClick);
 
         this.subscribeEvents();
 
@@ -62,7 +63,7 @@ export default class HomeView extends PageView {
     hide(): void {
         this.listComponent.deactivate();
         const searchButton = document.getElementById('button');
-        searchButton.removeEventListener('click', this.handlers.searchClick);
+        searchButton.removeEventListener('submit', this.handlers.searchClick);
 
         this.unsubscribeEvents();
 
@@ -70,14 +71,10 @@ export default class HomeView extends PageView {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(SET_CONTAINER_FOR_SEARCH, this.handlers.containerToSearch);
-        Events.subscribe(SET_CONTAINER_FOR_LIST, this.handlers.containerToList);
         Events.subscribe(FILL_HOSTELS, this.handlers.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(SET_CONTAINER_FOR_SEARCH, this.handlers.containerToSearch);
-        Events.unsubscribe(SET_CONTAINER_FOR_LIST, this.handlers.containerToList);
         Events.unsubscribe(FILL_HOSTELS, this.handlers.renderHostelList);
     }
 }

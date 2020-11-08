@@ -29,7 +29,7 @@
     grid-area: search;
     width: 75%;
     display: flex;
-    padding-top: 5%;
+    padding: 5% 0;
 }
 
 .home__list {

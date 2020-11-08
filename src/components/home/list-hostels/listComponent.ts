@@ -1,15 +1,10 @@
 import { AbstractController } from '@interfaces/controllers';
-import Events from '@eventBus/eventbus';
-import { LOAD_HOSTELS } from '@eventBus/constants';
-import { HandlerEvent } from '@interfaces/functions';
 import * as listTemplate from '@home/list-hostels/listTemplate.hbs';
 import { HostelData } from '@interfaces/structsData/hostelData';
 import '@home/list-hostels/hotels.css';
 
 export default class ListComponent implements AbstractController {
     public haveInfo: boolean;
-
-    private handlers: Record<string, HandlerEvent>;
 
     private hostels: HostelData[];
 
@@ -19,29 +14,9 @@ export default class ListComponent implements AbstractController {
         this.page = place;
         this.haveInfo = false;
         this.hostels = [];
-
-        this.handlers = this.makeHadlers();
-    }
-
-    private makeHadlers(): Record<string, HandlerEvent> {
-        const handlers = {
-            renderHoslels: (): void => {
-                this.render(this.hotels);
-            },
-        };
-        return handlers;
-    }
-
-    private subscribeEvents(): void {
-        Events.subscribe(LOAD_HOSTELS, this.handlers.renderHoslels);
-    }
-
-    private unsubscribeEvents(): void {
-        Events.unsubscribe(LOAD_HOSTELS, this.handlers.renderHoslels);
     }
 
     activate(hostels: HostelData[]): void {
-        this.subscribeEvents();
         if (!this.haveInfo) {
             this.hotels = hostels;
         }
@@ -50,7 +25,6 @@ export default class ListComponent implements AbstractController {
     }
 
     deactivate(): void {
-        this.unsubscribeEvents();
         this.hide();
         this.haveInfo = false;
     }
