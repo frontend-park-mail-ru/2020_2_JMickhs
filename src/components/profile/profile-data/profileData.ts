@@ -28,14 +28,19 @@ export default class DataUserComponent implements AbstractComponent {
 
     private idTimer: number;
 
-    constructor(place: HTMLDivElement) {
-        this.place = place;
-
+    constructor() {
         this.idTimer = -1;
         this.handlers = this.makeHandlers();
     }
 
+    setPlace(place: HTMLDivElement): void {
+        this.place = place;
+    }
+
     activate(user: UserData): void {
+        if (!this.place) {
+            return;
+        }
         this.place.innerHTML = dataTemplate(user);
 
         this.inputAvatar = document.getElementById('profile-pic') as HTMLInputElement;

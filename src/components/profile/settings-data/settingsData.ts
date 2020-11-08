@@ -29,13 +29,15 @@ export default class DataUserComponent implements AbstractComponent {
 
     private handlers: Record<string, HandlerEvent>;
 
-    constructor(place: HTMLDivElement) {
-        this.place = place;
-
+    constructor() {
         this.user = User.getInstance();
         this.messageIdTimer = -1;
         this.inputIdTimer = -1;
         this.handlers = this.makeHandlers();
+    }
+
+    setPlace(place: HTMLDivElement): void {
+        this.place = place;
     }
 
     private makeHandlers(): Record<string, HandlerEvent> {
@@ -50,6 +52,9 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     activate(): void {
+        if (!this.place) {
+            return;
+        }
         this.place.innerHTML = template(this.user.getData());
 
         this.saveButton = document.getElementById('button-save-data') as HTMLButtonElement;

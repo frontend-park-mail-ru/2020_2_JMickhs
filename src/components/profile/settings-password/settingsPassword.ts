@@ -25,9 +25,7 @@ export default class DataUserComponent implements AbstractComponent {
 
     private handlers: Record<string, HandlerEvent>;
 
-    constructor(place: HTMLDivElement) {
-        this.place = place;
-
+    constructor() {
         this.idTimer = -1;
         this.oldPasswordInputIdTimer = -1;
         this.newPasswordInputIdTimer = -1;
@@ -36,7 +34,15 @@ export default class DataUserComponent implements AbstractComponent {
         };
     }
 
+    setPlace(place: HTMLDivElement): void {
+        this.place = place;
+    }
+
     activate(): void {
+        if (!this.place) {
+            return;
+        }
+
         this.place.innerHTML = template();
 
         this.saveButton = document.getElementById('button-save-sequr') as HTMLButtonElement;

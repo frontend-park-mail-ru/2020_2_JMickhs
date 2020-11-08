@@ -25,13 +25,20 @@ export default class HostelDataComponent implements AbstractComponent {
 
     private handlers: Record<string, HandlerEvent>;
 
-    constructor(placeText: HTMLDivElement, placePhotos: HTMLDivElement) {
-        this.placeData = placeText;
-        this.placeImages = placePhotos;
+    constructor() {
         this.handlers = this.makeHandlers();
     }
 
+    setPlace(placeText: HTMLDivElement, placePhotos: HTMLDivElement): void {
+        this.placeData = placeText;
+        this.placeImages = placePhotos;
+    }
+
     activate(hostel: HostelData): void {
+        if (!this.placeData || !this.placeImages) {
+            return;
+        }
+
         this.hostel = hostel;
 
         this.photos = hostel.photos;

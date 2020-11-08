@@ -25,6 +25,10 @@ export default class ProfileView extends PageView {
     constructor(parent: HTMLElement) {
         super(parent);
 
+        this.dataComponent = new DataUserComponent();
+        this.settingsDataComponent = new SettingsDataComponent();
+        this.settingsPasswordComponent = new SettingsPasswordComponent();
+
         this.handlers = this.makeHandlers();
     }
 
@@ -52,11 +56,11 @@ export default class ProfileView extends PageView {
         this.page.innerHTML = profileTemplate(data);
 
         const dataPlace = document.getElementById('profile-data') as HTMLDivElement;
-        this.dataComponent = new DataUserComponent(dataPlace);
+        this.dataComponent.setPlace(dataPlace);
         const settingsDataPlace = document.getElementById('settings-data') as HTMLDivElement;
-        this.settingsDataComponent = new SettingsDataComponent(settingsDataPlace);
+        this.settingsDataComponent.setPlace(settingsDataPlace);
         const settingsPasswordPlace = document.getElementById('settings-password') as HTMLDivElement;
-        this.settingsPasswordComponent = new SettingsPasswordComponent(settingsPasswordPlace);
+        this.settingsPasswordComponent.setPlace(settingsPasswordPlace);
 
         this.dataComponent.activate(data);
         this.settingsDataComponent.activate();

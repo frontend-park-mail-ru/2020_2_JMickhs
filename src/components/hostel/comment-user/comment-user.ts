@@ -31,13 +31,19 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private handlers: Record<string, HandlerEvent>;
 
-    constructor(place: HTMLDivElement) {
-        this.place = place;
-
+    constructor() {
         this.handlers = this.makeHandlers();
     }
 
+    setPlace(place: HTMLDivElement): void {
+        this.place = place;
+    }
+
     activate(idHostel: number, comment?: CommentData): void {
+        if (!this.place) {
+            return;
+        }
+
         this.idHostel = idHostel;
         this.comment = comment;
 

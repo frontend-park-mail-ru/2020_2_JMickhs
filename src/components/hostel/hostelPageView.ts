@@ -16,19 +16,29 @@ export default class HostelPageView extends PageView {
 
     private commentsComponent: CommentsComponent;
 
+    constructor(parent: HTMLElement) {
+        super(parent);
+
+        this.dataComponent = new HostelDataComponent();
+        this.userCommentComponent = new CommentUserComponent();
+        this.commentsComponent = new CommentsComponent();
+    }
+
     render(data: {hostel: HostelData, comment: CommentData}): void {
         window.scrollTo(0, 0);
         this.page.innerHTML = hostelCardTemplate(data);
 
         const dataPlace = document.getElementById('hostel-data') as HTMLDivElement;
         const imagesPlace = document.getElementById('hostel-images') as HTMLDivElement;
-        this.dataComponent = new HostelDataComponent(dataPlace, imagesPlace);
+        this.dataComponent.setPlace(dataPlace, imagesPlace);
         this.dataComponent.activate(data.hostel);
+
         const placeUserComment = document.getElementById('user-comment') as HTMLDivElement;
-        this.userCommentComponent = new CommentUserComponent(placeUserComment);
+        this.userCommentComponent.setPlace(placeUserComment);
         this.userCommentComponent.activate(data.hostel.id, data.comment);
+
         const placeComments = document.getElementById('hostel-comments') as HTMLDivElement;
-        this.commentsComponent = new CommentsComponent(placeComments);
+        this.commentsComponent.setPlace(placeComments);
         this.commentsComponent.activate(data.hostel.id);
     }
 

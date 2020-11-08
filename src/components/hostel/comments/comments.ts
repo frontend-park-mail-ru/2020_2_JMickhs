@@ -29,13 +29,19 @@ export default class CommentsComponent implements AbstractComponent {
 
     private prevUrl: string;
 
-    constructor(place : HTMLDivElement) {
-        this.place = place;
-
+    constructor() {
         this.handlers = this.makeHandlers();
     }
 
+    setPlace(place: HTMLDivElement): void {
+        this.place = place;
+    }
+
     activate(idHostel: number): void {
+        if (!this.place) {
+            return;
+        }
+
         this.idHostel = idHostel;
         this.subscribesButtons = false;
 
