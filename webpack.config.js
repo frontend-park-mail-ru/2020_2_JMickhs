@@ -62,7 +62,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'HostelScan',
-            filename: 'index.[chunkhash].html',
+            filename: 'index.html',
             template: './src/template.html',
             entryPoint: 'app',
         }),

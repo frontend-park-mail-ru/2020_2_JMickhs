@@ -51,10 +51,10 @@ export default class HomeController implements PageController {
     updateParams(params: URLSearchParams): void {
         const pattern = params.get('pattern');
         if (pattern === null) {
-            this.view.containerToSearch();
+            this.view.listComponentOn();
         } else {
             this.model.search(pattern);
-            this.view.containerToList();
+            this.view.listComponentOff(pattern);
         }
     }
 }
