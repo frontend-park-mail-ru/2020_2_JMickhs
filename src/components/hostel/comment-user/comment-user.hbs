@@ -1,5 +1,6 @@
 {{#if isAuth}}
-<div>
+<div class="hostel__textarea-container">
+    <div>
     <p class="hostel__title hostel__text--blue">Ваша оценка - {{#if comment}}{{comment.rating}} Новая оценка -{{/if}}
         <select class="hostel__select" id="select-rating">
             <option>5</option>
@@ -18,6 +19,7 @@
     {{else}}
     <button class="hostel__button-round" id="button-add-comment">Отправить</button>
     {{/if}}
+</div>
 {{else}}
 <div class="hostel__card">
     <p class="hostel__title hostel__text--blue">

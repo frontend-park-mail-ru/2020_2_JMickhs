@@ -124,7 +124,7 @@
     box-shadow: 0 8px 16px 0 var(--shadow-color);
 }
 
-.hostel__comment-user {
+.hostel__comment-user-data {
     margin-top: 5px;
     display: flex;
     height: 36px;
@@ -159,6 +159,12 @@
 
 .hostel__user-comment {
     grid-area: comment;
+}
+
+.hostel__textarea-container {
+    padding: 1px 5%;
+    width: 100%;
+    margin: auto;
 }
 
 .hostel__textarea {
