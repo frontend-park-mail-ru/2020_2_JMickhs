@@ -7,13 +7,10 @@ import ProfileController from '@profile/profileController';
 import HostelPageController from '@hostel/HostelPageController';
 import ErrorPageController from '@/components/pageError/pageErrorController';
 import userFromCookie from '@user/cookieUser';
-import registrateWorker from '@/worker/registrate';
 
 import '@/main.css';
 
 ((): void => {
-    registrateWorker();
-
     const application = document.getElementById('app');
 
     const navbarController = new NavbarController(application);
