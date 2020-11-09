@@ -6,11 +6,12 @@ module.exports = {
     mode: 'development',
     entry: {
         bundle: './src/app.ts',
+        sw: './serviceWorker.ts'
     },
     devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, './public'),
-        filename: '[name].[chunkhash].js',
+        filename: '[name].js',
         publicPath: '../',
     },
     module: {

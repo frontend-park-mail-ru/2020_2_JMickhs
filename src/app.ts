@@ -10,6 +10,16 @@ import userFromCookie from '@user/cookieUser';
 
 import '@/main.css';
 
+if ('serviceWorker' in navigator) {
+    // Весь код регистрации у нас асинхронный.
+    navigator.serviceWorker.register('./sw.js')
+        .then(() => navigator.serviceWorker.ready.then((worker) => {
+            worker.sync.register('syncdata');
+        }))
+        // eslint-disable-next-line no-console
+        .catch((err) => console.log(err));
+}
+
 ((): void => {
     const application = document.getElementById('app');
 
