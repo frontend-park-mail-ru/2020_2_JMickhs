@@ -8,9 +8,9 @@ class Router implements AbstractRouter {
 
     errorController: PageController;
 
-    private prevUrl: string;
+    private urlPrevious: string;
 
-    private curUrl: string;
+    private urlCurrent: string;
 
     constructor() {
         this.routes = {};
@@ -37,14 +37,14 @@ class Router implements AbstractRouter {
     }
 
     canBack(): boolean {
-        return this.prevUrl !== undefined;
+        return this.urlPrevious !== undefined;
     }
 
     goBack(): void {
         if (!this.canBack()) {
             return;
         }
-        this.pushState(this.prevUrl);
+        this.pushState(this.urlPrevious);
     }
 
     pushState(url = '/', state?: unknown): void {
@@ -56,40 +56,33 @@ class Router implements AbstractRouter {
         this.route();
     }
 
-    private findControllerByPath(path: string): PageController {
-        return this.routes[path];
-    }
-
     private route(evt?: unknown): void {
         if (evt instanceof Event) {
             evt.preventDefault();
         }
 
-        const splitUrl = window.location.pathname.split('/');
-        const path = `/${splitUrl[1]}`;
-        const arg = splitUrl[2];
-        const controller = this.findControllerByPath(path) || this.errorController;
+        if (this.urlCurrent) {
+            this.urlPrevious = this.urlCurrent;
+        }
+        this.urlCurrent = window.location.href;
+
+        const path = window.location.pathname;
+        const controller = this.routes[path] || this.errorController;
 
         const url = new URL(window.location.href);
+        const params = url.searchParams;
+
         if (this.currController === controller && controller.updateParams) {
-            controller.updateParams(url.searchParams);
+            controller.updateParams(params);
             return;
         }
 
         if (this.currController) {
             this.currController.deactivate();
         }
-
-        if (this.curUrl) {
-            this.prevUrl = this.curUrl;
-        }
-        this.curUrl = window.location.href;
         this.currController = controller;
-        controller.activate(arg);
 
-        if (url.searchParams && controller.updateParams) {
-            controller.updateParams(url.searchParams);
-        }
+        controller.activate(params);
     }
 }
 

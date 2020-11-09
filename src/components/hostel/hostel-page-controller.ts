@@ -29,8 +29,9 @@ export default class HostelPageController implements PageController {
         };
     }
 
-    activate(id: number): void {
-        if (id <= 0) {
+    activate(params: URLSearchParams): void {
+        const id = Number(params.get('id'));
+        if (!id || id <= 0) {
             Redirector.redirectError('Такого отеля не существует');
             return;
         }

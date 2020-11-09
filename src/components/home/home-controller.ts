@@ -38,9 +38,12 @@ export default class HomeController implements PageController {
         Events.unsubscribe(SEARCH_HOSTELS, this.handlers.searchHostels);
     }
 
-    activate(): void {
+    activate(params: URLSearchParams): void {
         this.subscribeEvents();
         this.view.render();
+        if (params) {
+            this.updateParams(params);
+        }
     }
 
     deactivate(): void {

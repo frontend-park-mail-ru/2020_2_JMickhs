@@ -33,7 +33,7 @@ import '@/main.css';
     Router.append('/signin', signinController);
     Router.append('/signup', signupController);
     Router.append('/profile', profileController);
-    Router.append('/hostel', hostelPageController);
+    Router.append('/hostel/', hostelPageController);
 
     Router.errorController = errorPageController;
     Router.start();

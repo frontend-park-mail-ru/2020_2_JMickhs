@@ -4,5 +4,7 @@ export interface AbstractController {
 }
 
 export interface PageController extends AbstractController {
+    activate(params?: URLSearchParams): void;
+    deactivate(): void;
     updateParams?(params: URLSearchParams): void;
 }
