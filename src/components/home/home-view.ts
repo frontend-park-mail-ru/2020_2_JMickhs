@@ -63,6 +63,9 @@ export default class HomeView extends PageView {
     }
 
     hide(): void {
+        if (this.page.innerHTML === '') {
+            return;
+        }
         this.listComponent.deactivate();
         const searchButton = document.getElementById('button');
         searchButton.removeEventListener('submit', this.handlers.searchClick);

@@ -43,6 +43,9 @@ export default class HostelPageView extends PageView {
     }
 
     hide(): void {
+        if (this.page.innerHTML === '') {
+            return;
+        }
         if (this.dataComponent) {
             this.dataComponent.deactivate();
             this.userCommentComponent.deactivate();
