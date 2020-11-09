@@ -39,3 +39,6 @@ export const UPDATE_HOSTEL = 'updateHostel';
 export const SEARCH_HOSTELS = 'searchHostels';
 export const SET_CONTAINER_FOR_SEARCH = 'changeCntToSearch';
 export const SET_CONTAINER_FOR_LIST = 'changeCntToList';
+
+// мусор, который пока не разобрали
+export const FILL_HOSTELS = 'fillHostels';
