@@ -1,20 +1,25 @@
 {
     "compilerOptions": {
-      "outDir": "./dist/",
-      "sourceMap": true,
-      "noImplicitAny": true,
-      "target": "es5",
-      "allowJs": true,
-      "baseUrl": "./",
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "target": "es5",
+        "allowJs": true,
+        "baseUrl": "./",
         "paths": {
             "@/*": ["src/*"],
             "@navbar/*": ["src/components/navbar/*"],
-            "@eventBus/*": ["src/helpers/eventbus/*"],
+            "@evenbus/*": ["src/helpers/eventbus/*"],
             "@network/*": ["src/helpers/network/*"],
             "@user/*": ["src/helpers/user/*"],
             "@interfaces/*": ["src/helpers/interfaces/*"],
             "@hostel/*": ["src/components/hostel/*"],
-            "@pageError/*": ["src/components/pageError/*"],
+            "@page-error/*": ["src/components/page-error/*"],
+            "@router/*": ["src/helpers/router/*"],
+            "@home/*": ["src/components/home/*"],
+            "@list/*": ["src/components/listHostel/*"],
+            "@sign/*": ["src/components/sign/*"],
+            "@profile/*": ["src/components/profile/*"]
         },
     },
 }

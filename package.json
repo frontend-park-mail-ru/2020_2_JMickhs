@@ -7,23 +7,34 @@
         "express": "^4.17.1"
     },
     "devDependencies": {
-        "handlebars": "^4.7.6",
-        "handlebars-loader": "^1.7.1",
-        "@typescript-eslint/eslint-plugin": "^4.5.0",
+        "@types/service_worker_api": "0.0.9",
+        "@typescript-eslint/eslint-plugin": "^4.6.1",
         "@typescript-eslint/parser": "^4.5.0",
+        "autoprefixer": "^10.0.1",
         "css-loader": "^5.0.0",
+        "css-mqpacker": "^7.0.0",
+        "cssnano": "^4.1.10",
         "eslint": "^7.11.0",
+        "eslint-config-airbnb-typescript": "^12.0.0",
         "eslint-config-google": "^0.14.0",
         "eslint-config-prettier": "^6.12.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
         "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-react": "^7.21.5",
+        "eslint-plugin-react-hooks": "^4.2.0",
+        "handlebars": "^4.7.6",
+        "handlebars-loader": "^1.7.1",
         "html-webpack-plugin": "^4.5.0",
         "html-webpack-root-plugin": "^0.10.0",
         "husky": "^4.3.0",
         "lint-staged": "^10.4.0",
         "mini-css-extract-plugin": "^1.1.1",
+        "postcss-loader": "^4.0.4",
         "pre-commit": "^1.2.2",
         "prettier": "^2.1.2",
         "source-map-loader": "^1.1.1",
+        "style-loader": "^2.0.0",
         "ts-loader": "^8.0.6",
         "typescript": "^4.0.3",
         "webpack": "^4.44.2",
@@ -35,7 +46,7 @@
         "build": "webpack",
         "linter": "eslint src",
         "dev": "webpack --watch --mode=development",
-        "prod": "webpack --mode=prodcution"
+        "prod": "webpack --mode=production"
     },
     "pre-commit": [
         "linter"
@@ -49,5 +60,9 @@
     "bugs": {
         "url": "https://github.com/frontend-park-mail-ru/2020_2_JMickhs/issues"
     },
-    "homepage": "https://github.com/frontend-park-mail-ru/2020_2_JMickhs#readme"
+    "homepage": "https://github.com/frontend-park-mail-ru/2020_2_JMickhs#readme",
+    "browserslist": [
+        "> 1%",
+        "last 3 version"
+    ]
 }

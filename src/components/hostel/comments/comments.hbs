@@ -1,0 +1,32 @@
+{{#if comment}}
+<div class="hostel__comment-card">
+    <div class="hostel__comment-user-data">
+        <img src="{{comment.avatar}}" class="hostel__comment-avatar">
+        <p class="hostel__comment-username">
+            {{comment.username}}
+        </p>
+    </div>
+    <p class="hostel__star hostel__title hostel__title--orange">{{comment.rating}}</p>
+    <p class="hostel__text hostel__text--blue">
+        {{#if comment.message}}
+        {{comment.message}}
+        {{else}}
+        Комментарий не оставлен
+        {{/if}}
+    </p>
+</div>
+{{#if switch}}
+<div class="hostel__comment-switch">
+    <button class="hostel__button-round" id="comment-prev">
+        < 
+    </button>
+    <button class="hostel__button-round" id="comment-next">
+        >
+    </button>
+</div>
+{{/if}}
+{{else}}
+<div class="hostel__card">
+    <p class="hostel__title hostel__text--blue">Другие пользователи пока не оставили комментарии!</p>
+</div>
+{{/if}}

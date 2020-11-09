@@ -25,6 +25,20 @@
     grid-area: data;
 }
 
+.profile__data-text {
+    background-color: var(--white);
+    width: 300px;
+    margin: auto;
+    border-radius: 10px;
+    border: 4px solid var(--blue);
+    text-align: left;
+    margin-top: 1%;
+}
+
+.data-text__item {
+    margin-left: 3%;
+}
+
 .profile__settings-data {
     padding: .5em;
     grid-area: set-login;
@@ -34,7 +48,6 @@
     padding: .5em;
     grid-area: set-psw;
 }
-
 
 .profile__avatar {
     width: 300px;
@@ -52,32 +65,36 @@
 
 .profile__line {
     border: none;
-    /* Убираем границу */
     background-color: var(--blue);
-    /* Цвет линии */
     color: var(--blue);
-    /* Цвет линии для IE6-7 */
     height: 2px;
-    /* Толщина линии */
-    width: 300px;
+    width: 295px;
 }
 
-.profile__btn-out {
-    color: var(--gray-dark);
+.profile__button-out {
+    color: var(--orange);
     cursor: pointer;
     text-decoration: none;
-    background-color: var(--main-background-color);
+    background-color: var(--transparent);
     border: none;
     outline: none;
 }
 
-.profile__btn-out:hover {
+.profile__button-out:hover {
     text-decoration: underline;
     outline: none;
 }
 
 .profile__text {
+    font: outline;
+}
+
+.profile__text--center {
     text-align: center;
+}
+
+.profile__text-left {
+    text-align: left;
 }
 
 .profile__text--blue {
@@ -93,7 +110,7 @@
 }
 
 .profile__input {
-    width: 95%;
+    width: 100%;
     padding: 15px;
     border: none;
     margin: 5px 0 22px 0;
@@ -106,9 +123,11 @@
     outline: none;
 }
 
-/* Исправить на БЭМ */
+.profile__input--error {
+    border: 3px solid var(--red);
+}
 
-.container-settings {
+.profile__container-settings {
     max-width: 700px;
     min-width: 300px;
     background: var(--white);
@@ -117,12 +136,33 @@
     border: 4px solid var(--blue);
 }
 
-.text-left-blue {
-    text-align: left;
-    color: var(--blue);
+.profile__button {
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--white);
+    transition: 0.3s;
+    padding: 16px 20px;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
 }
 
-.text-left-red {
-    text-align: left;
-    color: var(--red);
+.profile__button--blue {
+    opacity: 0.8;
+    background-color: var(--blue);
+}
+
+.profile__button--blue:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    opacity: 1;
+}
+
+.profile__button--w300px {
+    width: 300px;
+}
+
+.profile__message {
+    height: 14px;
 }

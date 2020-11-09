@@ -4,11 +4,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/app.js',
+    entry: {
+        bundle: './src/app.ts',
+    },
     devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, './public'),
-        filename: 'bundle.js',
+        filename: '[name].[chunkhash].js',
         publicPath: '../',
     },
     module: {
@@ -32,8 +34,8 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
-            },
+                use:  [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+              }
         ],
     },
     resolve: {
@@ -42,15 +44,14 @@ module.exports = {
             '@': path.resolve(__dirname, 'src'),
             '@home': path.resolve(__dirname, 'src/components/home'),
             '@hostel': path.resolve(__dirname, 'src/components/hostel'),
-            '@list': path.resolve(__dirname, 'src/components/list'),
+            '@list': path.resolve(__dirname, 'src/components/listHostel'),
             '@navbar': path.resolve(__dirname, 'src/components/navbar'),
-            '@pageError': path.resolve(__dirname, 'src/components/pageError'),
+            '@page-error': path.resolve(__dirname, 'src/components/page-error'),
             '@profile': path.resolve(__dirname, 'src/components/profile'),
             '@search': path.resolve(__dirname, 'src/components/search'),
-            '@signin': path.resolve(__dirname, 'src/components/signin'),
-            '@signup': path.resolve(__dirname, 'src/components/signup'),
+            '@sign': path.resolve(__dirname, 'src/components/sign'),
             '@css': path.resolve(__dirname, 'src/css'),
-            '@eventBus': path.resolve(__dirname, 'src/helpers/eventbus'),
+            '@evenbus': path.resolve(__dirname, 'src/helpers/eventbus'),
             '@network': path.resolve(__dirname, 'src/helpers/network'),
             '@router': path.resolve(__dirname, 'src/helpers/router'),
             '@validator': path.resolve(__dirname, 'src/helpers/validator'),
@@ -66,7 +67,7 @@ module.exports = {
             entryPoint: 'app',
         }),
         new MiniCssExtractPlugin({
-            filename: 'bundle.css',
+            filename: 'bundle.[hash].css',
         }),
     ],
 };

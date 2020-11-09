@@ -1,18 +1,18 @@
-import {UserData} from '@interfaces/userData';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 
-/** Информация о пользователе,
- *  Синглтон, чтобы проще шарить в разные части проекта
- */
 export default class User {
-
     isAuth: boolean;
+
     id: number;
-    username: string;
+
+    userName: string;
+
     email: string;
+
     avatar: string;
 
     private static instance: User;
-    
+
     static getInstance(): User {
         if (this.instance === undefined) {
             this.instance = new User();
@@ -23,25 +23,34 @@ export default class User {
     private constructor() {
         this.isAuth = false;
         this.id = -1;
-        this.username = '';
+        this.userName = '';
         this.avatar = '';
+        this.email = '';
     }
 
     getData(): UserData {
         return {
-            username: this.username,
+            username: this.userName,
             email: this.email,
             id: this.id,
             avatar: this.avatar,
-            isAuth: this.isAuth
+            isAuth: this.isAuth,
         };
     }
 
     setData(user: UserData): void {
-        this.isAuth = user.isAuth;
-        this.username = user.username;
+        this.isAuth = true;
+        this.userName = user.username;
         this.email = user.email;
         this.id = user.id;
         this.avatar = user.avatar;
+    }
+
+    clear(): void {
+        this.isAuth = false;
+        this.id = -1;
+        this.userName = '';
+        this.avatar = '';
+        this.email = '';
     }
 }

@@ -1,0 +1,232 @@
+.hostel__container-all {
+    height: 100vh;
+    display: grid;
+    grid-template-areas:
+        "images data"
+        "comments comment";
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2vw;
+}
+
+@media all and (max-width: 768px) {
+    .hostel__container-all {
+        grid-template-areas:
+            "images"
+            "data"
+            "comment"
+            "comments";
+        grid-template-rows: repeat(4, auto);
+        grid-template-columns: 1fr;
+    }
+    .hostel__images {
+        margin-top: 5%;
+    }
+    .hostel__comments {
+        margin-bottom: 5%;
+    }
+}
+
+.hostel__images {
+    grid-area: images;
+    width: 90%;
+    margin: auto;
+    position: relative;
+    align-items: center;
+}
+
+.hostel__images:before {
+    display: block;
+    content: '';
+    padding-top: 56.5%;
+}
+
+.hostel__cur-image {
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    object-fit: cover;
+    transition: 0.3s;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hostel__cur-image:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+}
+
+.hostel__data {
+    grid-area: data;
+    align-self: center;
+}
+
+.hostel__card {
+    padding: 1px 5%;
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    transition: 0.3s;
+    width: 90%;
+    margin: auto;
+    border: 2px solid var(--gray);
+    border-radius: 4px;
+    background-color: var(--gray-light);
+    overflow: auto;
+}
+
+.hostel__card:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+}
+
+.hostel__title {
+    font-weight: bolder;
+}
+
+.hostel__title--orange {
+    color: var(--orange);
+}
+
+.hostel__text {
+    font-weight: normal;
+}
+
+.hostel__text--blue {
+    color: var(--blue);
+}
+
+.hostel__text--orange {
+    color: var(--orange);
+}
+
+.hostel__text--red {
+    color: var(--new-red);
+}
+
+.hostel__comments {
+    grid-area: comments;
+}
+
+.hostel__comment-card {
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    padding: 1px 5%;
+    width: 90%;
+    margin: auto;
+    border: 2px solid var(--gray);
+    border-radius: 4px;
+    background-color: var(--gray-light);
+    height: 11rem;
+    transition: 0.3s;
+    overflow: auto;
+}
+
+.hostel__comment-card:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+}
+
+.hostel__comment-user-data {
+    margin-top: 5px;
+    display: flex;
+    height: 36px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 36px;
+}
+
+.hostel__comment-avatar {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--gray);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.hostel__comment-username {
+    margin-left: 5px;
+    font-weight: bolder;
+    color: var(--orange);
+}
+
+.hostel__rating-left {
+    margin-left: 2%;
+}
+
+.hostel__comment-switch {
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+.hostel__user-comment {
+    grid-area: comment;
+}
+
+.hostel__textarea-container {
+    padding: 1px 5%;
+    width: 100%;
+    margin: auto;
+}
+
+.hostel__textarea {
+    padding: 12px 20px;
+    border: 2px solid var(--gray);
+    border-radius: 4px;
+    background-color: var(--gray-light);
+    resize: none;
+    outline: none;
+    width: 100%;
+    height: 6rem;
+    transition: 0.3s;
+    color: var(--gray-dark);
+}
+
+.hostel__textarea:focus {
+    border-color: var(--orange);
+}
+
+.hostel__button-round {
+    border-radius: 25px;
+    background-color: var(--orange);
+    color: var(--white);
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    outline: none;
+    z-index: 2000;
+    transition: 0.3s;
+}
+
+.hostel__button-round:hover {
+    background-color: var(--orange-dark);
+}
+
+
+.hostel__img-button-container {
+    width: 105%;
+    margin-left: -2.5%;
+    position: absolute;
+    top: 50%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.hostel__star::before {
+    overflow: hidden;
+    width: 265px;
+    margin-left: 0;
+    margin-right: 5px;
+    margin-bottom: 1%;
+    content: '★';
+}
+
+.hostel__select {
+    color: var(--orange);
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: large;
+}

@@ -1,7 +1,8 @@
-/** Класс, занимающийся валидацией данных */
 class Validator {
     private loginTableCheckup: {regular: RegExp, error: string}[];
+
     private passwordTableCheckup: {regular: RegExp, error: string}[];
+
     private emailTableCheckup: {regular: RegExp, error: string}[];
 
     constructor() {
@@ -45,10 +46,10 @@ class Validator {
         return result;
     }
 
-    validatePassword(psw: string) : string[] {
+    validatePassword(password: string) : string[] {
         const result: string[] = [];
         this.passwordTableCheckup.forEach((checkup) => {
-            if (!checkup.regular.exec(psw)) {
+            if (!checkup.regular.exec(password)) {
                 result.push(checkup.error);
             }
         });

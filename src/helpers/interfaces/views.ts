@@ -1,4 +1,3 @@
-
 export interface AbstractView {
     render(data: unknown): void;
     hide(): void;
