@@ -8,7 +8,6 @@ package-lock.json
 .vscode
 public/bundle.*
 public/index.*
-public/worker.*
-public/sw*
+public/sw.js
 
 docs

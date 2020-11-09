@@ -6,7 +6,7 @@ module.exports = {
     mode: 'development',
     entry: {
         bundle: './src/app.ts',
-        sw: './serviceWorker.ts'
+        sw: './src/service-worker/service-worker.ts'
     },
     devtool: 'inline-source-map',
     output: {

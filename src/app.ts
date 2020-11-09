@@ -7,19 +7,13 @@ import ProfileController from '@profile/profile-controller';
 import HostelPageController from '@hostel/hostel-page-controller';
 import ErrorPageController from '@/components/page-error/page-error-controller';
 import userFromCookie from '@/helpers/user/cookie-user';
+import registrateServiceWorker from '@/service-worker/registrate';
 
 import '@/main.css';
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
-        .then(() => navigator.serviceWorker.ready.then((worker) => {
-            worker.sync.register('syncdata');
-        }))
-        // eslint-disable-next-line no-console
-        .catch((err) => console.log(err));
-}
-
 ((): void => {
+    registrateServiceWorker();
+
     const application = document.getElementById('app');
 
     const navbarController = new NavbarController(application);

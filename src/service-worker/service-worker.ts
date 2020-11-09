@@ -50,21 +50,21 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     function onFetch(isStatic: boolean): void {
         const cacheKey = CACHE_NAME;
 
-        if (!isStatic) {
-            event.respondWith(
-                fetch(event.request)
-                    .then((response) => addToCache(cacheKey, event.request, response))
-                    .catch(() => fetchFromCache(event))
-                    .catch(() => offlineResponse()),
-            );
-        } else {
+        if (isStatic) {
             event.respondWith(
                 fetchFromCache(event)
                     .catch(() => fetch(event.request))
                     .then((response) => addToCache(cacheKey, event.request, response))
                     .catch(() => offlineResponse()),
             );
+            return;
         }
+        event.respondWith(
+            fetch(event.request)
+                .then((response) => addToCache(cacheKey, event.request, response))
+                .catch(() => fetchFromCache(event))
+                .catch(() => offlineResponse()),
+        );
     }
 
     const url = new URL(event.request.url);
