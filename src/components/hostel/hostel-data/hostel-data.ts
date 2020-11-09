@@ -1,12 +1,12 @@
-import { HostelData } from '@interfaces/structsData/hostelData';
+import { HostelData } from '@/helpers/interfaces/structsData/hostel-data';
 
 import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
 import * as imagesTemplate from '@hostel/hostel-data/hostel-images.hbs';
 
-import Events from '@eventBus/eventbus';
+import Events from '@evenbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 import { AbstractComponent } from '@interfaces/components';
 import { HandlerEvent } from '@interfaces/functions';
 

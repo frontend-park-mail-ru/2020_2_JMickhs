@@ -1,11 +1,11 @@
-import NetworkUser from '@network/networkUser';
-import Events from '@eventBus/eventbus';
+import NetworkUser from '@/helpers/network/network-user';
+import Events from '@evenbus/eventbus';
 import {
     AUTH_USER,
     NOT_AUTH_USER,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 import User from '@user/user';
-import { UserData } from '@interfaces/structsData/userData';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 import Redirector from '../router/redirector';
 
 export default function userFromCookie(): void {

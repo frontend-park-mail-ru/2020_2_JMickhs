@@ -1,12 +1,12 @@
 import { PageController } from '@interfaces/controllers';
-import SigninModel from '@sign/signin/signinModel';
-import SigninView from '@sign/signin/signinView';
-import Events from '@eventBus/eventbus';
+import SigninModel from '@/components/sign/signin/signin-model';
+import SigninView from '@/components/sign/signin/signin-view';
+import Events from '@evenbus/eventbus';
 import {
     PAGE_SIGNIN,
     SUBMIT_SIGNIN,
     AUTH_USER,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 import Redirector from '@router/redirector';
 import { HandlerEvent } from '@interfaces/functions';
 

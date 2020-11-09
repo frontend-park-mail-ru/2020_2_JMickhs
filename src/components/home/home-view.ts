@@ -1,14 +1,14 @@
 import { PageView } from '@interfaces/views';
-import Events from '@eventBus/eventbus';
+import Events from '@evenbus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
     FILL_HOSTELS,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 import { HandlerEvent } from '@interfaces/functions';
 
 import '@home/templates/home.css';
-import ListComponent from '@home/list-hostels/listComponent';
-import { HostelData } from '@interfaces/structsData/hostelData';
+import ListComponent from '@/components/home/list-hostels/list-hostels';
+import { HostelData } from '@/helpers/interfaces/structsData/hostel-data';
 import Redirector from '@router/redirector';
 
 export default class HomeView extends PageView {

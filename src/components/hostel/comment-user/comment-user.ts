@@ -1,16 +1,16 @@
-import { CommentData } from '@network/structsServer/commentData';
+import { CommentData } from '@/helpers/network/structsServer/comment-data';
 
-import Events from '@eventBus/eventbus';
+import Events from '@evenbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
     AUTH_USER,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 import Redirector from '@router/redirector';
 
 import * as templateUser from '@hostel/comment-user/comment-user.hbs';
-import NetworkHostel from '@network/networkHostel';
+import NetworkHostel from '@/helpers/network/network-hostel';
 import User from '@user/user';
-import { UserData } from '@interfaces/structsData/userData';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 import { AbstractComponent } from '@interfaces/components';
 import { HandlerEvent } from '@interfaces/functions';
 

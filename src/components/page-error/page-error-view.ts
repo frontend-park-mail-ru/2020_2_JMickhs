@@ -1,7 +1,7 @@
 import { PageView } from '@interfaces/views';
 
-import * as template from '@pageError/templates/pageError.hbs';
-import '@pageError/templates/pageError.css';
+import * as template from '@page-error/templates/page-error.hbs';
+import '@page-error/templates/page-error.css';
 
 export default class ErrorPageView extends PageView {
     render(err: string|null): void {

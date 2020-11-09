@@ -1,14 +1,14 @@
 import { PageView } from '@interfaces/views';
-import Events from '@eventBus/eventbus';
+import Events from '@evenbus/eventbus';
 import {
     SUBMIT_SIGNIN,
     ERROR_SIGNIN,
     SIGNIN_USER,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
 import '@sign/templates/sign.css';
-import { UserData } from '@interfaces/structsData/userData';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 import Redirector from '@router/redirector';
 import { HandlerEvent } from '@interfaces/functions';
 

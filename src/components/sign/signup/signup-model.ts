@@ -1,11 +1,11 @@
 import User from '@user/user';
-import NetworkUser from '@network/networkUser';
-import Events from '@eventBus/eventbus';
+import NetworkUser from '@/helpers/network/network-user';
+import Events from '@evenbus/eventbus';
 import {
     SIGNUP_USER,
     ERROR_SIGNUP,
-} from '@eventBus/constants';
-import { UserData } from '@interfaces/structsData/userData';
+} from '@evenbus/constants';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 
 export default class SignupModel {
     private user: User;

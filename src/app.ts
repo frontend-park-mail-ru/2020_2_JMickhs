@@ -1,12 +1,12 @@
 import Router from '@router/router';
-import HomeController from '@home/homeController';
-import NavbarController from '@/components/navbar/navbarController';
-import SigninController from '@sign/signin/signinController';
-import SignupController from '@sign/signup/signupController';
-import ProfileController from '@profile/profileController';
-import HostelPageController from '@hostel/HostelPageController';
-import ErrorPageController from '@/components/pageError/pageErrorController';
-import userFromCookie from '@user/cookieUser';
+import HomeController from '@home/home-controller';
+import NavbarController from '@navbar/navbar-controller';
+import SigninController from '@sign/signin/signin-controller';
+import SignupController from '@sign/signup/signup-controller';
+import ProfileController from '@profile/profile-controller';
+import HostelPageController from '@hostel/hostel-page-controller';
+import ErrorPageController from '@/components/page-error/page-error-controller';
+import userFromCookie from '@/helpers/user/cookie-user';
 
 import '@/main.css';
 

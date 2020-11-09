@@ -1,14 +1,14 @@
 import { PageView } from '@interfaces/views';
-import Events from '@eventBus/eventbus';
+import Events from '@evenbus/eventbus';
 import {
     AUTH_USER,
     CHANGE_USER_OK,
-} from '@eventBus/constants';
-import DataUserComponent from '@/components/profile/profile-data/profileData';
-import SettingsDataComponent from '@/components/profile/settings-data/settingsData';
-import SettingsPasswordComponent from '@/components/profile/settings-password/settingsPassword';
+} from '@evenbus/constants';
+import DataUserComponent from '@/components/profile/profile-data/profile-data';
+import SettingsDataComponent from '@/components/profile/settings-data/settings-data';
+import SettingsPasswordComponent from '@/components/profile/settings-password/settings-password';
 import { HandlerEvent } from '@interfaces/functions';
-import { UserData } from '@/helpers/interfaces/structsData/userData';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 
 import * as profileTemplate from '@profile/templates/profile.hbs';
 import '@profile/templates/profile.css';

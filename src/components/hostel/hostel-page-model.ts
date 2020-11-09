@@ -1,12 +1,12 @@
-import { HostelData } from '@interfaces/structsData/hostelData';
-import { CommentData } from '@/helpers/network/structsServer/commentData';
-import NetworkHostel from '@network/networkHostel';
-import Events from '@eventBus/eventbus';
+import { HostelData } from '@/helpers/interfaces/structsData/hostel-data';
+import { CommentData } from '@/helpers/network/structsServer/comment-data';
+import NetworkHostel from '@/helpers/network/network-hostel';
+import Events from '@evenbus/eventbus';
 import {
     UPDATE_HOSTEL,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 import Redirector from '@router/redirector';
-import HotelFromServer from '@network/structsServer/HotelData';
+import HotelFromServer from '@/helpers/network/structsServer/hotel-data';
 
 export default class HostelPageModel {
     private hostel: HostelData;

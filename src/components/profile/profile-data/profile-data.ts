@@ -1,12 +1,12 @@
-import { UserData } from '@interfaces/structsData/userData';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 import { AbstractComponent } from '@interfaces/components';
 import { HandlerEvent } from '@interfaces/functions';
 
-import * as dataTemplate from '@profile/profile-data/profileData.hbs';
-import * as buttonTemplate from '@profile/profile-data/profileButton.hbs';
-import * as messageTemplate from '@profile/profile-data/profileMessage.hbs';
+import * as dataTemplate from '@profile/profile-data/profile-data.hbs';
+import * as buttonTemplate from '@profile/profile-data/button.hbs';
+import * as messageTemplate from '@profile/profile-data/message.hbs';
 import User from '@user/user';
-import NetworkUser from '@network/networkUser';
+import NetworkUser from '@/helpers/network/network-user';
 import Redirector from '@/helpers/router/redirector';
 
 export default class DataUserComponent implements AbstractComponent {

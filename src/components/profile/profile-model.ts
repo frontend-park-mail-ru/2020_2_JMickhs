@@ -1,5 +1,5 @@
 import User from '@user/user';
-import { UserData } from '@interfaces/structsData/userData';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 
 export default class ProfileModel {
     private user: User;

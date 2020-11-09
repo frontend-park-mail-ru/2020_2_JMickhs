@@ -1,7 +1,7 @@
 import { AbstractController } from '@interfaces/controllers';
-import * as listTemplate from '@home/list-hostels/listTemplate.hbs';
-import { HostelData } from '@interfaces/structsData/hostelData';
-import '@home/list-hostels/hotels.css';
+import * as listTemplate from '@home/list-hostels/list-hostels.hbs';
+import { HostelData } from '@/helpers/interfaces/structsData/hostel-data';
+import '@home/list-hostels/list-hostels.css';
 
 export default class ListComponent implements AbstractController {
     public haveInfo: boolean;

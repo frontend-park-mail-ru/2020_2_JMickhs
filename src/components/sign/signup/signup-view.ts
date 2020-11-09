@@ -1,13 +1,13 @@
 import { PageView } from '@interfaces/views';
-import Events from '@eventBus/eventbus';
+import Events from '@evenbus/eventbus';
 import {
     ERROR_SIGNUP,
     SUBMIT_SIGNUP,
     SIGNUP_USER,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 
 import * as signupTemplate from '@sign/templates/signup.hbs';
-import * as promtTemplate from '@sign/templates/signupPromt.hbs';
+import * as promtTemplate from '@sign/templates/signup-promt.hbs';
 import '@sign/templates/sign.css';
 import Redirector from '@router/redirector';
 import { HandlerEvent } from '@interfaces/functions';

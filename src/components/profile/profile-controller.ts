@@ -1,9 +1,9 @@
-import ProfileModel from '@profile/profileModel';
-import ProfileView from '@profile/profileView';
-import Events from '@eventBus/eventbus';
+import ProfileModel from '@/components/profile/profile-model';
+import ProfileView from '@/components/profile/profile-view';
+import Events from '@evenbus/eventbus';
 import {
     PAGE_PROFILE,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 
 import Redirector from '@router/redirector';
 

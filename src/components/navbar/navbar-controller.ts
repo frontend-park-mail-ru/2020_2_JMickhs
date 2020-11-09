@@ -1,6 +1,6 @@
-import NavModel from '@/components/navbar/navbarModel';
-import NavView from '@/components/navbar/navbarView';
-import Events from '@eventBus/eventbus';
+import NavModel from '@/components/navbar/navbar-model';
+import NavView from '@/components/navbar/navbar-view';
+import Events from '@evenbus/eventbus';
 import {
     PAGE_SIGNIN,
     PAGE_SIGNUP,
@@ -9,9 +9,9 @@ import {
     AUTH_USER,
     SIGNIN_USER,
     SIGNUP_USER,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 
-import { UserData } from '@interfaces/structsData/userData';
+import { UserData } from '@/helpers/interfaces/structsData/user-data';
 
 export default class NavController {
     private model: NavModel;

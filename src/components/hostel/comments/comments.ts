@@ -1,12 +1,12 @@
-import NetworkHostel from '@network/networkHostel';
-import { CommentData } from '@network/structsServer/commentData';
-import PageInfo from '@network/structsServer/pageInfo';
+import NetworkHostel from '@/helpers/network/network-hostel';
+import { CommentData } from '@/helpers/network/structsServer/comment-data';
+import PageInfo from '@/helpers/network/structsServer/page-info';
 
 import * as template from '@hostel/comments/comments.hbs';
 import Redirector from '@router/redirector';
 import { AbstractComponent } from '@interfaces/components';
 import { HandlerEvent } from '@interfaces/functions';
-import { ResponseData } from '@/helpers/network/structsServer/resposeData';
+import { ResponseData } from '@/helpers/network/structsServer/respose-data';
 
 export default class CommentsComponent implements AbstractComponent {
     private place: HTMLDivElement;

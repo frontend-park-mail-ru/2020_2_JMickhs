@@ -1,9 +1,9 @@
-import HostelPageModel from '@hostel/hostelPageModel';
-import HostelPageView from '@hostel/hostelPageView';
-import Events from '@eventBus/eventbus';
+import HostelPageModel from '@/components/hostel/hostel-page-model';
+import HostelPageView from '@/components/hostel/hostel-page-view';
+import Events from '@evenbus/eventbus';
 import {
     UPDATE_HOSTEL,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 import Redirector from '@router/redirector';
 
 import { PageController } from '@interfaces/controllers';

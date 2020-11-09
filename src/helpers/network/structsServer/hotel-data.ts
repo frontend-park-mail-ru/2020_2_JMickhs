@@ -1,4 +1,4 @@
-import { CommentData } from '@/helpers/network/structsServer/commentData';
+import { CommentData } from '@/helpers/network/structsServer/comment-data';
 
 interface HotelData {
     hotel: {

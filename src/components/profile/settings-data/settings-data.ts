@@ -1,14 +1,14 @@
-import NetworkUser from '@/helpers/network/networkUser';
+import NetworkUser from '@/helpers/network/network-user';
 import User from '@/helpers/user/user';
 import Validator from '@/helpers/validator/validator';
 import { AbstractComponent } from '@interfaces/components';
 
-import Events from '@eventBus/eventbus';
+import Events from '@evenbus/eventbus';
 import {
     CHANGE_USER_OK,
-} from '@eventBus/constants';
+} from '@evenbus/constants';
 
-import * as template from '@profile/settings-data/settingsData.hbs';
+import * as template from '@profile/settings-data/settings-data.hbs';
 import Redirector from '@router/redirector';
 import { HandlerEvent } from '@/helpers/interfaces/functions';
 
