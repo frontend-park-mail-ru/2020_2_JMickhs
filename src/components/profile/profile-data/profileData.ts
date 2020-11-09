@@ -60,8 +60,14 @@ export default class DataUserComponent implements AbstractComponent {
                 this.reloadAvatarButton = document.getElementById('button-reload') as HTMLButtonElement;
                 this.reloadAvatarButton.addEventListener('click', this.handlers.updateAvatarClick);
                 const file = this.inputAvatar.files[0];
+                if (this.inputAvatar.files.length === 0) {
+                    return;
+                }
+                if (file.size > 5242880) { // 5мб
+                    this.renderMessage('Размер изображения не должен превышать 5мб', true);
+                    return;
+                }
                 const reader = new FileReader();
-                this.avatarImage.title = file.name;
                 reader.onload = (evt): void => {
                     this.avatarImage.src = evt.target.result as string;
                 };
@@ -139,7 +145,8 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage('Аватарка обновлена');
                     break;
                 case 400:
-                    this.renderMessage('Неверный формат запроса');
+                    this.avatarImage.src = user.avatar;
+                    this.renderMessage('Неверный формат данных', true);
                     break;
                 case 401:
                     user.isAuth = false;
