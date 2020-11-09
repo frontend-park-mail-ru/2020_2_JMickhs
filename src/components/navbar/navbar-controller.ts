@@ -11,7 +11,7 @@ import {
     SIGNUP_USER,
 } from '@evenbus/constants';
 
-import { UserData } from '@/helpers/interfaces/structsData/user-data';
+import { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
 export default class NavController {
     private model: NavModel;

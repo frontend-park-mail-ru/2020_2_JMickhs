@@ -8,7 +8,7 @@ import DataUserComponent from '@/components/profile/profile-data/profile-data';
 import SettingsDataComponent from '@/components/profile/settings-data/settings-data';
 import SettingsPasswordComponent from '@/components/profile/settings-password/settings-password';
 import { HandlerEvent } from '@interfaces/functions';
-import { UserData } from '@/helpers/interfaces/structsData/user-data';
+import { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
 import * as profileTemplate from '@profile/templates/profile.hbs';
 import '@profile/templates/profile.css';

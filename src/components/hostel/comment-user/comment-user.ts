@@ -1,4 +1,4 @@
-import { CommentData } from '@/helpers/network/structsServer/comment-data';
+import { CommentData } from '@/helpers/network/structs-server/comment-data';
 
 import Events from '@evenbus/eventbus';
 import {
@@ -10,7 +10,7 @@ import Redirector from '@router/redirector';
 import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 import NetworkHostel from '@/helpers/network/network-hostel';
 import User from '@user/user';
-import { UserData } from '@/helpers/interfaces/structsData/user-data';
+import { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import { AbstractComponent } from '@interfaces/components';
 import { HandlerEvent } from '@interfaces/functions';
 

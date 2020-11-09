@@ -1,5 +1,5 @@
 import NetworkHostel from '@/helpers/network/network-hostel';
-import { HostelData } from '@/helpers/interfaces/structsData/hostel-data';
+import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Events from '@evenbus/eventbus';
 import { FILL_HOSTELS } from '@evenbus/constants';
 import Redirector from '@router/redirector';

@@ -1,4 +1,4 @@
-import { UserData } from '@/helpers/interfaces/structsData/user-data';
+import { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
 export default class User {
     isAuth: boolean;
