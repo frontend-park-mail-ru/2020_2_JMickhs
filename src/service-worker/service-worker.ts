@@ -24,7 +24,7 @@ function fetchFromCache(event: FetchEvent): Promise<Response> {
 }
 
 function offlineResponse(): Promise<Response> {
-    const tmp = { code: 'Вы оффлайн' };
+    const tmp = { code: 'Сбой сети' };
     return Promise.resolve(new Response(JSON.stringify(tmp), {
         headers: {
             'Content-Type': 'text/html; charset=utf-8',
