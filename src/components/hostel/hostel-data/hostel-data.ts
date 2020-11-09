@@ -1,4 +1,4 @@
-import { HostelData } from '@/helpers/interfaces/structsData/hostel-data';
+import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 
 import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
 import * as imagesTemplate from '@hostel/hostel-data/hostel-images.hbs';

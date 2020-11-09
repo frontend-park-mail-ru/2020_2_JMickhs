@@ -1,4 +1,4 @@
-import { ResponseData } from '@/helpers/network/structsServer/respose-data';
+import { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 class Request {
     private domain: string;
