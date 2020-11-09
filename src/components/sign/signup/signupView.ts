@@ -188,6 +188,9 @@ export default class SignupView extends PageView {
     }
 
     hide(): void {
+        if (this.page.innerHTML === '') {
+            return;
+        }
         this.unsubscribeEvents();
 
         this.page.innerHTML = '';

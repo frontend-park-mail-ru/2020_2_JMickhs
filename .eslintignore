@@ -3,4 +3,3 @@ postcss.config.js
 server.js
 public
 src/worker/worker.ts
-serviceWorker.ts

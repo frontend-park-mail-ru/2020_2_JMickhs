@@ -11,7 +11,9 @@ module.exports = {
     devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, './public'),
-        filename: '[name].js',
+        filename: (pathData) => {
+            return pathData.chunk.name === 'bundle' ? '[name].[chunkhash].js': '[name].js';
+        },
         publicPath: '../',
     },
     module: {
