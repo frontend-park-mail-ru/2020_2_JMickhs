@@ -8,7 +8,7 @@ import { HandlerEvent } from '@interfaces/functions';
 
 import '@home/templates/home.css';
 import ListComponent from '@/components/home/list-hostels/list-hostels';
-import { HostelData } from '@/helpers/interfaces/structsData/hostel-data';
+import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
 
 export default class HomeView extends PageView {
@@ -63,6 +63,9 @@ export default class HomeView extends PageView {
     }
 
     hide(): void {
+        if (this.page.innerHTML === '') {
+            return;
+        }
         this.listComponent.deactivate();
         const searchButton = document.getElementById('button');
         searchButton.removeEventListener('submit', this.handlers.searchClick);
