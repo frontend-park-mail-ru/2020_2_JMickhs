@@ -15,18 +15,20 @@ export default function userFromCookie(): void {
     response.then((value) => {
         const { code } = value;
         const data = value.data as UserData;
+        user.updateWaiting(false);
         switch (code) {
             case 200:
                 user.setData(data);
                 Events.trigger(AUTH_USER, data);
                 break;
             case 401:
+                user.clear();
                 Events.trigger(NOT_AUTH_USER);
                 break;
             default:
+                user.clear();
                 Redirector.redirectError(`Ошибка сервера: ${code || value.error}`);
                 break;
         }
-        user.updateWaiting(false);
     });
 }
