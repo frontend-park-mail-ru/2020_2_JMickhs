@@ -1,13 +1,13 @@
 import HostelPageModel from '@/components/hostel/hostel-page-model';
 import HostelPageView from '@/components/hostel/hostel-page-view';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     UPDATE_HOSTEL,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import Redirector from '@router/redirector';
 
-import { PageController } from '@interfaces/controllers';
-import { HandlerEvent } from '@interfaces/functions';
+import type { PageController } from '@interfaces/controllers';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class HostelPageController implements PageController {
     private model: HostelPageModel;
@@ -29,8 +29,13 @@ export default class HostelPageController implements PageController {
         };
     }
 
-    activate(id: number): void {
-        if (id <= 0) {
+    activate(params?: URLSearchParams): void {
+        if (!params) {
+            Redirector.redirectError('Такого отеля не существует');
+        }
+
+        const id = Number(params?.get('id'));
+        if (!id || id <= 0) {
             Redirector.redirectError('Такого отеля не существует');
             return;
         }

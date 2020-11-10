@@ -1,17 +1,13 @@
-import { ResponseData } from '@/helpers/network/structs-server/respose-data';
+import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 class Request {
-    private domain: string;
+    private readonly domain: string;
 
-    private port: string;
-
-    private token: string;
+    private readonly port: string;
 
     constructor() {
         this.domain = 'https://hostelscan.ru';
         this.port = ':8080';
-
-        this.token = '';
     }
 
     ajax(method: string,
@@ -36,30 +32,52 @@ class Request {
         let reqHeaders = headers;
 
         if (csrf) {
-            if (reqHeaders) {
-                reqHeaders['X-Csrf-Token'] = this.token;
-            } else {
-                reqHeaders = {
-                    'X-Csrf-Token': this.token,
-                };
-            }
+            return this.getToken().then((value: string) => {
+                // добавляем в хедеры токен
+                if (!reqHeaders) {
+                    reqHeaders = {};
+                }
+                reqHeaders['X-Csrf-Token'] = value;
+                // и после получения токена и добавления в хедеры уже делаем запрос
+                return this.customFetch(this.domain + this.port + url, method, reqBody, reqHeaders);
+            }).catch((err) => ({ error: err }));
         }
 
-        return fetch(this.domain + this.port + url, {
+        return this.customFetch(this.domain + this.port + url, method, reqBody, reqHeaders);
+    }
+
+    private customFetch(url: string, method: string, body?: BodyInit, headers?: HeadersInit): Promise<ResponseData> {
+        return fetch(url, {
             method,
             mode: 'cors',
             credentials: 'include',
-            body: reqBody,
-            headers: reqHeaders,
-        }).then((response) => {
-            this.token = response.headers.get('csrf');
-            return response.json();
-        }).then((json) => ({
+            body,
+            headers,
+        }).then((response) => response.json()).then((json) => ({
             code: json.code,
             data: json.data,
         })).catch((err) => ({
             error: err,
         }));
+    }
+
+    private getToken(): Promise<string> {
+        const url = '/api/v1/csrf';
+        let token = '';
+
+        return fetch(this.domain + this.port + url, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+        }).then((response) => {
+            token = response.headers.get('csrf');
+            return response.json();
+        }).then((json) => json.code).then((code) => {
+            if (code !== 200) {
+                return Promise.reject();
+            }
+            return token;
+        }).catch(() => 'Нет прав доступа');
     }
 }
 

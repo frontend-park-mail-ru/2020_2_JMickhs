@@ -1,6 +1,6 @@
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
-import { AbstractComponent } from '@interfaces/components';
-import { HandlerEvent } from '@interfaces/functions';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { AbstractComponent } from '@interfaces/components';
+import type { HandlerEvent } from '@interfaces/functions';
 
 import * as dataTemplate from '@profile/profile-data/profile-data.hbs';
 import * as buttonTemplate from '@profile/profile-data/button.hbs';
@@ -10,7 +10,7 @@ import NetworkUser from '@/helpers/network/network-user';
 import Redirector from '@/helpers/router/redirector';
 
 export default class DataUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private exitButton?: HTMLButtonElement;
 
@@ -134,26 +134,25 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private updateAvatar(formAvatar: HTMLFormElement): void {
-        const user = User.getInstance();
         const response = NetworkUser.updateAvatar(new FormData(formAvatar));
         response.then((value) => {
             const { code } = value;
             switch (code) {
                 case 200:
-                    user.avatar = value.data as string;
-                    this.avatarImage.src = user.avatar;
+                    User.avatar = value.data as string;
+                    this.avatarImage.src = User.avatar;
                     this.renderMessage('Аватарка обновлена');
                     break;
                 case 400:
-                    this.avatarImage.src = user.avatar;
+                    this.avatarImage.src = User.avatar;
                     this.renderMessage('Неверный формат данных', true);
                     break;
                 case 401:
-                    user.isAuth = false;
+                    User.isAuth = false;
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Redirector.redirectError('Нет прав на обновление аватарки');
                     break;
                 case 415:
                     this.renderMessage('Можно загружать только файлы с расширением jpg, png');
@@ -169,10 +168,9 @@ export default class DataUserComponent implements AbstractComponent {
         const response = NetworkUser.signout();
         response.then((value) => {
             const { code } = value;
-            const user = User.getInstance();
             switch (code) {
                 case 200:
-                    user.clear();
+                    User.clear();
                     Redirector.redirectTo('/signin');
                     break;
                 default:

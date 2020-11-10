@@ -1,11 +1,11 @@
 import HomeModel from '@/components/home/home-model';
 import HomeView from '@/components/home/home-view';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     SEARCH_HOSTELS,
-} from '@evenbus/constants';
-import { PageController } from '@interfaces/controllers';
-import { HandlerEvent } from '@interfaces/functions';
+} from '@eventbus/constants';
+import type { PageController } from '@interfaces/controllers';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class HomeController implements PageController {
     private model: HomeModel;
@@ -38,9 +38,12 @@ export default class HomeController implements PageController {
         Events.unsubscribe(SEARCH_HOSTELS, this.handlers.searchHostels);
     }
 
-    activate(): void {
+    activate(params?: URLSearchParams): void {
         this.subscribeEvents();
         this.view.render();
+        if (params) {
+            this.updateParams(params);
+        }
     }
 
     deactivate(): void {

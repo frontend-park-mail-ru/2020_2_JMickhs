@@ -1,7 +1,7 @@
 import { PageView } from '@interfaces/views';
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import * as hostelCardTemplate from '@hostel/templates/hostel-page.hbs';
-import { CommentData } from '@/helpers/network/structs-server/comment-data';
+import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 
 import HostelDataComponent from './hostel-data/hostel-data';
 import CommentUserComponent from './comment-user/comment-user';

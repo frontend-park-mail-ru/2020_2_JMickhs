@@ -1,14 +1,14 @@
 import { PageView } from '@interfaces/views';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
     FILL_HOSTELS,
-} from '@evenbus/constants';
-import { HandlerEvent } from '@interfaces/functions';
+} from '@eventbus/constants';
+import type { HandlerEvent } from '@interfaces/functions';
 
 import '@home/templates/home.css';
 import ListComponent from '@/components/home/list-hostels/list-hostels';
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
 
 export default class HomeView extends PageView {
@@ -58,7 +58,7 @@ export default class HomeView extends PageView {
         searchForm.addEventListener('submit', this.handlers.searchClick);
 
         this.subscribeEvents();
-        this.listComponent.setPlace(document.getElementById('list'));
+        this.listComponent.setPlace(document.getElementById('list') as HTMLDivElement);
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
     }
 

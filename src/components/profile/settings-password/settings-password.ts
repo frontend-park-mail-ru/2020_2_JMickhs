@@ -1,13 +1,13 @@
-import { AbstractComponent } from '@interfaces/components';
+import type { AbstractComponent } from '@interfaces/components';
 import Validator from '@/helpers/validator/validator';
 import NetworkUser from '@/helpers/network/network-user';
 import * as template from '@profile/settings-password/settings-password.hbs';
-import { HandlerEvent } from '@interfaces/functions';
+import type { HandlerEvent } from '@interfaces/functions';
 import User from '@/helpers/user/user';
 import Redirector from '@/helpers/router/redirector';
 
 export default class DataUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private saveButton?: HTMLButtonElement;
 
@@ -176,7 +176,7 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage('Неверный формат запроса');
                     break;
                 case 401:
-                    const user = User.getInstance();
+                    const user = User;
                     user.clear();
                     user.isAuth = false;
                     Redirector.redirectTo('/signin');
@@ -185,7 +185,7 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage('Вы ввели неверный пароль');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Redirector.redirectError('Нет прав на изменение пароля');
                     break;
                 default:
                     this.renderMessage(`Ошибка сервера - ${code || value.error}`);

@@ -1,16 +1,17 @@
 import { PageView } from '@interfaces/views';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     ERROR_SIGNUP,
     SUBMIT_SIGNUP,
     SIGNUP_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 
 import * as signupTemplate from '@sign/templates/signup.hbs';
 import * as promtTemplate from '@sign/templates/signup-promt.hbs';
 import '@sign/templates/sign.css';
 import Redirector from '@router/redirector';
-import { HandlerEvent } from '@interfaces/functions';
+import Validator from '@/helpers/validator/validator';
+import type { HandlerEvent } from '@interfaces/functions';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView extends PageView {
@@ -134,35 +135,30 @@ export default class SignupView extends PageView {
         }, 5000);
     }
 
-    private clickInput(what?: string): void {
-        let input: HTMLInputElement;
-        const promts = [];
-        switch (what) {
+    private clickInput(inputName?: string): void {
+        let promts: string[] = [];
+        switch (inputName) {
             case 'login': {
-                input = this.loginInput;
-                promts.push({ text: 'Логин может включать только буквы, цифры и символы _ - .' });
-                promts.push({ text: 'Длина логина должна быть в пределе от 3 до 15 символов' });
+                promts = Validator.loginRules();
                 break;
             }
             case 'password': {
-                input = this.passwordInputFirst;
-                promts.push({ text: 'Пароль может включать только буквы английского алфавита и цифры' });
-                promts.push({ text: 'Длина пароля должна быть в пределах от 5 до 30 символов' });
+                promts = Validator.passwordRules();
                 break;
             }
             default: {
                 break;
             }
         }
-        const promtDivOld = document.getElementById('sign-promt');
-        if (promtDivOld) {
-            this.form.removeChild(promtDivOld);
-        }
 
-        const promtDiv = document.createElement('div');
-        promtDiv.id = 'sign-promt';
-        promtDiv.innerHTML = promtTemplate(promts);
-        input.after(promtDiv);
+        document.getElementById('password-promts').innerHTML = '';
+        document.getElementById('login-promts').innerHTML = '';
+
+        const promtsDiv = document.getElementById(`${inputName}-promts`);
+        if (!promtsDiv) {
+            return;
+        }
+        promtsDiv.innerHTML = promtTemplate({ promts });
     }
 
     private submitSignup(event: Event): void {

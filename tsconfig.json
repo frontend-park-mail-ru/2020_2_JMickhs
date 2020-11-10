@@ -9,7 +9,7 @@
         "paths": {
             "@/*": ["src/*"],
             "@navbar/*": ["src/components/navbar/*"],
-            "@evenbus/*": ["src/helpers/eventbus/*"],
+            "@eventbus/*": ["src/helpers/eventbus/*"],
             "@network/*": ["src/helpers/network/*"],
             "@user/*": ["src/helpers/user/*"],
             "@interfaces/*": ["src/helpers/interfaces/*"],

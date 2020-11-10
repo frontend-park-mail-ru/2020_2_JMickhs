@@ -1,7 +1,7 @@
 import NetworkHostel from '@/helpers/network/network-hostel';
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
-import Events from '@evenbus/eventbus';
-import { FILL_HOSTELS } from '@evenbus/constants';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import Events from '@eventbus/eventbus';
+import { FILL_HOSTELS } from '@eventbus/constants';
 import Redirector from '@router/redirector';
 
 export default class HomeModel {

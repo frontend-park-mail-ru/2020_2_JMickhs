@@ -1,6 +1,6 @@
-import { AbstractController } from '@interfaces/controllers';
+import type { AbstractController } from '@interfaces/controllers';
 import * as listTemplate from '@home/list-hostels/list-hostels.hbs';
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import '@home/list-hostels/list-hostels.css';
 
 export default class ListComponent implements AbstractController {
@@ -8,7 +8,7 @@ export default class ListComponent implements AbstractController {
 
     private hostels: HostelData[];
 
-    private place: HTMLElement;
+    private place?: HTMLDivElement;
 
     constructor() {
         this.haveInfo = false;
@@ -19,6 +19,7 @@ export default class ListComponent implements AbstractController {
         if (!this.place) {
             return;
         }
+
         this.hotels = hostels;
         if (hostels.length > 0) {
             this.haveInfo = true;
@@ -32,7 +33,7 @@ export default class ListComponent implements AbstractController {
         this.haveInfo = false;
     }
 
-    setPlace(place: HTMLElement): void {
+    setPlace(place: HTMLDivElement): void {
         this.place = place;
     }
 

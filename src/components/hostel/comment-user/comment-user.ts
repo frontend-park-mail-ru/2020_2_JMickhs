@@ -1,21 +1,21 @@
-import { CommentData } from '@/helpers/network/structs-server/comment-data';
+import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
     AUTH_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import Redirector from '@router/redirector';
 
 import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 import NetworkHostel from '@/helpers/network/network-hostel';
 import User from '@user/user';
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
-import { AbstractComponent } from '@interfaces/components';
-import { HandlerEvent } from '@interfaces/functions';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { AbstractComponent } from '@interfaces/components';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class CommentUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private comment?: CommentData;
 
@@ -83,7 +83,7 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private render(): void {
-        this.place.innerHTML = templateUser({ isAuth: User.getInstance().isAuth, comment: this.comment });
+        this.place.innerHTML = templateUser({ isAuth: User.isAuth, comment: this.comment });
 
         this.addButton = document.getElementById('button-add-comment') as HTMLButtonElement;
         this.editButton = document.getElementById('button-edit-comment') as HTMLButtonElement;

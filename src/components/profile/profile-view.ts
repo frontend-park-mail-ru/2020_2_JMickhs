@@ -1,14 +1,13 @@
 import { PageView } from '@interfaces/views';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
-    AUTH_USER,
     CHANGE_USER_OK,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import DataUserComponent from '@/components/profile/profile-data/profile-data';
 import SettingsDataComponent from '@/components/profile/settings-data/settings-data';
 import SettingsPasswordComponent from '@/components/profile/settings-password/settings-password';
-import { HandlerEvent } from '@interfaces/functions';
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { HandlerEvent } from '@interfaces/functions';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
 import * as profileTemplate from '@profile/templates/profile.hbs';
 import '@profile/templates/profile.css';
@@ -33,18 +32,15 @@ export default class ProfileView extends PageView {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(AUTH_USER, this.handlers.render);
         Events.subscribe(CHANGE_USER_OK, this.handlers.okChangeUser);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(AUTH_USER, this.handlers.render);
         Events.unsubscribe(CHANGE_USER_OK, this.handlers.okChangeUser);
     }
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            render: this.render.bind(this),
             okChangeUser: (user: UserData): void => {
                 this.dataComponent.updateData(user.username, user.email);
             },

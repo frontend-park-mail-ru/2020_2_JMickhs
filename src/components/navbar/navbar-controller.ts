@@ -1,6 +1,6 @@
 import NavModel from '@/components/navbar/navbar-model';
 import NavView from '@/components/navbar/navbar-view';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     PAGE_SIGNIN,
     PAGE_SIGNUP,
@@ -9,9 +9,8 @@ import {
     AUTH_USER,
     SIGNIN_USER,
     SIGNUP_USER,
-} from '@evenbus/constants';
-
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
+    NOT_AUTH_USER,
+} from '@eventbus/constants';
 
 export default class NavController {
     private model: NavModel;
@@ -25,22 +24,17 @@ export default class NavController {
 
     activate(): void {
         this.view.render(this.model.getData());
-        Events.subscribe(PAGE_SIGNUP, this.pageSign.bind(this));
-        Events.subscribe(PAGE_SIGNIN, this.pageSign.bind(this));
-        Events.subscribe(PAGE_PROFILE, this.updateUsr.bind(this));
-        Events.subscribe(SIGNIN_USER, this.updateUsr.bind(this));
-        Events.subscribe(SIGNUP_USER, this.updateUsr.bind(this));
-        Events.subscribe(AUTH_USER, this.updateUsr.bind(this));
-        Events.subscribe(CHANGE_USER_OK, this.updateUsr.bind(this));
+        Events.subscribe(PAGE_SIGNUP, this.update.bind(this));
+        Events.subscribe(PAGE_SIGNIN, this.update.bind(this));
+        Events.subscribe(PAGE_PROFILE, this.update.bind(this));
+        Events.subscribe(SIGNIN_USER, this.update.bind(this));
+        Events.subscribe(SIGNUP_USER, this.update.bind(this));
+        Events.subscribe(AUTH_USER, this.update.bind(this));
+        Events.subscribe(NOT_AUTH_USER, this.update.bind(this));
+        Events.subscribe(CHANGE_USER_OK, this.update.bind(this));
     }
 
-    private pageSign(): void {
-        this.model.setData('');
-        this.view.render(this.model.getData());
-    }
-
-    private updateUsr(user: UserData): void {
-        this.model.setData(user.username);
+    private update(): void {
         this.view.render(this.model.getData());
     }
 }

@@ -1,19 +1,19 @@
 import NetworkUser from '@/helpers/network/network-user';
 import User from '@/helpers/user/user';
 import Validator from '@/helpers/validator/validator';
-import { AbstractComponent } from '@interfaces/components';
+import type { AbstractComponent } from '@interfaces/components';
 
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     CHANGE_USER_OK,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 
 import * as template from '@profile/settings-data/settings-data.hbs';
 import Redirector from '@router/redirector';
-import { HandlerEvent } from '@/helpers/interfaces/functions';
+import type { HandlerEvent } from '@/helpers/interfaces/functions';
 
 export default class DataUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private saveButton?: HTMLButtonElement;
 
@@ -21,7 +21,7 @@ export default class DataUserComponent implements AbstractComponent {
 
     private emailInput?: HTMLInputElement;
 
-    private user: User;
+    private user: typeof User;
 
     private messageIdTimer: number;
 
@@ -30,7 +30,7 @@ export default class DataUserComponent implements AbstractComponent {
     private handlers: Record<string, HandlerEvent>;
 
     constructor() {
-        this.user = User.getInstance();
+        this.user = User;
         this.messageIdTimer = -1;
         this.inputIdTimer = -1;
         this.handlers = this.makeHandlers();
@@ -181,7 +181,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Redirector.redirectError('Нет прав на изменение информации');
                     break;
                 case 406:
                     this.renderMessage('Пользователь с таким email уже зарегистрирован', true);
