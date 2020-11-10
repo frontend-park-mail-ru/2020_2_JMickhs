@@ -7,11 +7,11 @@ export default class NavModel {
         this.user = User.getInstance();
     }
 
-    getData(): {isAuth: boolean, username: string, renderButtons: boolean} {
+    getData(): {isAuth: boolean, username: string, renderProfileButtons: boolean} {
         return {
             isAuth: this.user.isAuth,
             username: this.user.userName,
-            renderButtons: !this.user.waiting(),
+            renderProfileButtons: !this.user.waiting(),
         };
     }
 }
