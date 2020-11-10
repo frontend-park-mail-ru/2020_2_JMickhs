@@ -1,20 +1,16 @@
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 class Request {
-    private domain: string;
+    private readonly domain: string;
 
-    private port: string;
-
-    private token: string;
+    private readonly port: string;
 
     constructor() {
         this.domain = 'https://hostelscan.ru';
         this.port = ':8080';
-
-        this.token = '';
     }
 
-    ajax(method: string,
+    async ajax(method: string,
         url: string,
         body?: unknown,
         csrf?: boolean,
@@ -36,11 +32,12 @@ class Request {
         let reqHeaders = headers;
 
         if (csrf) {
+            const token = await this.getToken();
             if (reqHeaders) {
-                reqHeaders['X-Csrf-Token'] = this.token;
+                reqHeaders['X-Csrf-Token'] = token;
             } else {
                 reqHeaders = {
-                    'X-Csrf-Token': this.token,
+                    'X-Csrf-Token': token,
                 };
             }
         }
@@ -51,15 +48,32 @@ class Request {
             credentials: 'include',
             body: reqBody,
             headers: reqHeaders,
-        }).then((response) => {
-            this.token = response.headers.get('csrf');
-            return response.json();
-        }).then((json) => ({
+        }).then((response) => response.json()).then((json) => ({
             code: json.code,
             data: json.data,
         })).catch((err) => ({
             error: err,
         }));
+    }
+
+    private getToken(): Promise<string> {
+        const url = '/api/v1/csrf';
+
+        let token = '';
+
+        return fetch(this.domain + this.port + url, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+        }).then((response) => {
+            token = response.headers.get('csrf');
+            return response.json();
+        }).then((json) => json.code).then((code) => {
+            if (code !== 200) {
+                return '';
+            }
+            return token;
+        }).catch(() => '');
     }
 }
 
