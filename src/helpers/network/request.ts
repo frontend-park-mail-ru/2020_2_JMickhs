@@ -34,8 +34,10 @@ class Request {
         if (csrf) {
             return this.getToken().then((value: string) => {
                 // добавляем в хедеры токен
-                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                reqHeaders ? reqHeaders['X-Csrf-Token'] = value : reqHeaders = { 'X-Csrf-Token': value };
+                if (!reqHeaders) {
+                    reqHeaders = {};
+                }
+                reqHeaders['X-Csrf-Token'] = value;
                 // и после получения токена и добавления в хедеры уже делаем запрос
                 return this.customFetch(this.domain + this.port + url, method, reqBody, reqHeaders);
             }).catch((err) => ({ error: err }));
