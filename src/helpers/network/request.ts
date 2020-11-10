@@ -74,7 +74,7 @@ class Request {
             return response.json();
         }).then((json) => json.code).then((code) => {
             if (code !== 200) {
-                return '';
+                return Promise.reject();
             }
             return token;
         }).catch(() => 'Нет прав доступа');
