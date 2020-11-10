@@ -1,22 +1,17 @@
-export default class NavModel {
-    private username: string;
+import User from '@user/user';
 
-    private isAuth: boolean;
+export default class NavModel {
+    private user: User;
 
     constructor() {
-        this.isAuth = false;
-        this.username = '';
+        this.user = User.getInstance();
     }
 
-    getData(): {isAuth: boolean, username: string} {
+    getData(): {isAuth: boolean, username: string, renderButtons: boolean} {
         return {
-            isAuth: this.isAuth,
-            username: this.username,
+            isAuth: this.user.isAuth,
+            username: this.user.userName,
+            renderButtons: !this.user.waiting(),
         };
-    }
-
-    setData(name: string): void {
-        this.isAuth = !(name === '');
-        this.username = name;
     }
 }
