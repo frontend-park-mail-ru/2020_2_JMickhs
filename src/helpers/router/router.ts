@@ -72,7 +72,7 @@ class Router implements AbstractRouter {
         const url = new URL(window.location.href);
         const params = url.searchParams;
 
-        if (this.currController === controller && controller.updateParams) {
+        if (this.currController === controller && url.search && controller.updateParams) {
             controller.updateParams(params);
             return;
         }
@@ -81,7 +81,7 @@ class Router implements AbstractRouter {
             this.currController.deactivate();
         }
         this.currController = controller;
-        controller.activate(params);
+        controller.activate(url.search ? params : undefined);
     }
 }
 

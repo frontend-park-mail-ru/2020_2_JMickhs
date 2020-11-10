@@ -11,9 +11,9 @@ import { ResponseData } from '@/helpers/network/structs-server/respose-data';
 export default class CommentsComponent implements AbstractComponent {
     private place: HTMLDivElement;
 
-    private nextButton: HTMLButtonElement;
+    private nextButton?: HTMLButtonElement;
 
-    private prevButton: HTMLButtonElement;
+    private prevButton?: HTMLButtonElement;
 
     private idHostel: number;
 
@@ -22,8 +22,6 @@ export default class CommentsComponent implements AbstractComponent {
     private countComments: number;
 
     private handlers: Record<string, HandlerEvent>;
-
-    private subscribesButtons: boolean;
 
     private nextUrl: string;
 
@@ -43,8 +41,6 @@ export default class CommentsComponent implements AbstractComponent {
         }
 
         this.idHostel = idHostel;
-        this.subscribesButtons = false;
-
         this.getComment();
     }
 
@@ -117,20 +113,12 @@ export default class CommentsComponent implements AbstractComponent {
     }
 
     private subscribeEvents(): void {
-        if (!this.subscribesButtons && this.nextButton) {
-            this.nextButton.addEventListener('click', this.handlers.nextComment);
-            this.prevButton.addEventListener('click', this.handlers.prevComment);
-
-            this.subscribesButtons = true;
-        }
+        this.nextButton?.addEventListener('click', this.handlers.nextComment);
+        this.prevButton?.addEventListener('click', this.handlers.prevComment);
     }
 
     private unsubscribeEvents(): void {
-        if (this.subscribesButtons) {
-            this.nextButton.removeEventListener('click', this.handlers.nextComment);
-            this.prevButton.removeEventListener('click', this.handlers.prevComment);
-
-            this.subscribesButtons = false;
-        }
+        this.nextButton?.removeEventListener('click', this.handlers.nextComment);
+        this.prevButton?.removeEventListener('click', this.handlers.prevComment);
     }
 }
