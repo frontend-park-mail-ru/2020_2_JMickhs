@@ -1,6 +1,8 @@
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
 export default class User {
+    private isWaiting: boolean;
+
     isAuth: boolean;
 
     id: number;
@@ -26,6 +28,14 @@ export default class User {
         this.userName = '';
         this.avatar = '';
         this.email = '';
+    }
+
+    waiting(): boolean {
+        return this.isWaiting;
+    }
+
+    updateWaiting(waiting: boolean): void {
+        this.isWaiting = waiting;
     }
 
     getData(): UserData {

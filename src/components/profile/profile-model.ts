@@ -8,6 +8,10 @@ export default class ProfileModel {
         this.user = User.getInstance();
     }
 
+    isWaiting(): boolean {
+        return this.user.waiting();
+    }
+
     isAuth(): boolean {
         return this.user.isAuth;
     }

@@ -10,6 +10,7 @@ import Redirector from '../router/redirector';
 
 export default function userFromCookie(): void {
     const user = User.getInstance();
+    user.updateWaiting(true);
     const response = NetworkUser.user();
     response.then((value) => {
         const { code } = value;
@@ -26,5 +27,6 @@ export default function userFromCookie(): void {
                 Redirector.redirectError(`Ошибка сервера: ${code || value.error}`);
                 break;
         }
+        user.updateWaiting(false);
     });
 }

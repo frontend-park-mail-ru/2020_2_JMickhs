@@ -1,7 +1,6 @@
 import { PageView } from '@interfaces/views';
 import Events from '@evenbus/eventbus';
 import {
-    AUTH_USER,
     CHANGE_USER_OK,
 } from '@evenbus/constants';
 import DataUserComponent from '@/components/profile/profile-data/profile-data';
@@ -33,18 +32,15 @@ export default class ProfileView extends PageView {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(AUTH_USER, this.handlers.render);
         Events.subscribe(CHANGE_USER_OK, this.handlers.okChangeUser);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(AUTH_USER, this.handlers.render);
         Events.unsubscribe(CHANGE_USER_OK, this.handlers.okChangeUser);
     }
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            render: this.render.bind(this),
             okChangeUser: (user: UserData): void => {
                 this.dataComponent.updateData(user.username, user.email);
             },
