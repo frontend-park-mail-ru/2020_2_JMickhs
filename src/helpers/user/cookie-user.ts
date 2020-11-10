@@ -1,9 +1,9 @@
 import NetworkUser from '@/helpers/network/network-user';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     AUTH_USER,
     NOT_AUTH_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import User from '@user/user';
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import Redirector from '../router/redirector';

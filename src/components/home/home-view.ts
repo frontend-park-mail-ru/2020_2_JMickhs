@@ -1,9 +1,9 @@
 import { PageView } from '@interfaces/views';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
     FILL_HOSTELS,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import type { HandlerEvent } from '@interfaces/functions';
 
 import '@home/templates/home.css';

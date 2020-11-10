@@ -1,11 +1,11 @@
 import SignupModel from '@/components/sign/signup/signup-model';
 import SignupView from '@/components/sign/signup/signup-view';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     PAGE_SIGNUP,
     SUBMIT_SIGNUP,
     AUTH_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import Validator from '@/helpers/validator/validator';
 import Redirector from '@router/redirector';
 import type { HandlerEvent } from '@/helpers/interfaces/functions';

@@ -1,10 +1,10 @@
 import User from '@user/user';
 import NetworkUser from '@/helpers/network/network-user';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     SIGNIN_USER,
     ERROR_SIGNIN,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
 export default class SigninModel {

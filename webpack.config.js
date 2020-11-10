@@ -54,7 +54,7 @@ module.exports = {
             '@search': path.resolve(__dirname, 'src/components/search'),
             '@sign': path.resolve(__dirname, 'src/components/sign'),
             '@css': path.resolve(__dirname, 'src/css'),
-            '@evenbus': path.resolve(__dirname, 'src/helpers/eventbus'),
+            '@eventbus': path.resolve(__dirname, 'src/helpers/eventbus'),
             '@network': path.resolve(__dirname, 'src/helpers/network'),
             '@router': path.resolve(__dirname, 'src/helpers/router'),
             '@validator': path.resolve(__dirname, 'src/helpers/validator'),

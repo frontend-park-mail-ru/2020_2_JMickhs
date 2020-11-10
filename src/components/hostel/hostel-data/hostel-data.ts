@@ -3,10 +3,10 @@ import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
 import * as imagesTemplate from '@hostel/hostel-data/hostel-images.hbs';
 
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import type { AbstractComponent } from '@interfaces/components';
 import type { HandlerEvent } from '@interfaces/functions';
 

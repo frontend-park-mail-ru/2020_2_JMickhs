@@ -1,8 +1,8 @@
 import { PageView } from '@interfaces/views';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     CHANGE_USER_OK,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import DataUserComponent from '@/components/profile/profile-data/profile-data';
 import SettingsDataComponent from '@/components/profile/settings-data/settings-data';
 import SettingsPasswordComponent from '@/components/profile/settings-password/settings-password';

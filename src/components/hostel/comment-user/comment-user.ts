@@ -1,10 +1,10 @@
 import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
     AUTH_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import Redirector from '@router/redirector';
 
 import * as templateUser from '@hostel/comment-user/comment-user.hbs';

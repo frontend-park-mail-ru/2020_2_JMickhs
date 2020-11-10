@@ -1,6 +1,6 @@
 import NavModel from '@/components/navbar/navbar-model';
 import NavView from '@/components/navbar/navbar-view';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     PAGE_SIGNIN,
     PAGE_SIGNUP,
@@ -10,7 +10,7 @@ import {
     SIGNIN_USER,
     SIGNUP_USER,
     NOT_AUTH_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 
 export default class NavController {
     private model: NavModel;

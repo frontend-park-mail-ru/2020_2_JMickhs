@@ -3,10 +3,10 @@ import User from '@/helpers/user/user';
 import Validator from '@/helpers/validator/validator';
 import type { AbstractComponent } from '@interfaces/components';
 
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     CHANGE_USER_OK,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 
 import * as template from '@profile/settings-data/settings-data.hbs';
 import Redirector from '@router/redirector';

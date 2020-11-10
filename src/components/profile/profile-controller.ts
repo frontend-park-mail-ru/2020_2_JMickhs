@@ -1,11 +1,11 @@
 import ProfileModel from '@/components/profile/profile-model';
 import ProfileView from '@/components/profile/profile-view';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     PAGE_PROFILE,
     AUTH_USER,
     NOT_AUTH_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 
 import Redirector from '@router/redirector';
 import type { HandlerEvent } from '@/helpers/interfaces/functions';

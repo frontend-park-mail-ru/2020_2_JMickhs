@@ -1,10 +1,10 @@
 import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 import NetworkHostel from '@/helpers/network/network-hostel';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     UPDATE_HOSTEL,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import Redirector from '@router/redirector';
 import type HotelFromServer from '@/helpers/network/structs-server/hotel-data';
 

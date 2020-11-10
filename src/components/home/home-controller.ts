@@ -1,9 +1,9 @@
 import HomeModel from '@/components/home/home-model';
 import HomeView from '@/components/home/home-view';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     SEARCH_HOSTELS,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import type { PageController } from '@interfaces/controllers';
 import type { HandlerEvent } from '@interfaces/functions';
 

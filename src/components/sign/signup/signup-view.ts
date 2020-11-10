@@ -1,10 +1,10 @@
 import { PageView } from '@interfaces/views';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     ERROR_SIGNUP,
     SUBMIT_SIGNUP,
     SIGNUP_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 
 import * as signupTemplate from '@sign/templates/signup.hbs';
 import * as promtTemplate from '@sign/templates/signup-promt.hbs';
