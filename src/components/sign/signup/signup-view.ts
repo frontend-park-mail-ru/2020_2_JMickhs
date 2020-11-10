@@ -11,7 +11,7 @@ import * as promtTemplate from '@sign/templates/signup-promt.hbs';
 import '@sign/templates/sign.css';
 import Redirector from '@router/redirector';
 import Validator from '@/helpers/validator/validator';
-import { HandlerEvent } from '@interfaces/functions';
+import type { HandlerEvent } from '@interfaces/functions';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView extends PageView {

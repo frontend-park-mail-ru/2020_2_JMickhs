@@ -5,7 +5,7 @@ import {
     NOT_AUTH_USER,
 } from '@evenbus/constants';
 import User from '@user/user';
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import Redirector from '../router/redirector';
 
 export default function userFromCookie(): void {

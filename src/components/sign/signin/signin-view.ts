@@ -8,9 +8,9 @@ import {
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
 import '@sign/templates/sign.css';
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import Redirector from '@router/redirector';
-import { HandlerEvent } from '@interfaces/functions';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class SigninView extends PageView {
     private handlers: Record<string, HandlerEvent>;

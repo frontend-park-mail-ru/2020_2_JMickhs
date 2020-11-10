@@ -6,8 +6,8 @@ import {
 } from '@evenbus/constants';
 import Redirector from '@router/redirector';
 
-import { PageController } from '@interfaces/controllers';
-import { HandlerEvent } from '@interfaces/functions';
+import type { PageController } from '@interfaces/controllers';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class HostelPageController implements PageController {
     private model: HostelPageModel;

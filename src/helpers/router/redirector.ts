@@ -1,4 +1,4 @@
-import { AbstractRouter } from '@interfaces/routers';
+import type { AbstractRouter } from '@interfaces/routers';
 import Router from './router';
 
 class Redirector {

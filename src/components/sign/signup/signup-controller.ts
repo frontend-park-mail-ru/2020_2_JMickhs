@@ -8,7 +8,7 @@ import {
 } from '@evenbus/constants';
 import Validator from '@/helpers/validator/validator';
 import Redirector from '@router/redirector';
-import { HandlerEvent } from '@/helpers/interfaces/functions';
+import type { HandlerEvent } from '@/helpers/interfaces/functions';
 
 /** Класс контроллера для страницы регистрации */
 export default class SignupController {

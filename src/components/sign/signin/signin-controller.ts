@@ -1,4 +1,4 @@
-import { PageController } from '@interfaces/controllers';
+import type { PageController } from '@interfaces/controllers';
 import SigninModel from '@/components/sign/signin/signin-model';
 import SigninView from '@/components/sign/signin/signin-view';
 import Events from '@evenbus/eventbus';
@@ -8,7 +8,7 @@ import {
     AUTH_USER,
 } from '@evenbus/constants';
 import Redirector from '@router/redirector';
-import { HandlerEvent } from '@interfaces/functions';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class SigninController implements PageController {
     private view: SigninView;

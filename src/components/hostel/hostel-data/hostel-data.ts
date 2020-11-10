@@ -1,4 +1,4 @@
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 
 import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
 import * as imagesTemplate from '@hostel/hostel-data/hostel-images.hbs';
@@ -7,8 +7,8 @@ import Events from '@evenbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
 } from '@evenbus/constants';
-import { AbstractComponent } from '@interfaces/components';
-import { HandlerEvent } from '@interfaces/functions';
+import type { AbstractComponent } from '@interfaces/components';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class HostelDataComponent implements AbstractComponent {
     private placeData: HTMLDivElement;

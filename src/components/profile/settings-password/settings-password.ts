@@ -1,8 +1,8 @@
-import { AbstractComponent } from '@interfaces/components';
+import type { AbstractComponent } from '@interfaces/components';
 import Validator from '@/helpers/validator/validator';
 import NetworkUser from '@/helpers/network/network-user';
 import * as template from '@profile/settings-password/settings-password.hbs';
-import { HandlerEvent } from '@interfaces/functions';
+import type { HandlerEvent } from '@interfaces/functions';
 import User from '@/helpers/user/user';
 import Redirector from '@/helpers/router/redirector';
 

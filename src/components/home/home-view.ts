@@ -4,11 +4,11 @@ import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
     FILL_HOSTELS,
 } from '@evenbus/constants';
-import { HandlerEvent } from '@interfaces/functions';
+import type { HandlerEvent } from '@interfaces/functions';
 
 import '@home/templates/home.css';
 import ListComponent from '@/components/home/list-hostels/list-hostels';
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
 
 export default class HomeView extends PageView {

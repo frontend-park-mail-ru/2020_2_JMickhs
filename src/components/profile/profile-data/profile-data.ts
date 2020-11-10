@@ -1,6 +1,6 @@
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
-import { AbstractComponent } from '@interfaces/components';
-import { HandlerEvent } from '@interfaces/functions';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { AbstractComponent } from '@interfaces/components';
+import type { HandlerEvent } from '@interfaces/functions';
 
 import * as dataTemplate from '@profile/profile-data/profile-data.hbs';
 import * as buttonTemplate from '@profile/profile-data/button.hbs';

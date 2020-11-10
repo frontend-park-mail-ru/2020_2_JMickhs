@@ -5,7 +5,7 @@ import {
     SIGNIN_USER,
     ERROR_SIGNIN,
 } from '@evenbus/constants';
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
 export default class SigninModel {
     private user: User;

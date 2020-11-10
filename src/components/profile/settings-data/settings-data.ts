@@ -1,7 +1,7 @@
 import NetworkUser from '@/helpers/network/network-user';
 import User from '@/helpers/user/user';
 import Validator from '@/helpers/validator/validator';
-import { AbstractComponent } from '@interfaces/components';
+import type { AbstractComponent } from '@interfaces/components';
 
 import Events from '@evenbus/eventbus';
 import {
@@ -10,7 +10,7 @@ import {
 
 import * as template from '@profile/settings-data/settings-data.hbs';
 import Redirector from '@router/redirector';
-import { HandlerEvent } from '@/helpers/interfaces/functions';
+import type { HandlerEvent } from '@/helpers/interfaces/functions';
 
 export default class DataUserComponent implements AbstractComponent {
     private place: HTMLDivElement;

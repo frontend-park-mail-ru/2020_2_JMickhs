@@ -1,6 +1,6 @@
-import { AbstractController } from '@interfaces/controllers';
+import type { AbstractController } from '@interfaces/controllers';
 import * as listTemplate from '@home/list-hostels/list-hostels.hbs';
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import '@home/list-hostels/list-hostels.css';
 
 export default class ListComponent implements AbstractController {

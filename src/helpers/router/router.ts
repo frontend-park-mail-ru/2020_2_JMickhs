@@ -1,5 +1,5 @@
-import { PageController } from '@interfaces/controllers';
-import { AbstractRouter } from '@interfaces/routers';
+import type { AbstractRouter } from '@interfaces/routers';
+import type { PageController } from '@interfaces/controllers';
 
 class Router implements AbstractRouter {
     private routes: Record<string, PageController>;

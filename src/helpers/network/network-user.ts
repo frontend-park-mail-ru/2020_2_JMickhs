@@ -1,5 +1,5 @@
 import Request from '@network/request';
-import { ResponseData } from '@/helpers/network/structs-server/respose-data';
+import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 class NetworkUser {
     static user(): Promise<ResponseData> {

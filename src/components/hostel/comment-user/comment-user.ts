@@ -1,4 +1,4 @@
-import { CommentData } from '@/helpers/network/structs-server/comment-data';
+import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 
 import Events from '@evenbus/eventbus';
 import {
@@ -10,9 +10,9 @@ import Redirector from '@router/redirector';
 import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 import NetworkHostel from '@/helpers/network/network-hostel';
 import User from '@user/user';
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
-import { AbstractComponent } from '@interfaces/components';
-import { HandlerEvent } from '@interfaces/functions';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { AbstractComponent } from '@interfaces/components';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class CommentUserComponent implements AbstractComponent {
     private place: HTMLDivElement;

@@ -4,8 +4,8 @@ import Events from '@evenbus/eventbus';
 import {
     SEARCH_HOSTELS,
 } from '@evenbus/constants';
-import { PageController } from '@interfaces/controllers';
-import { HandlerEvent } from '@interfaces/functions';
+import type { PageController } from '@interfaces/controllers';
+import type { HandlerEvent } from '@interfaces/functions';
 
 export default class HomeController implements PageController {
     private model: HomeModel;
