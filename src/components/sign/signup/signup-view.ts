@@ -135,17 +135,14 @@ export default class SignupView extends PageView {
         }, 5000);
     }
 
-    private clickInput(what?: string): void {
-        let input: HTMLInputElement;
+    private clickInput(inputName?: string): void {
         let promts: string[] = [];
-        switch (what) {
+        switch (inputName) {
             case 'login': {
-                input = this.loginInput;
                 promts = Validator.loginRules();
                 break;
             }
             case 'password': {
-                input = this.passwordInputFirst;
                 promts = Validator.passwordRules();
                 break;
             }
@@ -153,17 +150,15 @@ export default class SignupView extends PageView {
                 break;
             }
         }
-        const promtDivOld = document.getElementById('sign-promt');
-        if (promtDivOld) {
-            this.form.removeChild(promtDivOld);
-        }
 
-        const promtDiv = document.createElement('div');
-        promtDiv.id = 'sign-promt';
-        promtDiv.innerHTML = promtTemplate({ promts });
-        if (input) {
-            input.after(promtDiv);
+        document.getElementById('password-promts').innerHTML = '';
+        document.getElementById('login-promts').innerHTML = '';
+
+        const promtsDiv = document.getElementById(`${inputName}-promts`);
+        if (!promtsDiv) {
+            return;
         }
+        promtsDiv.innerHTML = promtTemplate({ promts });
     }
 
     private submitSignup(event: Event): void {
