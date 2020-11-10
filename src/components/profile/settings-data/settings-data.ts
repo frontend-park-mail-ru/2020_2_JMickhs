@@ -21,7 +21,7 @@ export default class DataUserComponent implements AbstractComponent {
 
     private emailInput?: HTMLInputElement;
 
-    private user: User;
+    private user: typeof User;
 
     private messageIdTimer: number;
 
@@ -30,7 +30,7 @@ export default class DataUserComponent implements AbstractComponent {
     private handlers: Record<string, HandlerEvent>;
 
     constructor() {
-        this.user = User.getInstance();
+        this.user = User;
         this.messageIdTimer = -1;
         this.inputIdTimer = -1;
         this.handlers = this.makeHandlers();

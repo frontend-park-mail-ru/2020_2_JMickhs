@@ -134,22 +134,21 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private updateAvatar(formAvatar: HTMLFormElement): void {
-        const user = User.getInstance();
         const response = NetworkUser.updateAvatar(new FormData(formAvatar));
         response.then((value) => {
             const { code } = value;
             switch (code) {
                 case 200:
-                    user.avatar = value.data as string;
-                    this.avatarImage.src = user.avatar;
+                    User.avatar = value.data as string;
+                    this.avatarImage.src = User.avatar;
                     this.renderMessage('Аватарка обновлена');
                     break;
                 case 400:
-                    this.avatarImage.src = user.avatar;
+                    this.avatarImage.src = User.avatar;
                     this.renderMessage('Неверный формат данных', true);
                     break;
                 case 401:
-                    user.isAuth = false;
+                    User.isAuth = false;
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
@@ -169,10 +168,9 @@ export default class DataUserComponent implements AbstractComponent {
         const response = NetworkUser.signout();
         response.then((value) => {
             const { code } = value;
-            const user = User.getInstance();
             switch (code) {
                 case 200:
-                    user.clear();
+                    User.clear();
                     Redirector.redirectTo('/signin');
                     break;
                 default:

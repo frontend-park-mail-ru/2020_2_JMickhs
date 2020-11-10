@@ -8,10 +8,10 @@ import {
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
 export default class SigninModel {
-    private user: User;
+    private user: typeof User;
 
     constructor() {
-        this.user = User.getInstance();
+        this.user = User;
     }
 
     isAuth(): boolean {

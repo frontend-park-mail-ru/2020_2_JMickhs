@@ -176,7 +176,7 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage('Неверный формат запроса');
                     break;
                 case 401:
-                    const user = User.getInstance();
+                    const user = User;
                     user.clear();
                     user.isAuth = false;
                     Redirector.redirectTo('/signin');

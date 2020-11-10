@@ -1,10 +1,10 @@
 import User from '@user/user';
 
 export default class NavModel {
-    private user: User;
+    private user: typeof User;
 
     constructor() {
-        this.user = User.getInstance();
+        this.user = User;
     }
 
     getData(): {isAuth: boolean, username: string, renderProfileButtons: boolean} {
