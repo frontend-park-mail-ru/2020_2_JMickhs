@@ -13,7 +13,7 @@ import Redirector from '@router/redirector';
 import type { HandlerEvent } from '@/helpers/interfaces/functions';
 
 export default class DataUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private saveButton?: HTMLButtonElement;
 

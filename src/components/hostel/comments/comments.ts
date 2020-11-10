@@ -9,7 +9,7 @@ import type { HandlerEvent } from '@interfaces/functions';
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 export default class CommentsComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private nextButton?: HTMLButtonElement;
 

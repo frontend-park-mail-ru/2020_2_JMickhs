@@ -7,7 +7,7 @@ import User from '@/helpers/user/user';
 import Redirector from '@/helpers/router/redirector';
 
 export default class DataUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private saveButton?: HTMLButtonElement;
 
@@ -50,7 +50,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.newPasswordFirstInput = document.getElementById('new-psw1') as HTMLInputElement;
         this.newPasswordSecondInput = document.getElementById('new-psw2') as HTMLInputElement;
 
-        this.saveButton.addEventListener('click', this.handlers.clickSave);
+        this.saveButton?.addEventListener('click', this.handlers.clickSave);
     }
 
     deactivate(): void {
@@ -58,7 +58,7 @@ export default class DataUserComponent implements AbstractComponent {
             return;
         }
 
-        this.saveButton.removeEventListener('click', this.handlers.clickSave);
+        this.saveButton?.removeEventListener('click', this.handlers.clickSave);
 
         this.place.innerHTML = '';
     }

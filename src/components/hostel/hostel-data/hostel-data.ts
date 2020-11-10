@@ -11,9 +11,9 @@ import type { AbstractComponent } from '@interfaces/components';
 import type { HandlerEvent } from '@interfaces/functions';
 
 export default class HostelDataComponent implements AbstractComponent {
-    private placeData: HTMLDivElement;
+    private placeData?: HTMLDivElement;
 
-    private placeImages: HTMLDivElement;
+    private placeImages?: HTMLDivElement;
 
     private image: HTMLImageElement;
 

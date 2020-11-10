@@ -15,7 +15,7 @@ import type { AbstractComponent } from '@interfaces/components';
 import type { HandlerEvent } from '@interfaces/functions';
 
 export default class CommentUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private comment?: CommentData;
 

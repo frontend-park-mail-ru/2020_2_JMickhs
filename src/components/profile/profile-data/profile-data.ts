@@ -10,7 +10,7 @@ import NetworkUser from '@/helpers/network/network-user';
 import Redirector from '@/helpers/router/redirector';
 
 export default class DataUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
     private exitButton?: HTMLButtonElement;
 

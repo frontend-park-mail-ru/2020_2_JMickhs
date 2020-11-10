@@ -58,7 +58,7 @@ export default class HomeView extends PageView {
         searchForm.addEventListener('submit', this.handlers.searchClick);
 
         this.subscribeEvents();
-        this.listComponent.setPlace(document.getElementById('list'));
+        this.listComponent.setPlace(document.getElementById('list') as HTMLDivElement);
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
     }
 
