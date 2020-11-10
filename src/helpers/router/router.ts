@@ -81,7 +81,6 @@ class Router implements AbstractRouter {
             this.currController.deactivate();
         }
         this.currController = controller;
-
         controller.activate(params);
     }
 }

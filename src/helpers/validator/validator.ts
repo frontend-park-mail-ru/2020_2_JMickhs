@@ -23,8 +23,8 @@ class Validator {
                 error: 'Пароль может включать только буквы английского алфавита и цифры',
             },
             {
-                regular: new RegExp('^.{5,30}$'),
-                error: 'Длина пароля должна быть в пределах от 5 до 30 символов',
+                regular: new RegExp('^.{5,25}$'),
+                error: 'Длина пароля должна быть в пределах от 5 до 25 символов',
             },
         ];
 
@@ -46,6 +46,14 @@ class Validator {
         return result;
     }
 
+    loginRules(): string[] {
+        const rules: string[] = [];
+        this.loginTableCheckup.forEach((rule) => {
+            rules.push(rule.error);
+        });
+        return rules;
+    }
+
     validatePassword(password: string) : string[] {
         const result: string[] = [];
         this.passwordTableCheckup.forEach((checkup) => {
@@ -54,6 +62,14 @@ class Validator {
             }
         });
         return result;
+    }
+
+    passwordRules(): string[] {
+        const rules: string[] = [];
+        this.passwordTableCheckup.forEach((rule) => {
+            rules.push(rule.error);
+        });
+        return rules;
     }
 
     validateEmail(email: string) : string[] {

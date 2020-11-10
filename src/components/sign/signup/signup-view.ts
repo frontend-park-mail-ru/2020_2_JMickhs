@@ -10,6 +10,7 @@ import * as signupTemplate from '@sign/templates/signup.hbs';
 import * as promtTemplate from '@sign/templates/signup-promt.hbs';
 import '@sign/templates/sign.css';
 import Redirector from '@router/redirector';
+import Validator from '@/helpers/validator/validator';
 import { HandlerEvent } from '@interfaces/functions';
 
 /** Класс представления для страницы регистрации */
@@ -136,18 +137,16 @@ export default class SignupView extends PageView {
 
     private clickInput(what?: string): void {
         let input: HTMLInputElement;
-        const promts = [];
+        let promts: string[] = [];
         switch (what) {
             case 'login': {
                 input = this.loginInput;
-                promts.push({ text: 'Логин может включать только буквы, цифры и символы _ - .' });
-                promts.push({ text: 'Длина логина должна быть в пределе от 3 до 15 символов' });
+                promts = Validator.loginRules();
                 break;
             }
             case 'password': {
                 input = this.passwordInputFirst;
-                promts.push({ text: 'Пароль может включать только буквы английского алфавита и цифры' });
-                promts.push({ text: 'Длина пароля должна быть в пределах от 5 до 30 символов' });
+                promts = Validator.passwordRules();
                 break;
             }
             default: {
@@ -161,7 +160,7 @@ export default class SignupView extends PageView {
 
         const promtDiv = document.createElement('div');
         promtDiv.id = 'sign-promt';
-        promtDiv.innerHTML = promtTemplate(promts);
+        promtDiv.innerHTML = promtTemplate({ promts });
         if (input) {
             input.after(promtDiv);
         }
