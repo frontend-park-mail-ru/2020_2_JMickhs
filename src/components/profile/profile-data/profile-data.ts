@@ -153,7 +153,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Redirector.redirectError('Нет прав на обновление аватарки');
                     break;
                 case 415:
                     this.renderMessage('Можно загружать только файлы с расширением jpg, png');

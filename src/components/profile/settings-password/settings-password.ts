@@ -185,7 +185,7 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage('Вы ввели неверный пароль');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Redirector.redirectError('Нет прав на изменение пароля');
                     break;
                 default:
                     this.renderMessage(`Ошибка сервера - ${code || value.error}`);

@@ -10,7 +10,7 @@ class Request {
         this.port = ':8080';
     }
 
-    async ajax(method: string,
+    ajax(method: string,
         url: string,
         body?: unknown,
         csrf?: boolean,
@@ -32,22 +32,31 @@ class Request {
         let reqHeaders = headers;
 
         if (csrf) {
-            const token = await this.getToken();
-            if (reqHeaders) {
-                reqHeaders['X-Csrf-Token'] = token;
-            } else {
-                reqHeaders = {
-                    'X-Csrf-Token': token,
-                };
-            }
+            const token = this.getToken();
+            token.then((value) => {
+                if (reqHeaders) {
+                    reqHeaders['X-Csrf-Token'] = value;
+                } else {
+                    reqHeaders = {
+                        'X-Csrf-Token': value,
+                    };
+                }
+                return this.customFetch(this.domain + this.port + url, method, reqBody, reqHeaders);
+            });
+            token.catch((value) => Promise.reject(new Error(value)))
+                .catch((e) => ({ error: e }));
         }
 
-        return fetch(this.domain + this.port + url, {
+        return this.customFetch(this.domain + this.port + url, method, reqBody, reqHeaders);
+    }
+
+    private customFetch(url: string, method: string, body?: BodyInit, headers?: HeadersInit): Promise<ResponseData> {
+        return fetch(url, {
             method,
             mode: 'cors',
             credentials: 'include',
-            body: reqBody,
-            headers: reqHeaders,
+            body,
+            headers,
         }).then((response) => response.json()).then((json) => ({
             code: json.code,
             data: json.data,
@@ -58,7 +67,6 @@ class Request {
 
     private getToken(): Promise<string> {
         const url = '/api/v1/csrf';
-
         let token = '';
 
         return fetch(this.domain + this.port + url, {
@@ -73,7 +81,7 @@ class Request {
                 return '';
             }
             return token;
-        }).catch(() => '');
+        }).catch(() => 'Нет прав доступа');
     }
 }
 

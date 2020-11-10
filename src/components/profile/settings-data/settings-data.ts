@@ -181,7 +181,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Redirector.redirectError('Нет прав на изменение информации');
                     break;
                 case 406:
                     this.renderMessage('Пользователь с таким email уже зарегистрирован', true);
