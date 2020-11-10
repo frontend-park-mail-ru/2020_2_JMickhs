@@ -1,4 +1,4 @@
-class Eventbus {
+class EventBus {
     events: Record<string, Array<(arg?: unknown) => void>>;
 
     constructor() {
@@ -21,4 +21,4 @@ class Eventbus {
     }
 }
 
-export default new Eventbus();
+export default new EventBus();
