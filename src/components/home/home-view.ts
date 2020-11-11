@@ -45,12 +45,12 @@ export default class HomeView extends PageView {
         return handlers;
     }
 
-    listComponentOn(): void {
+    listComponentOff(): void {
         this.mainContainerElement.className = 'home__container-all';
         this.listComponent.deactivate();
     }
 
-    listComponentOff(pattern: string): void {
+    listComponentOn(pattern: string): void {
         this.inputElement.value = pattern;
         this.mainContainerElement.className = 'home__container-list-all';
     }
