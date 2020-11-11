@@ -16,6 +16,8 @@ export default class HomeView extends PageView {
 
     private mainContainerElement: HTMLDivElement;
 
+    private inputElement: HTMLInputElement;
+
     private listComponent: ListComponent;
 
     constructor(parent: HTMLElement) {
@@ -29,8 +31,11 @@ export default class HomeView extends PageView {
         const handlers = {
             searchClick: (evt: Event): void => {
                 evt.preventDefault();
-                const input = document.getElementById('input') as HTMLInputElement;
-                Redirector.redirectTo(`?pattern=${input.value}`);
+                if (this.inputElement.value.length > 50) {
+                    this.renderError('Длинна запроса не должна превышать 50 символов');
+                    return;
+                }
+                Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
             },
             renderHostelList: (hostels: HostelData[]): void => {
                 this.mainContainerElement.className = 'home__container-list-all';
@@ -46,8 +51,7 @@ export default class HomeView extends PageView {
     }
 
     listComponentOff(pattern: string): void {
-        const input = document.getElementById('input') as HTMLInputElement;
-        input.value = pattern;
+        this.inputElement.value = pattern;
         this.mainContainerElement.className = 'home__container-list-all';
     }
 
@@ -60,6 +64,21 @@ export default class HomeView extends PageView {
         this.subscribeEvents();
         this.listComponent.setPlace(document.getElementById('list') as HTMLDivElement);
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
+        this.inputElement = document.getElementById('input') as HTMLInputElement;
+    }
+
+    renderError(error: string): void {
+        this.listComponent.deactivate();
+        this.mainContainerElement.className = 'home__container-list-all';
+        const list = document.getElementById('list');
+        const container = document.createElement('div');
+        const errorTag = document.createElement('h4');
+        container.appendChild(errorTag);
+        container.className = 'home__error';
+        errorTag.className = 'home__error--blue';
+        errorTag.innerText = error;
+        list.appendChild(container);
+        this.inputElement.value = '';
     }
 
     hide(): void {
