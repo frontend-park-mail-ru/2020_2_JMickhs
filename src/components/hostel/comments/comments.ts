@@ -108,6 +108,10 @@ export default class CommentsComponent implements AbstractComponent {
     }
 
     private buttonsDisabled(disabled: boolean): void {
+        if (!this.nextButton && !this.prevButton) {
+            return;
+        }
+
         this.nextButton.disabled = disabled;
         this.prevButton.disabled = disabled;
     }
