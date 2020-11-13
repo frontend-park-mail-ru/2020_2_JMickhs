@@ -53,7 +53,7 @@ export default class HostelImagesComponent implements AbstractComponent {
 
                 this.prevImage();
             },
-            loadImage: this.buttonsDisable.bind(this),
+            loadImage: this.buttonsActivate.bind(this),
         };
     }
 
@@ -81,12 +81,12 @@ export default class HostelImagesComponent implements AbstractComponent {
         this.place.innerHTML = imagesTemplate({ image: this.photos[this.currentPhoto] });
     }
 
-    private buttonsDisable(): void {
+    private buttonsActivate(): void {
         this.nextButton.disabled = false;
         this.prevButton.disabled = false;
     }
 
-    private buttonsActivate(): void {
+    private buttonsDisable(): void {
         this.nextButton.disabled = true;
         this.prevButton.disabled = true;
     }
