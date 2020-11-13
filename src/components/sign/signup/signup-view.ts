@@ -106,16 +106,16 @@ export default class SignupView extends PageView {
 
         switch (numberInputErr) {
             case 1: {
-                this.loginInput.className += ' sign__input--error';
+                this.loginInput.classList.add('sign__input--error');
                 break;
             }
             case 2: {
-                this.emailInput.className += ' sign__input--error';
+                this.emailInput.classList.add('sign__input--error');
                 break;
             }
             case 3: {
-                this.passwordInputFirst.className += ' sign__input--error';
-                this.passwordInputSecond.className += ' sign__input--error';
+                this.passwordInputFirst.classList.add('sign__input--error');
+                this.passwordInputSecond.classList.add('sign__input--error');
                 break;
             }
             default: {
@@ -126,10 +126,7 @@ export default class SignupView extends PageView {
         this.timerId = window.setTimeout(() => {
             errLine.textContent = '';
             if (this.loginInput) {
-                this.loginInput.className = 'sign__input';
-                this.emailInput.className = 'sign__input';
-                this.passwordInputFirst.className = 'sign__input';
-                this.passwordInputSecond.className = 'sign__input';
+                this.clearErrorInputs();
             }
             this.timerId = -1;
         }, 5000);
@@ -163,24 +160,24 @@ export default class SignupView extends PageView {
 
     private submitSignup(event: Event): void {
         event.preventDefault();
-        const loginInput = document.getElementById('signup-login');
-        const emailInput = document.getElementById('signup-email');
-        const passInput1 = document.getElementById('signup-password1');
-        const passInput2 = document.getElementById('signup-password2');
 
         const login = this.loginInput.value;
         const email = this.emailInput.value;
         const passwordFirst = this.passwordInputFirst.value;
         const passwordSecond = this.passwordInputSecond.value;
 
-        loginInput.className = 'sign__input';
-        emailInput.className = 'sign__input';
-        passInput1.className = 'sign__input';
-        passInput2.className = 'sign__input';
+        this.clearErrorInputs();
 
         Events.trigger(SUBMIT_SIGNUP, {
             login, email, passwordFirst, passwordSecond,
         });
+    }
+
+    private clearErrorInputs(): void {
+        this.loginInput.classList?.remove('sign__input--error');
+        this.emailInput.classList?.remove('sign__input--error');
+        this.passwordInputFirst.classList?.remove('sign__input--error');
+        this.passwordInputSecond.classList?.remove('sign__input--error');
     }
 
     hide(): void {

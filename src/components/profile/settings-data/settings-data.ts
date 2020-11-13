@@ -119,16 +119,17 @@ export default class DataUserComponent implements AbstractComponent {
         }
         const errLine = document.getElementById('text-error-data');
         if (isErr) {
-            errLine.className += ' profile__text--red';
+            errLine.classList.remove('profile__text--blue');
+            errLine.classList.add('profile__text--red');
         } else {
-            errLine.className += 'profile__message profile__text profile__text--center profile__text--blue';
+            errLine.classList.remove('profile__text--red');
+            errLine.classList.add('profile__text--blue');
         }
         errLine.textContent = text;
 
         this.messageIdTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'profile__message profile__text profile__text--center';
             }
             this.messageIdTimer = -1;
         }, 5000);
@@ -138,7 +139,7 @@ export default class DataUserComponent implements AbstractComponent {
         if (this.inputIdTimer !== -1) {
             window.clearTimeout(this.inputIdTimer);
         }
-        let input: HTMLElement;
+        let input: HTMLInputElement;
 
         switch (what) {
             case 'login': {
@@ -153,10 +154,10 @@ export default class DataUserComponent implements AbstractComponent {
                 return;
             }
         }
-        input.className += ' profile__input--error';
+        input.classList.add('profile__input--error');
         this.inputIdTimer = window.setTimeout(() => {
             if (input) {
-                input.className = 'profile__input';
+                input.classList.remove('profile__input--error');
             }
             this.inputIdTimer = -1;
         }, 5000);

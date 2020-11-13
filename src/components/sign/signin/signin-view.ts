@@ -19,6 +19,10 @@ export default class SigninView extends PageView {
 
     private form?: HTMLFormElement;
 
+    private loginInput?: HTMLInputElement;
+
+    private passwordInput?: HTMLInputElement;
+
     constructor(parent: HTMLElement) {
         super(parent);
 
@@ -41,8 +45,8 @@ export default class SigninView extends PageView {
                 const passInput = document.getElementById('signin-password') as HTMLInputElement;
                 const login = loginInput.value;
                 const password = passInput.value;
-                document.getElementById('signin-login').className = 'sign__input';
-                document.getElementById('signin-password').className = 'sign__input';
+                this.loginInput.classList.remove('sign__input--error');
+                this.passwordInput.classList.remove('sign__input--error');
                 Events.trigger(SUBMIT_SIGNIN, { login, password });
             },
         };
@@ -53,26 +57,18 @@ export default class SigninView extends PageView {
             clearTimeout(this.timerId);
         }
         if (numberInputErr === 1) {
-            document.getElementById('signin-login').className += ' sign__input--error';
+            this.loginInput.classList.add('sign__input--error');
         }
         if (numberInputErr === 2) {
-            document.getElementById('signin-password').className += ' sign__input--error';
+            this.passwordInput.classList.add('sign__input--error');
         }
         const errLine = document.getElementById('text-error');
         errLine.textContent = errstr;
 
         this.timerId = window.setTimeout(() => {
             errLine.textContent = '';
-            const loginElem = document.getElementById('signin-login');
-            // тут не очевидно, так что поясню.
-            // Если отрендерится ошибка и пользователь перейдет на другую страницу до того как эта ошибка пропадет,
-            // выполнится следующий код, но уже на новой странице, на которой нет html-тегов,
-            // котрые используются функцией. Бах, и jserror в консоль! Но мы это предвидим :) и проверяем, есть ли
-            // нужные теги(одного достаточно на самом деле) на странице
-            if (loginElem !== null) {
-                loginElem.className = 'sign__input';
-                document.getElementById('signin-password').className = 'sign__input';
-            }
+            this.loginInput?.classList.remove('sign__input--error');
+            this.passwordInput?.classList.remove('sign__input--error');
             this.timerId = -1;
         }, 5000);
     }
@@ -82,6 +78,9 @@ export default class SigninView extends PageView {
         this.page.innerHTML = signinTemplate();
 
         this.form = document.getElementById('signinform') as HTMLFormElement;
+
+        this.loginInput = document.getElementById('signin-login') as HTMLInputElement;
+        this.passwordInput = document.getElementById('signin-password') as HTMLInputElement;
 
         this.subscribeEvents();
     }

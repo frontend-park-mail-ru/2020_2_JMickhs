@@ -198,6 +198,11 @@
     transition: 0.3s;
 }
 
+.hostel__button-round:disabled {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
 .hostel__button-round:hover {
     background-color: var(--orange-dark);
 }
