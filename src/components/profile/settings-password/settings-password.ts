@@ -110,10 +110,10 @@ export default class DataUserComponent implements AbstractComponent {
         if (this.oldPasswordInputIdTimer !== -1) {
             window.clearTimeout(this.oldPasswordInputIdTimer);
         }
-        this.oldPasswordInput.className += ' profile__input--error';
+        this.oldPasswordInput.classList.add('profile__input--error');
         this.oldPasswordInputIdTimer = window.setTimeout(() => {
             if (this.oldPasswordInput) {
-                this.oldPasswordInput.className = 'profile__input';
+                this.oldPasswordInput.classList.remove('profile__input--error');
             }
             this.oldPasswordInputIdTimer = -1;
         }, 5000);
@@ -123,12 +123,12 @@ export default class DataUserComponent implements AbstractComponent {
         if (this.newPasswordInputIdTimer !== -1) {
             window.clearTimeout(this.newPasswordInputIdTimer);
         }
-        this.newPasswordFirstInput.className += ' profile__input--error';
-        this.newPasswordSecondInput.className += ' profile__input--error';
+        this.newPasswordFirstInput.classList.add('profile__input--error');
+        this.newPasswordSecondInput.classList.add('profile__input--error');
         this.newPasswordInputIdTimer = window.setTimeout(() => {
             if (this.newPasswordFirstInput) {
-                this.newPasswordFirstInput.className = 'profile__input';
-                this.newPasswordSecondInput.className = 'profile__input';
+                this.newPasswordFirstInput.classList.remove('profile__input--error');
+                this.newPasswordSecondInput.classList.remove('profile__input--error');
             }
             this.newPasswordInputIdTimer = -1;
         }, 5000);
@@ -147,9 +147,11 @@ export default class DataUserComponent implements AbstractComponent {
         const errLine = document.getElementById('text-error-sequr');
 
         if (isErr) {
-            errLine.className += ' profile__text--red';
+            errLine.classList.remove('profile__text--blue');
+            errLine.classList.add('profile__text--red');
         } else {
-            errLine.className += 'profile__message profile__text profile__text--center profile__text--blue';
+            errLine.classList.remove('profile__text--red');
+            errLine.classList.add('profile__text--blue');
         }
 
         errLine.textContent = text;
@@ -157,7 +159,6 @@ export default class DataUserComponent implements AbstractComponent {
         this.idTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'profile__message profile__text profile__text--center';
             }
             this.idTimer = -1;
         }, 5000);
