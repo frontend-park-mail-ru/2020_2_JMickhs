@@ -21,9 +21,9 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private idHostel: number;
 
-    private addButton: HTMLButtonElement;
+    private addButton?: HTMLButtonElement;
 
-    private editButton: HTMLButtonElement;
+    private editButton?: HTMLButtonElement;
 
     private textArea: HTMLTextAreaElement;
 
@@ -63,6 +63,7 @@ export default class CommentUserComponent implements AbstractComponent {
             addComment: (event: Event): void => {
                 event.preventDefault();
 
+                this.currentButtonDisabled(true);
                 this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
             },
             editComment: (event: Event): void => {
@@ -72,6 +73,7 @@ export default class CommentUserComponent implements AbstractComponent {
                     return;
                 }
 
+                this.currentButtonDisabled(true);
                 this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
             },
             userAppear: (user: UserData): void => {
@@ -89,28 +91,30 @@ export default class CommentUserComponent implements AbstractComponent {
         this.editButton = document.getElementById('button-edit-comment') as HTMLButtonElement;
         this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
         this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
+
+        this.currentButtonDisabled(false);
     }
 
     private subscribeEvents(): void {
         Events.subscribe(AUTH_USER, this.handlers.userAppear);
 
-        if (this.addButton) {
-            this.addButton.addEventListener('click', this.handlers.addComment);
-        }
-
-        if (this.editButton) {
-            this.editButton.addEventListener('click', this.handlers.editComment);
-        }
+        this.addButton?.addEventListener('click', this.handlers.addComment);
+        this.editButton?.addEventListener('click', this.handlers.editComment);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(AUTH_USER, this.handlers.userAppear);
 
+        this.addButton?.removeEventListener('click', this.handlers.addComment);
+        this.editButton?.removeEventListener('click', this.handlers.editComment);
+    }
+
+    private currentButtonDisabled(disabled: boolean): void {
         if (this.addButton) {
-            this.addButton.removeEventListener('click', this.handlers.addComment);
+            this.addButton.disabled = disabled;
         }
         if (this.editButton) {
-            this.editButton.removeEventListener('click', this.handlers.editComment);
+            this.editButton.disabled = disabled;
         }
     }
 
