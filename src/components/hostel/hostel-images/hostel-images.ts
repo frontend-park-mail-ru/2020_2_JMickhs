@@ -34,6 +34,10 @@ export default class HostelImagesComponent implements AbstractComponent {
         this.prevButton = document.getElementById('button-image-prev') as HTMLButtonElement;
         this.image = document.getElementById('cur-image') as HTMLImageElement;
 
+        if (!this.image.complete) {
+            this.buttonsActivate();
+        }
+
         this.subscribeEvents();
     }
 
@@ -49,17 +53,20 @@ export default class HostelImagesComponent implements AbstractComponent {
 
                 this.prevImage();
             },
+            loadImage: this.buttonsDisable.bind(this),
         };
     }
 
     private subscribeEvents(): void {
         this.nextButton?.addEventListener('click', this.handlers.nextImg);
         this.prevButton?.addEventListener('click', this.handlers.prevImg);
+        this.image?.addEventListener('load', this.handlers.loadImage);
     }
 
     private unsubscribeEvents(): void {
         this.nextButton?.removeEventListener('click', this.handlers.nextImg);
         this.prevButton?.removeEventListener('click', this.handlers.prevImg);
+        this.image?.removeEventListener('load', this.handlers.loadImage);
     }
 
     setPlace(place: HTMLDivElement): void {
@@ -74,12 +81,23 @@ export default class HostelImagesComponent implements AbstractComponent {
         this.place.innerHTML = imagesTemplate({ image: this.photos[this.currentPhoto] });
     }
 
+    private buttonsDisable(): void {
+        this.nextButton.disabled = false;
+        this.prevButton.disabled = false;
+    }
+
+    private buttonsActivate(): void {
+        this.nextButton.disabled = true;
+        this.prevButton.disabled = true;
+    }
+
     private nextImage(): void {
         this.currentPhoto += 1;
         if (this.currentPhoto === this.photos.length) {
             this.currentPhoto = 0;
         }
 
+        this.buttonsActivate();
         this.image.src = this.photos[this.currentPhoto];
     }
 
@@ -89,6 +107,7 @@ export default class HostelImagesComponent implements AbstractComponent {
             this.currentPhoto = this.photos.length - 1;
         }
 
+        this.buttonsActivate();
         this.image.src = this.photos[this.currentPhoto];
     }
 
