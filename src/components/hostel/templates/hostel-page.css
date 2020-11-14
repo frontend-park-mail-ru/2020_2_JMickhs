@@ -277,6 +277,11 @@
 @media only screen and (max-width: 800px) {
     .hostel__button--position-center {
         margin-top: 210px;
+        margin-bottom: 0;
+    }
+
+    .hostel__comment-card {
+        margin-top: 0;
     }
 
     .hostel__data {
