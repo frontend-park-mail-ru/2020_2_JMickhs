@@ -67,7 +67,7 @@ export default class HostelPageView extends PageView {
         this.imagesComponent.deactivate();
         this.userCommentComponent.deactivate();
         this.commentsComponent.deactivate();
-        this.mapComponent.deactivate(); // еще не сделано
+        this.mapComponent.deactivate();
 
         this.page.innerHTML = '';
     }
