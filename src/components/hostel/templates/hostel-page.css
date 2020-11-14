@@ -4,7 +4,8 @@
     display: grid;
     grid-template-areas:
         "images data"
-        "comments comment";
+        "comments comment"
+        "map map";
     grid-template-rows: repeat(2, auto);
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1vw;
@@ -16,7 +17,8 @@
             "images"
             "data"
             "comment"
-            "comments";
+            "comments"
+            "map";
         grid-template-rows: repeat(4, auto);
         grid-template-columns: 1fr;
     }
@@ -26,6 +28,16 @@
     .hostel__comments {
         margin-bottom: 5%;
     }
+    .hostel__map {
+        width: 90%;
+    }
+}
+
+.hostel__map--container {
+    width: 95%;
+    margin: auto;
+    grid-area: map;
+    text-align: center;
 }
 
 .hostel__images {
@@ -47,7 +59,6 @@
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     object-fit: cover;
     transition: 0.3s;
-
     position: absolute;
     left: 0;
     top: 0;
