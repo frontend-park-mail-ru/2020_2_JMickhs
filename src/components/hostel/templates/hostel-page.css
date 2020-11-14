@@ -50,7 +50,7 @@
 }
 
 .hostel__cur-image {
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     object-fit: cover;
     transition: 0.3s;
