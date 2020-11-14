@@ -66,10 +66,16 @@ export default class DataUserComponent implements AbstractComponent {
     private clickSave(event: Event): void {
         event.preventDefault();
 
-        this.validate();
+        this.saveButton.disabled = true;
+        const possibility = this.validate();
+        if (possibility) {
+            this.updatePassword(this.oldPasswordInput.value, this.newPasswordFirstInput.value);
+        } else {
+            this.saveButton.disabled = false;
+        }
     }
 
-    private validate(): void {
+    private validate(): boolean { // true, если все хорошо
         const oldPassword = this.oldPasswordInput.value;
         const newPasswordFirst = this.newPasswordFirstInput.value;
         const newPasswordSecond = this.newPasswordSecondInput.value;
@@ -77,33 +83,33 @@ export default class DataUserComponent implements AbstractComponent {
         if (oldPassword === '') {
             this.renderOldPasswordInputError();
             this.renderMessage('Вы не ввели старый пароль!');
-            return;
+            return false;
         }
         if (newPasswordFirst === '') {
             this.renderNewPasswordInputError();
             this.renderMessage('Необходимо заполнить все поля');
-            return;
+            return false;
         }
         if (newPasswordFirst !== newPasswordSecond) {
             this.renderNewPasswordInputError();
             this.renderMessage('Пароли не совпадают');
-            return;
+            return false;
         }
         if (oldPassword === newPasswordFirst) {
             this.renderNewPasswordInputError();
             this.renderOldPasswordInputError();
             this.renderMessage('Старый и новый пароль совпадает');
-            return;
+            return false;
         }
 
         const passwordErrors = Validator.validatePassword(newPasswordFirst);
         if (passwordErrors.length > 0) {
             this.renderNewPasswordInputError();
             this.renderMessage(passwordErrors[0]);
-            return;
+            return false;
         }
 
-        this.updatePassword(oldPassword, newPasswordFirst);
+        return true;
     }
 
     private renderOldPasswordInputError(): void {
@@ -167,6 +173,7 @@ export default class DataUserComponent implements AbstractComponent {
     private updatePassword(oldPassword: string, password: string): void {
         const response = NetworkUser.updatePassword(oldPassword, password);
         response.then((value) => {
+            this.saveButton.disabled = false;
             const { code } = value;
             switch (code) {
                 case 200:

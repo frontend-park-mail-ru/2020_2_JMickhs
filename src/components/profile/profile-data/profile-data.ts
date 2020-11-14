@@ -82,6 +82,7 @@ export default class DataUserComponent implements AbstractComponent {
             },
             signoutClick: (event: Event): void => {
                 event.preventDefault();
+                this.exitButton.disabled = true;
                 this.signout();
             },
         };
