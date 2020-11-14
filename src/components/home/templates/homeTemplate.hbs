@@ -1,7 +1,21 @@
-<div class="home__container-all" id="container">
-    <form class="home__search" id="search-form">
-        <input class="search" id="input" type="text" placeholder="Введите отель или его адрес..."/>
-        <button class="button-regular-orange button-search-container" id="button">Искать</button>
-    </form>
-    <div class="home__list" id="list"></div>
-</div>
+{{#if error}}
+    <div class="home__container-list-all" id="container">
+        <form class="home__search" id="search-form">
+            <input class="search" id="input" type="text" placeholder="Введите отель или его адрес..."/>
+            <button class="button-regular-orange button-search-container" id="search-button">Искать</button>
+        </form>
+        <div class="home__list" id="list">
+            <div class="home__error">
+                <h4 class="home__error--blue">{{error}}</h4>
+            </div>
+        </div>
+    </div>
+{{else}}
+    <div class="home__container-all" id="container">
+        <form class="home__search" id="search-form">
+            <input class="search" id="input" type="text" placeholder="Введите отель или его адрес..."/>
+            <button class="button-regular-orange button-search-container" id="search-button">Искать</button>
+        </form>
+        <div class="home__list" id="list"></div>
+    </div>
+{{/if}}

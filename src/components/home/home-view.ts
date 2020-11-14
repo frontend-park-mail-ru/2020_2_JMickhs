@@ -61,11 +61,11 @@ export default class HomeView extends PageView {
         this.mainContainerElement.className = 'home__container-list-all';
     }
 
-    render(): void {
-        this.page.innerHTML = homeTemplate();
+    render(err = ''): void {
+        this.page.innerHTML = homeTemplate({ error: err });
 
         this.searchForm = document.getElementById('search-form') as HTMLFormElement;
-        this.searchButton = document.getElementById('button') as HTMLButtonElement;
+        this.searchButton = document.getElementById('search-button') as HTMLButtonElement;
         this.inputElement = document.getElementById('input') as HTMLInputElement;
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
@@ -76,15 +76,7 @@ export default class HomeView extends PageView {
 
     renderError(error: string): void {
         this.listComponent.deactivate();
-        this.mainContainerElement.className = 'home__container-list-all';
-        const list = document.getElementById('list');
-        const container = document.createElement('div');
-        const errorTag = document.createElement('h4');
-        container.appendChild(errorTag);
-        container.className = 'home__error';
-        errorTag.className = 'home__error--blue';
-        errorTag.innerText = error;
-        list.appendChild(container);
+        this.render(error);
         this.inputElement.value = '';
     }
 
@@ -93,8 +85,8 @@ export default class HomeView extends PageView {
             return;
         }
         this.listComponent.deactivate();
-        const searchButton = document.getElementById('button');
-        searchButton.removeEventListener('submit', this.handlers.searchClick);
+
+        this.searchButton.removeEventListener('submit', this.handlers.searchClick);
 
         this.unsubscribeEvents();
 
