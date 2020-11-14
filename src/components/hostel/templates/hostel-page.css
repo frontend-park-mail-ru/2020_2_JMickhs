@@ -38,8 +38,8 @@
 }
 
 .hostel__map--container {
-    width: 95%;
-    margin: auto;
+    width: 100%;
+    margin-bottom: 5%;
     grid-area: map;
     text-align: center;
 }
@@ -302,7 +302,7 @@
     justify-content: center;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 765px) {
     .hostel__comment-card {
         margin-top: 0;
     }
