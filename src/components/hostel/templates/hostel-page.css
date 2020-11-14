@@ -133,6 +133,7 @@
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     padding: 1px 5%;
     width: 100%;
+    max-width: 42vw;
     height: 11rem;
     transition: 0.3s;
     overflow: auto;
@@ -312,5 +313,13 @@
 
     .hostel__card {
         max-height: min-content;
+    }
+
+    .hostel__comment-card {
+        max-width: 80vw;
+    }
+
+    .hostel__user-comment--no-auth-container {
+        min-height: 100px;
     }
 }
