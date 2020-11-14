@@ -16,6 +16,12 @@ export default class HomeView extends PageView {
 
     private mainContainerElement: HTMLDivElement;
 
+    private searchForm: HTMLFormElement;
+
+    private searchButton: HTMLButtonElement;
+
+    private inputElement: HTMLInputElement;
+
     private listComponent: ListComponent;
 
     constructor(parent: HTMLElement) {
@@ -29,10 +35,15 @@ export default class HomeView extends PageView {
         const handlers = {
             searchClick: (evt: Event): void => {
                 evt.preventDefault();
-                const input = document.getElementById('input') as HTMLInputElement;
-                Redirector.redirectTo(`?pattern=${input.value}`);
+                if (this.inputElement.value.length > 50) {
+                    this.renderError('Длинна запроса не должна превышать 50 символов');
+                    return;
+                }
+                this.searchButton.disabled = true;
+                Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
             },
             renderHostelList: (hostels: HostelData[]): void => {
+                this.searchButton.disabled = false;
                 this.mainContainerElement.className = 'home__container-list-all';
                 this.listComponent.activate(hostels);
             },
@@ -40,26 +51,41 @@ export default class HomeView extends PageView {
         return handlers;
     }
 
-    listComponentOn(): void {
+    listComponentOff(): void {
         this.mainContainerElement.className = 'home__container-all';
         this.listComponent.deactivate();
     }
 
-    listComponentOff(pattern: string): void {
-        const input = document.getElementById('input') as HTMLInputElement;
-        input.value = pattern;
+    listComponentOn(pattern: string): void {
+        this.inputElement.value = pattern;
         this.mainContainerElement.className = 'home__container-list-all';
     }
 
     render(): void {
         this.page.innerHTML = homeTemplate();
 
-        const searchForm = document.getElementById('search-form');
-        searchForm.addEventListener('submit', this.handlers.searchClick);
+        this.searchForm = document.getElementById('search-form') as HTMLFormElement;
+        this.searchButton = document.getElementById('button') as HTMLButtonElement;
+        this.inputElement = document.getElementById('input') as HTMLInputElement;
+        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
         this.subscribeEvents();
+
         this.listComponent.setPlace(document.getElementById('list') as HTMLDivElement);
-        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
+    }
+
+    renderError(error: string): void {
+        this.listComponent.deactivate();
+        this.mainContainerElement.className = 'home__container-list-all';
+        const list = document.getElementById('list');
+        const container = document.createElement('div');
+        const errorTag = document.createElement('h4');
+        container.appendChild(errorTag);
+        container.className = 'home__error';
+        errorTag.className = 'home__error--blue';
+        errorTag.innerText = error;
+        list.appendChild(container);
+        this.inputElement.value = '';
     }
 
     hide(): void {
@@ -76,10 +102,12 @@ export default class HomeView extends PageView {
     }
 
     private subscribeEvents(): void {
+        this.searchForm.addEventListener('submit', this.handlers.searchClick);
         Events.subscribe(FILL_HOSTELS, this.handlers.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
+        this.searchForm.removeEventListener('submit', this.handlers.searchClick);
         Events.unsubscribe(FILL_HOSTELS, this.handlers.renderHostelList);
     }
 }

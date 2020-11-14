@@ -82,6 +82,7 @@ export default class DataUserComponent implements AbstractComponent {
             },
             signoutClick: (event: Event): void => {
                 event.preventDefault();
+                this.exitButton.disabled = true;
                 this.signout();
             },
         };
@@ -122,9 +123,9 @@ export default class DataUserComponent implements AbstractComponent {
         this.divAvatarBottom.innerHTML = messageTemplate({ text: message });
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
-            msg.className += ' profile__text--red';
+            msg.classList.add('profile__text--red');
         } else {
-            msg.className += ' profile__text--blue';
+            msg.classList.add('profile__text--blue');
         }
 
         this.idTimer = window.setTimeout(() => {

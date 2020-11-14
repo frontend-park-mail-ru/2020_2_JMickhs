@@ -32,12 +32,12 @@ export default class SignupController {
     }
 
     activate(): void {
+        this.subscribeEvents();
+        Events.trigger(PAGE_SIGNUP);
         if (this.model.isAuth()) {
             this.redirectToProfile();
             return;
         }
-        this.subscribeEvents();
-        Events.trigger(PAGE_SIGNUP);
         this.view.render();
     }
 

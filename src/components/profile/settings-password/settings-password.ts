@@ -66,10 +66,16 @@ export default class DataUserComponent implements AbstractComponent {
     private clickSave(event: Event): void {
         event.preventDefault();
 
-        this.validate();
+        this.saveButton.disabled = true;
+        const possibility = this.validate();
+        if (possibility) {
+            this.updatePassword(this.oldPasswordInput.value, this.newPasswordFirstInput.value);
+        } else {
+            this.saveButton.disabled = false;
+        }
     }
 
-    private validate(): void {
+    private validate(): boolean { // true, если все хорошо
         const oldPassword = this.oldPasswordInput.value;
         const newPasswordFirst = this.newPasswordFirstInput.value;
         const newPasswordSecond = this.newPasswordSecondInput.value;
@@ -77,43 +83,43 @@ export default class DataUserComponent implements AbstractComponent {
         if (oldPassword === '') {
             this.renderOldPasswordInputError();
             this.renderMessage('Вы не ввели старый пароль!');
-            return;
+            return false;
         }
         if (newPasswordFirst === '') {
             this.renderNewPasswordInputError();
             this.renderMessage('Необходимо заполнить все поля');
-            return;
+            return false;
         }
         if (newPasswordFirst !== newPasswordSecond) {
             this.renderNewPasswordInputError();
             this.renderMessage('Пароли не совпадают');
-            return;
+            return false;
         }
         if (oldPassword === newPasswordFirst) {
             this.renderNewPasswordInputError();
             this.renderOldPasswordInputError();
             this.renderMessage('Старый и новый пароль совпадает');
-            return;
+            return false;
         }
 
         const passwordErrors = Validator.validatePassword(newPasswordFirst);
         if (passwordErrors.length > 0) {
             this.renderNewPasswordInputError();
             this.renderMessage(passwordErrors[0]);
-            return;
+            return false;
         }
 
-        this.updatePassword(oldPassword, newPasswordFirst);
+        return true;
     }
 
     private renderOldPasswordInputError(): void {
         if (this.oldPasswordInputIdTimer !== -1) {
             window.clearTimeout(this.oldPasswordInputIdTimer);
         }
-        this.oldPasswordInput.className += ' profile__input--error';
+        this.oldPasswordInput.classList.add('profile__input--error');
         this.oldPasswordInputIdTimer = window.setTimeout(() => {
             if (this.oldPasswordInput) {
-                this.oldPasswordInput.className = 'profile__input';
+                this.oldPasswordInput.classList.remove('profile__input--error');
             }
             this.oldPasswordInputIdTimer = -1;
         }, 5000);
@@ -123,12 +129,12 @@ export default class DataUserComponent implements AbstractComponent {
         if (this.newPasswordInputIdTimer !== -1) {
             window.clearTimeout(this.newPasswordInputIdTimer);
         }
-        this.newPasswordFirstInput.className += ' profile__input--error';
-        this.newPasswordSecondInput.className += ' profile__input--error';
+        this.newPasswordFirstInput.classList.add('profile__input--error');
+        this.newPasswordSecondInput.classList.add('profile__input--error');
         this.newPasswordInputIdTimer = window.setTimeout(() => {
             if (this.newPasswordFirstInput) {
-                this.newPasswordFirstInput.className = 'profile__input';
-                this.newPasswordSecondInput.className = 'profile__input';
+                this.newPasswordFirstInput.classList.remove('profile__input--error');
+                this.newPasswordSecondInput.classList.remove('profile__input--error');
             }
             this.newPasswordInputIdTimer = -1;
         }, 5000);
@@ -147,9 +153,11 @@ export default class DataUserComponent implements AbstractComponent {
         const errLine = document.getElementById('text-error-sequr');
 
         if (isErr) {
-            errLine.className += ' profile__text--red';
+            errLine.classList.remove('profile__text--blue');
+            errLine.classList.add('profile__text--red');
         } else {
-            errLine.className += 'profile__message profile__text profile__text--center profile__text--blue';
+            errLine.classList.remove('profile__text--red');
+            errLine.classList.add('profile__text--blue');
         }
 
         errLine.textContent = text;
@@ -157,7 +165,6 @@ export default class DataUserComponent implements AbstractComponent {
         this.idTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'profile__message profile__text profile__text--center';
             }
             this.idTimer = -1;
         }, 5000);
@@ -166,6 +173,7 @@ export default class DataUserComponent implements AbstractComponent {
     private updatePassword(oldPassword: string, password: string): void {
         const response = NetworkUser.updatePassword(oldPassword, password);
         response.then((value) => {
+            this.saveButton.disabled = false;
             const { code } = value;
             switch (code) {
                 case 200:

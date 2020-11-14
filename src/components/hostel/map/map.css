@@ -1,0 +1,36 @@
+.map__container {
+    align-items: center;
+    height: 400px;
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    border: 2px solid var(--gray);
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.map__container:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+}
+
+.map__button {
+    line-height: 38px;
+    border-style: none;
+    background-color: var(--orange);
+    border-radius: 3px;
+    color: var(--white);
+    outline-style: none;
+    font-size: inherit;
+    font-family: inherit;
+    width: 105px;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+}
+
+.map__button:disabled {
+    opacity: 0.8;
+    cursor: default;
+    pointer-events: none;
+}
+
+.map__button:hover {
+    opacity: 0.8;
+}

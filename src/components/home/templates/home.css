@@ -52,6 +52,11 @@
     outline: none;
     width: 100%;
     min-width: 170px;
+    transition: 0.3s;
+}
+
+.search:hover {
+    box-shadow: 0 0 16px var(--shadow-color);
 }
 
 .search::placeholder {
@@ -92,4 +97,27 @@
     border: none;
     outline: none;
     height: 45px;
+    transition: 0.3s;
+}
+
+.button-regular-orange:hover {
+    background-color: var(--orange);
+    box-shadow: 0 0 16px var(--shadow-color);
+}
+
+.button-regular-orange:disabled {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.home__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-bottom: 5%;
+}
+
+.home__error--blue {
+    color: var(--blue);
 }

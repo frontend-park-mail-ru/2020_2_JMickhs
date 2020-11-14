@@ -44,9 +44,15 @@ export default class DataUserComponent implements AbstractComponent {
         return {
             saveDataClick: (event: Event): void => {
                 event.preventDefault();
+                this.saveButton.disabled = true;
                 const username = this.loginInput.value;
                 const email = this.emailInput.value;
-                this.validate(username, email);
+                const possibility = this.validate(username, email);
+                if (possibility) {
+                    this.changeUser(username, email);
+                } else {
+                    this.saveButton.disabled = false;
+                }
             },
         };
     }
@@ -78,39 +84,39 @@ export default class DataUserComponent implements AbstractComponent {
         this.place.innerHTML = '';
     }
 
-    private validate(username: string, email: string): void {
+    private validate(username: string, email: string): boolean { // true, если все хорошо
         if (username === this.user.userName && email === this.user.email) {
             this.renderMessage('Вы ничего не изменили =)');
-            return;
+            return false;
         }
 
         if (username === '') {
             this.renderMessage('Заполните поле логина');
             this.renderInputError('login');
-            return;
+            return false;
         }
 
         if (email === '') {
             this.renderMessage('Заполните поле c почтой');
             this.renderInputError('email');
-            return;
+            return false;
         }
 
         const loginErrors = Validator.validateLogin(username);
         if (loginErrors.length > 0) {
             this.renderMessage(loginErrors[0]);
             this.renderInputError('login');
-            return;
+            return false;
         }
 
         const emailErrors = Validator.validateEmail(email);
         if (emailErrors.length > 0) {
             this.renderMessage(emailErrors[0]);
             this.renderInputError('email');
-            return;
+            return false;
         }
 
-        this.changeUser(username, email);
+        return true;
     }
 
     private renderMessage(text: string, isErr = true): void {
@@ -119,16 +125,17 @@ export default class DataUserComponent implements AbstractComponent {
         }
         const errLine = document.getElementById('text-error-data');
         if (isErr) {
-            errLine.className += ' profile__text--red';
+            errLine.classList.remove('profile__text--blue');
+            errLine.classList.add('profile__text--red');
         } else {
-            errLine.className += 'profile__message profile__text profile__text--center profile__text--blue';
+            errLine.classList.remove('profile__text--red');
+            errLine.classList.add('profile__text--blue');
         }
         errLine.textContent = text;
 
         this.messageIdTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'profile__message profile__text profile__text--center';
             }
             this.messageIdTimer = -1;
         }, 5000);
@@ -138,7 +145,7 @@ export default class DataUserComponent implements AbstractComponent {
         if (this.inputIdTimer !== -1) {
             window.clearTimeout(this.inputIdTimer);
         }
-        let input: HTMLElement;
+        let input: HTMLInputElement;
 
         switch (what) {
             case 'login': {
@@ -153,10 +160,10 @@ export default class DataUserComponent implements AbstractComponent {
                 return;
             }
         }
-        input.className += ' profile__input--error';
+        input.classList.add('profile__input--error');
         this.inputIdTimer = window.setTimeout(() => {
             if (input) {
-                input.className = 'profile__input';
+                input.classList.remove('profile__input--error');
             }
             this.inputIdTimer = -1;
         }, 5000);
@@ -165,6 +172,7 @@ export default class DataUserComponent implements AbstractComponent {
     private changeUser(username: string, email: string): void {
         const response = NetworkUser.changeUser(username, email);
         response.then((value) => {
+            this.saveButton.disabled = false;
             const { code } = value;
             switch (code) {
                 case 200:
