@@ -52,6 +52,11 @@
     outline: none;
     width: 100%;
     min-width: 170px;
+    transition: 0.3s;
+}
+
+.search:hover {
+    box-shadow: 0 0 16px var(--shadow-color);
 }
 
 .search::placeholder {
@@ -92,6 +97,17 @@
     border: none;
     outline: none;
     height: 45px;
+    transition: 0.3s;
+}
+
+.button-regular-orange:hover {
+    background-color: var(--orange);
+    box-shadow: 0 0 16px var(--shadow-color);
+}
+
+.button-regular-orange:disabled {
+    opacity: 0.7;
+    pointer-events: none;
 }
 
 .home__error {

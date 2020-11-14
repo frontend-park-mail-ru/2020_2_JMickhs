@@ -16,6 +16,10 @@ export default class HomeView extends PageView {
 
     private mainContainerElement: HTMLDivElement;
 
+    private searchForm: HTMLFormElement;
+
+    private searchButton: HTMLButtonElement;
+
     private inputElement: HTMLInputElement;
 
     private listComponent: ListComponent;
@@ -35,9 +39,11 @@ export default class HomeView extends PageView {
                     this.renderError('Длинна запроса не должна превышать 50 символов');
                     return;
                 }
+                this.searchButton.disabled = true;
                 Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
             },
             renderHostelList: (hostels: HostelData[]): void => {
+                this.searchButton.disabled = false;
                 this.mainContainerElement.className = 'home__container-list-all';
                 this.listComponent.activate(hostels);
             },
@@ -58,13 +64,14 @@ export default class HomeView extends PageView {
     render(): void {
         this.page.innerHTML = homeTemplate();
 
-        const searchForm = document.getElementById('search-form');
-        searchForm.addEventListener('submit', this.handlers.searchClick);
+        this.searchForm = document.getElementById('search-form') as HTMLFormElement;
+        this.searchButton = document.getElementById('button') as HTMLButtonElement;
+        this.inputElement = document.getElementById('input') as HTMLInputElement;
+        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
         this.subscribeEvents();
+
         this.listComponent.setPlace(document.getElementById('list') as HTMLDivElement);
-        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
-        this.inputElement = document.getElementById('input') as HTMLInputElement;
     }
 
     renderError(error: string): void {
@@ -95,10 +102,12 @@ export default class HomeView extends PageView {
     }
 
     private subscribeEvents(): void {
+        this.searchForm.addEventListener('submit', this.handlers.searchClick);
         Events.subscribe(FILL_HOSTELS, this.handlers.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
+        this.searchForm.removeEventListener('submit', this.handlers.searchClick);
         Events.unsubscribe(FILL_HOSTELS, this.handlers.renderHostelList);
     }
 }
