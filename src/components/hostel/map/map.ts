@@ -16,6 +16,7 @@ export default class MapComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
     constructor() {
+        // в том, что мы просто передаем ключ ничего страшного, поставлено ограничение на домен
         this.loader = new Loader('AIzaSyDRvlTULyQ1ADfqMmVTSrzt-y9_8DyETkc');
     }
 
