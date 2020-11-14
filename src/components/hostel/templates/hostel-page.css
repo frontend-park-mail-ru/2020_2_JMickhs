@@ -185,6 +185,7 @@
     grid-area: comment;
     justify-self: right;
     width: 100%;
+    min-height: 285px;
 }
 
 .hostel__textarea-container {
