@@ -28,7 +28,7 @@ export default class HostelPageView extends PageView {
         this.commentsComponent = new CommentsComponent();
     }
 
-    render(data: {hostel: HostelData, comment: CommentData}): void {
+    render(data: { isAuth: boolean, hostel: HostelData, comment: CommentData}): void {
         window.scrollTo(0, 0);
         this.page.innerHTML = hostelCardTemplate(data);
 

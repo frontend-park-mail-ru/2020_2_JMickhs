@@ -83,8 +83,8 @@
     max-height: 28vw;
     margin: auto;
     /*border: 2px solid var(--gray);*/
-    /*border-radius: 15px;*/
-    /*background-color: var(--gray-light);*/
+    border-radius: 15px;
+    background-color: var(--gray-light);
     overflow: auto;
 }
 
@@ -174,6 +174,7 @@
     grid-area: comment;
     justify-self: right;
     width: 100%;
+    min-height: 285px;
 }
 
 .hostel__textarea-container {
@@ -274,12 +275,11 @@
     margin-bottom: 30px;
 }
 
-@media only screen and (max-width: 800px) {
-    .hostel__button--position-center {
-        margin-top: 210px;
-        margin-bottom: 0;
-    }
+.hostel__user-center {
+    align-self: center;
+}
 
+@media only screen and (max-width: 800px) {
     .hostel__comment-card {
         margin-top: 0;
     }
