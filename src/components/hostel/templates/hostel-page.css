@@ -73,13 +73,11 @@
     justify-self: right;
     background-color: var(--opacity-white);
     border-radius: 15px;
-    max-height: 520px;
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     transition: 0.3s;
 }
 
 .hostel__card {
-    padding: 1px 5%;
     width: 95%;
     min-height: min-content;
     max-height: 28vw;
@@ -275,4 +273,14 @@
     align-self: end;
     justify-self: center;
     margin-bottom: 30px;
+}
+
+@media only screen and (max-height: 800px) {
+    .hostel__button--position-center {
+        margin-top: 210px;
+    }
+
+    .hostel__data {
+        height: min-content;
+    }
 }
