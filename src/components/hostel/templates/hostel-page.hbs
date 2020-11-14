@@ -7,9 +7,11 @@
     </div>
     <div class="hostel__user-comment" id="user-comment">
     </div>
-    {{#if comment}}
-        <button class="hostel__button-round hostel__button--position-center" id="button-edit-comment">Изменить</button>
-    {{else}}
-        <button class="hostel__button-round hostel__button--position-center" id="button-add-comment">Отправить</button>
+    {{#if isAuth}}
+        {{#if comment}}
+            <button class="hostel__button-round hostel__button--position-center" id="button-edit-comment">Изменить</button>
+        {{else}}
+            <button class="hostel__button-round hostel__button--position-center" id="button-add-comment">Отправить</button>
+        {{/if}}
     {{/if}}
 </div>
