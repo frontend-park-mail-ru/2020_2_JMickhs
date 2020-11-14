@@ -11,8 +11,7 @@
         "map map";
     grid-template-rows: repeat(2, min-content);
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 6%;
-    column-gap: 6%;
+    grid-gap: 6%;
 }
 
 @media all and (max-width: 768px) {
@@ -46,9 +45,9 @@
 
 .hostel__images {
     grid-area: images;
+    height: fit-content;
+    align-self: center;
     width: 100%;
-    max-width: 850px;
-    max-height: 500px;
     margin: auto auto auto 0;
     position: relative;
     align-items: center;
@@ -283,7 +282,7 @@
     margin-bottom: 30px;
 }
 
-.hostel__user-center {
+.hostel__message-container {
     text-align: center;
     border-radius: 15px;
     background-color: var(--opacity-white);
