@@ -1,14 +1,18 @@
 .hostel__container-all {
-    margin-top: 2%;
-    margin-bottom: 2%;
+    height: 100vh;
+    width: 86%;
+    margin: 0 7%;
+    padding: 0 15px;
+    padding-top: 3%;
     display: grid;
     grid-template-areas:
         "images data"
         "comments comment"
         "map map";
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(2, min-content);
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1vw;
+    row-gap: 6%;
+    column-gap: 6%;
 }
 
 @media all and (max-width: 768px) {
@@ -42,10 +46,13 @@
 
 .hostel__images {
     grid-area: images;
-    width: 90%;
-    margin: auto;
+    width: 100%;
+    max-width: 850px;
+    max-height: 500px;
+    margin: auto auto auto 0;
     position: relative;
     align-items: center;
+    justify-self: left;
 }
 
 .hostel__images:before {
@@ -55,7 +62,7 @@
 }
 
 .hostel__cur-image {
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     object-fit: cover;
     transition: 0.3s;
@@ -71,23 +78,28 @@
 }
 
 .hostel__data {
+    width: 100%;
     grid-area: data;
     align-self: center;
+    justify-self: right;
+    background-color: var(--opacity-white);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    transition: 0.3s;
 }
 
 .hostel__card {
-    padding: 1px 5%;
-    box-shadow: 0 4px 8px 0 var(--shadow-color);
-    transition: 0.3s;
-    width: 90%;
+    width: 95%;
+    min-height: min-content;
+    max-height: 28vw;
     margin: auto;
-    border: 2px solid var(--gray);
-    border-radius: 4px;
+    /*border: 2px solid var(--gray);*/
+    border-radius: 15px;
     background-color: var(--gray-light);
     overflow: auto;
 }
 
-.hostel__card:hover {
+.hostel__data:hover {
     box-shadow: 0 8px 16px 0 var(--shadow-color);
 }
 
@@ -117,19 +129,20 @@
 
 .hostel__comments {
     grid-area: comments;
+    justify-self: left;
+    width: 100%;
 }
 
 .hostel__comment-card {
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     padding: 1px 5%;
-    width: 90%;
-    margin: auto;
-    border: 2px solid var(--gray);
-    border-radius: 4px;
-    background-color: var(--gray-light);
+    width: 100%;
+    border-radius: 15px;
+    background-color: var(--opacity-white);
     height: 11rem;
     transition: 0.3s;
     overflow: auto;
+    margin-top: 3.5rem;
 }
 
 .hostel__comment-card:hover {
@@ -165,31 +178,33 @@
 }
 
 .hostel__comment-switch {
-    margin-left: 5%;
     margin-top: 1%;
 }
 
 .hostel__user-comment {
     grid-area: comment;
+    justify-self: right;
+    width: 100%;
+    min-height: 285px;
 }
 
 .hostel__textarea-container {
-    padding: 1px 5%;
     width: 100%;
     margin: auto;
 }
 
 .hostel__textarea {
     padding: 12px 20px;
-    border: 2px solid var(--gray);
-    border-radius: 4px;
-    background-color: var(--gray-light);
+    border-radius: 15px;
+    background-color: var(--opacity-white);
     resize: none;
     outline: none;
+    border: none;
     width: 100%;
-    height: 6rem;
+    height: 11rem;
     transition: 0.3s;
     color: var(--gray-dark);
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
 }
 
 .hostel__textarea:focus {
@@ -208,11 +223,6 @@
     outline: none;
     z-index: 2000;
     transition: 0.3s;
-}
-
-.hostel__button-round:disabled {
-    opacity: 0.7;
-    pointer-events: none;
 }
 
 .hostel__button-round:hover {
@@ -246,4 +256,46 @@
     outline: none;
     border: none;
     font-size: large;
+}
+
+.hostel__card::-webkit-scrollbar {
+    width: 7px;
+    padding-right: 15px;
+}
+
+.hostel__card::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+.hostel__card::-webkit-scrollbar-thumb {
+    background: var(--gray);
+    border-radius: 10px;
+}
+
+.hostel__card::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-dark);
+}
+
+.hostel__button--position-center {
+    grid-area: comment;
+    width: 150px;
+    height: 45px;
+    align-self: end;
+    justify-self: center;
+    margin-bottom: 30px;
+}
+
+.hostel__user-center {
+    align-self: center;
+}
+
+@media only screen and (max-width: 800px) {
+    .hostel__comment-card {
+        margin-top: 0;
+    }
+
+    .hostel__data {
+        height: min-content;
+    }
 }

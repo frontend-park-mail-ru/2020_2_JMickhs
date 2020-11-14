@@ -14,16 +14,11 @@
 <form>
     <textarea id="comment-textarea" class="hostel__textarea" placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}</textarea>
 </form>
-    {{#if comment}}
-    <button class="hostel__button-round" id="button-edit-comment">Изменить</button>
-    {{else}}
-    <button class="hostel__button-round" id="button-add-comment">Отправить</button>
-    {{/if}}
 </div>
 {{else}}
 <div class="hostel__card">
     <p class="hostel__title hostel__text--blue">
-    Чтобы оставлять комментарии, нужно 
+    Чтобы оставлять комментарии, нужно
     <a href="/signin" class="hostel__title hostel__text--orange">авторизоваться</a>
     </p>
 </div>
