@@ -35,7 +35,7 @@ export default class HostelImagesComponent implements AbstractComponent {
         this.image = document.getElementById('cur-image') as HTMLImageElement;
 
         if (!this.image.complete) {
-            this.buttonsActivate();
+            this.buttonsDisabled(true);
         }
 
         this.subscribeEvents();
@@ -53,7 +53,9 @@ export default class HostelImagesComponent implements AbstractComponent {
 
                 this.prevImage();
             },
-            loadImage: this.buttonsActivate.bind(this),
+            loadImage: (): void => {
+                this.buttonsDisabled(false);
+            },
         };
     }
 
@@ -81,14 +83,9 @@ export default class HostelImagesComponent implements AbstractComponent {
         this.place.innerHTML = imagesTemplate({ image: this.photos[this.currentPhoto] });
     }
 
-    private buttonsActivate(): void {
-        this.nextButton.disabled = false;
-        this.prevButton.disabled = false;
-    }
-
-    private buttonsDisable(): void {
-        this.nextButton.disabled = true;
-        this.prevButton.disabled = true;
+    private buttonsDisabled(disabled: boolean): void {
+        this.nextButton.disabled = disabled;
+        this.prevButton.disabled = disabled;
     }
 
     private nextImage(): void {
@@ -97,7 +94,7 @@ export default class HostelImagesComponent implements AbstractComponent {
             this.currentPhoto = 0;
         }
 
-        this.buttonsActivate();
+        this.buttonsDisabled(true);
         this.image.src = this.photos[this.currentPhoto];
     }
 
@@ -107,7 +104,7 @@ export default class HostelImagesComponent implements AbstractComponent {
             this.currentPhoto = this.photos.length - 1;
         }
 
-        this.buttonsActivate();
+        this.buttonsDisabled(true);
         this.image.src = this.photos[this.currentPhoto];
     }
 

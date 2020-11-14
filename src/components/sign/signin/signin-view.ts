@@ -23,6 +23,8 @@ export default class SigninView extends PageView {
 
     private passwordInput?: HTMLInputElement;
 
+    private signButton?: HTMLButtonElement;
+
     constructor(parent: HTMLElement) {
         super(parent);
 
@@ -32,21 +34,25 @@ export default class SigninView extends PageView {
     private makeHadlers(): Record<string, HandlerEvent> {
         return {
             signinUser: (user: UserData): void => {
+                this.signButton.disabled = false;
                 if (user) {
                     Redirector.redirectBack();
                 } else {
                     Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
                 }
             },
-            renderErr: this.renderError.bind(this),
+            renderErr: (error: string): void => {
+                this.renderError(error);
+                this.signButton.disabled = false;
+            },
             submitSigninForm: (evt: Event): void => {
                 evt.preventDefault();
-                const loginInput = document.getElementById('signin-login') as HTMLInputElement;
-                const passInput = document.getElementById('signin-password') as HTMLInputElement;
-                const login = loginInput.value;
-                const password = passInput.value;
+
+                const login = this.loginInput.value;
+                const password = this.passwordInput.value;
                 this.loginInput.classList.remove('sign__input--error');
                 this.passwordInput.classList.remove('sign__input--error');
+                this.signButton.disabled = true;
                 Events.trigger(SUBMIT_SIGNIN, { login, password });
             },
         };
@@ -81,6 +87,7 @@ export default class SigninView extends PageView {
 
         this.loginInput = document.getElementById('signin-login') as HTMLInputElement;
         this.passwordInput = document.getElementById('signin-password') as HTMLInputElement;
+        this.signButton = document.getElementById('signin-button') as HTMLButtonElement;
 
         this.subscribeEvents();
     }
@@ -89,6 +96,7 @@ export default class SigninView extends PageView {
         if (this.page.innerHTML === '') {
             return;
         }
+
         this.unsubscribeEvents();
         this.page.innerHTML = '';
     }
@@ -104,8 +112,6 @@ export default class SigninView extends PageView {
         Events.unsubscribe(ERROR_SIGNIN, this.handlers.renderErr);
         Events.unsubscribe(SIGNIN_USER, this.handlers.signinUser);
 
-        if (this.form) {
-            this.form.removeEventListener('submit', this.handlers.submitSigninForm);
-        }
+        this.form?.removeEventListener('submit', this.handlers.submitSigninForm);
     }
 }

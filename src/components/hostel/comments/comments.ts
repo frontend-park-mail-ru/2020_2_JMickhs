@@ -54,11 +54,13 @@ export default class CommentsComponent implements AbstractComponent {
             nextComment: (event: Event): void => {
                 event.preventDefault();
 
+                this.buttonsDisabled(true);
                 this.getComment(this.nextUrl);
             },
             prevComment: (event: Event): void => {
                 event.preventDefault();
 
+                this.buttonsDisabled(true);
                 this.getComment(this.prevUrl);
             },
         };
@@ -105,11 +107,22 @@ export default class CommentsComponent implements AbstractComponent {
         });
     }
 
+    private buttonsDisabled(disabled: boolean): void {
+        if (!this.nextButton && !this.prevButton) {
+            return;
+        }
+
+        this.nextButton.disabled = disabled;
+        this.prevButton.disabled = disabled;
+    }
+
     private render(): void {
         this.place.innerHTML = template({ switch: this.countComments > 1, comment: this.comment });
 
         this.nextButton = document.getElementById('comment-next') as HTMLButtonElement;
         this.prevButton = document.getElementById('comment-prev') as HTMLButtonElement;
+
+        this.buttonsDisabled(false);
     }
 
     private subscribeEvents(): void {

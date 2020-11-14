@@ -29,6 +29,8 @@ export default class SignupView extends PageView {
 
     private passwordInputSecond?: HTMLInputElement;
 
+    private signupButton?: HTMLButtonElement;
+
     constructor(parent: HTMLElement) {
         super(parent);
 
@@ -38,6 +40,7 @@ export default class SignupView extends PageView {
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
             userSignup: (user): void => {
+                this.signupButton.disabled = false;
                 if (user) {
                     Redirector.redirectTo('/profile');
                 } else {
@@ -45,6 +48,7 @@ export default class SignupView extends PageView {
                 }
             },
             errorSignup: (err: string): void => {
+                this.signupButton.disabled = false;
                 this.renderError(err);
             },
             clickLoginInput: (): void => {
@@ -69,6 +73,7 @@ export default class SignupView extends PageView {
         this.emailInput = document.getElementById('signup-email') as HTMLInputElement;
         this.passwordInputFirst = document.getElementById('signup-password1') as HTMLInputElement;
         this.passwordInputSecond = document.getElementById('signup-password2') as HTMLInputElement;
+        this.signupButton = document.getElementById('signup-button') as HTMLButtonElement;
 
         this.subscribeEvents();
     }
@@ -166,6 +171,7 @@ export default class SignupView extends PageView {
         const passwordFirst = this.passwordInputFirst.value;
         const passwordSecond = this.passwordInputSecond.value;
 
+        this.signupButton.disabled = true;
         this.clearErrorInputs();
 
         Events.trigger(SUBMIT_SIGNUP, {
