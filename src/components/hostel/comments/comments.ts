@@ -117,9 +117,6 @@ export default class CommentsComponent implements AbstractComponent {
     }
 
     private render(): void {
-        if (!this.countComments) {
-            this.place.classList.add('hostel__comments--no-auth-container');
-        }
         this.place.innerHTML = template({ switch: this.countComments > 1, comment: this.comment });
 
         this.nextButton = document.getElementById('comment-next') as HTMLButtonElement;
