@@ -82,9 +82,6 @@
     min-height: min-content;
     max-height: 28vw;
     margin: auto;
-    /*border: 2px solid var(--gray);*/
-    border-radius: 15px;
-    background-color: var(--gray-light);
     overflow: auto;
 }
 
@@ -126,12 +123,12 @@
     box-shadow: 0 4px 8px 0 var(--shadow-color);
     padding: 1px 5%;
     width: 100%;
-    border-radius: 15px;
-    background-color: var(--opacity-white);
     height: 11rem;
     transition: 0.3s;
     overflow: auto;
     margin-top: 3.5rem;
+    border-radius: 15px;
+    background-color: var(--opacity-white);
 }
 
 .hostel__comment-card:hover {
@@ -276,7 +273,22 @@
 }
 
 .hostel__user-center {
-    align-self: center;
+    text-align: center;
+    border-radius: 15px;
+    background-color: var(--opacity-white);
+    padding: 15px;
+}
+
+.hostel__user-comment--no-auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hostel__comments--no-auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media only screen and (max-width: 800px) {
@@ -286,5 +298,9 @@
 
     .hostel__data {
         height: min-content;
+    }
+
+    .hostel__card {
+        max-height: min-content;
     }
 }
