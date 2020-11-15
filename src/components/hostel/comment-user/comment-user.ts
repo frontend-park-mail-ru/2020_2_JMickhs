@@ -6,13 +6,14 @@ import {
     AUTH_USER,
 } from '@eventbus/constants';
 import Redirector from '@router/redirector';
-
-import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 import NetworkHostel from '@/helpers/network/network-hostel';
 import User from '@user/user';
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import type { AbstractComponent } from '@interfaces/components';
 import type { HandlerEvent } from '@interfaces/functions';
+
+import './comment-user.css';
+import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 
 export default class CommentUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;

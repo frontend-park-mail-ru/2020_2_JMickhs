@@ -2,6 +2,7 @@ import type { HandlerEvent } from '@interfaces/functions';
 import type { HostelData } from '@interfaces/structs-data/hostel-data';
 import type { AbstractComponent } from '@interfaces/components';
 
+import './hostel-images.css';
 import * as imagesTemplate from '@hostel/hostel-images/hostel-images.hbs';
 
 export default class HostelImagesComponent implements AbstractComponent {
