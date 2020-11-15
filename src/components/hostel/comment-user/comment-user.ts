@@ -85,6 +85,9 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private render(): void {
+        if (!this.comment) {
+            this.place.classList.add('hostel__user-comment--no-auth-container');
+        }
         this.place.innerHTML = templateUser({ isAuth: User.isAuth, comment: this.comment });
 
         this.editButton = document.getElementById('button-comment') as HTMLButtonElement;
