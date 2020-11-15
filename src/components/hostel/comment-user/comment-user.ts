@@ -97,7 +97,7 @@ export default class CommentUserComponent implements AbstractComponent {
     private subscribeEvents(): void {
         Events.subscribe(AUTH_USER, this.handlers.userAppear);
 
-        if (this.editButton?.innerText === 'Изменить') {
+        if (this.comment) {
             this.editButton?.addEventListener('click', this.handlers.editComment);
         } else {
             this.editButton?.addEventListener('click', this.handlers.addComment);
