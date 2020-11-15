@@ -11,8 +11,13 @@
         </select>
     </p>
 </div>
-<form>
+<form class="hostel__comment-container">
     <textarea id="comment-textarea" class="hostel__textarea" placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}</textarea>
+    {{#if comment}}
+        <button class="hostel__button-round hostel__button--position-center" id="button-comment">Изменить</button>
+    {{else}}
+        <button class="hostel__button-round hostel__button--position-center" id="button-comment">Отправить</button>
+    {{/if}}
 </form>
 </div>
 {{else}}

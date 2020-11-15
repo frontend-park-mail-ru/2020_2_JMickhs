@@ -189,6 +189,7 @@
 }
 
 .hostel__textarea {
+    grid-area: area;
     padding: 12px 20px;
     border-radius: 15px;
     background-color: var(--opacity-white);
@@ -273,12 +274,17 @@
 }
 
 .hostel__button--position-center {
-    grid-area: comment;
+    grid-area: area;
     width: 150px;
     height: 45px;
     align-self: end;
     justify-self: center;
-    margin-bottom: 30px;
+    margin-top: 153px;
+}
+
+.hostel__comment-container {
+    display: grid;
+    grid-template-areas: "area";
 }
 
 .hostel__message-container {
