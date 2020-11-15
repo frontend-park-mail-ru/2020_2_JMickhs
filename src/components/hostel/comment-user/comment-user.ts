@@ -64,8 +64,10 @@ export default class CommentUserComponent implements AbstractComponent {
                 event.preventDefault();
 
                 this.currentButtonDisabled(true);
-                document.getElementById('button-add-comment').innerText = 'Изменить';
-                document.getElementById('button-add-comment').id = 'button-edit-comment';
+                this.editButton = document.getElementById('button-add-comment') as HTMLButtonElement;
+                this.editButton.innerText = 'Изменить';
+                this.editButton.id = 'button-edit-comment';
+                this.editButton.addEventListener('click', this.handlers.editComment);
                 this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
             },
             editComment: (event: Event): void => {
@@ -87,9 +89,6 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private render(): void {
-        if (!User.isAuth) {
-            this.place.classList.add('hostel__user-comment--no-auth-container');
-        }
         this.place.innerHTML = templateUser({ isAuth: User.isAuth, comment: this.comment });
 
         this.addButton = document.getElementById('button-add-comment') as HTMLButtonElement;
