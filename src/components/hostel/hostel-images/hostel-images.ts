@@ -53,7 +53,7 @@ export default class HostelImagesComponent implements AbstractComponent {
 
                 this.prevImage();
             },
-            loadImage: (): void => {
+            loadingImage: (): void => {
                 this.buttonsDisabled(false);
             },
         };
@@ -62,13 +62,13 @@ export default class HostelImagesComponent implements AbstractComponent {
     private subscribeEvents(): void {
         this.nextButton?.addEventListener('click', this.handlers.nextImg);
         this.prevButton?.addEventListener('click', this.handlers.prevImg);
-        this.image?.addEventListener('load', this.handlers.loadImage);
+        this.image?.addEventListener('load', this.handlers.loadingImage);
     }
 
     private unsubscribeEvents(): void {
         this.nextButton?.removeEventListener('click', this.handlers.nextImg);
         this.prevButton?.removeEventListener('click', this.handlers.prevImg);
-        this.image?.removeEventListener('load', this.handlers.loadImage);
+        this.image?.removeEventListener('load', this.handlers.loadingImage);
     }
 
     setPlace(place: HTMLDivElement): void {
