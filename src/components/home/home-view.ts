@@ -86,8 +86,6 @@ export default class HomeView extends PageView {
         }
         this.listComponent.deactivate();
 
-        this.searchButton.removeEventListener('submit', this.handlers.searchClick);
-
         this.unsubscribeEvents();
 
         this.page.innerHTML = '';
