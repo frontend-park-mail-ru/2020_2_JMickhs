@@ -35,6 +35,12 @@
     background-color: var(--opacity-white);
     padding: 15px;
     width: 100%;
+    transition: 0.3s;
+    margin-bottom: 2%;
+}
+
+.hostel__message-container:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
 }
 
 .hostel__comment-avatar {
@@ -59,8 +65,8 @@
 
 @media only screen and (max-width: 768px) {
     .hostel__comment-card {
+        max-width: 85vw;
         margin-top: 0;
-        max-width: 80vw;
     }
 
     .hostel__data {
@@ -69,9 +75,5 @@
 
     .hostel__card {
         max-height: min-content;
-    }
-
-    .hostel__user-comment--no-auth-container {
-        min-height: 100px;
     }
 }
