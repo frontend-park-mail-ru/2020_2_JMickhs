@@ -1,4 +1,3 @@
-import type { HandlerEvent } from '@interfaces/functions';
 import type { AbstractComponent } from '@interfaces/components';
 import * as template from './popup.hbs';
 import './popup.css';
@@ -11,8 +10,6 @@ class Popup {
     private popupComponent: HTMLDivElement;
 
     private component: AbstractComponent;
-
-    private handlers: Record<string, HandlerEvent>;
 
     init(parent: HTMLElement): void {
         this.parent = parent;
