@@ -12,12 +12,10 @@ class Popup {
     private component: AbstractComponent;
 
     init(parent: HTMLElement): void {
-        this.parent = parent;
-        let place = document.getElementById('popup-container') as HTMLDivElement;
-
-        if (place == null) {
+        let place = document.getElementById('popup') as HTMLDivElement;
+        if (place === null) {
             place = document.createElement('div');
-            place.id = 'popup-container';
+            place.id = 'popup';
             parent.appendChild(place);
         }
         this.place = place;
@@ -38,7 +36,7 @@ class Popup {
         this.component.activate(...args);
 
         this.subscribeEvents();
-        this.place.classList.remove('popup__container--hiden');
+        this.place.classList.remove('popup__container--hidden');
     }
 
     private clickContent = (evt: Event): void => {
@@ -49,6 +47,7 @@ class Popup {
         this.component?.deactivate();
         this.unsubscribeEvents();
         this.place.innerHTML = '';
+        this.place.classList.add('popup__container--hidden');
     };
 
     private subscribeEvents(): void {
