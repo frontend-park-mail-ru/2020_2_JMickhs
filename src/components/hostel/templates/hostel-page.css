@@ -85,7 +85,7 @@
     text-decoration: none;
     text-align: center;
     outline: none;
-    z-index: 2000;
+    z-index: var(--button-z-index);
     transition: 0.3s;
 }
 

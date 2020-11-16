@@ -18,6 +18,12 @@
     --shadow-color: rgba(0, 0, 0, 0.4);
 }
 
+:root {
+    --navbar-z-index: 2500;
+    --button-z-index: 2000;
+    --popup-z-index: 3000;
+}
+
 body {
     background: var(--main-background-color);
     margin: 0;
