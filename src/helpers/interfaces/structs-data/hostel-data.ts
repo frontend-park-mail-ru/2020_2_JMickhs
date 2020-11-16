@@ -7,4 +7,6 @@ export interface HostelData {
     rating?: number;
     description?: string;
     countComments?: number;
+    latitude?: number;
+    longitude?: number;
 }

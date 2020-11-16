@@ -8,6 +8,7 @@ import HostelPageController from '@hostel/hostel-page-controller';
 import ErrorPageController from '@/components/page-error/page-error-controller';
 import userFromCookie from '@/helpers/user/cookie-user';
 import registrateServiceWorker from '@/service-worker/registrate';
+import Popup from './components/popup/popup';
 
 import '@/main.css';
 
@@ -21,6 +22,8 @@ import '@/main.css';
     userFromCookie();
 
     navbarController.activate();
+
+    Popup.init(application);
 
     const homeController = new HomeController(application);
     const signinController = new SigninController(application);

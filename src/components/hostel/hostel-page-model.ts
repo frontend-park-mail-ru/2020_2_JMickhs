@@ -37,6 +37,8 @@ export default class HostelPageModel {
         this.hostel.location = hotel.location;
         this.hostel.countComments = hotel.comm_count;
         this.hostel.rating = hotel.rating;
+        this.hostel.latitude = hotel.latitude;
+        this.hostel.longitude = hotel.longitude;
     }
 
     fillModel(id: number): void {
