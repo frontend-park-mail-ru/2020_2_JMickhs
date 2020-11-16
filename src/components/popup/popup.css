@@ -8,6 +8,7 @@
     z-index: 99999;
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .popup__container--hidden {
