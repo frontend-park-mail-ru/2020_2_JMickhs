@@ -4,7 +4,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     overflow: hidden;
     position: fixed;
-    top: 0px;
+    top: 0;
     z-index: 99999;
 }
 
@@ -27,8 +27,6 @@
     color: var(--white);
     transform: translate(0, -25%);
     border-radius: 25px;
-    background-color: var(--orange);
-    color: var(--white);
     padding: 16px 20px;
     border: none;
     cursor: pointer;
