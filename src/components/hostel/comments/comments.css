@@ -9,6 +9,7 @@
     margin-top: 3.5rem;
     border-radius: 15px;
     background-color: var(--opacity-white);
+    margin-bottom: 3%;
 }
 
 .hostel__comment-card:hover {
