@@ -45,13 +45,13 @@ export default class MapComponent implements AbstractComponent {
     }
 
     private render(latitude: number, longitude: number): void {
-        const point = { lat: latitude, lng: longitude };
+        const hostel = { lat: latitude, lng: longitude };
         this.map = new google.maps.Map(document.getElementById('map-container') as HTMLDivElement, {
-            center: point,
+            center: hostel,
             zoom: 15,
         });
         this.marker = new google.maps.Marker({
-            position: point,
+            position: hostel,
             map: this.map,
         });
     }
