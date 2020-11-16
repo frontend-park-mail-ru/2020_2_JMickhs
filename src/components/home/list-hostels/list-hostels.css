@@ -58,6 +58,18 @@
     margin-bottom: 60px;
 }
 
+.list__message-container {
+    padding: 15px 50px;
+    background-color: var(--opacity-white);
+    border-radius: 15px;
+    text-align: center;
+    transition: .3s;
+}
+
+.list__message-container:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+}
+
 @media only screen and (max-width: 750px) {
     .list__container-all {
         padding-top: 8%;

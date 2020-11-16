@@ -121,3 +121,16 @@
 .home__error--blue {
     color: var(--blue);
 }
+
+
+.home__message-container {
+    padding: 15px 50px;
+    background-color: var(--opacity-white);
+    border-radius: 15px;
+    text-align: center;
+    transition: .3s;
+}
+
+.home__message-container:hover {
+    box-shadow: 0 8px 16px 0 var(--shadow-color);
+}
