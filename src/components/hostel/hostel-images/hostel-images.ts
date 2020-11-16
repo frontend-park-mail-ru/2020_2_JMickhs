@@ -85,8 +85,10 @@ export default class HostelImagesComponent implements AbstractComponent {
     }
 
     private buttonsDisabled(disabled: boolean): void {
-        this.nextButton.disabled = disabled;
-        this.prevButton.disabled = disabled;
+        if (this.nextButton || this.prevButton) {
+            this.nextButton.disabled = disabled;
+            this.prevButton.disabled = disabled;
+        }
     }
 
     private nextImage(): void {

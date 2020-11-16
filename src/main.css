@@ -24,6 +24,12 @@
     --popup-z-index: 3000;
 }
 
+:root {
+    --box-shadow-thin: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    --box-shadow-bold: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+    --box-shadow-inset: inset 0 0 5px grey;
+}
+
 body {
     background: var(--main-background-color);
     margin: 0;

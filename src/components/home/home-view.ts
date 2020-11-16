@@ -39,7 +39,9 @@ export default class HomeView extends PageView {
                     this.renderError('Длинна запроса не должна превышать 50 символов');
                     return;
                 }
-                this.searchButton.disabled = true;
+                if (this.searchButton) {
+                    this.searchButton.disabled = true;
+                }
                 Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
             },
             renderHostelList: (hostels: HostelData[]): void => {
