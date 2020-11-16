@@ -11,3 +11,20 @@
 .map__container:hover {
     box-shadow: var(--box-shadow-bold);
 }
+
+.map__error-container {
+    margin: auto;
+    padding: 15px;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: var(--box-shadow-thin);
+    border-radius: var(--border-radius-15px);
+    background-color: var(--opacity-white);
+    color: var(--blue);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.map__error-container:hover {
+    box-shadow: var(--box-shadow-bold);
+}

@@ -153,11 +153,11 @@ export default class DataUserComponent implements AbstractComponent {
         const errLine = document.getElementById('text-error-sequr');
 
         if (isErr) {
-            errLine.classList.remove('profile__text--blue');
-            errLine.classList.add('profile__text--red');
+            errLine.classList.remove('profile__text--accept');
+            errLine.classList.add('profile__text--error');
         } else {
-            errLine.classList.remove('profile__text--red');
-            errLine.classList.add('profile__text--blue');
+            errLine.classList.remove('profile__text--error');
+            errLine.classList.add('profile__text--accept');
         }
 
         errLine.textContent = text;

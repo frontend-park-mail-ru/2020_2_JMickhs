@@ -89,8 +89,8 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private subscribeEvents(): void {
-        this.inputAvatar.addEventListener('change', this.handlers.newImage);
-        this.exitButton.addEventListener('click', this.handlers.signoutClick);
+        this.inputAvatar?.addEventListener('change', this.handlers.newImage);
+        this.exitButton?.addEventListener('click', this.handlers.signoutClick);
     }
 
     private unsubscribeEvents(): void {
@@ -98,8 +98,8 @@ export default class DataUserComponent implements AbstractComponent {
             return;
         }
 
-        this.inputAvatar.removeEventListener('change', this.handlers.newImage);
-        this.exitButton.removeEventListener('click', this.handlers.signoutClick);
+        this.inputAvatar?.removeEventListener('change', this.handlers.newImage);
+        this.exitButton?.removeEventListener('click', this.handlers.signoutClick);
         if (this.reloadAvatarButton) {
             this.reloadAvatarButton.removeEventListener('click', this.handlers.updateAvatarClick);
         }
@@ -123,9 +123,9 @@ export default class DataUserComponent implements AbstractComponent {
         this.divAvatarBottom.innerHTML = messageTemplate({ text: message });
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
-            msg.classList.add('profile__text--red');
+            msg.classList.add('profile__text--error');
         } else {
-            msg.classList.add('profile__text--blue');
+            msg.classList.add('profile__text--accept');
         }
 
         this.idTimer = window.setTimeout(() => {

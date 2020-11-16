@@ -9,8 +9,6 @@ export default class MapComponent implements AbstractComponent {
 
     private map?: google.maps.Map;
 
-    private hostel?: google.maps.LatLng;
-
     private marker?: google.maps.Marker;
 
     private place?: HTMLDivElement;
@@ -40,6 +38,8 @@ export default class MapComponent implements AbstractComponent {
             this.loader.load().then(() => {
                 this.render(latitude, longitude);
                 this.loaded = true;
+            }).catch(() => {
+                this.renderError('Извините, в данный момент карта не доступна');
             });
         }
     }
@@ -54,6 +54,13 @@ export default class MapComponent implements AbstractComponent {
             position: point,
             map: this.map,
         });
+    }
+
+    private renderError(err: string): void {
+        const mapContainer = document.getElementById('map-container');
+        mapContainer.innerText = err;
+        mapContainer.classList.remove('map__container');
+        mapContainer.classList.add('map__error-container');
     }
 
     deactivate(): void {

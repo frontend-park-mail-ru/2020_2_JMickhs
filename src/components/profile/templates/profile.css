@@ -102,7 +102,7 @@
     text-align: left;
 }
 
-.profile__text--blue {
+.profile__text--accept {
     color: var(--blue);
 }
 
@@ -110,7 +110,7 @@
     color: var(--orange);
 }
 
-.profile__text--red {
+.profile__text--error {
     color: var(--red);
 }
 

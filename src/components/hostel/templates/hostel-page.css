@@ -1,6 +1,6 @@
 .hostel__container-all {
     width: 86%;
-    margin: 1.5% 7%;
+    margin: 2% 7%;
     padding: 0 15px;
     display: grid;
     grid-template-areas:
@@ -35,7 +35,6 @@
     height: fit-content;
     align-self: center;
     width: 100%;
-    margin: auto auto auto 0;
     position: relative;
     align-items: center;
     justify-self: left;
