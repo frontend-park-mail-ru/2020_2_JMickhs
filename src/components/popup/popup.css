@@ -21,6 +21,12 @@
     max-height: 70vh;
 }
 
+@media all and (max-width: 768px) {
+    .popup__content {
+        margin-top: 30%;
+    }
+}
+
 .popup__button-close {
     background-color: var(--orange);
     color: var(--white);
