@@ -27,8 +27,6 @@
     color: var(--white);
     transform: translate(0, -25%);
     border-radius: 25px;
-    background-color: var(--orange);
-    color: var(--white);
     padding: 16px 20px;
     border: none;
     cursor: pointer;
