@@ -6,7 +6,7 @@
 .hostel__textarea {
     grid-area: area;
     padding: 12px 20px;
-    border-radius: 15px;
+    border-radius: var(--border-radius-15px);
     background-color: var(--opacity-white);
     resize: none;
     outline: none;
@@ -15,7 +15,7 @@
     height: 11rem;
     transition: 0.3s;
     color: var(--gray-dark);
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__textarea:focus {
@@ -28,7 +28,7 @@
     cursor: pointer;
     outline: none;
     border: none;
-    font-size: large;
+    font-size: var(--font-large);
 }
 
 .hostel__button--position-center {

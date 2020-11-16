@@ -1,8 +1,8 @@
 .hostels-card {
-    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-thin);
     transition: 0.3s;
     height: 30vh;
-    border-radius: 10px;
+    border-radius: var(--border-radius-10px);
     max-width: 450px;
     background-color: var(--opacity-white);
     text-decoration: none;
@@ -10,7 +10,7 @@
 }
 
 .hostels-card:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel-card__image {
@@ -61,13 +61,13 @@
 .list__message-container {
     padding: 15px 50px;
     background-color: var(--opacity-white);
-    border-radius: 15px;
+    border-radius: var(--border-radius-15px);
     text-align: center;
     transition: .3s;
 }
 
 .list__message-container:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }
 
 @media only screen and (max-width: 750px) {
@@ -89,6 +89,6 @@
         grid-gap: 2%;
     }
     .hostel-card__text {
-        font-size: 15px;
+        font-size: var(--font-15);
     }
 }

@@ -46,8 +46,8 @@
 
 .home__search-input {
     height: 45px;
-    border: 4px solid var(--blue);
-    border-radius: 1000px;
+    border: var(--border-blue);
+    border-radius: var(--border-radius-round);
     padding: 15px;
     outline: none;
     width: 100%;
@@ -86,13 +86,13 @@
 }
 
 .home__button-orange {
-    border-radius: 1000px;
+    border-radius: var(--border-radius-round);
     background-color: var(--orange-new);
     text-decoration: none;
     cursor: pointer;
     color: var(--white);
     font-weight: 500;
-    font-size: 17px;
+    font-size: var(--font-17);
     padding: 9px 30px;
     border: none;
     outline: none;
@@ -126,11 +126,11 @@
 .home__message-container {
     padding: 15px 50px;
     background-color: var(--opacity-white);
-    border-radius: 15px;
+    border-radius: var(--border-radius-15px);
     text-align: center;
     transition: .3s;
 }
 
 .home__message-container:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }

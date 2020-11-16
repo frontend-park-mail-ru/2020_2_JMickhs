@@ -2,12 +2,12 @@
     align-items: center;
     height: 60vh;
     margin: auto;
-    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-thin);
     border: 2px solid var(--gray);
-    border-radius: 4px;
+    border-radius: var(--border-radius-5px);
     transition: 0.3s;
 }
 
 .map__container:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }

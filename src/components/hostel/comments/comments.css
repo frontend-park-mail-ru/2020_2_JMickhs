@@ -1,5 +1,5 @@
 .hostel__comment-card {
-    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-thin);
     padding: 1px 5%;
     width: 100%;
     max-width: 42vw;
@@ -7,13 +7,13 @@
     transition: 0.3s;
     overflow: auto;
     margin-top: 3.5rem;
-    border-radius: 15px;
+    border-radius: var(--border-radius-15px);
     background-color: var(--opacity-white);
     margin-bottom: 3%;
 }
 
 .hostel__comment-card:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__comment-user-data {
@@ -32,7 +32,7 @@
 
 .hostel__message-container {
     text-align: center;
-    border-radius: 15px;
+    border-radius: var(--border-radius-15px);
     background-color: var(--opacity-white);
     padding: 15px;
     width: 100%;
@@ -40,14 +40,14 @@
 }
 
 .hostel__message-container:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__comment-avatar {
     width: 36px;
     height: 36px;
     border: 2px solid var(--gray);
-    border-radius: 50%;
+    border-radius: var(--border-radius-round);
     object-fit: cover;
 }
 

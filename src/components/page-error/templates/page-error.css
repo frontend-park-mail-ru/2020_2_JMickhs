@@ -16,15 +16,15 @@
     margin-top: 20%;
     padding: 1px 5%;
     border: 2px solid var(--gray);
-    border-radius: 4px;
+    border-radius: var(--border-radius-5px);
     background-color: var(--gray-light);
-    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-thin);
     transition: 0.3s;
     overflow: auto;
 }
 
 .page-error__container:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }
 
 .page-error__button {
@@ -37,7 +37,7 @@
     padding: 16px 20px;
     border: none;
     width: 100%;
-    border-radius: 5px;
+    border-radius: var(--border-radius-5px);
 }
 
 .page-error__button--blue {
@@ -46,6 +46,6 @@
 }
 
 .page-error__button--blue:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
     opacity: 1;
 }

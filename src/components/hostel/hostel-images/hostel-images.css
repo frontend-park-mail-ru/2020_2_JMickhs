@@ -1,6 +1,6 @@
 .hostel__cur-image {
-    border-radius: 15px;
-    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    border-radius: var(--border-radius-15px);
+    box-shadow: var(--box-shadow-thin);
     object-fit: cover;
     transition: 0.3s;
     position: absolute;
@@ -11,7 +11,7 @@
 }
 
 .hostel__cur-image:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__img-button-container {

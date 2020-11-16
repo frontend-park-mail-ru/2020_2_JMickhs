@@ -30,6 +30,24 @@
     --box-shadow-inset: inset 0 0 5px grey;
 }
 
+:root {
+    --font-large: large;
+    --font-17: 17px;
+    --font-24: 24px;
+    --font-15: 15px;
+}
+
+:root {
+    --border-radius-5px: 5px;
+    --border-radius-10px: 10px;
+    --border-radius-15px: 15px;
+    --border-radius-round: 1000px;
+}
+
+:root {
+    --border-blue: 4px solid var(--blue);
+}
+
 body {
     background: var(--main-background-color);
     margin: 0;

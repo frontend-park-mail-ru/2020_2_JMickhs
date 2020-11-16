@@ -53,13 +53,13 @@
     align-self: center;
     justify-self: right;
     background-color: var(--opacity-white);
-    border-radius: 15px;
-    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    border-radius: var(--border-radius-15px);
+    box-shadow: var(--box-shadow-thin);
     transition: 0.3s;
 }
 
 .hostel__data:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__comments {
