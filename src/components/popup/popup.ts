@@ -4,11 +4,11 @@ import * as template from './popup.hbs';
 import './popup.css';
 
 class Popup {
-    private parent: HTMLElement;
-
-    private place: HTMLDivElement;
+    private popup: HTMLDivElement;
 
     private popupComponent: HTMLDivElement;
+
+    private place: HTMLDivElement;
 
     private component: AbstractComponent;
 
@@ -23,15 +23,18 @@ class Popup {
                 this.component?.deactivate();
                 this.unsubscribeEvents();
                 this.place.innerHTML = '';
-                this.place.classList.add('popup__container--hidden');
             },
         };
     }
 
     init(parent: HTMLElement): void {
-        this.parent = parent;
-        this.parent.innerHTML += template({ content: false });
-        this.place = document.getElementById('popup-container') as HTMLDivElement;
+        let place = document.getElementById('popup-container') as HTMLDivElement;
+        if (place == null) {
+            place = document.createElement('div');
+            place.id = 'popup-container';
+            parent.appendChild(place);
+        }
+        this.place = place;
     }
 
     activate(component: AbstractComponent, ...args: unknown[]): void {
@@ -41,23 +44,24 @@ class Popup {
 
         this.component = component;
 
-        this.place.innerHTML = template({ content: true });
+        this.place.innerHTML = template();
+        this.popup = document.getElementById('popup-container') as HTMLDivElement;
         this.popupComponent = document.getElementById('popup-component') as HTMLDivElement;
 
         this.component.setPlace(this.popupComponent);
         this.component.activate(...args);
 
         this.subscribeEvents();
-        this.place.classList.remove('popup__container--hidden');
+        this.popup.classList.remove('popup__container--hiden');
     }
 
     private subscribeEvents(): void {
-        this.place.addEventListener('click', this.handlers.close);
+        this.popup.addEventListener('click', this.handlers.close);
         this.popupComponent.addEventListener('click', this.handlers.clickContent);
     }
 
     private unsubscribeEvents(): void {
-        this.place.removeEventListener('click', this.handlers.close);
+        this.popup.removeEventListener('click', this.handlers.close);
         this.popupComponent.removeEventListener('click', this.handlers.clickContent);
     }
 }
