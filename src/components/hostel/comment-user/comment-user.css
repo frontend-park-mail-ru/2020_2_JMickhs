@@ -43,6 +43,7 @@
 .hostel__comment-container {
     display: grid;
     grid-template-areas: "area";
+    margin-bottom: 3%;
 }
 
 .hostel__user-comment--no-auth-container {
