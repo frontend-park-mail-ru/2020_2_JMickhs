@@ -5,19 +5,13 @@ import './popup.css';
 class Popup {
     private parent: HTMLElement;
 
-    private place: HTMLDivElement;
+    private place: HTMLElement;
 
     private popupComponent: HTMLDivElement;
 
     private component: AbstractComponent;
 
-    init(parent: HTMLElement): void {
-        let place = document.getElementById('popup') as HTMLDivElement;
-        if (place === null) {
-            place = document.createElement('div');
-            place.id = 'popup';
-            parent.appendChild(place);
-        }
+    init(place: HTMLElement): void {
         this.place = place;
     }
 

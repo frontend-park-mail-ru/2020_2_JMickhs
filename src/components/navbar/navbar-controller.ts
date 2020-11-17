@@ -17,9 +17,9 @@ export default class NavController {
 
     private view: NavView;
 
-    constructor(parent: HTMLElement) {
+    constructor(place: HTMLElement) {
         this.model = new NavModel();
-        this.view = new NavView(parent);
+        this.view = new NavView(place);
     }
 
     activate(): void {

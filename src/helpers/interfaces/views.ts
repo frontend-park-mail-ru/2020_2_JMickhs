@@ -3,24 +3,14 @@ export interface AbstractView {
     hide(): void;
 }
 
-export class PageView implements AbstractView {
+export abstract class PageView implements AbstractView {
     protected page: HTMLElement;
 
-    constructor(parent: HTMLElement) {
-        let page = document.getElementById('page');
-        if (page === null) {
-            page = document.createElement('div');
-            page.id = 'page';
-            parent.appendChild(page);
-        }
-        this.page = page;
+    constructor(place: HTMLElement) {
+        this.page = place;
     }
 
-    render(data: unknown): void {
-        this.page.innerHTML = data.toString();
-    }
+    abstract render(data: unknown): void;
 
-    hide(): void {
-        this.page.innerHTML = '';
-    }
+    abstract hide(): void;
 }
