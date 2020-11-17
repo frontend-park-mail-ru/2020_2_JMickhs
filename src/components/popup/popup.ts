@@ -3,11 +3,9 @@ import * as template from './popup.hbs';
 import './popup.css';
 
 class Popup {
-    private parent: HTMLElement;
-
     private place: HTMLElement;
 
-    private popupComponent: HTMLDivElement;
+    private popup: HTMLDivElement;
 
     private component: AbstractComponent;
 
@@ -23,10 +21,9 @@ class Popup {
         this.component = component;
 
         this.place.innerHTML = template();
-        this.place = document.getElementById('popup-container') as HTMLDivElement;
-        this.popupComponent = document.getElementById('popup-component') as HTMLDivElement;
+        this.popup = document.getElementById('popup-component') as HTMLDivElement;
 
-        this.component.setPlace(this.popupComponent);
+        this.component.setPlace(this.popup);
         this.component.activate(...args);
 
         this.subscribeEvents();
@@ -46,12 +43,12 @@ class Popup {
 
     private subscribeEvents(): void {
         this.place.addEventListener('click', this.close);
-        this.popupComponent.addEventListener('click', this.clickContent);
+        this.popup.addEventListener('click', this.clickContent);
     }
 
     private unsubscribeEvents(): void {
         this.place.removeEventListener('click', this.close);
-        this.popupComponent.removeEventListener('click', this.clickContent);
+        this.popup.removeEventListener('click', this.clickContent);
     }
 }
 

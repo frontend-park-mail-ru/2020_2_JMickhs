@@ -22,12 +22,9 @@ import '@/main.css';
     frame.createElements(parts);
 
     const navbarController = new NavbarController(frame.getElement(parts[0]));
-
-    userFromCookie();
-
     navbarController.activate();
 
-    Popup.init(frame.getElement(parts[2]));
+    userFromCookie();
 
     const homeController = new HomeController(frame.getElement(parts[1]));
     const signinController = new SigninController(frame.getElement(parts[1]));
@@ -35,6 +32,8 @@ import '@/main.css';
     const profileController = new ProfileController(frame.getElement(parts[1]));
     const hostelPageController = new HostelPageController(frame.getElement(parts[1]));
     const errorPageController = new ErrorPageController(frame.getElement(parts[1]));
+
+    Popup.init(frame.getElement(parts[2]));
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);
