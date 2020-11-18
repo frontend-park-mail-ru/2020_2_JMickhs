@@ -12,15 +12,15 @@ import Redirector from '@/helpers/router/redirector';
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private exitButton?: HTMLButtonElement;
+    private exitButton: HTMLButtonElement;
 
     private reloadAvatarButton?: HTMLButtonElement;
 
-    private inputAvatar?: HTMLInputElement;
+    private inputAvatar: HTMLInputElement;
 
-    private avatarImage?: HTMLImageElement;
+    private avatarImage: HTMLImageElement;
 
-    private avatarForm?: HTMLFormElement;
+    private avatarForm: HTMLFormElement;
 
     private divAvatarBottom?: HTMLDivElement;
 
@@ -89,8 +89,8 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private subscribeEvents(): void {
-        this.inputAvatar?.addEventListener('change', this.handlers.newImage);
-        this.exitButton?.addEventListener('click', this.handlers.signoutClick);
+        this.inputAvatar.addEventListener('change', this.handlers.newImage);
+        this.exitButton.addEventListener('click', this.handlers.signoutClick);
     }
 
     private unsubscribeEvents(): void {
@@ -98,8 +98,8 @@ export default class DataUserComponent implements AbstractComponent {
             return;
         }
 
-        this.inputAvatar?.removeEventListener('change', this.handlers.newImage);
-        this.exitButton?.removeEventListener('click', this.handlers.signoutClick);
+        this.inputAvatar.removeEventListener('change', this.handlers.newImage);
+        this.exitButton.removeEventListener('click', this.handlers.signoutClick);
         if (this.reloadAvatarButton) {
             this.reloadAvatarButton.removeEventListener('click', this.handlers.updateAvatarClick);
         }

@@ -9,13 +9,13 @@ import Redirector from '@/helpers/router/redirector';
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private saveButton?: HTMLButtonElement;
+    private saveButton: HTMLButtonElement;
 
-    private oldPasswordInput?: HTMLInputElement;
+    private oldPasswordInput: HTMLInputElement;
 
-    private newPasswordFirstInput?: HTMLInputElement;
+    private newPasswordFirstInput: HTMLInputElement;
 
-    private newPasswordSecondInput?: HTMLInputElement;
+    private newPasswordSecondInput: HTMLInputElement;
 
     private idTimer: number;
 

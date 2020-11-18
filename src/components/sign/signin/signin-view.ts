@@ -17,13 +17,13 @@ export default class SigninView extends PageView {
 
     private timerId: number;
 
-    private form?: HTMLFormElement;
+    private form: HTMLFormElement;
 
-    private loginInput?: HTMLInputElement;
+    private loginInput: HTMLInputElement;
 
-    private passwordInput?: HTMLInputElement;
+    private passwordInput: HTMLInputElement;
 
-    private signButton?: HTMLButtonElement;
+    private signButton: HTMLButtonElement;
 
     constructor(parent: HTMLElement) {
         super(parent);
@@ -73,8 +73,8 @@ export default class SigninView extends PageView {
 
         this.timerId = window.setTimeout(() => {
             errLine.textContent = '';
-            this.loginInput?.classList.remove('sign__input--error');
-            this.passwordInput?.classList.remove('sign__input--error');
+            this.loginInput.classList.remove('sign__input--error');
+            this.passwordInput.classList.remove('sign__input--error');
             this.timerId = -1;
         }, 5000);
     }
@@ -112,6 +112,6 @@ export default class SigninView extends PageView {
         Events.unsubscribe(ERROR_SIGNIN, this.handlers.renderErr);
         Events.unsubscribe(SIGNIN_USER, this.handlers.signinUser);
 
-        this.form?.removeEventListener('submit', this.handlers.submitSigninForm);
+        this.form.removeEventListener('submit', this.handlers.submitSigninForm);
     }
 }

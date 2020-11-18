@@ -19,17 +19,17 @@ export default class SignupView extends PageView {
 
     private timerId: number;
 
-    private form?: HTMLFormElement;
+    private form: HTMLFormElement;
 
-    private loginInput?: HTMLInputElement;
+    private loginInput: HTMLInputElement;
 
-    private emailInput?: HTMLInputElement;
+    private emailInput: HTMLInputElement;
 
-    private passwordInputFirst?: HTMLInputElement;
+    private passwordInputFirst: HTMLInputElement;
 
-    private passwordInputSecond?: HTMLInputElement;
+    private passwordInputSecond: HTMLInputElement;
 
-    private signupButton?: HTMLButtonElement;
+    private signupButton: HTMLButtonElement;
 
     constructor(parent: HTMLElement) {
         super(parent);
@@ -180,10 +180,10 @@ export default class SignupView extends PageView {
     }
 
     private clearErrorInputs(): void {
-        this.loginInput.classList?.remove('sign__input--error');
-        this.emailInput.classList?.remove('sign__input--error');
-        this.passwordInputFirst.classList?.remove('sign__input--error');
-        this.passwordInputSecond.classList?.remove('sign__input--error');
+        this.loginInput.classList.remove('sign__input--error');
+        this.emailInput.classList.remove('sign__input--error');
+        this.passwordInputFirst.classList.remove('sign__input--error');
+        this.passwordInputSecond.classList.remove('sign__input--error');
     }
 
     hide(): void {

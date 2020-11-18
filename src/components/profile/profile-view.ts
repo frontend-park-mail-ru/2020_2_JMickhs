@@ -15,11 +15,11 @@ import '@profile/templates/profile.css';
 export default class ProfileView extends PageView {
     private handlers: Record<string, HandlerEvent>;
 
-    private dataComponent?: DataUserComponent;
+    private dataComponent: DataUserComponent;
 
-    private settingsDataComponent?: SettingsDataComponent;
+    private settingsDataComponent: SettingsDataComponent;
 
-    private settingsPasswordComponent?: SettingsPasswordComponent;
+    private settingsPasswordComponent: SettingsPasswordComponent;
 
     constructor(parent: HTMLElement) {
         super(parent);

@@ -15,11 +15,11 @@ import type { HandlerEvent } from '@/helpers/interfaces/functions';
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private saveButton?: HTMLButtonElement;
+    private saveButton: HTMLButtonElement;
 
-    private loginInput?: HTMLInputElement;
+    private loginInput: HTMLInputElement;
 
-    private emailInput?: HTMLInputElement;
+    private emailInput: HTMLInputElement;
 
     private user: typeof User;
 

@@ -7,9 +7,9 @@ import './map.css';
 export default class MapComponent implements AbstractComponent {
     private loader: Loader;
 
-    private map?: google.maps.Map;
+    private map: google.maps.Map;
 
-    private marker?: google.maps.Marker;
+    private marker: google.maps.Marker;
 
     private place?: HTMLDivElement;
 
