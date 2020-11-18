@@ -47,8 +47,8 @@ export default class DataUserComponent implements AbstractComponent {
                 this.saveButton.disabled = true;
                 const username = this.loginInput.value;
                 const email = this.emailInput.value;
-                const possibility = this.validate(username, email);
-                if (possibility) {
+                const isDtaRight = this.validate(username, email);
+                if (isDtaRight) {
                     this.changeUser(username, email);
                 } else {
                     this.saveButton.disabled = false;
@@ -85,20 +85,15 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private validate(username: string, email: string): boolean { // true, если все хорошо
-        if (username === this.user.userName && email === this.user.email) {
+        if (Validator.isStringsEqual(username, this.user.userName)
+            && Validator.isStringsEqual(email, this.user.email)) {
             this.renderMessage('Вы ничего не изменили =)');
             return false;
         }
 
-        if (username === '') {
-            this.renderMessage('Заполните поле логина');
-            this.renderInputError('login');
-            return false;
-        }
-
-        if (email === '') {
-            this.renderMessage('Заполните поле c почтой');
-            this.renderInputError('email');
+        const emptyFieldsNumbers = Validator.stringsEmpty(username, email);
+        if (emptyFieldsNumbers.length > 0) {
+            this.renderMessage('Необходимо заполнить все поля', emptyFieldsNumbers);
             return false;
         }
 
@@ -119,7 +114,7 @@ export default class DataUserComponent implements AbstractComponent {
         return true;
     }
 
-    private renderMessage(text: string, isErr = true): void {
+    private renderMessage(text: string, errorInputs: number[] = [], isErr = true): void {
         if (this.messageIdTimer !== -1) {
             window.clearTimeout(this.messageIdTimer);
         }
@@ -127,6 +122,19 @@ export default class DataUserComponent implements AbstractComponent {
         if (isErr) {
             errLine.classList.remove('profile__text--accept');
             errLine.classList.add('profile__text--error');
+
+            errorInputs.forEach((cur) => {
+                switch (cur) {
+                    case 0:
+                        this.renderInputError('login');
+                        break;
+                    case 1:
+                        this.renderInputError('email');
+                        break;
+                    default:
+                        break;
+                }
+            });
         } else {
             errLine.classList.remove('profile__text--error');
             errLine.classList.add('profile__text--accept');
@@ -178,11 +186,11 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     this.user.userName = username;
                     this.user.email = email;
-                    this.renderMessage('Вы успешно все поменяли', false);
+                    this.renderMessage('Вы успешно все поменяли', [], false);
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
                     break;
                 case 400:
-                    this.renderMessage('Неверный формат запроса', true);
+                    this.renderMessage('Неверный формат запроса', [], true);
                     break;
                 case 401:
                     this.user.isAuth = false;
@@ -192,13 +200,13 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectError('Нет прав на изменение информации');
                     break;
                 case 406:
-                    this.renderMessage('Пользователь с таким email уже зарегистрирован', true);
+                    this.renderMessage('Пользователь с таким email уже зарегистрирован', [], true);
                     break;
                 case 409:
-                    this.renderMessage('Пользователь с таким логином уже зарегистрирован', true);
+                    this.renderMessage('Пользователь с таким логином уже зарегистрирован', [], true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера: статус ${code || value.error}`, true);
+                    this.renderMessage(`Ошибка сервера: статус ${code || value.error}`, [], true);
                     break;
             }
         });

@@ -81,6 +81,20 @@ class Validator {
         });
         return result;
     }
+
+    isStringsEqual(left: string, right: string): boolean {
+        return left === right;
+    }
+
+    stringsEmpty(...strs: string[]): number[] {
+        let result: number[];
+        strs.forEach((cur, index) => {
+            if (cur === '') {
+                result.push(index);
+            }
+        });
+        return result;
+    }
 }
 
 export default new Validator();

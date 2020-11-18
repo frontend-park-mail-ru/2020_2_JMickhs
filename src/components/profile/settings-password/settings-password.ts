@@ -19,7 +19,9 @@ export default class DataUserComponent implements AbstractComponent {
 
     private idTimer: number;
 
-    private newPasswordInputIdTimer: number;
+    private newFirstPasswordInputIdTimer: number;
+
+    private newSecondPasswordInputIdTimer: number;
 
     private oldPasswordInputIdTimer: number;
 
@@ -28,7 +30,8 @@ export default class DataUserComponent implements AbstractComponent {
     constructor() {
         this.idTimer = -1;
         this.oldPasswordInputIdTimer = -1;
-        this.newPasswordInputIdTimer = -1;
+        this.newSecondPasswordInputIdTimer = -1;
+        this.newFirstPasswordInputIdTimer = -1;
         this.handlers = {
             clickSave: this.clickSave.bind(this),
         };
@@ -67,8 +70,8 @@ export default class DataUserComponent implements AbstractComponent {
         event.preventDefault();
 
         this.saveButton.disabled = true;
-        const possibility = this.validate();
-        if (possibility) {
+        const isDataRight = this.validate();
+        if (isDataRight) {
             this.updatePassword(this.oldPasswordInput.value, this.newPasswordFirstInput.value);
         } else {
             this.saveButton.disabled = false;
@@ -80,32 +83,25 @@ export default class DataUserComponent implements AbstractComponent {
         const newPasswordFirst = this.newPasswordFirstInput.value;
         const newPasswordSecond = this.newPasswordSecondInput.value;
 
-        if (oldPassword === '') {
-            this.renderOldPasswordInputError();
-            this.renderMessage('Вы не ввели старый пароль!');
+        const emptyFieldsNumbers = Validator.stringsEmpty(oldPassword, newPasswordFirst, newPasswordSecond);
+        if (emptyFieldsNumbers.length > 0) {
+            this.renderMessage('Необходимо заполнить все поля', emptyFieldsNumbers);
             return false;
         }
-        if (newPasswordFirst === '') {
-            this.renderNewPasswordInputError();
-            this.renderMessage('Необходимо заполнить все поля');
+
+        if (!Validator.isStringsEqual(newPasswordFirst, newPasswordSecond)) {
+            this.renderMessage('Пароли не совпадают', [1, 2]);
             return false;
         }
-        if (newPasswordFirst !== newPasswordSecond) {
-            this.renderNewPasswordInputError();
-            this.renderMessage('Пароли не совпадают');
-            return false;
-        }
-        if (oldPassword === newPasswordFirst) {
-            this.renderNewPasswordInputError();
-            this.renderOldPasswordInputError();
-            this.renderMessage('Старый и новый пароль совпадает');
+
+        if (Validator.isStringsEqual(oldPassword, newPasswordFirst)) {
+            this.renderMessage('Старый и новый пароль совпадает', [0, 1, 2]);
             return false;
         }
 
         const passwordErrors = Validator.validatePassword(newPasswordFirst);
         if (passwordErrors.length > 0) {
-            this.renderNewPasswordInputError();
-            this.renderMessage(passwordErrors[0]);
+            this.renderMessage(passwordErrors[0], [1, 2]);
             return false;
         }
 
@@ -125,18 +121,29 @@ export default class DataUserComponent implements AbstractComponent {
         }, 5000);
     }
 
-    private renderNewPasswordInputError(): void {
-        if (this.newPasswordInputIdTimer !== -1) {
-            window.clearTimeout(this.newPasswordInputIdTimer);
+    private renderNewFirstPasswordInputError(): void {
+        if (this.newFirstPasswordInputIdTimer !== -1) {
+            window.clearTimeout(this.newFirstPasswordInputIdTimer);
         }
         this.newPasswordFirstInput.classList.add('profile__input--error');
-        this.newPasswordSecondInput.classList.add('profile__input--error');
-        this.newPasswordInputIdTimer = window.setTimeout(() => {
+        this.newFirstPasswordInputIdTimer = window.setTimeout(() => {
             if (this.newPasswordFirstInput) {
                 this.newPasswordFirstInput.classList.remove('profile__input--error');
+            }
+            this.newFirstPasswordInputIdTimer = -1;
+        }, 5000);
+    }
+
+    private renderNewSecondPasswordInputError(): void {
+        if (this.newSecondPasswordInputIdTimer !== -1) {
+            window.clearTimeout(this.newSecondPasswordInputIdTimer);
+        }
+        this.newPasswordSecondInput.classList.add('profile__input--error');
+        this.newSecondPasswordInputIdTimer = window.setTimeout(() => {
+            if (this.newPasswordSecondInput) {
                 this.newPasswordSecondInput.classList.remove('profile__input--error');
             }
-            this.newPasswordInputIdTimer = -1;
+            this.newSecondPasswordInputIdTimer = -1;
         }, 5000);
     }
 
@@ -146,7 +153,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.newPasswordSecondInput.value = '';
     }
 
-    private renderMessage(text = '', isErr = true): void {
+    private renderMessage(text = '', errorInputs: number[] = [], isErr = true): void {
         if (this.idTimer !== -1) {
             window.clearTimeout(this.idTimer);
         }
@@ -155,6 +162,22 @@ export default class DataUserComponent implements AbstractComponent {
         if (isErr) {
             errLine.classList.remove('profile__text--accept');
             errLine.classList.add('profile__text--error');
+
+            errorInputs.forEach((cur) => {
+                switch (cur) {
+                    case 0:
+                        this.renderOldPasswordInputError();
+                        break;
+                    case 1:
+                        this.renderNewFirstPasswordInputError();
+                        break;
+                    case 2:
+                        this.renderNewSecondPasswordInputError();
+                        break;
+                    default:
+                        break;
+                }
+            });
         } else {
             errLine.classList.remove('profile__text--error');
             errLine.classList.add('profile__text--accept');
@@ -177,7 +200,7 @@ export default class DataUserComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    this.renderMessage('Вы успешно обновили пароль!', false);
+                    this.renderMessage('Вы успешно обновили пароль!', [], false);
                     this.clearInputs();
                     break;
                 case 400:
