@@ -9,6 +9,7 @@ import ErrorPageController from '@/components/page-error/page-error-controller';
 import userFromCookie from '@/helpers/user/cookie-user';
 import registrateServiceWorker from '@/service-worker/registrate';
 import Popup from './components/popup/popup';
+import MainFrame from './helpers/layout/main-frame';
 
 import '@/main.css';
 
@@ -16,21 +17,23 @@ import '@/main.css';
     registrateServiceWorker();
 
     const application = document.getElementById('app');
+    const frame = new MainFrame(application);
+    const parts = ['navbar', 'page', 'popup'];
+    frame.createElements(parts);
 
-    const navbarController = new NavbarController(application);
+    const navbarController = new NavbarController(frame.getElement(parts[0]));
+    navbarController.activate();
 
     userFromCookie();
 
-    navbarController.activate();
+    const homeController = new HomeController(frame.getElement(parts[1]));
+    const signinController = new SigninController(frame.getElement(parts[1]));
+    const signupController = new SignupController(frame.getElement(parts[1]));
+    const profileController = new ProfileController(frame.getElement(parts[1]));
+    const hostelPageController = new HostelPageController(frame.getElement(parts[1]));
+    const errorPageController = new ErrorPageController(frame.getElement(parts[1]));
 
-    Popup.init(application);
-
-    const homeController = new HomeController(application);
-    const signinController = new SigninController(application);
-    const signupController = new SignupController(application);
-    const profileController = new ProfileController(application);
-    const hostelPageController = new HostelPageController(application);
-    const errorPageController = new ErrorPageController(application);
+    Popup.init(frame.getElement(parts[2]));
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);

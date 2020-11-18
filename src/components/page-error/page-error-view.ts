@@ -11,4 +11,8 @@ export default class ErrorPageView extends PageView {
         }
         this.page.innerHTML = template({ error: errStr });
     }
+
+    hide(): void {
+        this.page.innerHTML = '';
+    }
 }
