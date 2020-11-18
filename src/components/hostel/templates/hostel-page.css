@@ -83,7 +83,7 @@
     text-decoration: none;
     text-align: center;
     outline: none;
-    z-index: var(--button-z-index);
+    z-index: var(--z-index-button);
     transition: 0.3s;
 }
 

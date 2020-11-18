@@ -45,7 +45,9 @@ export default class HomeView extends PageView {
                 Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
             },
             renderHostelList: (hostels: HostelData[]): void => {
-                this.searchButton.disabled = false;
+                if (this.searchButton) {
+                    this.searchButton.disabled = false;
+                }
                 this.mainContainerElement.className = 'home__container-list-all';
                 this.listComponent.activate(hostels);
             },

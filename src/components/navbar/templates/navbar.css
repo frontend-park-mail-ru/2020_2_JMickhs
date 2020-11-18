@@ -10,7 +10,7 @@
     height: 72px;
     align-items: center;
     justify-items: center;
-    z-index: var(--navbar-z-index);
+    z-index: var(--z-index-navbar);
 }
 
 @media only screen and (max-width: 500px) {

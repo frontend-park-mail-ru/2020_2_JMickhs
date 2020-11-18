@@ -5,7 +5,7 @@
     overflow: hidden;
     position: fixed;
     top: 0;
-    z-index: var(--popup-z-index);
+    z-index: var(--z-index-popup);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -34,7 +34,7 @@
     text-decoration: none;
     text-align: center;
     outline: none;
-    z-index: var(--popup-z-index);
+    z-index: var(--z-index-popup);
     transition: 0.3s;
 }
 

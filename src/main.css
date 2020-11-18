@@ -16,35 +16,25 @@
     --gray-dark: #757575;
     --gray-new: #3c3f41;
     --shadow-color: rgba(0, 0, 0, 0.4);
-}
 
-:root {
-    --navbar-z-index: 2500;
-    --button-z-index: 2000;
-    --popup-z-index: 3000;
-}
+    --z-index-navbar: 2500;
+    --z-index-button: 2000;
+    --z-index-popup: 3000;
 
-:root {
     --box-shadow-thin: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     --box-shadow-bold: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
     --box-shadow-inset: inset 0 0 5px grey;
-}
 
-:root {
     --font-large: large;
     --font-17: 17px;
     --font-24: 24px;
     --font-15: 15px;
-}
 
-:root {
     --border-radius-5px: 5px;
     --border-radius-10px: 10px;
     --border-radius-15px: 15px;
     --border-radius-round: 1000px;
-}
 
-:root {
     --border-blue: 4px solid var(--blue);
 }
 
