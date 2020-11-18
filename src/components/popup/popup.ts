@@ -1,3 +1,10 @@
+// Коля (К) спрашивает у Ментора (М): «Наташ, а что такое пр?»
+// М: — Открывай гитхаб, покажу.
+// Коля немного недоумевет, но открывает пр.
+// Ментор подходит сзади и засовывает ему понятно что, понятно куда, и объясняет:
+// — Вот смотри Колька. Вроде и у тебя пр вашем в проекте и у меня пр в вашем проекте...  Но!
+// Есть один нюанс…
+
 import type { AbstractComponent } from '@interfaces/components';
 import * as template from './popup.hbs';
 import './popup.css';
@@ -18,11 +25,10 @@ class Popup {
             return;
         }
 
-        this.component = component;
-
         this.place.innerHTML = template();
         this.popup = document.getElementById('popup-component') as HTMLDivElement;
 
+        this.component = component;
         this.component.setPlace(this.popup);
         this.component.activate(...args);
 
