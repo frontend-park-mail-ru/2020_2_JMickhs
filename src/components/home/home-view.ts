@@ -24,9 +24,12 @@ export default class HomeView extends PageView {
 
     private listComponent: ListComponent;
 
+    private inputTimer: number;
+
     constructor(parent: HTMLElement) {
         super(parent);
         this.listComponent = new ListComponent();
+        this.inputTimer = -1;
 
         this.handlers = this.makeHadlers();
     }
@@ -35,10 +38,7 @@ export default class HomeView extends PageView {
         const handlers = {
             searchClick: (evt: Event): void => {
                 evt.preventDefault();
-                if (this.inputElement.value.length > 50) {
-                    this.renderError('Длинна запроса не должна превышать 50 символов');
-                    return;
-                }
+
                 if (this.searchButton) {
                     this.searchButton.disabled = true;
                 }
@@ -50,6 +50,11 @@ export default class HomeView extends PageView {
                 }
                 this.mainContainerElement.className = 'home__container-list-all';
                 this.listComponent.activate(hostels);
+            },
+            changeInput: (): void => {
+                if (this.inputElement.value.length > 50) {
+                    this.renderError('Длинна запроса не должна превышать 50 символов');
+                }
             },
         };
         return handlers;
@@ -81,7 +86,7 @@ export default class HomeView extends PageView {
     renderError(error: string): void {
         this.listComponent.deactivate();
         this.render(error);
-        this.inputElement.value = '';
+        this.clearInputError();
     }
 
     hide(): void {
@@ -97,11 +102,29 @@ export default class HomeView extends PageView {
 
     private subscribeEvents(): void {
         this.searchForm.addEventListener('submit', this.handlers.searchClick);
+        this.inputElement.addEventListener('change', this.handlers.changeInput);
+        this.inputElement.addEventListener('keypress', this.handlers.changeInput);
         Events.subscribe(FILL_HOSTELS, this.handlers.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
         this.searchForm.removeEventListener('submit', this.handlers.searchClick);
+        this.inputElement.removeEventListener('change', this.handlers.changeInput);
+        this.inputElement.removeEventListener('keypress', this.handlers.changeInput);
         Events.unsubscribe(FILL_HOSTELS, this.handlers.renderHostelList);
+    }
+
+    private clearInputError(): void {
+        if (this.inputTimer !== -1) {
+            window.clearTimeout(this.inputTimer);
+        }
+        const listElement = document.getElementById('list') as HTMLDivElement;
+        this.inputTimer = window.setTimeout(() => {
+            if (listElement) {
+                listElement.innerHTML = '';
+                listElement.classList.remove('home__list--grid-area-search');
+            }
+            this.inputTimer = -1;
+        }, 5000);
     }
 }

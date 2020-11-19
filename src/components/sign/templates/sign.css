@@ -64,11 +64,10 @@
     border: none;
     cursor: pointer;
     width: 100%;
-    opacity: 0.9;
     border-radius: var(--border-radius-5px);
     text-decoration: none;
     outline: none;
-    opacity: 0.8;
+    opacity: var(--opacity-80);
     transition: 0.3s;
 }
 
@@ -78,6 +77,6 @@
 }
 
 .sign__button:disabled {
-    opacity: 0.7;
+    opacity: var(--opacity-70);
     pointer-events: none;
 }

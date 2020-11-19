@@ -41,7 +41,7 @@
 }
 
 .page-error__button--blue {
-    opacity: 0.8;
+    opacity: var(--opacity-80);
     background-color: var(--blue);
 }
 

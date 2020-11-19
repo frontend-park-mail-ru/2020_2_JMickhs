@@ -106,13 +106,13 @@
 }
 
 .home__button-orange:disabled {
-    opacity: 0.7;
+    opacity: var(--opacity-70);
     pointer-events: none;
 }
 
 .home__error {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     height: 100%;
     padding-bottom: 5%;
@@ -133,4 +133,8 @@
 
 .home__message-container:hover {
     box-shadow: var(--box-shadow-bold);
+}
+
+.home__list--grid-area-search {
+    grid-area: search;
 }

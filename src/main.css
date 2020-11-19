@@ -36,6 +36,9 @@
     --border-radius-round: 1000px;
 
     --border-blue: 4px solid var(--blue);
+
+    --opacity-70: 0.7;
+    --opacity-80: 0.8;
 }
 
 body {
