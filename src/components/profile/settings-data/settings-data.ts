@@ -10,7 +10,6 @@ import {
 
 import * as template from '@profile/settings-data/settings-data.hbs';
 import Redirector from '@router/redirector';
-import type { HandlerEvent } from '@/helpers/interfaces/functions';
 
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -27,34 +26,32 @@ export default class DataUserComponent implements AbstractComponent {
 
     private inputIdTimer: number;
 
-    private handlers: Record<string, HandlerEvent>;
+    private inputNames = {
+        EMAIL: 'email',
+        USERNAME: 'username',
+    };
+
+    private saveDataClick = (event: Event): void => {
+        event.preventDefault();
+        this.saveButton.disabled = true;
+        const username = this.loginInput.value;
+        const email = this.emailInput.value;
+        const isDtaRight = this.validate(username, email);
+        if (isDtaRight) {
+            this.changeUser(username, email);
+        } else {
+            this.saveButton.disabled = false;
+        }
+    };
 
     constructor() {
         this.user = User;
         this.messageIdTimer = -1;
         this.inputIdTimer = -1;
-        this.handlers = this.makeHandlers();
     }
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
-    }
-
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            saveDataClick: (event: Event): void => {
-                event.preventDefault();
-                this.saveButton.disabled = true;
-                const username = this.loginInput.value;
-                const email = this.emailInput.value;
-                const isDtaRight = this.validate(username, email);
-                if (isDtaRight) {
-                    this.changeUser(username, email);
-                } else {
-                    this.saveButton.disabled = false;
-                }
-            },
-        };
     }
 
     activate(): void {
@@ -71,11 +68,11 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private subscribeEvents(): void {
-        this.saveButton.addEventListener('click', this.handlers.saveDataClick);
+        this.saveButton.addEventListener('click', this.saveDataClick);
     }
 
     private unsubscribeEvents(): void {
-        this.saveButton.removeEventListener('click', this.handlers.saveDataClick);
+        this.saveButton.removeEventListener('click', this.saveDataClick);
     }
 
     deactivate(): void {
@@ -91,7 +88,11 @@ export default class DataUserComponent implements AbstractComponent {
             return false;
         }
 
-        const emptyFieldsNumbers = Validator.stringsEmpty({ login: username, email });
+        const emptyFieldsNumbers = Validator.stringsEmpty([
+            { name: this.inputNames.USERNAME, value: username },
+            { name: this.inputNames.EMAIL, value: email },
+        ]);
+
         if (emptyFieldsNumbers.length > 0) {
             this.renderMessage('Необходимо заполнить все поля', emptyFieldsNumbers);
             return false;
@@ -100,14 +101,14 @@ export default class DataUserComponent implements AbstractComponent {
         const loginErrors = Validator.validateLogin(username);
         if (loginErrors.length > 0) {
             this.renderMessage(loginErrors[0]);
-            this.renderInputError('login');
+            this.renderInputError(this.inputNames.USERNAME);
             return false;
         }
 
         const emailErrors = Validator.validateEmail(email);
         if (emailErrors.length > 0) {
             this.renderMessage(emailErrors[0]);
-            this.renderInputError('email');
+            this.renderInputError(this.inputNames.EMAIL);
             return false;
         }
 
@@ -122,23 +123,24 @@ export default class DataUserComponent implements AbstractComponent {
         if (errorInputs.length > 0) {
             errLine.classList.remove('profile__text--accept');
             errLine.classList.add('profile__text--error');
-
-            errorInputs.forEach((cur) => {
-                switch (cur) {
-                    case 'login':
-                        this.renderInputError('login');
-                        break;
-                    case 'email':
-                        this.renderInputError('email');
-                        break;
-                    default:
-                        break;
-                }
-            });
         } else {
             errLine.classList.remove('profile__text--error');
             errLine.classList.add('profile__text--accept');
         }
+
+        errorInputs.forEach((inputError) => {
+            switch (inputError) {
+                case this.inputNames.USERNAME:
+                    this.renderInputError(inputError);
+                    break;
+                case this.inputNames.EMAIL:
+                    this.renderInputError(inputError);
+                    break;
+                default:
+                    break;
+            }
+        });
+
         errLine.textContent = text;
 
         this.messageIdTimer = window.setTimeout(() => {
@@ -149,18 +151,18 @@ export default class DataUserComponent implements AbstractComponent {
         }, 5000);
     }
 
-    private renderInputError(what: string): void {
+    private renderInputError(inputName: string): void {
         if (this.inputIdTimer !== -1) {
             window.clearTimeout(this.inputIdTimer);
         }
         let input: HTMLInputElement;
 
-        switch (what) {
-            case 'login': {
+        switch (inputName) {
+            case this.inputNames.USERNAME: {
                 input = document.getElementById('login-profile') as HTMLInputElement;
                 break;
             }
-            case 'email': {
+            case this.inputNames.EMAIL: {
                 input = document.getElementById('email-profile') as HTMLInputElement;
                 break;
             }
@@ -190,7 +192,10 @@ export default class DataUserComponent implements AbstractComponent {
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
                     break;
                 case 400:
-                    this.renderMessage('Неверный формат запроса', ['login', 'email']);
+                    this.renderMessage('Неверный формат запроса', [
+                        this.inputNames.USERNAME,
+                        this.inputNames.EMAIL,
+                    ]);
                     break;
                 case 401:
                     this.user.isAuth = false;

@@ -27,6 +27,12 @@ export default class DataUserComponent implements AbstractComponent {
 
     private handlers: Record<string, HandlerEvent>;
 
+    private inputNames = {
+        OLD_PASSWORD: 'oldPassword',
+        NEW_PASSWORD_FIRST: 'newPassword1',
+        NEW_PASSWORD_SECOND: 'newPassword2',
+    };
+
     constructor() {
         this.idTimer = -1;
         this.oldPasswordInputIdTimer = -1;
@@ -83,29 +89,40 @@ export default class DataUserComponent implements AbstractComponent {
         const newPasswordFirst = this.newPasswordFirstInput.value;
         const newPasswordSecond = this.newPasswordSecondInput.value;
 
-        const emptyFieldsNumbers = Validator.stringsEmpty({
-            oldPassword,
-            newPassword1: newPasswordFirst,
-            newPassword2: newPasswordSecond,
-        });
+        const emptyFieldsNumbers = Validator.stringsEmpty([
+            { name: this.inputNames.OLD_PASSWORD, value: oldPassword },
+            { name: this.inputNames.NEW_PASSWORD_FIRST, value: newPasswordFirst },
+            { name: this.inputNames.NEW_PASSWORD_SECOND, value: newPasswordSecond },
+        ]);
+
         if (emptyFieldsNumbers.length > 0) {
             this.renderMessage('Необходимо заполнить все поля', emptyFieldsNumbers);
             return false;
         }
 
         if (!Validator.isStringsEqual(newPasswordFirst, newPasswordSecond)) {
-            this.renderMessage('Пароли не совпадают', ['newPassword1', 'newPassword2']);
+            this.renderMessage('Пароли не совпадают', [
+                this.inputNames.NEW_PASSWORD_FIRST,
+                this.inputNames.NEW_PASSWORD_SECOND,
+            ]);
             return false;
         }
 
         if (Validator.isStringsEqual(oldPassword, newPasswordFirst)) {
-            this.renderMessage('Старый и новый пароль совпадает', ['oldPassword', 'newPassword1', 'newPassword2']);
+            this.renderMessage('Старый и новый пароль совпадает', [
+                this.inputNames.OLD_PASSWORD,
+                this.inputNames.NEW_PASSWORD_FIRST,
+                this.inputNames.NEW_PASSWORD_SECOND,
+            ]);
             return false;
         }
 
         const passwordErrors = Validator.validatePassword(newPasswordFirst);
         if (passwordErrors.length > 0) {
-            this.renderMessage(passwordErrors[0], ['newPassword1', 'newPassword2']);
+            this.renderMessage(passwordErrors[0], [
+                this.inputNames.NEW_PASSWORD_FIRST,
+                this.inputNames.NEW_PASSWORD_SECOND,
+            ]);
             return false;
         }
 
@@ -163,29 +180,29 @@ export default class DataUserComponent implements AbstractComponent {
         }
         const errLine = document.getElementById('text-error-sequr');
 
-        if (errorInputs.length > 0) {
-            errLine.classList.remove('profile__text--accept');
-            errLine.classList.add('profile__text--error');
-
-            errorInputs.forEach((cur) => {
-                switch (cur) {
-                    case 'oldPassword':
-                        this.renderOldPasswordInputError();
-                        break;
-                    case 'newPassword1':
-                        this.renderNewFirstPasswordInputError();
-                        break;
-                    case 'newPassword2':
-                        this.renderNewSecondPasswordInputError();
-                        break;
-                    default:
-                        break;
-                }
-            });
-        } else {
+        if (errorInputs.length === 0) {
             errLine.classList.remove('profile__text--error');
             errLine.classList.add('profile__text--accept');
+        } else {
+            errLine.classList.remove('profile__text--accept');
+            errLine.classList.add('profile__text--error');
         }
+
+        errorInputs.forEach((cur) => {
+            switch (cur) {
+                case this.inputNames.OLD_PASSWORD:
+                    this.renderOldPasswordInputError();
+                    break;
+                case this.inputNames.NEW_PASSWORD_FIRST:
+                    this.renderNewFirstPasswordInputError();
+                    break;
+                case this.inputNames.NEW_PASSWORD_SECOND:
+                    this.renderNewSecondPasswordInputError();
+                    break;
+                default:
+                    break;
+            }
+        });
 
         errLine.textContent = text;
 
@@ -217,7 +234,9 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 case 402:
-                    this.renderMessage('Вы ввели неверный пароль', ['oldPassword']);
+                    this.renderMessage('Вы ввели неверный пароль', [
+                        this.inputNames.OLD_PASSWORD,
+                    ]);
                     break;
                 case 403:
                     Redirector.redirectError('Нет прав на изменение пароля');

@@ -6,6 +6,11 @@
 // - Ураааа! Я всегда об этом мечтал!
 // - Но есть один нюанс...
 
+interface Input {
+    name: string,
+    value: string,
+}
+
 class Validator {
     private loginTableCheckup: {regular: RegExp, error: string}[];
 
@@ -94,11 +99,11 @@ class Validator {
         return left === right;
     }
 
-    stringsEmpty(strs: Record<string, string>): string[] {
+    stringsEmpty(strs: Input[]): string[] {
         const result: string[] = [];
-        Object.entries(strs).forEach(([key, value]) => {
-            if (value === '') {
-                result.push(key);
+        strs.forEach((input) => {
+            if (input.value === '') {
+                result.push(input.name);
             }
         });
         return result;
