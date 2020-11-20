@@ -1,7 +1,8 @@
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 import {
-    BACKEND_DOMAIN,
-    BACKEND_PORT_HOSTEL,
+    BACKEND_ADDRESS_HOSTEL,
+    BACKEND_ADDRESS_CSRF,
+    TEXT_ERROR_CSRF,
 } from './constants-network';
 import NetworkAbtract from './network-abstract';
 
@@ -53,4 +54,4 @@ class NetworkHostel extends NetworkAbtract {
     }
 }
 
-export default new NetworkHostel(BACKEND_DOMAIN, BACKEND_PORT_HOSTEL);
+export default new NetworkHostel(BACKEND_ADDRESS_HOSTEL, BACKEND_ADDRESS_CSRF, TEXT_ERROR_CSRF);
