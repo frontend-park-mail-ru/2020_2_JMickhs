@@ -53,7 +53,7 @@ class Request {
     }
 
     private getToken(): Promise<string> {
-        const url = '/api/v1/csrf';
+        const url = 'https://hostelscan.ru:8082/api/v1/csrf';
         let token = '';
 
         return fetch(url, {
