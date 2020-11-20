@@ -91,7 +91,7 @@ export default class DataUserComponent implements AbstractComponent {
             return false;
         }
 
-        const emptyFieldsNumbers = Validator.stringsEmpty(username, email);
+        const emptyFieldsNumbers = Validator.stringsEmpty({ login: username, email });
         if (emptyFieldsNumbers.length > 0) {
             this.renderMessage('Необходимо заполнить все поля', emptyFieldsNumbers);
             return false;
@@ -114,21 +114,21 @@ export default class DataUserComponent implements AbstractComponent {
         return true;
     }
 
-    private renderMessage(text: string, errorInputs: number[] = [], isErr = true): void {
+    private renderMessage(text: string, errorInputs: string[] = []): void {
         if (this.messageIdTimer !== -1) {
             window.clearTimeout(this.messageIdTimer);
         }
         const errLine = document.getElementById('text-error-data');
-        if (isErr) {
+        if (errorInputs.length > 0) {
             errLine.classList.remove('profile__text--accept');
             errLine.classList.add('profile__text--error');
 
             errorInputs.forEach((cur) => {
                 switch (cur) {
-                    case 0:
+                    case 'login':
                         this.renderInputError('login');
                         break;
-                    case 1:
+                    case 'email':
                         this.renderInputError('email');
                         break;
                     default:
@@ -186,11 +186,11 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     this.user.userName = username;
                     this.user.email = email;
-                    this.renderMessage('Вы успешно все поменяли', [], false);
+                    this.renderMessage('Вы успешно все поменяли');
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
                     break;
                 case 400:
-                    this.renderMessage('Неверный формат запроса', [], true);
+                    this.renderMessage('Неверный формат запроса', ['login', 'email']);
                     break;
                 case 401:
                     this.user.isAuth = false;
@@ -200,13 +200,13 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectError('Нет прав на изменение информации');
                     break;
                 case 406:
-                    this.renderMessage('Пользователь с таким email уже зарегистрирован', [], true);
+                    this.renderMessage('Пользователь с таким email уже зарегистрирован');
                     break;
                 case 409:
-                    this.renderMessage('Пользователь с таким логином уже зарегистрирован', [], true);
+                    this.renderMessage('Пользователь с таким логином уже зарегистрирован');
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера: статус ${code || value.error}`, [], true);
+                    this.renderMessage(`Ошибка сервера: статус ${code || value.error}`);
                     break;
             }
         });

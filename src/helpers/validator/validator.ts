@@ -94,11 +94,11 @@ class Validator {
         return left === right;
     }
 
-    stringsEmpty(...strs: string[]): number[] {
-        let result: number[];
-        strs.forEach((cur, index) => {
-            if (cur === '') {
-                result.push(index);
+    stringsEmpty(strs: Record<string, string>): string[] {
+        const result: string[] = [];
+        Object.entries(strs).forEach(([key, value]) => {
+            if (value === '') {
+                result.push(key);
             }
         });
         return result;

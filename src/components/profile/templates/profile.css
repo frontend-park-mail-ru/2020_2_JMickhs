@@ -30,7 +30,7 @@
     width: 300px;
     margin: auto;
     border-radius: var(--border-radius-10px);
-    border: var(--border-blue);
+    border: var(--border-profile-components);
     text-align: left;
     margin-top: 1%;
 }
@@ -54,7 +54,7 @@
     height: 300px;
     object-fit: cover;
     border-radius: var(--border-radius-10px);
-    border: var(--border-blue);
+    border: var(--border-profile-components);
     cursor: pointer;
     transition: 0.3s;
 }
@@ -138,7 +138,7 @@
     background: var(--white);
     padding: 17px;
     border-radius: var(--border-radius-10px);
-    border: var(--border-blue);
+    border: var(--border-profile-components);
 }
 
 .profile__button {

@@ -18,7 +18,7 @@
     min-width: 200px;
     text-align: center;
     box-shadow: var(--box-shadow-thin);
-    border-radius: var(--border-radius-15px);
+    border-radius: var(--border-radius-regular);
     background-color: var(--opacity-white);
     color: var(--blue);
     font-weight: bold;

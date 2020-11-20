@@ -52,7 +52,7 @@
     align-self: center;
     justify-self: right;
     background-color: var(--opacity-white);
-    border-radius: var(--border-radius-15px);
+    border-radius: var(--border-radius-regular);
     box-shadow: var(--box-shadow-thin);
     transition: 0.3s;
 }

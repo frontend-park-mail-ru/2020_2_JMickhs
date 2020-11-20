@@ -46,7 +46,7 @@
 
 .home__search-input {
     height: 45px;
-    border: var(--border-blue);
+    border: var(--border-profile-components);
     border-radius: var(--border-radius-round);
     padding: 15px;
     outline: none;
@@ -92,7 +92,7 @@
     cursor: pointer;
     color: var(--white);
     font-weight: 500;
-    font-size: var(--font-17);
+    font-size: var(--font-size-regular);
     padding: 9px 30px;
     border: none;
     outline: none;
@@ -126,7 +126,7 @@
 .home__message-container {
     padding: 15px 50px;
     background-color: var(--opacity-white);
-    border-radius: var(--border-radius-15px);
+    border-radius: var(--border-radius-regular);
     text-align: center;
     transition: .3s;
 }

@@ -61,7 +61,7 @@
 .list__message-container {
     padding: 15px 50px;
     background-color: var(--opacity-white);
-    border-radius: var(--border-radius-15px);
+    border-radius: var(--border-radius-regular);
     text-align: center;
     transition: .3s;
 }
@@ -89,6 +89,6 @@
         grid-gap: 2%;
     }
     .hostel-card__text {
-        font-size: var(--font-15);
+        font-size: 15px;
     }
 }

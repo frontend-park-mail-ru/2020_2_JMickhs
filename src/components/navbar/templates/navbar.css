@@ -39,7 +39,7 @@
 
 .navbar__button {
     font-weight: 500;
-    font-size: var(--font-17);
+    font-size: var(--font-size-regular);
     padding: 11px 15px;
     box-shadow: none;
     outline: none;
@@ -75,5 +75,5 @@
 }
 
 .navbar__button_big-font {
-    font-size: var(--font-24);
+    font-size: var(--font-size-header);
 }

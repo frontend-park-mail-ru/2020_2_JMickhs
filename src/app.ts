@@ -18,22 +18,26 @@ import '@/main.css';
 
     const application = document.getElementById('app');
     const frame = new MainFrame(application);
-    const parts = ['navbar', 'page', 'popup'];
+    const parts = {
+        navbar: 'navbar',
+        page: 'page',
+        popup: 'popup',
+    };
     frame.createElements(parts);
 
-    const navbarController = new NavbarController(frame.getElement(parts[0]));
+    const navbarController = new NavbarController(frame.getElement(parts.navbar));
     navbarController.activate();
 
     userFromCookie();
 
-    const homeController = new HomeController(frame.getElement(parts[1]));
-    const signinController = new SigninController(frame.getElement(parts[1]));
-    const signupController = new SignupController(frame.getElement(parts[1]));
-    const profileController = new ProfileController(frame.getElement(parts[1]));
-    const hostelPageController = new HostelPageController(frame.getElement(parts[1]));
-    const errorPageController = new ErrorPageController(frame.getElement(parts[1]));
+    const homeController = new HomeController(frame.getElement(parts.page));
+    const signinController = new SigninController(frame.getElement(parts.page));
+    const signupController = new SignupController(frame.getElement(parts.page));
+    const profileController = new ProfileController(frame.getElement(parts.page));
+    const hostelPageController = new HostelPageController(frame.getElement(parts.page));
+    const errorPageController = new ErrorPageController(frame.getElement(parts.page));
 
-    Popup.init(frame.getElement(parts[2]));
+    Popup.init(frame.getElement(parts.popup));
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);

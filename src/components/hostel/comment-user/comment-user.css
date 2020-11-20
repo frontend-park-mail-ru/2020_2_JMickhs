@@ -6,7 +6,7 @@
 .hostel__textarea {
     grid-area: area;
     padding: 12px 20px;
-    border-radius: var(--border-radius-15px);
+    border-radius: var(--border-radius-regular);
     background-color: var(--opacity-white);
     resize: none;
     outline: none;

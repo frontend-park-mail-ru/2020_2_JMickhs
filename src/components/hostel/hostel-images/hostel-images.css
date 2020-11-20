@@ -1,5 +1,5 @@
 .hostel__cur-image {
-    border-radius: var(--border-radius-15px);
+    border-radius: var(--border-radius-regular);
     box-shadow: var(--box-shadow-thin);
     object-fit: cover;
     transition: 0.3s;
