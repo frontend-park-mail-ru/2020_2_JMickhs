@@ -32,7 +32,7 @@ class LoaderCSRF {
     }
 }
 
-export default class NetworkAbtract {
+export default class NetworkAbstract {
     private readonly domain: string;
 
     private readonly port: string;

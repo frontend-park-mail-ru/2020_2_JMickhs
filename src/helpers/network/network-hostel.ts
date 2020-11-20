@@ -3,7 +3,7 @@ import {
     BACKEND_DOMAIN,
     BACKEND_PORT_HOSTEL,
 } from './constants-network';
-import NetworkAbtract from './network-abtract';
+import NetworkAbtract from './network-abstract';
 
 class NetworkHostel extends NetworkAbtract {
     getHostels(): Promise<ResponseData> {
