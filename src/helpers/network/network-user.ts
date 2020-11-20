@@ -3,7 +3,7 @@ import {
     BACKEND_DOMAIN,
     BACKEND_PORT_USER,
 } from './constants-network';
-import NetworkAbtract from './network-abtract';
+import NetworkAbtract from './network-abstract';
 
 class NetworkUser extends NetworkAbtract {
     user(): Promise<ResponseData> {

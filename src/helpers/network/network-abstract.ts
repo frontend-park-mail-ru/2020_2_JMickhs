@@ -25,14 +25,14 @@ class LoaderCSRF {
             return response.json();
         }).then((json) => json.code).then((code) => {
             if (code !== 200) {
-                return Promise.reject();
+                return Promise.reject(new Error(this.errorCSRF));
             }
             return token;
-        }).catch(() => this.errorCSRF);
+        }).catch((err) => err);
     }
 }
 
-export default class NetworkAbtract {
+export default class NetworkAbstract {
     private readonly domain: string;
 
     private readonly port: string;
@@ -66,7 +66,7 @@ export default class NetworkAbtract {
                 reqHeaders['X-Csrf-Token'] = value;
                 // и после получения токена и добавления в хедеры уже делаем запрос
                 return this.request.ajax(method, urlAbsolute, body, reqHeaders);
-            }).catch((err: string) => ({ error: err }));
+            }).catch((err: Error) => ({ error: err }));
         }
 
         return this.request.ajax(
