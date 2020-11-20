@@ -8,8 +8,9 @@ import HostelPageController from '@hostel/hostel-page-controller';
 import ErrorPageController from '@/components/page-error/page-error-controller';
 import userFromCookie from '@/helpers/user/cookie-user';
 import registrateServiceWorker from '@/service-worker/registrate';
-import Popup from './components/popup/popup';
-import MainFrame from './helpers/layout/main-frame';
+import Popup from '@/components/popup/popup';
+import MainFrame from '@/helpers/layout/main-frame';
+import { ID_PAGE, ID_NAVBAR, ID_POPUP } from '@/helpers/layout/id-components';
 
 import '@/main.css';
 
@@ -18,25 +19,24 @@ import '@/main.css';
 
     const application = document.getElementById('app');
     const frame = new MainFrame(application);
-    const navbarElementId = 'navbar';
-    const pageElementId = 'page';
-    const popupElementId = 'popup';
+    frame.createElements([ID_NAVBAR, ID_PAGE, ID_POPUP]);
 
-    frame.createElements([navbarElementId, pageElementId, popupElementId]);
-
-    const navbarController = new NavbarController(frame.getElement(navbarElementId));
+    const navbarElement = frame.getElement(ID_NAVBAR);
+    const navbarController = new NavbarController(navbarElement);
     navbarController.activate();
 
     userFromCookie();
 
-    const homeController = new HomeController(frame.getElement(pageElementId));
-    const signinController = new SigninController(frame.getElement(pageElementId));
-    const signupController = new SignupController(frame.getElement(pageElementId));
-    const profileController = new ProfileController(frame.getElement(pageElementId));
-    const hostelPageController = new HostelPageController(frame.getElement(pageElementId));
-    const errorPageController = new ErrorPageController(frame.getElement(pageElementId));
+    const pageElement = frame.getElement(ID_PAGE);
+    const homeController = new HomeController(pageElement);
+    const signinController = new SigninController(pageElement);
+    const signupController = new SignupController(pageElement);
+    const profileController = new ProfileController(pageElement);
+    const hostelPageController = new HostelPageController(pageElement);
+    const errorPageController = new ErrorPageController(pageElement);
 
-    Popup.init(frame.getElement(popupElementId));
+    const popupElement = frame.getElement(ID_POPUP);
+    Popup.init(popupElement);
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);
