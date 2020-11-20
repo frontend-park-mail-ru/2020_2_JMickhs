@@ -25,19 +25,17 @@
     --box-shadow-bold: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
     --box-shadow-inset: inset 0 0 5px grey;
 
-    --font-large: large;
+    --font-size-large: large;
     --font-size-regular: 17px;
     --font-size-header: 24px;
 
-    --border-radius-5px: 5px;
-    --border-radius-10px: 10px;
+    --border-radius-legacy-design: 5px;
     --border-radius-regular: 15px;
     --border-radius-round: 1000px;
 
-    --border-profile-components: 4px solid var(--blue);
+    --border-regular: 4px solid var(--blue);
 
-    --opacity-70: 0.7;
-    --opacity-80: 0.8;
+    --opacity-button-disabled: 0.8;
 }
 
 body {

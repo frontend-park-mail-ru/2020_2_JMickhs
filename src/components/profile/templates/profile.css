@@ -29,8 +29,8 @@
     background-color: var(--white);
     width: 300px;
     margin: auto;
-    border-radius: var(--border-radius-10px);
-    border: var(--border-profile-components);
+    border-radius: var(--border-radius-regular);
+    border: var(--border-regular);
     text-align: left;
     margin-top: 1%;
 }
@@ -53,8 +53,8 @@
     width: 300px;
     height: 300px;
     object-fit: cover;
-    border-radius: var(--border-radius-10px);
-    border: var(--border-profile-components);
+    border-radius: var(--border-radius-regular);
+    border: var(--border-regular);
     cursor: pointer;
     transition: 0.3s;
 }
@@ -81,7 +81,7 @@
 }
 
 .profile__button-out:disabled {
-    opacity: var(--opacity-70);
+    opacity: var(--opacity-button-disabled);
     pointer-events: none;
 }
 
@@ -120,7 +120,7 @@
     border: none;
     margin: 5px 0 22px 0;
     background: var(--gray-light);
-    border-radius: var(--border-radius-5px);
+    border-radius: var(--border-radius-legacy-design);
 }
 
 .profile__input:focus {
@@ -137,8 +137,8 @@
     min-width: 300px;
     background: var(--white);
     padding: 17px;
-    border-radius: var(--border-radius-10px);
-    border: var(--border-profile-components);
+    border-radius: var(--border-radius-regular);
+    border: var(--border-regular);
 }
 
 .profile__button {
@@ -151,16 +151,16 @@
     padding: 16px 20px;
     border: none;
     width: 100%;
-    border-radius: var(--border-radius-5px);
+    border-radius: var(--border-radius-legacy-design);
 }
 
 .profile__button:disabled {
-    opacity: var(--opacity-70);
+    opacity: var(--opacity-button-disabled);
     pointer-events: none;
 }
 
 .profile__button--blue {
-    opacity: var(--opacity-80);
+    opacity: var(--opacity-button-disabled);
     background-color: var(--blue);
 }
 

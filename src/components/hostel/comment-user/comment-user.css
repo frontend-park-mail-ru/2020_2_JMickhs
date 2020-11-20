@@ -28,7 +28,7 @@
     cursor: pointer;
     outline: none;
     border: none;
-    font-size: var(--font-large);
+    font-size: var(--font-size-large);
 }
 
 .hostel__button--position-center {

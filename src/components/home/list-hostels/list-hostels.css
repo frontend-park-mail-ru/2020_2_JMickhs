@@ -2,7 +2,7 @@
     box-shadow: var(--box-shadow-thin);
     transition: 0.3s;
     height: 30vh;
-    border-radius: var(--border-radius-10px);
+    border-radius: var(--border-radius-regular);
     max-width: 450px;
     background-color: var(--opacity-white);
     text-decoration: none;

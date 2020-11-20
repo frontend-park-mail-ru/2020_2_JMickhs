@@ -13,12 +13,12 @@
 
 .hostel__card::-webkit-scrollbar-track {
     box-shadow: var(--box-shadow-inset);
-    border-radius: var(--border-radius-10px);
+    border-radius: var(--border-radius-regular);
 }
 
 .hostel__card::-webkit-scrollbar-thumb {
     background: var(--gray);
-    border-radius: var(--border-radius-10px);
+    border-radius: var(--border-radius-regular);
 }
 
 .hostel__card::-webkit-scrollbar-thumb:hover {

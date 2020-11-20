@@ -16,7 +16,7 @@
     margin-top: 20%;
     padding: 1px 5%;
     border: 2px solid var(--gray);
-    border-radius: var(--border-radius-5px);
+    border-radius: var(--border-radius-legacy-design);
     background-color: var(--gray-light);
     box-shadow: var(--box-shadow-thin);
     transition: 0.3s;
@@ -37,11 +37,11 @@
     padding: 16px 20px;
     border: none;
     width: 100%;
-    border-radius: var(--border-radius-5px);
+    border-radius: var(--border-radius-legacy-design);
 }
 
 .page-error__button--blue {
-    opacity: var(--opacity-80);
+    opacity: var(--opacity-button-disabled);
     background-color: var(--blue);
 }
 

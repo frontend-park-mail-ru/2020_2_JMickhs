@@ -46,7 +46,7 @@
 
 .home__search-input {
     height: 45px;
-    border: var(--border-profile-components);
+    border: var(--border-regular);
     border-radius: var(--border-radius-round);
     padding: 15px;
     outline: none;
@@ -106,7 +106,7 @@
 }
 
 .home__button-orange:disabled {
-    opacity: var(--opacity-70);
+    opacity: var(--opacity-button-disabled);
     pointer-events: none;
 }
 

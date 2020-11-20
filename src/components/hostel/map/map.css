@@ -4,7 +4,7 @@
     margin: auto;
     box-shadow: var(--box-shadow-thin);
     border: 2px solid var(--gray);
-    border-radius: var(--border-radius-5px);
+    border-radius: var(--border-radius-regular);
     transition: 0.3s;
 }
 
