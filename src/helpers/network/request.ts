@@ -1,15 +1,6 @@
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 class Request {
-    private readonly domain: string;
-
-    private readonly port: string;
-
-    constructor() {
-        this.domain = 'https://hostelscan.ru';
-        this.port = ':8080';
-    }
-
     ajax(method: string,
         url: string,
         body?: unknown,
@@ -39,11 +30,11 @@ class Request {
                 }
                 reqHeaders['X-Csrf-Token'] = value;
                 // и после получения токена и добавления в хедеры уже делаем запрос
-                return this.customFetch(this.domain + this.port + url, method, reqBody, reqHeaders);
+                return this.customFetch(url, method, reqBody, reqHeaders);
             }).catch((err) => ({ error: err }));
         }
 
-        return this.customFetch(this.domain + this.port + url, method, reqBody, reqHeaders);
+        return this.customFetch(url, method, reqBody, reqHeaders);
     }
 
     private customFetch(url: string, method: string, body?: BodyInit, headers?: HeadersInit): Promise<ResponseData> {
@@ -65,7 +56,7 @@ class Request {
         const url = '/api/v1/csrf';
         let token = '';
 
-        return fetch(this.domain + this.port + url, {
+        return fetch(url, {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',
