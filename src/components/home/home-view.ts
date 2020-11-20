@@ -16,11 +16,20 @@ export default class HomeView extends PageView {
 
     private mainContainerElement: HTMLDivElement;
 
+    private searchForm: HTMLFormElement;
+
+    private searchButton: HTMLButtonElement;
+
+    private inputElement: HTMLInputElement;
+
     private listComponent: ListComponent;
+
+    private inputTimer: number;
 
     constructor(parent: HTMLElement) {
         super(parent);
         this.listComponent = new ListComponent();
+        this.inputTimer = -1;
 
         this.handlers = this.makeHadlers();
     }
@@ -29,37 +38,55 @@ export default class HomeView extends PageView {
         const handlers = {
             searchClick: (evt: Event): void => {
                 evt.preventDefault();
-                const input = document.getElementById('input') as HTMLInputElement;
-                Redirector.redirectTo(`?pattern=${input.value}`);
+
+                if (this.searchButton) {
+                    this.searchButton.disabled = true;
+                }
+                Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
             },
             renderHostelList: (hostels: HostelData[]): void => {
+                if (this.searchButton) {
+                    this.searchButton.disabled = false;
+                }
                 this.mainContainerElement.className = 'home__container-list-all';
                 this.listComponent.activate(hostels);
+            },
+            changeInput: (): void => {
+                if (this.inputElement.value.length > 50) {
+                    this.renderError('Длинна запроса не должна превышать 50 символов');
+                }
             },
         };
         return handlers;
     }
 
-    listComponentOn(): void {
+    listComponentOff(): void {
         this.mainContainerElement.className = 'home__container-all';
         this.listComponent.deactivate();
     }
 
-    listComponentOff(pattern: string): void {
-        const input = document.getElementById('input') as HTMLInputElement;
-        input.value = pattern;
+    listComponentOn(pattern: string): void {
+        this.inputElement.value = pattern;
         this.mainContainerElement.className = 'home__container-list-all';
     }
 
-    render(): void {
-        this.page.innerHTML = homeTemplate();
+    render(err = ''): void {
+        this.page.innerHTML = homeTemplate({ error: err });
 
-        const searchForm = document.getElementById('search-form');
-        searchForm.addEventListener('submit', this.handlers.searchClick);
+        this.searchForm = document.getElementById('search-form') as HTMLFormElement;
+        this.searchButton = document.getElementById('search-button') as HTMLButtonElement;
+        this.inputElement = document.getElementById('input') as HTMLInputElement;
+        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
         this.subscribeEvents();
+
         this.listComponent.setPlace(document.getElementById('list') as HTMLDivElement);
-        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
+    }
+
+    renderError(error: string): void {
+        this.listComponent.deactivate();
+        this.render(error);
+        this.clearInputError();
     }
 
     hide(): void {
@@ -67,8 +94,6 @@ export default class HomeView extends PageView {
             return;
         }
         this.listComponent.deactivate();
-        const searchButton = document.getElementById('button');
-        searchButton.removeEventListener('submit', this.handlers.searchClick);
 
         this.unsubscribeEvents();
 
@@ -76,10 +101,30 @@ export default class HomeView extends PageView {
     }
 
     private subscribeEvents(): void {
+        this.searchForm.addEventListener('submit', this.handlers.searchClick);
+        this.inputElement.addEventListener('change', this.handlers.changeInput);
+        this.inputElement.addEventListener('keypress', this.handlers.changeInput);
         Events.subscribe(FILL_HOSTELS, this.handlers.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
+        this.searchForm.removeEventListener('submit', this.handlers.searchClick);
+        this.inputElement.removeEventListener('change', this.handlers.changeInput);
+        this.inputElement.removeEventListener('keypress', this.handlers.changeInput);
         Events.unsubscribe(FILL_HOSTELS, this.handlers.renderHostelList);
+    }
+
+    private clearInputError(): void {
+        if (this.inputTimer !== -1) {
+            window.clearTimeout(this.inputTimer);
+        }
+        const listElement = document.getElementById('list') as HTMLDivElement;
+        this.inputTimer = window.setTimeout(() => {
+            if (listElement) {
+                listElement.innerHTML = '';
+                listElement.classList.remove('home__list--grid-area-search');
+            }
+            this.inputTimer = -1;
+        }, 5000);
     }
 }

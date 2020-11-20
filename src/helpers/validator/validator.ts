@@ -1,3 +1,16 @@
+// Подходит Сережа к директору своей школы и спрашивает:
+// - Эльвира Леопольдовна, а что такое нюанс?
+// - Ну давай, Сережка, объясню. Ты вот хорошо ЕГЭ написал?
+// - Неет
+// - Дааа уж... Но у меня для тебя хорошая новость. Ты поступил в Бауманку
+// - Ураааа! Я всегда об этом мечтал!
+// - Но есть один нюанс...
+
+interface Input {
+    name: string,
+    value: string,
+}
+
 class Validator {
     private loginTableCheckup: {regular: RegExp, error: string}[];
 
@@ -77,6 +90,20 @@ class Validator {
         this.emailTableCheckup.forEach((checkup) => {
             if (!checkup.regular.exec(email)) {
                 result.push(checkup.error);
+            }
+        });
+        return result;
+    }
+
+    isStringsEqual(left: string, right: string): boolean {
+        return left === right;
+    }
+
+    stringsEmpty(strs: Input[]): string[] {
+        const result: string[] = [];
+        strs.forEach((input) => {
+            if (input.value === '') {
+                result.push(input.name);
             }
         });
         return result;

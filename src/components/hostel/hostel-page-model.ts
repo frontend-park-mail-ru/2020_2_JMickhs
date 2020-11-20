@@ -7,6 +7,7 @@ import {
 } from '@eventbus/constants';
 import Redirector from '@router/redirector';
 import type HotelFromServer from '@/helpers/network/structs-server/hotel-data';
+import User from '@user/user';
 
 export default class HostelPageModel {
     private hostel: HostelData;
@@ -36,6 +37,8 @@ export default class HostelPageModel {
         this.hostel.location = hotel.location;
         this.hostel.countComments = hotel.comm_count;
         this.hostel.rating = hotel.rating;
+        this.hostel.latitude = hotel.latitude;
+        this.hostel.longitude = hotel.longitude;
     }
 
     fillModel(id: number): void {
@@ -53,7 +56,7 @@ export default class HostelPageModel {
 
                     this.comment = data.comment;
 
-                    Events.trigger(UPDATE_HOSTEL, { hostel: this.hostel, comment: this.comment });
+                    Events.trigger(UPDATE_HOSTEL, { isAuth: User.isAuth, hostel: this.hostel, comment: this.comment });
                     break;
                 case 400:
                     Redirector.redirectError('Неверный формат запроса');

@@ -12,15 +12,15 @@ import Redirector from '@/helpers/router/redirector';
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private exitButton?: HTMLButtonElement;
+    private exitButton: HTMLButtonElement;
 
     private reloadAvatarButton?: HTMLButtonElement;
 
-    private inputAvatar?: HTMLInputElement;
+    private inputAvatar: HTMLInputElement;
 
-    private avatarImage?: HTMLImageElement;
+    private avatarImage: HTMLImageElement;
 
-    private avatarForm?: HTMLFormElement;
+    private avatarForm: HTMLFormElement;
 
     private divAvatarBottom?: HTMLDivElement;
 
@@ -82,6 +82,7 @@ export default class DataUserComponent implements AbstractComponent {
             },
             signoutClick: (event: Event): void => {
                 event.preventDefault();
+                this.exitButton.disabled = true;
                 this.signout();
             },
         };
@@ -122,9 +123,9 @@ export default class DataUserComponent implements AbstractComponent {
         this.divAvatarBottom.innerHTML = messageTemplate({ text: message });
         const msg = document.getElementById('msg-avatar');
         if (isErr) {
-            msg.className += ' profile__text--red';
+            msg.classList.add('profile__text--error');
         } else {
-            msg.className += ' profile__text--blue';
+            msg.classList.add('profile__text--accept');
         }
 
         this.idTimer = window.setTimeout(() => {

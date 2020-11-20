@@ -1,124 +1,78 @@
+import './hostel-data.css';
 import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
-
-import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
-import * as imagesTemplate from '@hostel/hostel-data/hostel-images.hbs';
-
 import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
 } from '@eventbus/constants';
 import type { AbstractComponent } from '@interfaces/components';
 import type { HandlerEvent } from '@interfaces/functions';
+import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
+import Popup from '../../popup/popup';
+import MapComponent from '../map/map';
 
 export default class HostelDataComponent implements AbstractComponent {
-    private placeData?: HTMLDivElement;
+    private place?: HTMLDivElement;
 
-    private placeImages?: HTMLDivElement;
+    private mapComponent: MapComponent;
 
-    private image: HTMLImageElement;
-
-    private photos: string[];
-
-    private currentPhoto: number;
+    private buttonMap: HTMLButtonElement;
 
     private hostel: HostelData;
 
     private handlers: Record<string, HandlerEvent>;
 
     constructor() {
+        this.mapComponent = new MapComponent();
         this.handlers = this.makeHandlers();
     }
 
-    setPlace(placeText: HTMLDivElement, placePhotos: HTMLDivElement): void {
-        this.placeData = placeText;
-        this.placeImages = placePhotos;
+    setPlace(place: HTMLDivElement): void {
+        this.place = place;
     }
 
     activate(hostel: HostelData): void {
-        if (!this.placeData || !this.placeImages) {
+        if (!this.place) {
             return;
         }
 
         this.hostel = hostel;
-
-        this.photos = hostel.photos;
-        this.photos.unshift(hostel.image);
-        this.currentPhoto = 0;
-        const [imagePath] = this.photos;
-        this.hostel.image = imagePath;
-
         this.render(this.hostel);
     }
 
     private render(hostel: HostelData): void {
-        this.placeData.innerHTML = dataTemplate(hostel);
-        this.placeImages.innerHTML = imagesTemplate(hostel);
+        this.place.innerHTML = dataTemplate(hostel);
 
-        this.image = document.getElementById('cur-image') as HTMLImageElement;
+        this.buttonMap = document.getElementById('map-button') as HTMLButtonElement;
 
         this.subscribeEvents();
     }
 
-    private nextImage(): void {
-        this.currentPhoto += 1;
-        if (this.currentPhoto === this.photos.length) {
-            this.currentPhoto = 0;
-        }
-
-        this.image.src = this.photos[this.currentPhoto];
-    }
-
-    private prevImage(): void {
-        this.currentPhoto -= 1;
-        if (this.currentPhoto === -1) {
-            this.currentPhoto = this.photos.length - 1;
-        }
-
-        this.image.src = this.photos[this.currentPhoto];
-    }
-
     deactivate(): void {
         this.unsubscribeEvents();
-
-        this.placeData.innerHTML = '';
-        this.placeImages.innerHTML = '';
+        this.place.innerHTML = '';
     }
 
     private subscribeEvents(): void {
         Events.subscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);
-
-        const buttonNext = document.getElementById('button-image-next');
-        buttonNext.addEventListener('click', this.handlers.nextImg);
-        const buttonPrev = document.getElementById('button-image-prev');
-        buttonPrev.addEventListener('click', this.handlers.prevImg);
+        this.buttonMap.addEventListener('click', this.handlers.clickMapButton);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);
-
-        const buttonNext = document.getElementById('button-image-next');
-        buttonNext.removeEventListener('click', this.handlers.nextImg);
-        const buttonPrev = document.getElementById('button-image-prev');
-        buttonPrev.removeEventListener('click', this.handlers.prevImg);
+        this.buttonMap.removeEventListener('click', this.handlers.clickMapButton);
     }
 
     private makeHandlers(): Record<string, HandlerEvent> {
         return {
-            prevImg: (event: Event): void => {
-                event.preventDefault();
-
-                this.nextImage();
-            },
-            nextImg: (event: Event): void => {
-                event.preventDefault();
-
-                this.prevImage();
-            },
             updateTextData: (arg: {rating: number, delta: number}): void => {
                 this.hostel.countComments += arg.delta;
                 this.hostel.rating = arg.rating;
 
-                this.placeData.innerHTML = dataTemplate(this.hostel);
+                this.place.innerHTML = dataTemplate(this.hostel);
+            },
+            clickMapButton: (evt: Event): void => {
+                evt.preventDefault();
+                Popup.activate(this.mapComponent, this.hostel.latitude, this.hostel.longitude);
             },
         };
     }

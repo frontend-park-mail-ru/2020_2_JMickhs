@@ -10,6 +10,8 @@ interface HotelData {
         location: string;
         rating: number;
         comm_count: number;
+        latitude: number;
+        longitude: number;
     }
     comment: CommentData;
 }

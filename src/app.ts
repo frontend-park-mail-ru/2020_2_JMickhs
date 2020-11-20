@@ -8,6 +8,9 @@ import HostelPageController from '@hostel/hostel-page-controller';
 import ErrorPageController from '@/components/page-error/page-error-controller';
 import userFromCookie from '@/helpers/user/cookie-user';
 import registrateServiceWorker from '@/service-worker/registrate';
+import Popup from '@/components/popup/popup';
+import MainFrame from '@/helpers/layout/main-frame';
+import { ID_PAGE, ID_NAVBAR, ID_POPUP } from '@/helpers/layout/id-components';
 
 import '@/main.css';
 
@@ -15,19 +18,25 @@ import '@/main.css';
     registrateServiceWorker();
 
     const application = document.getElementById('app');
+    const frame = new MainFrame(application);
+    frame.createElements([ID_NAVBAR, ID_PAGE, ID_POPUP]);
 
-    const navbarController = new NavbarController(application);
+    const navbarElement = frame.getElement(ID_NAVBAR);
+    const navbarController = new NavbarController(navbarElement);
+    navbarController.activate();
 
     userFromCookie();
 
-    navbarController.activate();
+    const pageElement = frame.getElement(ID_PAGE);
+    const homeController = new HomeController(pageElement);
+    const signinController = new SigninController(pageElement);
+    const signupController = new SignupController(pageElement);
+    const profileController = new ProfileController(pageElement);
+    const hostelPageController = new HostelPageController(pageElement);
+    const errorPageController = new ErrorPageController(pageElement);
 
-    const homeController = new HomeController(application);
-    const signinController = new SigninController(application);
-    const signupController = new SignupController(application);
-    const profileController = new ProfileController(application);
-    const hostelPageController = new HostelPageController(application);
-    const errorPageController = new ErrorPageController(application);
+    const popupElement = frame.getElement(ID_POPUP);
+    Popup.init(popupElement);
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);

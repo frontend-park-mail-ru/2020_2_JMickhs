@@ -10,16 +10,15 @@ import {
 
 import * as template from '@profile/settings-data/settings-data.hbs';
 import Redirector from '@router/redirector';
-import type { HandlerEvent } from '@/helpers/interfaces/functions';
 
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private saveButton?: HTMLButtonElement;
+    private saveButton: HTMLButtonElement;
 
-    private loginInput?: HTMLInputElement;
+    private loginInput: HTMLInputElement;
 
-    private emailInput?: HTMLInputElement;
+    private emailInput: HTMLInputElement;
 
     private user: typeof User;
 
@@ -27,28 +26,32 @@ export default class DataUserComponent implements AbstractComponent {
 
     private inputIdTimer: number;
 
-    private handlers: Record<string, HandlerEvent>;
+    private inputNames = {
+        EMAIL: 'email',
+        USERNAME: 'username',
+    };
+
+    private saveDataClick = (event: Event): void => {
+        event.preventDefault();
+        this.saveButton.disabled = true;
+        const username = this.loginInput.value;
+        const email = this.emailInput.value;
+        const isDtaRight = this.validate(username, email);
+        if (isDtaRight) {
+            this.changeUser(username, email);
+        } else {
+            this.saveButton.disabled = false;
+        }
+    };
 
     constructor() {
         this.user = User;
         this.messageIdTimer = -1;
         this.inputIdTimer = -1;
-        this.handlers = this.makeHandlers();
     }
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
-    }
-
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            saveDataClick: (event: Event): void => {
-                event.preventDefault();
-                const username = this.loginInput.value;
-                const email = this.emailInput.value;
-                this.validate(username, email);
-            },
-        };
     }
 
     activate(): void {
@@ -65,11 +68,11 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private subscribeEvents(): void {
-        this.saveButton.addEventListener('click', this.handlers.saveDataClick);
+        this.saveButton.addEventListener('click', this.saveDataClick);
     }
 
     private unsubscribeEvents(): void {
-        this.saveButton.removeEventListener('click', this.handlers.saveDataClick);
+        this.saveButton.removeEventListener('click', this.saveDataClick);
     }
 
     deactivate(): void {
@@ -78,74 +81,88 @@ export default class DataUserComponent implements AbstractComponent {
         this.place.innerHTML = '';
     }
 
-    private validate(username: string, email: string): void {
-        if (username === this.user.userName && email === this.user.email) {
+    private validate(username: string, email: string): boolean { // true, если все хорошо
+        if (Validator.isStringsEqual(username, this.user.userName)
+            && Validator.isStringsEqual(email, this.user.email)) {
             this.renderMessage('Вы ничего не изменили =)');
-            return;
+            return false;
         }
 
-        if (username === '') {
-            this.renderMessage('Заполните поле логина');
-            this.renderInputError('login');
-            return;
-        }
+        const emptyFieldsNumbers = Validator.stringsEmpty([
+            { name: this.inputNames.USERNAME, value: username },
+            { name: this.inputNames.EMAIL, value: email },
+        ]);
 
-        if (email === '') {
-            this.renderMessage('Заполните поле c почтой');
-            this.renderInputError('email');
-            return;
+        if (emptyFieldsNumbers.length > 0) {
+            this.renderMessage('Необходимо заполнить все поля', emptyFieldsNumbers);
+            return false;
         }
 
         const loginErrors = Validator.validateLogin(username);
         if (loginErrors.length > 0) {
             this.renderMessage(loginErrors[0]);
-            this.renderInputError('login');
-            return;
+            this.renderInputError(this.inputNames.USERNAME);
+            return false;
         }
 
         const emailErrors = Validator.validateEmail(email);
         if (emailErrors.length > 0) {
             this.renderMessage(emailErrors[0]);
-            this.renderInputError('email');
-            return;
+            this.renderInputError(this.inputNames.EMAIL);
+            return false;
         }
 
-        this.changeUser(username, email);
+        return true;
     }
 
-    private renderMessage(text: string, isErr = true): void {
+    private renderMessage(text: string, errorInputs: string[] = []): void {
         if (this.messageIdTimer !== -1) {
             window.clearTimeout(this.messageIdTimer);
         }
         const errLine = document.getElementById('text-error-data');
-        if (isErr) {
-            errLine.className += ' profile__text--red';
+        if (errorInputs.length > 0) {
+            errLine.classList.remove('profile__text--accept');
+            errLine.classList.add('profile__text--error');
         } else {
-            errLine.className += 'profile__message profile__text profile__text--center profile__text--blue';
+            errLine.classList.remove('profile__text--error');
+            errLine.classList.add('profile__text--accept');
         }
+
+        errorInputs.forEach((inputError) => {
+            switch (inputError) {
+                case this.inputNames.USERNAME:
+                    this.renderInputError(inputError);
+                    break;
+                case this.inputNames.EMAIL:
+                    this.renderInputError(inputError);
+                    break;
+                default:
+                    break;
+            }
+        });
+
         errLine.textContent = text;
 
         this.messageIdTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'profile__message profile__text profile__text--center';
             }
             this.messageIdTimer = -1;
         }, 5000);
     }
 
-    private renderInputError(what: string): void {
+    private renderInputError(inputName: string): void {
         if (this.inputIdTimer !== -1) {
             window.clearTimeout(this.inputIdTimer);
         }
-        let input: HTMLElement;
+        let input: HTMLInputElement;
 
-        switch (what) {
-            case 'login': {
+        switch (inputName) {
+            case this.inputNames.USERNAME: {
                 input = document.getElementById('login-profile') as HTMLInputElement;
                 break;
             }
-            case 'email': {
+            case this.inputNames.EMAIL: {
                 input = document.getElementById('email-profile') as HTMLInputElement;
                 break;
             }
@@ -153,10 +170,10 @@ export default class DataUserComponent implements AbstractComponent {
                 return;
             }
         }
-        input.className += ' profile__input--error';
+        input.classList.add('profile__input--error');
         this.inputIdTimer = window.setTimeout(() => {
             if (input) {
-                input.className = 'profile__input';
+                input.classList.remove('profile__input--error');
             }
             this.inputIdTimer = -1;
         }, 5000);
@@ -165,16 +182,20 @@ export default class DataUserComponent implements AbstractComponent {
     private changeUser(username: string, email: string): void {
         const response = NetworkUser.changeUser(username, email);
         response.then((value) => {
+            this.saveButton.disabled = false;
             const { code } = value;
             switch (code) {
                 case 200:
                     this.user.userName = username;
                     this.user.email = email;
-                    this.renderMessage('Вы успешно все поменяли', false);
+                    this.renderMessage('Вы успешно все поменяли');
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
                     break;
                 case 400:
-                    this.renderMessage('Неверный формат запроса', true);
+                    this.renderMessage('Неверный формат запроса', [
+                        this.inputNames.USERNAME,
+                        this.inputNames.EMAIL,
+                    ]);
                     break;
                 case 401:
                     this.user.isAuth = false;
@@ -184,13 +205,13 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectError('Нет прав на изменение информации');
                     break;
                 case 406:
-                    this.renderMessage('Пользователь с таким email уже зарегистрирован', true);
+                    this.renderMessage('Пользователь с таким email уже зарегистрирован');
                     break;
                 case 409:
-                    this.renderMessage('Пользователь с таким логином уже зарегистрирован', true);
+                    this.renderMessage('Пользователь с таким логином уже зарегистрирован');
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера: статус ${code || value.error}`, true);
+                    this.renderMessage(`Ошибка сервера: статус ${code || value.error}`);
                     break;
             }
         });

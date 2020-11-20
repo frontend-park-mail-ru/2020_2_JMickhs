@@ -1,14 +1,14 @@
 .sign__container {
-    box-shadow: 0 4px 8px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-thin);
     transition: 0.3s;
     width: 35%;
     min-width: 300px;
-    border-radius: 10px;
+    border-radius: var(--border-radius-regular);
     margin: auto;
-    margin-top: 7%;
-    margin-bottom: 1%;
+    margin-top: 3%;
+    margin-bottom: 2%;
     padding: 17px;
-    border: 4px solid var(--blue);
+    border: var(--border-regular);
     background-color: var(--white);
 }
 
@@ -38,7 +38,7 @@
     margin: 5px 0 22px 0;
     border: none;
     background: var(--gray-light);
-    border-radius: 5px;
+    border-radius: var(--border-radius-legacy-design);
 }
 
 .sign__input:focus {
@@ -64,15 +64,19 @@
     border: none;
     cursor: pointer;
     width: 100%;
-    opacity: 0.9;
-    border-radius: 5px;
+    border-radius: var(--border-radius-legacy-design);
     text-decoration: none;
     outline: none;
-    opacity: 0.8;
+    opacity: var(--opacity-button-disabled);
     transition: 0.3s;
 }
 
 .sign__button:hover {
-    box-shadow: 0 8px 16px 0 var(--shadow-color);
+    box-shadow: var(--box-shadow-bold);
     opacity: 1;
+}
+
+.sign__button:disabled {
+    opacity: var(--opacity-70);
+    pointer-events: none;
 }

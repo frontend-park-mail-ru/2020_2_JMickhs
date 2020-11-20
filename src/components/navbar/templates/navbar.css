@@ -10,7 +10,7 @@
     height: 72px;
     align-items: center;
     justify-items: center;
-    z-index: 99999;
+    z-index: var(--z-index-navbar);
 }
 
 @media only screen and (max-width: 500px) {
@@ -39,7 +39,7 @@
 
 .navbar__button {
     font-weight: 500;
-    font-size: 17px;
+    font-size: var(--font-size-regular);
     padding: 11px 15px;
     box-shadow: none;
     outline: none;
@@ -75,5 +75,5 @@
 }
 
 .navbar__button_big-font {
-    font-size: 24px;
+    font-size: var(--font-size-header);
 }

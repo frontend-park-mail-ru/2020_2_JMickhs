@@ -4,6 +4,7 @@ import * as hostelCardTemplate from '@hostel/templates/hostel-page.hbs';
 import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 
 import HostelDataComponent from './hostel-data/hostel-data';
+import HostelImagesComponent from './hostel-images/hostel-images';
 import CommentUserComponent from './comment-user/comment-user';
 import CommentsComponent from './comments/comments';
 
@@ -11,6 +12,8 @@ import '@hostel/templates/hostel-page.css';
 
 export default class HostelPageView extends PageView {
     private dataComponent: HostelDataComponent;
+
+    private imagesComponent: HostelImagesComponent;
 
     private userCommentComponent: CommentUserComponent;
 
@@ -20,18 +23,22 @@ export default class HostelPageView extends PageView {
         super(parent);
 
         this.dataComponent = new HostelDataComponent();
+        this.imagesComponent = new HostelImagesComponent();
         this.userCommentComponent = new CommentUserComponent();
         this.commentsComponent = new CommentsComponent();
     }
 
-    render(data: {hostel: HostelData, comment: CommentData}): void {
+    render(data: { isAuth: boolean, hostel: HostelData, comment: CommentData}): void {
         window.scrollTo(0, 0);
         this.page.innerHTML = hostelCardTemplate(data);
 
         const dataPlace = document.getElementById('hostel-data') as HTMLDivElement;
-        const imagesPlace = document.getElementById('hostel-images') as HTMLDivElement;
-        this.dataComponent.setPlace(dataPlace, imagesPlace);
+        this.dataComponent.setPlace(dataPlace);
         this.dataComponent.activate(data.hostel);
+
+        const imagesPlace = document.getElementById('hostel-images') as HTMLDivElement;
+        this.imagesComponent.setPlace(imagesPlace);
+        this.imagesComponent.activate(data.hostel);
 
         const placeUserComment = document.getElementById('user-comment') as HTMLDivElement;
         this.userCommentComponent.setPlace(placeUserComment);
@@ -46,11 +53,12 @@ export default class HostelPageView extends PageView {
         if (this.page.innerHTML === '') {
             return;
         }
-        if (this.dataComponent) {
-            this.dataComponent.deactivate();
-            this.userCommentComponent.deactivate();
-            this.commentsComponent.deactivate();
-        }
+
+        this.dataComponent.deactivate();
+        this.imagesComponent.deactivate();
+        this.userCommentComponent.deactivate();
+        this.commentsComponent.deactivate();
+
         this.page.innerHTML = '';
     }
 }

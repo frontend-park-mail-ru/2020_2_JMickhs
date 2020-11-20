@@ -11,19 +11,19 @@
         </select>
     </p>
 </div>
-<form>
+<form class="hostel__comment-container">
     <textarea id="comment-textarea" class="hostel__textarea" placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}</textarea>
-</form>
     {{#if comment}}
-    <button class="hostel__button-round" id="button-edit-comment">Изменить</button>
+        <button class="hostel__button-round hostel__button--position-center" id="button-comment">Изменить</button>
     {{else}}
-    <button class="hostel__button-round" id="button-add-comment">Отправить</button>
+        <button class="hostel__button-round hostel__button--position-center" id="button-comment">Отправить</button>
     {{/if}}
+</form>
 </div>
 {{else}}
-<div class="hostel__card">
+<div class="hostel__message-container">
     <p class="hostel__title hostel__text--blue">
-    Чтобы оставлять комментарии, нужно 
+    Чтобы оставлять комментарии, нужно
     <a href="/signin" class="hostel__title hostel__text--orange">авторизоваться</a>
     </p>
 </div>
