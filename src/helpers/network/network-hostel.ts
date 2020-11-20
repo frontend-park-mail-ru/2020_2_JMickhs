@@ -1,17 +1,20 @@
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
+import {
+    BACKEND_DOMAIN,
+    BACKEND_PORT_HOSTEL,
+    METHOD_GET,
+    METHOD_POST,
+    METHOD_PUT,
+} from './constants-network';
 import NetworkAbtract from './network-abtract';
 
 class NetworkHostel extends NetworkAbtract {
-    constructor() {
-        super('https://hostelscan.ru', ':8080');
-    }
-
     getHostels(): Promise<ResponseData> {
-        return this.ajax('GET', '/api/v1/hotels?from=0');
+        return this.ajax(METHOD_GET, '/api/v1/hotels?from=0');
     }
 
     getHostel(id: number): Promise<ResponseData> {
-        return this.ajax('GET', `/api/v1/hotels/${id}`);
+        return this.ajax(METHOD_GET, `/api/v1/hotels/${id}`);
     }
 
     addComment(idHostel: number, message: string, rate: number): Promise<ResponseData> {
@@ -21,11 +24,11 @@ class NetworkHostel extends NetworkAbtract {
             rating: rate,
         };
 
-        return this.ajax('POST', '/api/v1/comments', body, true);
+        return this.ajax(METHOD_POST, '/api/v1/comments', body, true);
     }
 
     searchHostel(pattern: string, page = 0): Promise<ResponseData> {
-        return this.ajax('GET', `/api/v1/hotels/search?pattern=${pattern}&page=${page}`);
+        return this.ajax(METHOD_GET, `/api/v1/hotels/search?pattern=${pattern}&page=${page}`);
     }
 
     editComment(idComment: number, message: string, rating: number): Promise<ResponseData> {
@@ -35,7 +38,7 @@ class NetworkHostel extends NetworkAbtract {
             rating,
         };
 
-        return this.ajax('PUT', '/api/v1/comments', body, true);
+        return this.ajax(METHOD_PUT, '/api/v1/comments', body, true);
     }
 
     getComments(offset: number, limit: number, idHostel: number): Promise<ResponseData> {
@@ -45,12 +48,12 @@ class NetworkHostel extends NetworkAbtract {
         searchParams.set('id', idHostel.toString());
 
         const url = `/api/v1/comments?${searchParams}`;
-        return this.ajax('GET', url);
+        return this.ajax(METHOD_GET, url);
     }
 
     getCommentsFromUrl(url: string): Promise<ResponseData> {
-        return this.ajax('GET', url);
+        return this.ajax(METHOD_GET, url);
     }
 }
 
-export default new NetworkHostel();
+export default new NetworkHostel(BACKEND_DOMAIN, BACKEND_PORT_HOSTEL);

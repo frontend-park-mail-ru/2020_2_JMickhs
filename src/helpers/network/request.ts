@@ -1,6 +1,39 @@
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
+import {
+    BACKEND_DOMAIN,
+    BACKEND_PORT_CSRF,
+    TEXT_ERROR_CSRF,
+    METHOD_GET,
+} from './constants-network';
 
 class Request {
+    private readonly domainCSRF: string;
+
+    private readonly portCSRF: string;
+
+    private readonly errorCSRF: string;
+
+    constructor(domainCSRF: string, portCSRF: string, errorSCRF: string) {
+        this.domainCSRF = domainCSRF;
+        this.portCSRF = portCSRF;
+        this.errorCSRF = errorSCRF;
+    }
+
+    private customFetch(url: string, method: string, body?: BodyInit, headers?: HeadersInit): Promise<ResponseData> {
+        return fetch(url, {
+            method,
+            mode: 'cors',
+            credentials: 'include',
+            body,
+            headers,
+        }).then((response) => response.json()).then((json) => ({
+            code: json.code,
+            data: json.data,
+        })).catch((err) => ({
+            error: err,
+        }));
+    }
+
     ajax(method: string,
         url: string,
         body?: unknown,
@@ -37,27 +70,12 @@ class Request {
         return this.customFetch(url, method, reqBody, reqHeaders);
     }
 
-    private customFetch(url: string, method: string, body?: BodyInit, headers?: HeadersInit): Promise<ResponseData> {
-        return fetch(url, {
-            method,
-            mode: 'cors',
-            credentials: 'include',
-            body,
-            headers,
-        }).then((response) => response.json()).then((json) => ({
-            code: json.code,
-            data: json.data,
-        })).catch((err) => ({
-            error: err,
-        }));
-    }
-
     private getToken(): Promise<string> {
-        const url = 'https://hostelscan.ru:8082/api/v1/csrf';
+        const url = `${this.domainCSRF + this.portCSRF}/api/v1/csrf`;
         let token = '';
 
         return fetch(url, {
-            method: 'GET',
+            method: METHOD_GET,
             mode: 'cors',
             credentials: 'include',
         }).then((response) => {
@@ -68,8 +86,8 @@ class Request {
                 return Promise.reject();
             }
             return token;
-        }).catch(() => 'Нет прав доступа');
+        }).catch(() => this.errorCSRF);
     }
 }
 
-export default new Request();
+export default new Request(BACKEND_DOMAIN, BACKEND_PORT_CSRF, TEXT_ERROR_CSRF);
