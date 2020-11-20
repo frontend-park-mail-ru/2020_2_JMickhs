@@ -7,8 +7,8 @@ export default class MainFrame {
         this.parent = parent;
     }
 
-    createElements(idObject: Record<string, string>): void {
-        this.parent.innerHTML += template({ object: idObject });
+    createElements(idArray: string[]): void {
+        this.parent.innerHTML += template({ array: idArray });
     }
 
     getElement(id: string): HTMLElement|undefined {
