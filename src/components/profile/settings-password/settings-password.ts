@@ -217,7 +217,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 case 402:
-                    this.renderMessage('Вы ввели неверный пароль');
+                    this.renderMessage('Вы ввели неверный пароль', ['oldPassword']);
                     break;
                 case 403:
                     Redirector.redirectError('Нет прав на изменение пароля');
