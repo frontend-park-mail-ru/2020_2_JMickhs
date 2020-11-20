@@ -1,23 +1,6 @@
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
-import {
-    BACKEND_DOMAIN,
-    BACKEND_PORT_CSRF,
-    TEXT_ERROR_CSRF,
-} from './constants-network';
 
 class Request {
-    private readonly domainCSRF: string;
-
-    private readonly portCSRF: string;
-
-    private readonly errorCSRF: string;
-
-    constructor(domainCSRF: string, portCSRF: string, errorSCRF: string) {
-        this.domainCSRF = domainCSRF;
-        this.portCSRF = portCSRF;
-        this.errorCSRF = errorSCRF;
-    }
-
     private customFetch(url: string, method: string, body?: BodyInit, headers?: HeadersInit): Promise<ResponseData> {
         return fetch(url, {
             method,
@@ -36,7 +19,6 @@ class Request {
     ajax(method: string,
         url: string,
         body?: unknown,
-        csrf?: boolean,
         headers?: Record<string, string>): Promise<ResponseData> {
         let reqBody: BodyInit;
 
@@ -52,41 +34,8 @@ class Request {
             }
         }
 
-        let reqHeaders = headers;
-
-        if (csrf) {
-            return this.getToken().then((value: string) => {
-                // добавляем в хедеры токен
-                if (!reqHeaders) {
-                    reqHeaders = {};
-                }
-                reqHeaders['X-Csrf-Token'] = value;
-                // и после получения токена и добавления в хедеры уже делаем запрос
-                return this.customFetch(url, method, reqBody, reqHeaders);
-            }).catch((err) => ({ error: err }));
-        }
-
-        return this.customFetch(url, method, reqBody, reqHeaders);
-    }
-
-    private getToken(): Promise<string> {
-        const url = `${this.domainCSRF + this.portCSRF}/api/v1/csrf`;
-        let token = '';
-
-        return fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'include',
-        }).then((response) => {
-            token = response.headers.get('csrf');
-            return response.json();
-        }).then((json) => json.code).then((code) => {
-            if (code !== 200) {
-                return Promise.reject();
-            }
-            return token;
-        }).catch(() => this.errorCSRF);
+        return this.customFetch(url, method, reqBody, headers);
     }
 }
 
-export default new Request(BACKEND_DOMAIN, BACKEND_PORT_CSRF, TEXT_ERROR_CSRF);
+export default new Request();
