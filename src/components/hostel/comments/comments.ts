@@ -102,7 +102,7 @@ export default class CommentsComponent implements AbstractComponent {
                     Redirector.redirectError('Второй раз ставите оценку!');
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера: статус - ${code}`);
+                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
                     break;
             }
         });

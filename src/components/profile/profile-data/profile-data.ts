@@ -159,7 +159,7 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage('Можно загружать только файлы с расширением jpg, png');
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера: статус - ${code || value.error}`);
+                    this.renderMessage(`Ошибка сервера - ${code || value.error}`);
                     break;
             }
         });
@@ -175,7 +175,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера: статус ${code || value.error}`);
+                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
                     break;
             }
         });

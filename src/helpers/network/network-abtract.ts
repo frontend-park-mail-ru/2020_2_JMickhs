@@ -28,7 +28,7 @@ class LoaderCSRF {
                 return Promise.reject();
             }
             return token;
-        }).catch(() => this.errorCSRF);
+        }).catch(() => Promise.reject(this.errorCSRF));
     }
 }
 
