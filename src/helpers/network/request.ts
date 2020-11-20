@@ -3,7 +3,6 @@ import {
     BACKEND_DOMAIN,
     BACKEND_PORT_CSRF,
     TEXT_ERROR_CSRF,
-    METHOD_GET,
 } from './constants-network';
 
 class Request {
@@ -75,7 +74,7 @@ class Request {
         let token = '';
 
         return fetch(url, {
-            method: METHOD_GET,
+            method: 'GET',
             mode: 'cors',
             credentials: 'include',
         }).then((response) => {
