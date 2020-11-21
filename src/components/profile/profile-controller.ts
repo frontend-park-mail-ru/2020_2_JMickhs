@@ -8,30 +8,25 @@ import {
 } from '@eventbus/constants';
 
 import Redirector from '@router/redirector';
-import type { HandlerEvent } from '@/helpers/interfaces/functions';
+import type { UserData } from '@interfaces/structs-data/user-data';
 
 export default class ProfileController {
     private view: ProfileView;
 
     private model: ProfileModel;
 
-    private handlers: Record<string, HandlerEvent>;
-
-    constructor(parent: HTMLElement) {
+    constructor(place: HTMLElement) {
         this.model = new ProfileModel();
-        this.view = new ProfileView(parent);
-
-        this.handlers = this.makeHandlers();
+        this.view = new ProfileView(place);
     }
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            render: this.view.render.bind(this.view),
-            redirect: (): void => {
-                Redirector.redirectTo('/signin');
-            },
-        };
-    }
+    private render = (data: UserData): void => {
+        this.view.render(data);
+    };
+
+    private redirectSignin = (): void => {
+        Redirector.redirectTo('/signin');
+    };
 
     activate(): void {
         Events.trigger(PAGE_PROFILE, this.model.getData());
@@ -42,18 +37,18 @@ export default class ProfileController {
         if (this.model.isAuth()) {
             this.view.render(this.model.getData());
         } else {
-            this.handlers.redirect('/signin');
+            this.redirectSignin();
         }
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(AUTH_USER, this.handlers.render);
-        Events.subscribe(NOT_AUTH_USER, this.handlers.redirect);
+        Events.subscribe(AUTH_USER, this.render);
+        Events.subscribe(NOT_AUTH_USER, this.redirectSignin);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(AUTH_USER, this.handlers.render);
-        Events.unsubscribe(NOT_AUTH_USER, this.handlers.redirect);
+        Events.unsubscribe(AUTH_USER, this.render);
+        Events.unsubscribe(NOT_AUTH_USER, this.redirectSignin);
     }
 
     deactivate(): void {

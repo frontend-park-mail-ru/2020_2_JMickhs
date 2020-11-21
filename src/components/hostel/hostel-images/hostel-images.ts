@@ -1,4 +1,3 @@
-import type { HandlerEvent } from '@interfaces/functions';
 import type { HostelData } from '@interfaces/structs-data/hostel-data';
 import type { AbstractComponent } from '@interfaces/components';
 
@@ -18,12 +17,6 @@ export default class HostelImagesComponent implements AbstractComponent {
 
     private currentPhoto: number;
 
-    private handlers: Record<string, HandlerEvent>;
-
-    constructor() {
-        this.handlers = this.makeHandlers();
-    }
-
     activate(hostel: HostelData): void {
         this.photos = hostel.photos || [];
         this.photos.unshift(hostel.image);
@@ -42,34 +35,33 @@ export default class HostelImagesComponent implements AbstractComponent {
         this.subscribeEvents();
     }
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            prevImg: (event: Event): void => {
-                event.preventDefault();
+    private prevImageClick = (event: Event): void => {
+        event.preventDefault();
 
-                this.nextImage();
-            },
-            nextImg: (event: Event): void => {
-                event.preventDefault();
+        this.nextImage();
+    };
 
-                this.prevImage();
-            },
-            loadingImage: (): void => {
-                this.buttonsDisabled(false);
-            },
-        };
-    }
+    private nextImageClick = (event: Event): void => {
+        event.preventDefault();
+
+        this.prevImage();
+    };
+
+    private loadingImage = (): void => {
+        // анимация
+        this.buttonsDisabled(false);
+    };
 
     private subscribeEvents(): void {
-        this.nextButton?.addEventListener('click', this.handlers.nextImg);
-        this.prevButton?.addEventListener('click', this.handlers.prevImg);
-        this.image?.addEventListener('load', this.handlers.loadingImage);
+        this.nextButton?.addEventListener('click', this.nextImageClick);
+        this.prevButton?.addEventListener('click', this.prevImageClick);
+        this.image?.addEventListener('load', this.loadingImage);
     }
 
     private unsubscribeEvents(): void {
-        this.nextButton?.removeEventListener('click', this.handlers.nextImg);
-        this.prevButton?.removeEventListener('click', this.handlers.prevImg);
-        this.image?.removeEventListener('load', this.handlers.loadingImage);
+        this.nextButton?.removeEventListener('click', this.nextImageClick);
+        this.prevButton?.removeEventListener('click', this.prevImageClick);
+        this.image?.removeEventListener('load', this.loadingImage);
     }
 
     setPlace(place: HTMLDivElement): void {

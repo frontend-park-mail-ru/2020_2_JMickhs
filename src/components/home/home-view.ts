@@ -4,7 +4,6 @@ import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
     FILL_HOSTELS,
 } from '@eventbus/constants';
-import type { HandlerEvent } from '@interfaces/functions';
 
 import '@home/templates/home.css';
 import ListComponent from '@/components/home/list-hostels/list-hostels';
@@ -12,8 +11,6 @@ import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
 
 export default class HomeView extends PageView {
-    private handlers: Record<string, HandlerEvent>;
-
     private mainContainerElement: HTMLDivElement;
 
     private searchForm: HTMLFormElement;
@@ -26,39 +23,34 @@ export default class HomeView extends PageView {
 
     private inputTimer: number;
 
-    constructor(parent: HTMLElement) {
-        super(parent);
+    constructor(place: HTMLElement) {
+        super(place);
         this.listComponent = new ListComponent();
         this.inputTimer = -1;
-
-        this.handlers = this.makeHadlers();
     }
 
-    private makeHadlers(): Record<string, HandlerEvent> {
-        const handlers = {
-            searchClick: (evt: Event): void => {
-                evt.preventDefault();
+    private searchClick = (evt: Event): void => {
+        evt.preventDefault();
 
-                if (this.searchButton) {
-                    this.searchButton.disabled = true;
-                }
-                Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
-            },
-            renderHostelList: (hostels: HostelData[]): void => {
-                if (this.searchButton) {
-                    this.searchButton.disabled = false;
-                }
-                this.mainContainerElement.className = 'home__container-list-all';
-                this.listComponent.activate(hostels);
-            },
-            changeInput: (): void => {
-                if (this.inputElement.value.length > 50) {
-                    this.renderError('Длинна запроса не должна превышать 50 символов');
-                }
-            },
-        };
-        return handlers;
-    }
+        if (this.searchButton) {
+            this.searchButton.disabled = true;
+        }
+        Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
+    };
+
+    private renderHostelList = (hostels: HostelData[]): void => {
+        if (this.searchButton) {
+            this.searchButton.disabled = false;
+        }
+        this.mainContainerElement.className = 'home__container-list-all';
+        this.listComponent.activate(hostels);
+    };
+
+    private changeInput = (): void => {
+        if (this.inputElement.value.length > 50) {
+            this.renderError('Длинна запроса не должна превышать 50 символов');
+        }
+    };
 
     listComponentOff(): void {
         this.mainContainerElement.className = 'home__container-all';
@@ -101,17 +93,17 @@ export default class HomeView extends PageView {
     }
 
     private subscribeEvents(): void {
-        this.searchForm.addEventListener('submit', this.handlers.searchClick);
-        this.inputElement.addEventListener('change', this.handlers.changeInput);
-        this.inputElement.addEventListener('keypress', this.handlers.changeInput);
-        Events.subscribe(FILL_HOSTELS, this.handlers.renderHostelList);
+        this.searchForm.addEventListener('submit', this.searchClick);
+        this.inputElement.addEventListener('change', this.changeInput);
+        this.inputElement.addEventListener('keypress', this.changeInput);
+        Events.subscribe(FILL_HOSTELS, this.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
-        this.searchForm.removeEventListener('submit', this.handlers.searchClick);
-        this.inputElement.removeEventListener('change', this.handlers.changeInput);
-        this.inputElement.removeEventListener('keypress', this.handlers.changeInput);
-        Events.unsubscribe(FILL_HOSTELS, this.handlers.renderHostelList);
+        this.searchForm.removeEventListener('submit', this.searchClick);
+        this.inputElement.removeEventListener('change', this.changeInput);
+        this.inputElement.removeEventListener('keypress', this.changeInput);
+        Events.unsubscribe(FILL_HOSTELS, this.renderHostelList);
     }
 
     private clearInputError(): void {

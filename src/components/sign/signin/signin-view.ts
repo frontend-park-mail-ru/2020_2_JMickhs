@@ -8,13 +8,10 @@ import {
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
 import '@sign/templates/sign.css';
-import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { UserData } from '@interfaces/structs-data/user-data';
 import Redirector from '@router/redirector';
-import type { HandlerEvent } from '@interfaces/functions';
 
 export default class SigninView extends PageView {
-    private handlers: Record<string, HandlerEvent>;
-
     private timerId: number;
 
     private form: HTMLFormElement;
@@ -25,38 +22,30 @@ export default class SigninView extends PageView {
 
     private signButton: HTMLButtonElement;
 
-    constructor(parent: HTMLElement) {
-        super(parent);
+    private signinUser = (user: UserData): void => {
+        this.signButton.disabled = false;
+        if (user) {
+            Redirector.redirectBack();
+        } else {
+            Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
+        }
+    };
 
-        this.handlers = this.makeHadlers();
-    }
+    private errorSignin = (error: string): void => {
+        this.renderError(error);
+        this.signButton.disabled = false;
+    };
 
-    private makeHadlers(): Record<string, HandlerEvent> {
-        return {
-            signinUser: (user: UserData): void => {
-                this.signButton.disabled = false;
-                if (user) {
-                    Redirector.redirectBack();
-                } else {
-                    Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
-                }
-            },
-            renderErr: (error: string): void => {
-                this.renderError(error);
-                this.signButton.disabled = false;
-            },
-            submitSigninForm: (evt: Event): void => {
-                evt.preventDefault();
+    private submitSigninForm = (evt: Event): void => {
+        evt.preventDefault();
 
-                const login = this.loginInput.value;
-                const password = this.passwordInput.value;
-                this.loginInput.classList.remove('sign__input--error');
-                this.passwordInput.classList.remove('sign__input--error');
-                this.signButton.disabled = true;
-                Events.trigger(SUBMIT_SIGNIN, { login, password });
-            },
-        };
-    }
+        const login = this.loginInput.value;
+        const password = this.passwordInput.value;
+        this.loginInput.classList.remove('sign__input--error');
+        this.passwordInput.classList.remove('sign__input--error');
+        this.signButton.disabled = true;
+        Events.trigger(SUBMIT_SIGNIN, { login, password });
+    };
 
     renderError(errstr: string, numberInputErr = 0): void {
         if (this.timerId !== -1) {
@@ -102,16 +91,16 @@ export default class SigninView extends PageView {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(ERROR_SIGNIN, this.handlers.renderErr);
-        Events.subscribe(SIGNIN_USER, this.handlers.signinUser);
+        Events.subscribe(ERROR_SIGNIN, this.errorSignin);
+        Events.subscribe(SIGNIN_USER, this.signinUser);
 
-        this.form.addEventListener('submit', this.handlers.submitSigninForm);
+        this.form.addEventListener('submit', this.submitSigninForm);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(ERROR_SIGNIN, this.handlers.renderErr);
-        Events.unsubscribe(SIGNIN_USER, this.handlers.signinUser);
+        Events.unsubscribe(ERROR_SIGNIN, this.errorSignin);
+        Events.unsubscribe(SIGNIN_USER, this.signinUser);
 
-        this.form.removeEventListener('submit', this.handlers.submitSigninForm);
+        this.form.removeEventListener('submit', this.submitSigninForm);
     }
 }

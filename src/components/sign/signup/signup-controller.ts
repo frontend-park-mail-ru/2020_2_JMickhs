@@ -1,5 +1,5 @@
-import SignupModel from '@/components/sign/signup/signup-model';
-import SignupView from '@/components/sign/signup/signup-view';
+import SignupModel from '@sign/signup/signup-model';
+import SignupView from '@sign/signup/signup-view';
 import Events from '@eventbus/eventbus';
 import {
     PAGE_SIGNUP,
@@ -8,7 +8,6 @@ import {
 } from '@eventbus/constants';
 import Validator from '@/helpers/validator/validator';
 import Redirector from '@router/redirector';
-import type { HandlerEvent } from '@/helpers/interfaces/functions';
 
 /** Класс контроллера для страницы регистрации */
 export default class SignupController {
@@ -16,19 +15,9 @@ export default class SignupController {
 
     private view: SignupView;
 
-    private handlers: Record<string, HandlerEvent>;
-
-    constructor(parent: HTMLElement) {
+    constructor(place: HTMLElement) {
         this.model = new SignupModel();
-        this.view = new SignupView(parent);
-
-        this.handlers = this.makeHandlers();
-    }
-
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            validate: this.validate.bind(this),
-        };
+        this.view = new SignupView(place);
     }
 
     activate(): void {
@@ -46,16 +35,16 @@ export default class SignupController {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(SUBMIT_SIGNUP, this.handlers.validate);
+        Events.subscribe(SUBMIT_SIGNUP, this.validate);
         Events.subscribe(AUTH_USER, this.redirectToProfile);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(SUBMIT_SIGNUP, this.handlers.validate);
+        Events.unsubscribe(SUBMIT_SIGNUP, this.validate);
         Events.unsubscribe(AUTH_USER, this.redirectToProfile);
     }
 
-    private validate(arg: {login: string, email: string, passwordFirst: string, passwordSecond: string}): void {
+    private validate = (arg: {login: string, email: string, passwordFirst: string, passwordSecond: string}): void => {
         const {
             login,
             email,
@@ -108,7 +97,7 @@ export default class SignupController {
         if (resolution) {
             this.model.signup(login, email, passwordSecond);
         }
-    }
+    };
 
     deactivate(): void {
         this.view.hide();

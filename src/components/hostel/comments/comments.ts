@@ -3,7 +3,6 @@ import type { CommentData } from '@/helpers/network/structs-server/comment-data'
 import type PageInfo from '@/helpers/network/structs-server/page-info';
 import Redirector from '@router/redirector';
 import type { AbstractComponent } from '@interfaces/components';
-import type { HandlerEvent } from '@interfaces/functions';
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 import './comments.css';
@@ -22,15 +21,9 @@ export default class CommentsComponent implements AbstractComponent {
 
     private countComments: number;
 
-    private handlers: Record<string, HandlerEvent>;
-
     private nextUrl: string;
 
     private prevUrl: string;
-
-    constructor() {
-        this.handlers = this.makeHandlers();
-    }
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -50,22 +43,19 @@ export default class CommentsComponent implements AbstractComponent {
         this.place.innerHTML = '';
     }
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            nextComment: (event: Event): void => {
-                event.preventDefault();
+    private nextComment = (event: Event): void => {
+        event.preventDefault();
 
-                this.buttonsDisabled(true);
-                this.getComment(this.nextUrl);
-            },
-            prevComment: (event: Event): void => {
-                event.preventDefault();
+        this.buttonsDisabled(true);
+        this.getComment(this.nextUrl);
+    };
 
-                this.buttonsDisabled(true);
-                this.getComment(this.prevUrl);
-            },
-        };
-    }
+    private prevComment = (event: Event): void => {
+        event.preventDefault();
+
+        this.buttonsDisabled(true);
+        this.getComment(this.prevUrl);
+    };
 
     private getComment(url?: string): void {
         let response: Promise<ResponseData>;
@@ -130,12 +120,12 @@ export default class CommentsComponent implements AbstractComponent {
     }
 
     private subscribeEvents(): void {
-        this.nextButton?.addEventListener('click', this.handlers.nextComment);
-        this.prevButton?.addEventListener('click', this.handlers.prevComment);
+        this.nextButton?.addEventListener('click', this.nextComment);
+        this.prevButton?.addEventListener('click', this.prevComment);
     }
 
     private unsubscribeEvents(): void {
-        this.nextButton?.removeEventListener('click', this.handlers.nextComment);
-        this.prevButton?.removeEventListener('click', this.handlers.prevComment);
+        this.nextButton?.removeEventListener('click', this.nextComment);
+        this.prevButton?.removeEventListener('click', this.prevComment);
     }
 }
