@@ -1,3 +1,6 @@
+// - Рабинович, какими вы видите перспективы этого проекта?
+// - Таки судя по значительной части его разработчиков - весьма радужными...
+
 import { PageView } from '@interfaces/views';
 import Events from '@eventbus/eventbus';
 import {
