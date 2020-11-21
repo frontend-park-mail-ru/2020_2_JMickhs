@@ -1,5 +1,7 @@
-import HostelPageModel from '@/components/hostel/hostel-page-model';
-import HostelPageView from '@/components/hostel/hostel-page-view';
+import type { HostelData } from '@interfaces/structs-data/hostel-data';
+import type { CommentData } from '@network/structs-server/comment-data';
+import HostelPageModel from '@hostel/hostel-page-model';
+import HostelPageView from '@hostel/hostel-page-view';
 import Events from '@eventbus/eventbus';
 import {
     UPDATE_HOSTEL,
@@ -7,27 +9,20 @@ import {
 import Redirector from '@router/redirector';
 
 import type { PageController } from '@interfaces/controllers';
-import type { HandlerEvent } from '@interfaces/functions';
 
 export default class HostelPageController implements PageController {
     private model: HostelPageModel;
 
     private view: HostelPageView;
 
-    private handlers: Record<string, HandlerEvent>;
-
-    constructor(parent: HTMLElement) {
+    constructor(place: HTMLElement) {
         this.model = new HostelPageModel();
-        this.view = new HostelPageView(parent);
-
-        this.handlers = this.makeHandlers();
+        this.view = new HostelPageView(place);
     }
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            renderView: this.view.render.bind(this.view),
-        };
-    }
+    private renderView = (data: { isAuth: boolean, hostel: HostelData, comment: CommentData }): void => {
+        this.view.render(data);
+    };
 
     activate(params?: URLSearchParams): void {
         if (!params) {
@@ -40,13 +35,13 @@ export default class HostelPageController implements PageController {
             return;
         }
 
-        Events.subscribe(UPDATE_HOSTEL, this.handlers.renderView);
+        Events.subscribe(UPDATE_HOSTEL, this.renderView);
 
         this.model.fillModel(id);
     }
 
     deactivate(): void {
-        Events.unsubscribe(UPDATE_HOSTEL, this.handlers.renderView);
+        Events.unsubscribe(UPDATE_HOSTEL, this.renderView);
         this.view.hide();
     }
 }

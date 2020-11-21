@@ -2,7 +2,6 @@ import type { AbstractComponent } from '@interfaces/components';
 import Validator from '@/helpers/validator/validator';
 import NetworkUser from '@/helpers/network/network-user';
 import * as template from '@profile/settings-password/settings-password.hbs';
-import type { HandlerEvent } from '@interfaces/functions';
 import User from '@/helpers/user/user';
 import Redirector from '@/helpers/router/redirector';
 
@@ -25,8 +24,6 @@ export default class DataUserComponent implements AbstractComponent {
 
     private oldPasswordInputIdTimer: number;
 
-    private handlers: Record<string, HandlerEvent>;
-
     private inputNames = {
         OLD_PASSWORD: 'oldPassword',
         NEW_PASSWORD_FIRST: 'newPassword1',
@@ -38,9 +35,6 @@ export default class DataUserComponent implements AbstractComponent {
         this.oldPasswordInputIdTimer = -1;
         this.newSecondPasswordInputIdTimer = -1;
         this.newFirstPasswordInputIdTimer = -1;
-        this.handlers = {
-            clickSave: this.clickSave.bind(this),
-        };
     }
 
     setPlace(place: HTMLDivElement): void {
@@ -59,7 +53,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.newPasswordFirstInput = document.getElementById('new-psw1') as HTMLInputElement;
         this.newPasswordSecondInput = document.getElementById('new-psw2') as HTMLInputElement;
 
-        this.saveButton.addEventListener('click', this.handlers.clickSave);
+        this.saveButton.addEventListener('click', this.clickSave);
     }
 
     deactivate(): void {
@@ -67,12 +61,12 @@ export default class DataUserComponent implements AbstractComponent {
             return;
         }
 
-        this.saveButton.removeEventListener('click', this.handlers.clickSave);
+        this.saveButton.removeEventListener('click', this.clickSave);
 
         this.place.innerHTML = '';
     }
 
-    private clickSave(event: Event): void {
+    private clickSave = (event: Event): void => {
         event.preventDefault();
 
         this.saveButton.disabled = true;
@@ -82,7 +76,7 @@ export default class DataUserComponent implements AbstractComponent {
             return;
         }
         this.saveButton.disabled = false;
-    }
+    };
 
     private validate(): boolean { // true, если все хорошо
         const oldPassword = this.oldPasswordInput.value;

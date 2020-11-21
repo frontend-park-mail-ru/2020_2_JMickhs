@@ -11,12 +11,10 @@ import * as promtTemplate from '@sign/templates/signup-promt.hbs';
 import '@sign/templates/sign.css';
 import Redirector from '@router/redirector';
 import Validator from '@/helpers/validator/validator';
-import type { HandlerEvent } from '@interfaces/functions';
+import type { UserData } from '@interfaces/structs-data/user-data';
 
 /** Класс представления для страницы регистрации */
 export default class SignupView extends PageView {
-    private handlers: Record<string, HandlerEvent>;
-
     private timerId: number;
 
     private form: HTMLFormElement;
@@ -31,38 +29,31 @@ export default class SignupView extends PageView {
 
     private signupButton: HTMLButtonElement;
 
-    constructor(parent: HTMLElement) {
-        super(parent);
+    private userSignup = (user: UserData): void => {
+        this.signupButton.disabled = false;
+        if (user) {
+            Redirector.redirectTo('/profile');
+        } else {
+            Events.trigger(ERROR_SIGNUP, 'Вы не смогли зарегистрироваться =)');
+        }
+    };
 
-        this.handlers = this.makeHandlers();
-    }
+    private errorSignup = (err: string): void => {
+        this.signupButton.disabled = false;
+        this.renderError(err);
+    };
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            userSignup: (user): void => {
-                this.signupButton.disabled = false;
-                if (user) {
-                    Redirector.redirectTo('/profile');
-                } else {
-                    Events.trigger(ERROR_SIGNUP, 'Вы не смогли зарегистрироваться =)');
-                }
-            },
-            errorSignup: (err: string): void => {
-                this.signupButton.disabled = false;
-                this.renderError(err);
-            },
-            clickLoginInput: (): void => {
-                this.clickInput('login');
-            },
-            clickPassInput: (): void => {
-                this.clickInput('password');
-            },
-            clickInput: (): void => {
-                this.clickInput();
-            },
-            submitSignupForm: this.submitSignup.bind(this),
-        };
-    }
+    private clickLoginInput = (): void => {
+        this.clickInput('login');
+    };
+
+    private clickPassInput = (): void => {
+        this.clickInput('password');
+    };
+
+    private cliclUnknowInput = (): void => {
+        this.clickInput();
+    };
 
     render(): void {
         window.scrollTo(0, 0);
@@ -79,27 +70,25 @@ export default class SignupView extends PageView {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(ERROR_SIGNUP, this.handlers.errorSignup);
-        Events.subscribe(SIGNUP_USER, this.handlers.userSignup);
+        Events.subscribe(ERROR_SIGNUP, this.errorSignup);
+        Events.subscribe(SIGNUP_USER, this.userSignup);
 
-        this.form.addEventListener('submit', this.handlers.submitSignupForm);
-        this.loginInput.addEventListener('click', this.handlers.clickLoginInput);
-        this.emailInput.addEventListener('click', this.handlers.clickInput);
-        this.passwordInputFirst.addEventListener('click', this.handlers.clickPassInput);
-        this.passwordInputSecond.addEventListener('click', this.handlers.clickPassInput);
+        this.form.addEventListener('submit', this.submitSignup);
+        this.loginInput.addEventListener('click', this.clickLoginInput);
+        this.emailInput.addEventListener('click', this.cliclUnknowInput);
+        this.passwordInputFirst.addEventListener('click', this.clickPassInput);
+        this.passwordInputSecond.addEventListener('click', this.clickPassInput);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(ERROR_SIGNUP, this.handlers.errorSignup);
-        Events.unsubscribe(SIGNUP_USER, this.handlers.userSignup);
+        Events.unsubscribe(ERROR_SIGNUP, this.errorSignup);
+        Events.unsubscribe(SIGNUP_USER, this.userSignup);
 
-        if (this.form) {
-            this.form.removeEventListener('submit', this.handlers.submitSignupForm);
-            this.loginInput.removeEventListener('click', this.handlers.clickLoginInput);
-            this.emailInput.removeEventListener('click', this.handlers.clickInput);
-            this.passwordInputFirst.removeEventListener('click', this.handlers.clickPassInput);
-            this.passwordInputSecond.removeEventListener('click', this.handlers.clickPassInput);
-        }
+        this.form.removeEventListener('submit', this.submitSignup);
+        this.loginInput.removeEventListener('click', this.clickLoginInput);
+        this.emailInput.removeEventListener('click', this.cliclUnknowInput);
+        this.passwordInputFirst.removeEventListener('click', this.clickPassInput);
+        this.passwordInputSecond.removeEventListener('click', this.clickPassInput);
     }
 
     renderError(err: string, numberInputErr = 0): void {
@@ -163,7 +152,7 @@ export default class SignupView extends PageView {
         promtsDiv.innerHTML = promtTemplate({ promts });
     }
 
-    private submitSignup(event: Event): void {
+    private submitSignup = (event: Event): void => {
         event.preventDefault();
 
         const login = this.loginInput.value;
@@ -177,7 +166,7 @@ export default class SignupView extends PageView {
         Events.trigger(SUBMIT_SIGNUP, {
             login, email, passwordFirst, passwordSecond,
         });
-    }
+    };
 
     private clearErrorInputs(): void {
         this.loginInput.classList.remove('sign__input--error');

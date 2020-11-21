@@ -1,51 +1,45 @@
+// - Рабинович, какими вы видите перспективы этого проекта?
+// - Таки судя по значительной части его разработчиков - весьма радужными...
+
 import { PageView } from '@interfaces/views';
 import Events from '@eventbus/eventbus';
 import {
     CHANGE_USER_OK,
 } from '@eventbus/constants';
-import DataUserComponent from '@/components/profile/profile-data/profile-data';
-import SettingsDataComponent from '@/components/profile/settings-data/settings-data';
-import SettingsPasswordComponent from '@/components/profile/settings-password/settings-password';
-import type { HandlerEvent } from '@interfaces/functions';
-import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import DataUserComponent from '@profile/profile-data/profile-data';
+import SettingsDataComponent from '@profile/settings-data/settings-data';
+import SettingsPasswordComponent from '@profile/settings-password/settings-password';
+import type { UserData } from '@interfaces/structs-data/user-data';
 
 import * as profileTemplate from '@profile/templates/profile.hbs';
 import '@profile/templates/profile.css';
 
 export default class ProfileView extends PageView {
-    private handlers: Record<string, HandlerEvent>;
-
     private dataComponent: DataUserComponent;
 
     private settingsDataComponent: SettingsDataComponent;
 
     private settingsPasswordComponent: SettingsPasswordComponent;
 
-    constructor(parent: HTMLElement) {
-        super(parent);
+    constructor(place: HTMLElement) {
+        super(place);
 
         this.dataComponent = new DataUserComponent();
         this.settingsDataComponent = new SettingsDataComponent();
         this.settingsPasswordComponent = new SettingsPasswordComponent();
-
-        this.handlers = this.makeHandlers();
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(CHANGE_USER_OK, this.handlers.okChangeUser);
+        Events.subscribe(CHANGE_USER_OK, this.successChangeUser);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(CHANGE_USER_OK, this.handlers.okChangeUser);
+        Events.unsubscribe(CHANGE_USER_OK, this.successChangeUser);
     }
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            okChangeUser: (user: UserData): void => {
-                this.dataComponent.updateData(user.username, user.email);
-            },
-        };
-    }
+    private successChangeUser = (user: UserData): void => {
+        this.dataComponent.updateData(user.username, user.email);
+    };
 
     render(data: UserData): void {
         window.scrollTo(0, 0);

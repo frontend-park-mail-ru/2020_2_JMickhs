@@ -1,13 +1,12 @@
-import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { UserData } from '@interfaces/structs-data/user-data';
 import type { AbstractComponent } from '@interfaces/components';
-import type { HandlerEvent } from '@interfaces/functions';
 
 import * as dataTemplate from '@profile/profile-data/profile-data.hbs';
 import * as buttonTemplate from '@profile/profile-data/button.hbs';
 import * as messageTemplate from '@profile/profile-data/message.hbs';
 import User from '@user/user';
-import NetworkUser from '@/helpers/network/network-user';
-import Redirector from '@/helpers/router/redirector';
+import NetworkUser from '@network/network-user';
+import Redirector from '@router/redirector';
 
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -24,13 +23,10 @@ export default class DataUserComponent implements AbstractComponent {
 
     private divAvatarBottom?: HTMLDivElement;
 
-    private handlers: Record<string, HandlerEvent>;
-
     private idTimer: number;
 
     constructor() {
         this.idTimer = -1;
-        this.handlers = this.makeHandlers();
     }
 
     setPlace(place: HTMLDivElement): void {
@@ -52,45 +48,43 @@ export default class DataUserComponent implements AbstractComponent {
         this.subscribeEvents();
     }
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            newImage: (event: Event): void => {
-                event.preventDefault();
-                this.divAvatarBottom.innerHTML = buttonTemplate();
-                this.reloadAvatarButton = document.getElementById('button-reload') as HTMLButtonElement;
-                this.reloadAvatarButton.addEventListener('click', this.handlers.updateAvatarClick);
-                const file = this.inputAvatar.files[0];
-                if (this.inputAvatar.files.length === 0) {
-                    return;
-                }
-                if (file.size > 5242880) { // 5мб
-                    this.renderMessage('Размер изображения не должен превышать 5мб', true);
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = (evt): void => {
-                    this.avatarImage.src = evt.target.result as string;
-                };
-                reader.readAsDataURL(file);
-            },
-            updateAvatarClick: (event: Event): void => {
-                event.preventDefault();
-                this.updateAvatar(this.avatarForm);
-                this.reloadAvatarButton.removeEventListener('click', this.handlers.updateAvatarClick);
-                this.divAvatarBottom.innerHTML = '';
-                this.inputAvatar.value = '';
-            },
-            signoutClick: (event: Event): void => {
-                event.preventDefault();
-                this.exitButton.disabled = true;
-                this.signout();
-            },
+    private newImage = (event: Event): void => {
+        event.preventDefault();
+        this.divAvatarBottom.innerHTML = buttonTemplate();
+        this.reloadAvatarButton = document.getElementById('button-reload') as HTMLButtonElement;
+        this.reloadAvatarButton.addEventListener('click', this.updateAvatarClick);
+        const file = this.inputAvatar.files[0];
+        if (this.inputAvatar.files.length === 0) {
+            return;
+        }
+        if (file.size > 5242880) { // 5мб
+            this.renderMessage('Размер изображения не должен превышать 5мб', true);
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (evt): void => {
+            this.avatarImage.src = evt.target.result as string;
         };
-    }
+        reader.readAsDataURL(file);
+    };
+
+    private updateAvatarClick = (event: Event): void => {
+        event.preventDefault();
+        this.updateAvatar(this.avatarForm);
+        this.reloadAvatarButton.removeEventListener('click', this.updateAvatarClick);
+        this.divAvatarBottom.innerHTML = '';
+        this.inputAvatar.value = '';
+    };
+
+    private signoutClick = (event: Event): void => {
+        event.preventDefault();
+        this.exitButton.disabled = true;
+        this.signout();
+    };
 
     private subscribeEvents(): void {
-        this.inputAvatar.addEventListener('change', this.handlers.newImage);
-        this.exitButton.addEventListener('click', this.handlers.signoutClick);
+        this.inputAvatar.addEventListener('change', this.newImage);
+        this.exitButton.addEventListener('click', this.signoutClick);
     }
 
     private unsubscribeEvents(): void {
@@ -98,10 +92,10 @@ export default class DataUserComponent implements AbstractComponent {
             return;
         }
 
-        this.inputAvatar.removeEventListener('change', this.handlers.newImage);
-        this.exitButton.removeEventListener('click', this.handlers.signoutClick);
+        this.inputAvatar.removeEventListener('change', this.newImage);
+        this.exitButton.removeEventListener('click', this.signoutClick);
         if (this.reloadAvatarButton) {
-            this.reloadAvatarButton.removeEventListener('click', this.handlers.updateAvatarClick);
+            this.reloadAvatarButton.removeEventListener('click', this.updateAvatarClick);
         }
     }
 

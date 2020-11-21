@@ -3,8 +3,8 @@ import ErrorPageView from '@/components/page-error/page-error-view';
 export default class ErrorPageController {
     private view: ErrorPageView;
 
-    constructor(parent: HTMLElement) {
-        this.view = new ErrorPageView(parent);
+    constructor(place: HTMLElement) {
+        this.view = new ErrorPageView(place);
     }
 
     activate(): void {

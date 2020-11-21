@@ -1,41 +1,31 @@
-import HomeModel from '@/components/home/home-model';
-import HomeView from '@/components/home/home-view';
+import HomeModel from '@home/home-model';
+import HomeView from '@home/home-view';
 import Events from '@eventbus/eventbus';
 import {
     SEARCH_HOSTELS,
 } from '@eventbus/constants';
 import type { PageController } from '@interfaces/controllers';
-import type { HandlerEvent } from '@interfaces/functions';
 
 export default class HomeController implements PageController {
     private model: HomeModel;
 
     private view: HomeView;
 
-    private handlers: Record<string, HandlerEvent>;
-
-    constructor(parent: HTMLElement) {
+    constructor(place: HTMLElement) {
         this.model = new HomeModel();
-        this.view = new HomeView(parent);
-
-        this.handlers = this.makeHadlers();
+        this.view = new HomeView(place);
     }
 
-    private makeHadlers(): Record<string, HandlerEvent> {
-        const handlers = {
-            searchHostels: (arg: string): void => {
-                this.model.search(arg);
-            },
-        };
-        return handlers;
-    }
+    private searchHostels = (arg: string): void => {
+        this.model.search(arg);
+    };
 
     subscribeEvents(): void {
-        Events.subscribe(SEARCH_HOSTELS, this.handlers.searchHostels);
+        Events.subscribe(SEARCH_HOSTELS, this.searchHostels);
     }
 
     unsubscribeEvents(): void {
-        Events.unsubscribe(SEARCH_HOSTELS, this.handlers.searchHostels);
+        Events.unsubscribe(SEARCH_HOSTELS, this.searchHostels);
     }
 
     activate(params?: URLSearchParams): void {
