@@ -91,6 +91,11 @@
     background-color: var(--orange-dark);
 }
 
+.hostel__button-round:disabled {
+    pointer-events: none;
+    opacity: var(--opacity-button-disabled);
+}
+
 .hostel__title--orange {
     color: var(--orange);
 }

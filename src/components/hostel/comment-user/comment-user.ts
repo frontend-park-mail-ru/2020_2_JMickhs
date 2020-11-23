@@ -119,6 +119,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
         response.then((value) => {
             const { code } = value;
+            this.currentButtonDisabled(false);
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -167,6 +168,7 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.unsubscribeEvents();
                     this.render();
                     this.subscribeEvents();
+                    Popup.activate(this.popupMessageComponent, 'Вы успешно изменили отзыв!', false);
                     break;
                 case 400:
                     Popup.activate(this.popupMessageComponent, 'Сервер не смог обработать запрос!', true);
