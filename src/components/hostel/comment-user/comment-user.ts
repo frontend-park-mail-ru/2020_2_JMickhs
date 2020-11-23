@@ -5,14 +5,15 @@ import {
     UPDATE_RATING_HOSTEL,
     AUTH_USER,
 } from '@eventbus/constants';
-import Redirector from '@router/redirector';
 import NetworkHostel from '@/helpers/network/network-hostel';
 import User from '@user/user';
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import type { AbstractComponent } from '@interfaces/components';
+import * as templateUser from '@hostel/comment-user/comment-user.hbs';
+import MessagePopup from '@/components/popup/message-popup/message-popup';
+import Popup from '../../popup/popup';
 
 import './comment-user.css';
-import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 
 export default class CommentUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -27,6 +28,8 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private selectRating: HTMLSelectElement;
 
+    private popupMessageComponent: MessagePopup;
+
     setPlace(place: HTMLDivElement): void {
         this.place = place;
     }
@@ -40,8 +43,9 @@ export default class CommentUserComponent implements AbstractComponent {
         this.comment = comment;
 
         this.render();
-
         this.subscribeEvents();
+
+        this.popupMessageComponent = new MessagePopup();
     }
 
     deactivate(): void {
@@ -55,8 +59,6 @@ export default class CommentUserComponent implements AbstractComponent {
 
         this.currentButtonDisabled(true);
         this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
-        this.editButton.innerText = 'Изменить';
-        this.editButton.addEventListener('click', this.editCommentClick);
     };
 
     private editCommentClick = (event: Event): void => {
@@ -128,19 +130,22 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.editButton.removeEventListener('click', this.addCommentClick);
                     this.unsubscribeEvents();
                     this.render();
+                    this.editButton.innerText = 'Изменить';
+                    this.editButton.addEventListener('click', this.editCommentClick);
                     this.subscribeEvents();
+                    Popup.activate(this.popupMessageComponent, 'Вы успешно оставили отзыв!', false);
                     break;
                 case 400:
-                    Redirector.redirectError('bad request');
+                    Popup.activate(this.popupMessageComponent, 'Сервер не смог обработать запрос!', true);
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Popup.activate(this.popupMessageComponent, 'Нет прав доступа!', true);
                     break;
                 case 423:
-                    Redirector.redirectError('Второй раз ставите оценку!');
+                    Popup.activate(this.popupMessageComponent, 'Второй раз ставите оценку!', true);
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
+                    Popup.activate(this.popupMessageComponent, `Ошибка - ${code || value.error}`, true);
                     break;
             }
         });
@@ -164,16 +169,16 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.subscribeEvents();
                     break;
                 case 400:
-                    Redirector.redirectError('bad request');
+                    Popup.activate(this.popupMessageComponent, 'Сервер не смог обработать запрос!', true);
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Popup.activate(this.popupMessageComponent, 'Нет прав доступа!', true);
                     break;
                 case 423:
-                    Redirector.redirectError('Второй раз ставите оценку!');
+                    Popup.activate(this.popupMessageComponent, 'Второй раз ставите оценку!', true);
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
+                    Popup.activate(this.popupMessageComponent, `Ошибка - ${code || value.error}`, true);
                     break;
             }
         });
