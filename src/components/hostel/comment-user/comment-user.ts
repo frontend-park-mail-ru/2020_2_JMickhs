@@ -54,6 +54,10 @@ export default class CommentUserComponent implements AbstractComponent {
         this.unsubscribeEvents();
     }
 
+    private renderMessage(text: string, isError: boolean): void {
+        Popup.activate(this.popupMessageComponent, text, isError);
+    }
+
     private addCommentClick = (event: Event): void => {
         event.preventDefault();
 
@@ -65,6 +69,7 @@ export default class CommentUserComponent implements AbstractComponent {
         event.preventDefault();
 
         if (this.textArea.value === this.comment.message && +this.selectRating.value === this.comment.rating) {
+            this.renderMessage('Вы ничего не поменяли!', true);
             return;
         }
 
@@ -134,19 +139,19 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.editButton.innerText = 'Изменить';
                     this.editButton.addEventListener('click', this.editCommentClick);
                     this.subscribeEvents();
-                    Popup.activate(this.popupMessageComponent, 'Вы успешно оставили отзыв!', false);
+                    this.renderMessage('Вы успешно оставили отзыв!', false);
                     break;
                 case 400:
-                    Popup.activate(this.popupMessageComponent, 'Сервер не смог обработать запрос!', true);
+                    this.renderMessage('Сервер не смог обработать запрос!', true);
                     break;
                 case 403:
-                    Popup.activate(this.popupMessageComponent, 'Нет прав доступа!', true);
+                    this.renderMessage('Нет прав доступа!', true);
                     break;
                 case 423:
-                    Popup.activate(this.popupMessageComponent, 'Второй раз ставите оценку!', true);
+                    this.renderMessage('Второй раз ставите оценку!', true);
                     break;
                 default:
-                    Popup.activate(this.popupMessageComponent, `Ошибка - ${code || value.error}`, true);
+                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
                     break;
             }
         });
@@ -168,19 +173,19 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.unsubscribeEvents();
                     this.render();
                     this.subscribeEvents();
-                    Popup.activate(this.popupMessageComponent, 'Вы успешно изменили отзыв!', false);
+                    this.renderMessage('Вы успешно изменили отзыв!', false);
                     break;
                 case 400:
-                    Popup.activate(this.popupMessageComponent, 'Сервер не смог обработать запрос!', true);
+                    this.renderMessage('Сервер не смог обработать запрос!', true);
                     break;
                 case 403:
-                    Popup.activate(this.popupMessageComponent, 'Нет прав доступа!', true);
+                    this.renderMessage('Нет прав доступа!', true);
                     break;
                 case 423:
-                    Popup.activate(this.popupMessageComponent, 'Второй раз ставите оценку!', true);
+                    this.renderMessage('Второй раз ставите оценку!', true);
                     break;
                 default:
-                    Popup.activate(this.popupMessageComponent, `Ошибка - ${code || value.error}`, true);
+                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
                     break;
             }
         });
