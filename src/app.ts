@@ -21,11 +21,11 @@ import '@/main.css';
     const frame = new MainFrame(application);
     frame.createElements([ID_NAVBAR, ID_PAGE, ID_POPUP]);
 
+    userFromCookie();
+
     const navbarElement = frame.getElement(ID_NAVBAR);
     const navbarController = new NavbarController(navbarElement);
     navbarController.activate();
-
-    userFromCookie();
 
     const pageElement = frame.getElement(ID_PAGE);
     const homeController = new HomeController(pageElement);
