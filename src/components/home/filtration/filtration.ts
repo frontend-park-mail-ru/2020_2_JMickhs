@@ -23,7 +23,7 @@ export default class FilterComponent implements AbstractController {
         this.filterParams = {
             rateFrom: 0,
             rateTo: 5,
-            percent: 100,
+            percent: 0,
             comments: 0,
         };
     }

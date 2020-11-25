@@ -42,7 +42,7 @@ export default class HomeView extends PageView {
             this.searchButton.disabled = true;
         }
         this.closeFilter();
-        Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
+        Redirector.redirectTo(this.setSearchUrl());
     };
 
     private renderHostelList = (hostels: HostelData[]): void => {
@@ -139,4 +139,15 @@ export default class HomeView extends PageView {
     private closeFilter = (): void => {
         document.getElementById('filter').classList.add('home__display-none');
     };
+
+    private setSearchUrl(): string {
+        const {
+            rateFrom,
+            rateTo,
+            percent,
+            comments,
+        } = this.filterComponent.filterParameters;
+        return `?pattern=${this.inputElement.value}&page=0&rateStart=${rateFrom}`
+        + `&rateEnd=${rateTo}&commentStart=${comments}&commCount=4,5&commPercent=${percent}`;
+    }
 }

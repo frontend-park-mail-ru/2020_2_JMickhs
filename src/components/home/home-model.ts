@@ -26,8 +26,8 @@ export default class HomeModel {
         this.userName = name;
     }
 
-    search(pattern: string, page?: number): void {
-        const response = NetworkHostel.searchHostel(pattern, page);
+    search(searchParams: string): void {
+        const response = NetworkHostel.searchHostel(searchParams);
 
         response.then((value) => {
             const { code } = value;
