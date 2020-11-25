@@ -4,6 +4,7 @@
     grid-template-areas: "search";
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
+    position: relative;
     align-items: center;
     justify-items: center;
     width: 86%;
@@ -28,7 +29,9 @@
 .home__search {
     grid-area: search;
     width: 75%;
+    position: relative;
     display: flex;
+    justify-content: flex-end;
     padding: 5% 0;
 }
 
@@ -137,4 +140,22 @@
 
 .home__list--grid-area-search {
     grid-area: search;
+}
+
+.home__filtration {
+    grid-area: search;
+    position: absolute;
+    margin-top: 7vh;
+    width: 70%;
+    max-width: 500px;
+}
+
+.home__display-none {
+    display: none;
+}
+
+.home__filter-img-container {
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
 }
