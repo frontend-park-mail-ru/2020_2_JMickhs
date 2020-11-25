@@ -45,10 +45,12 @@
     flex: 0 0 170px;
     margin-left: 4%;
     max-width: 170px;
+    min-height: 45px;
 }
 
 .home__search-input {
-    height: 45px;
+    height: 4vh;
+    min-height: 45px;
     border: var(--border-regular);
     border-radius: var(--border-radius-round);
     padding: 15px;
@@ -72,19 +74,47 @@
 
 @media only screen and (max-width: 500px) {
     .home__search {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .home__button-orange--size {
-        margin-top: 10px;
-        max-height: 45px;
-        min-width: 85px;
+        font-size: 13px;
         align-self: center;
+        flex: 0;
+        min-height: min-content;
     }
 
     .home__search-input {
         min-width: 110px;
         align-self: center;
+        min-height: 4vh;
+    }
+
+    .home__filter-img-container {
+        min-height: 4vh;
+        min-width: 4vh;
+    }
+
+    .home__container-all {
+        margin: 0;
+        width: 100%;
+    }
+
+    .home__search {
+        width: 100%;
+        padding: 0;
+        height: 4vh;
+    }
+
+    .home__button-orange {
+        padding: 10px 15px;
+        height: min-content;
+    }
+}
+
+@media only screen and (max-height: 800px) {
+    .home__filtration {
+        margin-top: 50px;
     }
 }
 
@@ -146,8 +176,9 @@
     grid-area: search;
     position: absolute;
     margin-top: 7vh;
-    width: 70%;
+    width: 100%;
     max-width: 500px;
+    min-width: 335px;
 }
 
 .home__display-none {
@@ -156,6 +187,12 @@
 
 .home__filter-img-container {
     cursor: pointer;
-    width: 45px;
-    height: 45px;
+    width: 4vh;
+    height: 4vh;
+    min-width: 45px;
+    min-height: 45px;
+    padding-right: 5px;
+    background-image: url('https://hostelscan.ru:72/filter.png');
+    background-position: center;
+    background-size: cover;
 }

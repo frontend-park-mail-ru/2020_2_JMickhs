@@ -20,7 +20,7 @@ export default class HomeView extends PageView {
 
     private inputElement: HTMLInputElement;
 
-    private imgElement: HTMLImageElement;
+    private imgElement: HTMLDivElement;
 
     private listComponent: ListComponent;
 
@@ -75,7 +75,7 @@ export default class HomeView extends PageView {
         this.searchForm = document.getElementById('search-form') as HTMLFormElement;
         this.searchButton = document.getElementById('search-button') as HTMLButtonElement;
         this.inputElement = document.getElementById('input') as HTMLInputElement;
-        this.imgElement = document.getElementById('filter-image') as HTMLImageElement;
+        this.imgElement = document.getElementById('filter-image') as HTMLDivElement;
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
         this.subscribeEvents();
