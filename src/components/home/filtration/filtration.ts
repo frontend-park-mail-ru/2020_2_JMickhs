@@ -19,6 +19,8 @@ export default class FilterComponent implements AbstractController {
 
     private filterParams: Record<string, number>;
 
+    private inputIdTimer: number;
+
     constructor() {
         this.filterParams = {
             rateFrom: 0,
@@ -26,6 +28,7 @@ export default class FilterComponent implements AbstractController {
             percent: 0,
             comments: 0,
         };
+        this.inputIdTimer = -1;
     }
 
     activate(): void {
@@ -48,6 +51,11 @@ export default class FilterComponent implements AbstractController {
     }
 
     get filterParameters(): Record<string, number> {
+        if (this.filterParams.rateFrom > this.filterParams.rateTo) {
+            const tmp = this.filterParams.rateFrom;
+            this.filterParams.rateFrom = this.filterParams.rateTo;
+            this.filterParams.rateTo = tmp;
+        }
         return this.filterParams;
     }
 
@@ -94,10 +102,38 @@ export default class FilterComponent implements AbstractController {
     };
 
     private changeRateFromInput = (): void => {
-        this.filterParams.rateFrom = +this.rateFromInput.value;// TODO: проверка на валидность
+        const value = +this.rateFromInput.value;
+        // eslint-disable-next-line no-restricted-globals
+        if (+this.rateFromInput.value.length > 1 || isNaN(value)) {
+            this.renderInputError(this.rateFromInput);
+            this.rateFromInput.value = '';
+            return;
+        }
+        this.filterParams.rateFrom = value;
     };
 
     private changeRateToInput = (): void => {
-        this.filterParams.rateTo = +this.rateToInput.value;// TODO: проверка на валидность
+        const value = +this.rateToInput.value;
+        // eslint-disable-next-line no-restricted-globals
+        if (+this.rateToInput.value.length > 1 || isNaN(value)) {
+            this.renderInputError(this.rateToInput);
+            this.rateToInput.value = '';
+            return;
+        }
+        this.filterParams.rateTo = +this.rateToInput.value;
     };
+
+    private renderInputError(input: HTMLInputElement): void {
+        if (this.inputIdTimer !== -1) {
+            window.clearTimeout(this.inputIdTimer);
+        }
+
+        input.classList.add('filtration__input-error');
+        this.inputIdTimer = window.setTimeout(() => {
+            if (input) {
+                input.classList.remove('filtration__input-error');
+            }
+            this.inputIdTimer = -1;
+        }, 1000);
+    }
 }

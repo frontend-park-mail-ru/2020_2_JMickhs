@@ -62,3 +62,7 @@
 .filtration__rate--paddings {
     padding: 0 10%;
 }
+
+.filtration__input-error {
+    border: 2px solid var(--new-red);
+}
