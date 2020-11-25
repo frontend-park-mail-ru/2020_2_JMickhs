@@ -126,6 +126,8 @@ export default class FilterComponent implements AbstractController {
     private renderInputError(input: HTMLInputElement): void {
         if (this.inputIdTimer !== -1) {
             window.clearTimeout(this.inputIdTimer);
+            this.rateToInput.classList.remove('filtration__input-error');
+            this.rateFromInput.classList.remove('filtration__input-error');
         }
 
         input.classList.add('filtration__input-error');
