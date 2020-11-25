@@ -1,9 +1,9 @@
-import type { AbstractController } from '@interfaces/controllers';
 import * as listTemplate from '@home/list-hostels/list-hostels.hbs';
 import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import '@home/list-hostels/list-hostels.css';
+import type { AbstractComponent } from '@interfaces/components';
 
-export default class ListComponent implements AbstractController {
+export default class ListComponent implements AbstractComponent {
     public haveInfo: boolean;
 
     private hostels: HostelData[];

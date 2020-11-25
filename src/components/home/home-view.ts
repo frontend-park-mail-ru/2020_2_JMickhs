@@ -20,7 +20,7 @@ export default class HomeView extends PageView {
 
     private inputElement: HTMLInputElement;
 
-    private imgElement: HTMLDivElement;
+    private imageElement: HTMLDivElement;
 
     private listComponent: ListComponent;
 
@@ -75,7 +75,7 @@ export default class HomeView extends PageView {
         this.searchForm = document.getElementById('search-form') as HTMLFormElement;
         this.searchButton = document.getElementById('search-button') as HTMLButtonElement;
         this.inputElement = document.getElementById('input') as HTMLInputElement;
-        this.imgElement = document.getElementById('filter-image') as HTMLDivElement;
+        this.imageElement = document.getElementById('filter-image') as HTMLDivElement;
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
         this.subscribeEvents();
@@ -107,14 +107,14 @@ export default class HomeView extends PageView {
     private subscribeEvents(): void {
         this.searchForm.addEventListener('submit', this.searchClick);
         this.inputElement.addEventListener('input', this.changeInput);
-        this.imgElement.addEventListener('click', this.toggleFilter);
+        this.imageElement.addEventListener('click', this.toggleFilter);
         Events.subscribe(FILL_HOSTELS, this.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
         this.searchForm.removeEventListener('submit', this.searchClick);
         this.inputElement.removeEventListener('input', this.changeInput);
-        this.imgElement.removeEventListener('click', this.toggleFilter);
+        this.imageElement.removeEventListener('click', this.toggleFilter);
         Events.unsubscribe(FILL_HOSTELS, this.renderHostelList);
     }
 

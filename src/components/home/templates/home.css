@@ -73,10 +73,6 @@
 }
 
 @media only screen and (max-width: 500px) {
-    .home__search {
-        flex-direction: row;
-    }
-
     .home__button-orange--size {
         font-size: 13px;
         align-self: center;
@@ -101,9 +97,11 @@
     }
 
     .home__search {
+        flex-direction: row;
         width: 100%;
         padding: 0;
         height: 4vh;
+        margin-top: 7%;
     }
 
     .home__button-orange {

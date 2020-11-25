@@ -20,11 +20,12 @@
 // - А сколько тебе лет?
 // - Леха!
 
-import type { AbstractController } from '@interfaces/controllers';
 import * as filtrationTemplate from '@home/filtration/filtration.hbs';
 import '@home/filtration/filtration.css';
+import type { AbstractComponent } from '@interfaces/components';
+import type { FilterSearchParams } from '@interfaces/structs-data/filterSearchParams';
 
-export default class FilterComponent implements AbstractController {
+export default class FilterComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
     private rateFromInput: HTMLInputElement;
@@ -39,7 +40,7 @@ export default class FilterComponent implements AbstractController {
 
     private percentNumber: HTMLParagraphElement;
 
-    private filterParams: Record<string, number>;
+    private filterParams: FilterSearchParams;
 
     private inputIdTimer: number;
 
@@ -72,7 +73,7 @@ export default class FilterComponent implements AbstractController {
         this.place = place;
     }
 
-    get filterParameters(): Record<string, number> {
+    get filterParameters(): FilterSearchParams {
         if (this.filterParams.rateFrom > this.filterParams.rateTo) {
             const tmp = this.filterParams.rateFrom;
             this.filterParams.rateFrom = this.filterParams.rateTo;
@@ -125,8 +126,7 @@ export default class FilterComponent implements AbstractController {
 
     private changeRateFromInput = (): void => {
         const value = +this.rateFromInput.value;
-        // eslint-disable-next-line no-restricted-globals
-        if (+this.rateFromInput.value.length > 1 || isNaN(value)) {
+        if (+this.rateFromInput.value.length > 1 || Number.isNaN(value)) {
             this.renderInputError(this.rateFromInput);
             this.rateFromInput.value = '';
             return;
@@ -136,8 +136,7 @@ export default class FilterComponent implements AbstractController {
 
     private changeRateToInput = (): void => {
         const value = +this.rateToInput.value;
-        // eslint-disable-next-line no-restricted-globals
-        if (+this.rateToInput.value.length > 1 || isNaN(value)) {
+        if (+this.rateToInput.value.length > 1 || Number.isNaN(value)) {
             this.renderInputError(this.rateToInput);
             this.rateToInput.value = '';
             return;
