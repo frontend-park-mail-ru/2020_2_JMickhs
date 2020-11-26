@@ -128,7 +128,7 @@ export default class FilterComponent implements AbstractComponent {
         const value = +this.rateFromInput.value;
         if (+this.rateFromInput.value.length > 1 || Number.isNaN(value)) {
             this.renderInputError(this.rateFromInput);
-            this.rateFromInput.value = '';
+            this.rateFromInput.value = this.rateFromInput.value.substring(0, 1);
             return;
         }
         this.filterParams.rateFrom = value;
@@ -138,7 +138,7 @@ export default class FilterComponent implements AbstractComponent {
         const value = +this.rateToInput.value;
         if (+this.rateToInput.value.length > 1 || Number.isNaN(value)) {
             this.renderInputError(this.rateToInput);
-            this.rateToInput.value = '';
+            this.rateToInput.value = this.rateToInput.value.substring(0, 1);
             return;
         }
         this.filterParams.rateTo = +this.rateToInput.value;

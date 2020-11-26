@@ -1,4 +1,3 @@
-
 .filtration__container {
     width: 100%;
     height: 250px;
@@ -32,6 +31,10 @@
 .filtration__rate {
     grid-area: rate;
     color: var(--blue);
+}
+
+.filtration__input:focus::placeholder {
+    color: transparent;
 }
 
 .filtration__comment {
