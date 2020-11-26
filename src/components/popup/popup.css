@@ -18,6 +18,7 @@
 
 .popup__content {
     margin: auto;
+    padding: 0 15px;
     width: 70vh;
     max-height: 70vh;
     align-self: center;
@@ -26,9 +27,8 @@
 .popup__button-close {
     background-color: var(--orange);
     color: var(--white);
-    transform: translate(0, -25%);
-    border-radius: 25px;
-    padding: 16px 20px;
+    border-radius: var(--border-radius-round);
+    padding: 7px 12px 9px;
     border: none;
     cursor: pointer;
     text-decoration: none;
@@ -40,4 +40,8 @@
 
 .popup__button-close:hover {
     background-color: var(--orange-dark);
+}
+
+.popup__component {
+    margin-top: 1%;
 }
