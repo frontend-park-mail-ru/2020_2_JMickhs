@@ -10,8 +10,8 @@ import User from '@user/user';
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import type { AbstractComponent } from '@interfaces/components';
 import * as templateUser from '@hostel/comment-user/comment-user.hbs';
-import MessagePopup from '@/components/popup/message-popup/message-popup';
-import Popup from '../../popup/popup';
+import MessagePopup from '@popup/message-popup/message-popup';
+import Popup from '@popup/popup';
 
 import './comment-user.css';
 
@@ -28,7 +28,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private selectRating: HTMLSelectElement;
 
-    private popupMessageComponent: MessagePopup;
+    private messagePopupComponent: MessagePopup;
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -45,7 +45,7 @@ export default class CommentUserComponent implements AbstractComponent {
         this.render();
         this.subscribeEvents();
 
-        this.popupMessageComponent = new MessagePopup();
+        this.messagePopupComponent = new MessagePopup();
     }
 
     deactivate(): void {
@@ -55,7 +55,7 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private renderMessage(text: string, isError: boolean): void {
-        Popup.activate(this.popupMessageComponent, text, isError);
+        Popup.activate(this.messagePopupComponent, text, isError);
     }
 
     private addCommentClick = (event: Event): void => {
