@@ -4,6 +4,7 @@ import NetworkUser from '@/helpers/network/network-user';
 import * as template from '@profile/settings-password/settings-password.hbs';
 import User from '@/helpers/user/user';
 import Redirector from '@/helpers/router/redirector';
+import NotificationUser from '@/components/notification-user/notification-user';
 
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -215,11 +216,11 @@ export default class DataUserComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    this.renderMessage('Вы успешно обновили пароль!');
+                    NotificationUser.showMessage('Вы успешно обновили пароль!');
                     this.clearInputs();
                     break;
                 case 400:
-                    this.renderMessage('Неверный формат запроса');
+                    NotificationUser.showMessage('Неверный формат запроса', true);
                     break;
                 case 401:
                     const user = User;
@@ -233,10 +234,10 @@ export default class DataUserComponent implements AbstractComponent {
                     ]);
                     break;
                 case 403:
-                    Redirector.redirectError('Нет прав на изменение пароля');
+                    NotificationUser.showMessage('Нет прав на изменение пароля', true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера - ${code || value.error}`);
+                    NotificationUser.showMessage(`Ошибка - ${code || value.error}`, true);
                     break;
             }
         });

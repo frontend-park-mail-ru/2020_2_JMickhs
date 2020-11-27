@@ -11,7 +11,7 @@ class NotificationUser {
         this.idTimer = -1;
     }
 
-    showMessage(text: string, isError: boolean, time: number|null = 5000): void {
+    showMessage(text: string, isError = false, time: number|null = 5000): void {
         if (this.idTimer !== -1) {
             this.hideMessage();
             window.clearTimeout(this.idTimer);
