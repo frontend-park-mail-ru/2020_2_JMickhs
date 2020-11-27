@@ -35,6 +35,10 @@ class Popup {
         this.place.classList.remove('popup__container--hidden');
     }
 
+    deactivate(): void {
+        this.close();
+    }
+
     private clickContent = (evt: Event): void => {
         evt.stopPropagation();
     };
