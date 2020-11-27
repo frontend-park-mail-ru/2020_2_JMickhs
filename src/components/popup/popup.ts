@@ -24,7 +24,6 @@ class Popup {
         if (!this.place) {
             return;
         }
-
         this.place.innerHTML = template();
         this.popup = document.getElementById('popup-component') as HTMLDivElement;
 
