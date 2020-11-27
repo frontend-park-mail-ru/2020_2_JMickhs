@@ -5,14 +5,15 @@ import {
     UPDATE_RATING_HOSTEL,
     AUTH_USER,
 } from '@eventbus/constants';
-import Redirector from '@router/redirector';
 import NetworkHostel from '@/helpers/network/network-hostel';
 import User from '@user/user';
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import type { AbstractComponent } from '@interfaces/components';
+import * as templateUser from '@hostel/comment-user/comment-user.hbs';
+import MessagePopup from '@popup/message-popup/message-popup';
+import Popup from '@popup/popup';
 
 import './comment-user.css';
-import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 
 export default class CommentUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -27,6 +28,8 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private selectRating: HTMLSelectElement;
 
+    private messagePopupComponent: MessagePopup;
+
     setPlace(place: HTMLDivElement): void {
         this.place = place;
     }
@@ -40,8 +43,9 @@ export default class CommentUserComponent implements AbstractComponent {
         this.comment = comment;
 
         this.render();
-
         this.subscribeEvents();
+
+        this.messagePopupComponent = new MessagePopup();
     }
 
     deactivate(): void {
@@ -50,19 +54,22 @@ export default class CommentUserComponent implements AbstractComponent {
         this.unsubscribeEvents();
     }
 
+    private renderMessage(text: string, isError: boolean): void {
+        Popup.activate(this.messagePopupComponent, text, isError);
+    }
+
     private addCommentClick = (event: Event): void => {
         event.preventDefault();
 
         this.currentButtonDisabled(true);
         this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
-        this.editButton.innerText = 'Изменить';
-        this.editButton.addEventListener('click', this.editCommentClick);
     };
 
     private editCommentClick = (event: Event): void => {
         event.preventDefault();
 
         if (this.textArea.value === this.comment.message && +this.selectRating.value === this.comment.rating) {
+            this.renderMessage('Вы ничего не поменяли!', true);
             return;
         }
 
@@ -117,6 +124,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
         response.then((value) => {
             const { code } = value;
+            this.currentButtonDisabled(false);
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -128,19 +136,22 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.editButton.removeEventListener('click', this.addCommentClick);
                     this.unsubscribeEvents();
                     this.render();
+                    this.editButton.innerText = 'Изменить';
+                    this.editButton.addEventListener('click', this.editCommentClick);
                     this.subscribeEvents();
+                    this.renderMessage('Вы успешно оставили отзыв!', false);
                     break;
                 case 400:
-                    Redirector.redirectError('bad request');
+                    this.renderMessage('Сервер не смог обработать запрос!', true);
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    this.renderMessage('Нет прав доступа!', true);
                     break;
                 case 423:
-                    Redirector.redirectError('Второй раз ставите оценку!');
+                    this.renderMessage('Второй раз ставите оценку!', true);
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
+                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
                     break;
             }
         });
@@ -162,18 +173,19 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.unsubscribeEvents();
                     this.render();
                     this.subscribeEvents();
+                    this.renderMessage('Вы успешно изменили отзыв!', false);
                     break;
                 case 400:
-                    Redirector.redirectError('bad request');
+                    this.renderMessage('Сервер не смог обработать запрос!', true);
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    this.renderMessage('Нет прав доступа!', true);
                     break;
                 case 423:
-                    Redirector.redirectError('Второй раз ставите оценку!');
+                    this.renderMessage('Второй раз ставите оценку!', true);
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
+                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
                     break;
             }
         });

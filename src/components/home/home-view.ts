@@ -7,6 +7,7 @@ import {
 
 import '@home/templates/home.css';
 import ListComponent from '@/components/home/list-hostels/list-hostels';
+import FilterComponent from '@/components/home/filtration/filtration';
 import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
 
@@ -19,13 +20,18 @@ export default class HomeView extends PageView {
 
     private inputElement: HTMLInputElement;
 
+    private imageElement: HTMLDivElement;
+
     private listComponent: ListComponent;
+
+    private filterComponent: FilterComponent;
 
     private inputTimer: number;
 
     constructor(place: HTMLElement) {
         super(place);
         this.listComponent = new ListComponent();
+        this.filterComponent = new FilterComponent();
         this.inputTimer = -1;
     }
 
@@ -35,7 +41,8 @@ export default class HomeView extends PageView {
         if (this.searchButton) {
             this.searchButton.disabled = true;
         }
-        Redirector.redirectTo(`?pattern=${this.inputElement.value}`);
+        this.closeFilter();
+        Redirector.redirectTo(this.setSearchUrl());
     };
 
     private renderHostelList = (hostels: HostelData[]): void => {
@@ -68,15 +75,19 @@ export default class HomeView extends PageView {
         this.searchForm = document.getElementById('search-form') as HTMLFormElement;
         this.searchButton = document.getElementById('search-button') as HTMLButtonElement;
         this.inputElement = document.getElementById('input') as HTMLInputElement;
+        this.imageElement = document.getElementById('filter-image') as HTMLDivElement;
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
         this.subscribeEvents();
 
         this.listComponent.setPlace(document.getElementById('list') as HTMLDivElement);
+        this.filterComponent.setPlace(document.getElementById('filter') as HTMLDivElement);
+        this.filterComponent.activate();
     }
 
     renderError(error: string): void {
         this.listComponent.deactivate();
+        this.filterComponent.deactivate();
         this.render(error);
         this.clearInputError();
     }
@@ -86,6 +97,7 @@ export default class HomeView extends PageView {
             return;
         }
         this.listComponent.deactivate();
+        this.filterComponent.deactivate();
 
         this.unsubscribeEvents();
 
@@ -94,15 +106,15 @@ export default class HomeView extends PageView {
 
     private subscribeEvents(): void {
         this.searchForm.addEventListener('submit', this.searchClick);
-        this.inputElement.addEventListener('change', this.changeInput);
-        this.inputElement.addEventListener('keypress', this.changeInput);
+        this.inputElement.addEventListener('input', this.changeInput);
+        this.imageElement.addEventListener('click', this.toggleFilter);
         Events.subscribe(FILL_HOSTELS, this.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
         this.searchForm.removeEventListener('submit', this.searchClick);
-        this.inputElement.removeEventListener('change', this.changeInput);
-        this.inputElement.removeEventListener('keypress', this.changeInput);
+        this.inputElement.removeEventListener('input', this.changeInput);
+        this.imageElement.removeEventListener('click', this.toggleFilter);
         Events.unsubscribe(FILL_HOSTELS, this.renderHostelList);
     }
 
@@ -118,5 +130,24 @@ export default class HomeView extends PageView {
             }
             this.inputTimer = -1;
         }, 5000);
+    }
+
+    private toggleFilter = (): void => {
+        document.getElementById('filter').classList.toggle('home__display-none');
+    };
+
+    private closeFilter = (): void => {
+        document.getElementById('filter').classList.add('home__display-none');
+    };
+
+    private setSearchUrl(): string {
+        const {
+            rateFrom,
+            rateTo,
+            percent,
+            comments,
+        } = this.filterComponent.filterParameters;
+        return `?pattern=${this.inputElement.value}&page=0&rateStart=${rateFrom}`
+        + `&rateEnd=${rateTo}&commentStart=${comments}&commCount=4,5&commPercent=${percent}`;
     }
 }

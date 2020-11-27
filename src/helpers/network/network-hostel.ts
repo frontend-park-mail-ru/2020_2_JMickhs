@@ -25,8 +25,8 @@ class NetworkHostel extends NetworkAbtract {
         return this.ajax('POST', '/api/v1/comments', body, true);
     }
 
-    searchHostel(pattern: string, page = 0): Promise<ResponseData> {
-        return this.ajax('GET', `/api/v1/hotels/search?pattern=${pattern}&page=${page}`);
+    searchHostel(searchParams: string): Promise<ResponseData> {
+        return this.ajax('GET', `/api/v1/hotels/search${searchParams}`);
     }
 
     editComment(idComment: number, message: string, rating: number): Promise<ResponseData> {

@@ -1,0 +1,19 @@
+<div class="filtration__container">
+    <h4 class="filtration__rate-label">Рейтинг</h4>
+    <h4 class="filtration__percent-label">Процент положительных отзывов</h4>
+    <h4 class="filtration__comment-label">Колличество комментариев</h4>
+    <div class="filtration__rate filtration__items-container filtration__rate--paddings">
+        <p>от</p>
+        <input type="text" class="filtration__input" id="rate-from-input" placeholder="0"/>
+        <p>до</p>
+        <input type="text" class="filtration__input" id="rate-to-input" placeholder="5"/>
+    </div>
+    <div class="filtration__percent filtration__items-container">
+        <p id="percent-number">> 0%</p>
+        <input type="range" id="percent-input" min="0" max="100" value="0">
+    </div>
+    <div class="filtration__comment filtration__items-container">
+        <p id="comment-number">> 0</p>
+        <input type="range" id="comment-input" min="0" max="50" value="0">
+    </div>
+</div>
