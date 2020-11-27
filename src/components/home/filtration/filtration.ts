@@ -125,23 +125,41 @@ export default class FilterComponent implements AbstractComponent {
     };
 
     private changeRateFromInput = (): void => {
-        const value = +this.rateFromInput.value;
-        if (+this.rateFromInput.value.length > 1 || Number.isNaN(value)) {
+        let value = +this.rateFromInput.value;
+        if (this.rateFromInput.value.length > 1) {
             this.renderInputError(this.rateFromInput);
             this.rateFromInput.value = this.rateFromInput.value.substring(0, 1);
+        }
+        if (Number.isNaN(+this.rateFromInput.value)) {
+            this.renderInputError(this.rateFromInput);
+            this.rateFromInput.value = '';
             return;
+        }
+        if (value > 5) {
+            this.renderInputError(this.rateFromInput);
+            this.rateFromInput.value = '5';
+            value = 5;
         }
         this.filterParams.rateFrom = value;
     };
 
     private changeRateToInput = (): void => {
-        const value = +this.rateToInput.value;
-        if (+this.rateToInput.value.length > 1 || Number.isNaN(value)) {
+        let value = +this.rateToInput.value;
+        if (this.rateToInput.value.length > 1) {
             this.renderInputError(this.rateToInput);
             this.rateToInput.value = this.rateToInput.value.substring(0, 1);
+        }
+        if (Number.isNaN(+this.rateToInput.value)) {
+            this.renderInputError(this.rateToInput);
+            this.rateToInput.value = '';
             return;
         }
-        this.filterParams.rateTo = +this.rateToInput.value;
+        if (value > 5) {
+            this.renderInputError(this.rateToInput);
+            this.rateToInput.value = '5';
+            value = 5;
+        }
+        this.filterParams.rateTo = value;
     };
 
     private renderInputError(input: HTMLInputElement): void {

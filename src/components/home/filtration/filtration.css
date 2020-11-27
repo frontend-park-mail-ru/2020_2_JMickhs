@@ -68,4 +68,5 @@
 
 .filtration__input-error {
     border: 2px solid var(--new-red);
+    box-shadow: 0 0 8px 0 rgba(213, 0, 0, 0.4);;
 }
