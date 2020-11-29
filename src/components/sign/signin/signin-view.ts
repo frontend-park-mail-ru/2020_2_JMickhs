@@ -46,15 +46,20 @@ export default class SigninView extends PageView {
         Events.trigger(SUBMIT_SIGNIN, { login, password });
     };
 
-    renderError(errstr: string, numberInputErr = 0): void {
+    public inputNames = {
+        LOGIN: 'login',
+        PASSWORDS: 'password',
+    };
+
+    renderError(errstr: string, nameInput?: string): void {
         this.signButton.disabled = false;
         if (this.timerId !== -1) {
             clearTimeout(this.timerId);
         }
-        if (numberInputErr === 1) {
+        if (nameInput === this.inputNames.LOGIN) {
             this.loginInput.classList.add('sign__input--error');
         }
-        if (numberInputErr === 2) {
+        if (nameInput === this.inputNames.PASSWORDS) {
             this.passwordInput.classList.add('sign__input--error');
         }
         const errLine = document.getElementById('text-error');
