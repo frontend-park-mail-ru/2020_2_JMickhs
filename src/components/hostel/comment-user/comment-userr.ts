@@ -104,7 +104,7 @@ export default class CommentUserComponent implements AbstractComponent {
         this.button.disabled = true;
 
         if (this.comment) {
-            this.editComment(this.idHostel, this.textArea.value, +this.selectRating.value);
+            this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
         } else {
             this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
         }
@@ -113,8 +113,9 @@ export default class CommentUserComponent implements AbstractComponent {
     private clickEditComment = (event: Event): void => {
         event.preventDefault();
 
+        this.showTextArea = true;
         this.button.removeEventListener('click', this.clickEditComment);
-        this.button.textContent = this.buttonTextAdd;
+        this.render();
         this.button.addEventListener('click', this.clickSaveComment);
     };
 
@@ -145,12 +146,6 @@ export default class CommentUserComponent implements AbstractComponent {
                     };
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 1 });
-                    // this.editButton.removeEventListener('click', this.addCommentClick);
-                    // this.unsubscribeEvents();
-                    // this.render();
-                    // this.editButton.innerText = 'Изменить';
-                    // this.editButton.addEventListener('click', this.editCommentClick);
-                    // this.subscribeEvents();
                     this.showTextArea = false;
                     this.render();
                     this.renderMessage('Вы успешно оставили отзыв!', false);
@@ -185,9 +180,10 @@ export default class CommentUserComponent implements AbstractComponent {
                     };
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 0 });
-                    // this.unsubscribeEvents();
-                    // this.render();
-                    // this.subscribeEvents();
+
+                    this.showTextArea = false;
+                    this.render();
+
                     this.renderMessage('Вы успешно изменили отзыв!', false);
                     break;
                 case 400:

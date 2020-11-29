@@ -17,7 +17,7 @@
         <textarea id="comment-textarea" class="hostel__textarea"
             placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}</textarea>
         {{else}}
-        <p class="hostel__comment-card">{{#if comment}}{{comment.message}}{{/if}}</p>
+        <p class="hostel__textarea">{{#if comment}}{{comment.message}}{{/if}}</p>
         {{/if}}
         <button class="hostel__button-round hostel__button--position-center" id="button-comment">{{buttonName}}</button>
     </form>
