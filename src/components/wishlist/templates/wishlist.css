@@ -1,0 +1,29 @@
+.wishlist__container-all {
+    height: 100%;
+    display: grid;
+    grid-template-areas: "list"
+                         "hostels";
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 86%;
+    margin: 0 7%;
+    padding: 0 15px;
+}
+
+.wishlist__hotels {
+    grid-area: hostels;
+}
+
+.wishlist__list {
+    width: 100%;
+    grid-area: list;
+}
+
+.wishlist__error-container {
+    color: var(--blue);
+    background-color: var(--opacity-white);
+    border-radius: var(--border-radius-regular);
+    padding: 15px 50px;
+}

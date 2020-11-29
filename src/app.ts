@@ -5,6 +5,7 @@ import SigninController from '@sign/signin/signin-controller';
 import SignupController from '@sign/signup/signup-controller';
 import ProfileController from '@profile/profile-controller';
 import HostelPageController from '@hostel/hostel-page-controller';
+import WishlistController from '@wishlist/wishlist-controller';
 import ErrorPageController from '@/components/page-error/page-error-controller';
 import userFromCookie from '@/helpers/user/cookie-user';
 import registrateServiceWorker from '@/service-worker/registrate';
@@ -33,6 +34,7 @@ import '@/main.css';
     const signupController = new SignupController(pageElement);
     const profileController = new ProfileController(pageElement);
     const hostelPageController = new HostelPageController(pageElement);
+    const wishlistController = new WishlistController(pageElement);
     const errorPageController = new ErrorPageController(pageElement);
 
     const popupElement = frame.getElement(ID_POPUP);
@@ -43,6 +45,7 @@ import '@/main.css';
     Router.append('/signup', signupController);
     Router.append('/profile', profileController);
     Router.append('/hostel/', hostelPageController);
+    Router.append('/wishlist', wishlistController);
 
     Router.errorController = errorPageController;
     Router.start();

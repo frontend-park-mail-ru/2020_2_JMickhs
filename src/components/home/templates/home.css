@@ -194,3 +194,24 @@
     background-position: center;
     background-size: cover;
 }
+
+.svg-icon {
+    width: 1em;
+    height: 1em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
+
+.svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
+
+.svg-icon:hover {
+    fill: #4691f6;
+}
