@@ -3,10 +3,10 @@ import type { AbstractComponent } from '@interfaces/components';
 
 import * as dataTemplate from '@profile/profile-data/profile-data.hbs';
 import * as buttonTemplate from '@profile/profile-data/button.hbs';
-import * as messageTemplate from '@profile/profile-data/message.hbs';
 import User from '@user/user';
 import NetworkUser from '@network/network-user';
 import Redirector from '@router/redirector';
+import NotificationUser from '@/components/notification-user/notification-user';
 
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -21,13 +21,7 @@ export default class DataUserComponent implements AbstractComponent {
 
     private avatarForm: HTMLFormElement;
 
-    private divAvatarBottom?: HTMLDivElement;
-
-    private idTimer: number;
-
-    constructor() {
-        this.idTimer = -1;
-    }
+    private divAvatarBottom: HTMLDivElement;
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -110,22 +104,7 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private renderMessage(message: string, isErr = false): void {
-        if (this.idTimer !== -1) {
-            window.clearTimeout(this.idTimer);
-        }
-
-        this.divAvatarBottom.innerHTML = messageTemplate({ text: message });
-        const msg = document.getElementById('msg-avatar');
-        if (isErr) {
-            msg.classList.add('profile__text--error');
-        } else {
-            msg.classList.add('profile__text--accept');
-        }
-
-        this.idTimer = window.setTimeout(() => {
-            this.divAvatarBottom.removeChild(msg);
-            this.idTimer = -1;
-        }, 5000);
+        NotificationUser.showMessage(message, isErr, 5000);
     }
 
     private updateAvatar(formAvatar: HTMLFormElement): void {
@@ -147,13 +126,13 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет прав на обновление аватарки');
+                    this.renderMessage('Нет прав на обновление аватарки', true);
                     break;
                 case 415:
-                    this.renderMessage('Можно загружать только файлы с расширением jpg, png');
+                    this.renderMessage('Можно загружать только файлы с расширением jpg, png', true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера - ${code || value.error}`);
+                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
                     break;
             }
         });

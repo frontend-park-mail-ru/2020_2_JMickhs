@@ -10,6 +10,7 @@ import {
 
 import * as template from '@profile/settings-data/settings-data.hbs';
 import Redirector from '@router/redirector';
+import NotificationUser from '@/components/notification-user/notification-user';
 
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -188,7 +189,7 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     this.user.userName = username;
                     this.user.email = email;
-                    this.renderMessage('Вы успешно все поменяли');
+                    NotificationUser.showMessage('Вы успешно все поменяли');
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
                     break;
                 case 400:
@@ -202,7 +203,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет прав на изменение информации');
+                    NotificationUser.showMessage('Нет прав на изменение информации');
                     break;
                 case 406:
                     this.renderMessage('Пользователь с таким email уже зарегистрирован');
@@ -211,7 +212,7 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage('Пользователь с таким логином уже зарегистрирован');
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера - ${code || value.error}`);
+                    NotificationUser.showMessage(`Ошибка - ${code || value.error}`, true);
                     break;
             }
         });

@@ -9,9 +9,8 @@ import NetworkHostel from '@/helpers/network/network-hostel';
 import User from '@user/user';
 import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 import type { AbstractComponent } from '@interfaces/components';
+import NotificationUser from '@/components/notification-user/notification-user';
 import * as templateUser from '@hostel/comment-user/comment-user.hbs';
-import MessagePopup from '@popup/message-popup/message-popup';
-import Popup from '@popup/popup';
 
 import './comment-user.css';
 
@@ -28,7 +27,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private selectRating: HTMLSelectElement;
 
-    private messagePopupComponent: MessagePopup;
+    private notification = NotificationUser;
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -44,8 +43,6 @@ export default class CommentUserComponent implements AbstractComponent {
 
         this.render();
         this.subscribeEvents();
-
-        this.messagePopupComponent = new MessagePopup();
     }
 
     deactivate(): void {
@@ -55,7 +52,7 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private renderMessage(text: string, isError: boolean): void {
-        Popup.activate(this.messagePopupComponent, text, isError);
+        this.notification.showMessage(text, isError);
     }
 
     private addCommentClick = (event: Event): void => {

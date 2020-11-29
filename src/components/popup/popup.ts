@@ -24,7 +24,6 @@ class Popup {
         if (!this.place) {
             return;
         }
-
         this.place.innerHTML = template();
         this.popup = document.getElementById('popup-component') as HTMLDivElement;
 
@@ -34,6 +33,10 @@ class Popup {
 
         this.subscribeEvents();
         this.place.classList.remove('popup__container--hidden');
+    }
+
+    deactivate(): void {
+        this.close();
     }
 
     private clickContent = (evt: Event): void => {

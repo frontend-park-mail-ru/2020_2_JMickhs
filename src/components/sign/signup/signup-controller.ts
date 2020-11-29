@@ -56,20 +56,20 @@ export default class SignupController {
 
         if (login === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', 1);
+            this.view.renderError('Заполните все поля!', this.view.inputNames.LOGIN);
         }
         if (email === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', 2);
+            this.view.renderError('Заполните все поля!', this.view.inputNames.EMAIL);
         }
         if (passwordFirst === '' || passwordSecond === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', 3);
+            this.view.renderError('Заполните все поля!', this.view.inputNames.PASSWORDS);
         }
 
         if (passwordFirst !== passwordSecond) {
             resolution = false;
-            this.view.renderError('Пароли не совпадают', 3);
+            this.view.renderError('Пароли не совпадают', this.view.inputNames.PASSWORDS);
         }
 
         if (!resolution) {
@@ -79,19 +79,19 @@ export default class SignupController {
         const loginErrors = Validator.validateLogin(login);
         if (loginErrors.length > 0) {
             resolution = false;
-            this.view.renderError(loginErrors[0], 1);
+            this.view.renderError(loginErrors[0], this.view.inputNames.LOGIN);
         }
 
         const emailErrors = Validator.validateEmail(email);
         if (emailErrors.length > 0) {
             resolution = false;
-            this.view.renderError(emailErrors[0], 2);
+            this.view.renderError(emailErrors[0], this.view.inputNames.EMAIL);
         }
 
         const passwordErrors = Validator.validatePassword(passwordFirst);
         if (passwordErrors.length > 0) {
             resolution = false;
-            this.view.renderError(passwordErrors[0], 3);
+            this.view.renderError(passwordErrors[0], this.view.inputNames.PASSWORDS);
         }
 
         if (resolution) {

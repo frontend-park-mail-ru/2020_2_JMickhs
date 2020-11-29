@@ -62,7 +62,8 @@ export default class HostelDataComponent implements AbstractComponent {
         this.hostel.countComments += arg.delta;
         this.hostel.rating = arg.rating;
 
-        this.place.innerHTML = dataTemplate(this.hostel);
+        this.unsubscribeEvents();
+        this.render(this.hostel);
     };
 
     private clickMapButton = (evt: Event): void => {

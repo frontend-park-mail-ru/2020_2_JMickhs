@@ -39,16 +39,15 @@ export default class SignupView extends PageView {
     };
 
     private errorSignup = (err: string): void => {
-        this.signupButton.disabled = false;
         this.renderError(err);
     };
 
     private clickLoginInput = (): void => {
-        this.clickInput('login');
+        this.clickInput(this.inputNames.LOGIN);
     };
 
     private clickPassInput = (): void => {
-        this.clickInput('password');
+        this.clickInput(this.inputNames.PASSWORDS);
     };
 
     private cliclUnknowInput = (): void => {
@@ -91,23 +90,30 @@ export default class SignupView extends PageView {
         this.passwordInputSecond.removeEventListener('click', this.clickPassInput);
     }
 
-    renderError(err: string, numberInputErr = 0): void {
+    public inputNames = {
+        LOGIN: 'login',
+        EMAIL: 'email',
+        PASSWORDS: 'password',
+    };
+
+    renderError(err: string, nameInput?: string): void {
+        this.signupButton.disabled = false;
         if (this.timerId !== -1) {
             window.clearTimeout(this.timerId);
         }
         const errLine = document.getElementById('text-error');
         errLine.textContent = err;
 
-        switch (numberInputErr) {
-            case 1: {
+        switch (nameInput) {
+            case this.inputNames.LOGIN: {
                 this.loginInput.classList.add('sign__input--error');
                 break;
             }
-            case 2: {
+            case this.inputNames.EMAIL: {
                 this.emailInput.classList.add('sign__input--error');
                 break;
             }
-            case 3: {
+            case this.inputNames.PASSWORDS: {
                 this.passwordInputFirst.classList.add('sign__input--error');
                 this.passwordInputSecond.classList.add('sign__input--error');
                 break;
@@ -129,11 +135,11 @@ export default class SignupView extends PageView {
     private clickInput(inputName?: string): void {
         let promts: string[] = [];
         switch (inputName) {
-            case 'login': {
+            case this.inputNames.LOGIN: {
                 promts = Validator.loginRules();
                 break;
             }
-            case 'password': {
+            case this.inputNames.PASSWORDS: {
                 promts = Validator.passwordRules();
                 break;
             }

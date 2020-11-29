@@ -53,11 +53,11 @@ export default class SigninController implements PageController {
         let resolution = true;
         if (login === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', 1);
+            this.view.renderError('Заполните все поля!', this.view.inputNames.LOGIN);
         }
         if (password === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', 2);
+            this.view.renderError('Заполните все поля!', this.view.inputNames.PASSWORDS);
         }
 
         if (resolution) {
