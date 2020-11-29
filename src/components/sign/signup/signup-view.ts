@@ -5,6 +5,11 @@ import {
     SUBMIT_SIGNUP,
     SIGNUP_USER,
 } from '@eventbus/constants';
+import {
+    INPUT_LOGIN,
+    INPUTS_PASWORDS,
+    INPUT_EMAIL,
+} from '@sign/constants/input-names';
 
 import * as signupTemplate from '@sign/templates/signup.hbs';
 import * as promtTemplate from '@sign/templates/signup-promt.hbs';
@@ -43,11 +48,11 @@ export default class SignupView extends PageView {
     };
 
     private clickLoginInput = (): void => {
-        this.clickInput(this.inputNames.LOGIN);
+        this.clickInput(INPUT_LOGIN);
     };
 
     private clickPassInput = (): void => {
-        this.clickInput(this.inputNames.PASSWORDS);
+        this.clickInput(INPUTS_PASWORDS);
     };
 
     private cliclUnknowInput = (): void => {
@@ -90,12 +95,6 @@ export default class SignupView extends PageView {
         this.passwordInputSecond.removeEventListener('click', this.clickPassInput);
     }
 
-    public inputNames = {
-        LOGIN: 'login',
-        EMAIL: 'email',
-        PASSWORDS: 'password',
-    };
-
     renderError(err: string, nameInput?: string): void {
         this.signupButton.disabled = false;
         if (this.timerId !== -1) {
@@ -105,15 +104,15 @@ export default class SignupView extends PageView {
         errLine.textContent = err;
 
         switch (nameInput) {
-            case this.inputNames.LOGIN: {
+            case INPUT_LOGIN: {
                 this.loginInput.classList.add('sign__input--error');
                 break;
             }
-            case this.inputNames.EMAIL: {
+            case INPUT_EMAIL: {
                 this.emailInput.classList.add('sign__input--error');
                 break;
             }
-            case this.inputNames.PASSWORDS: {
+            case INPUTS_PASWORDS: {
                 this.passwordInputFirst.classList.add('sign__input--error');
                 this.passwordInputSecond.classList.add('sign__input--error');
                 break;
@@ -135,11 +134,11 @@ export default class SignupView extends PageView {
     private clickInput(inputName?: string): void {
         let promts: string[] = [];
         switch (inputName) {
-            case this.inputNames.LOGIN: {
+            case INPUT_LOGIN: {
                 promts = Validator.loginRules();
                 break;
             }
-            case this.inputNames.PASSWORDS: {
+            case INPUTS_PASWORDS: {
                 promts = Validator.passwordRules();
                 break;
             }

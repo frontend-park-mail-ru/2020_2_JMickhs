@@ -20,7 +20,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private comment?: CommentData;
 
-    private button: HTMLButtonElement;
+    private saveCommentButton: HTMLButtonElement;
 
     private buttonIsEdit: boolean;
 
@@ -70,12 +70,12 @@ export default class CommentUserComponent implements AbstractComponent {
         };
 
         this.place.innerHTML = template(viewModel);
-        this.button = document.getElementById('button-comment') as HTMLButtonElement;
+        this.saveCommentButton = document.getElementById('button-comment') as HTMLButtonElement;
         this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
         this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
 
-        if (this.button) {
-            this.button.disabled = false;
+        if (this.saveCommentButton) {
+            this.saveCommentButton.disabled = false;
         }
     }
 
@@ -83,16 +83,16 @@ export default class CommentUserComponent implements AbstractComponent {
         Events.subscribe(AUTH_USER, this.userAppear);
 
         if (this.buttonIsEdit) {
-            this.button?.addEventListener('click', this.clickEditComment);
+            this.saveCommentButton?.addEventListener('click', this.clickEditComment);
         } else {
-            this.button?.addEventListener('click', this.clickSaveComment);
+            this.saveCommentButton?.addEventListener('click', this.clickSaveComment);
         }
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(AUTH_USER, this.userAppear);
-        this.button?.removeEventListener('click', this.clickEditComment);
-        this.button?.removeEventListener('click', this.clickSaveComment);
+        this.saveCommentButton?.removeEventListener('click', this.clickEditComment);
+        this.saveCommentButton?.removeEventListener('click', this.clickSaveComment);
     }
 
     private userAppear = (user: UserData): void => {
@@ -103,14 +103,14 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private clickSaveComment = (event: Event): void => {
         event.preventDefault();
-        this.button.disabled = true;
+        this.saveCommentButton.disabled = true;
 
         if (this.comment) {
             const newMessage = this.textArea.value;
             const newRating = +this.selectRating.value;
             if (this.comment.message === newMessage && this.comment.rating === newRating) {
                 this.renderMessage('Вы ничего не поменяли', true);
-                this.button.disabled = false;
+                this.saveCommentButton.disabled = false;
                 return;
             }
             this.editComment(this.comment.comm_id, newMessage, newRating);
@@ -123,9 +123,9 @@ export default class CommentUserComponent implements AbstractComponent {
         event.preventDefault();
 
         this.showTextArea = true;
-        this.button.removeEventListener('click', this.clickEditComment);
+        this.saveCommentButton.removeEventListener('click', this.clickEditComment);
         this.render();
-        this.button.addEventListener('click', this.clickSaveComment);
+        this.saveCommentButton.addEventListener('click', this.clickSaveComment);
     };
 
     deactivate(): void {
@@ -146,7 +146,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
         response.then((value) => {
             const { code } = value;
-            this.button.disabled = false;
+            this.saveCommentButton.disabled = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -156,9 +156,9 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 1 });
                     this.showTextArea = false;
-                    this.button.removeEventListener('click', this.clickSaveComment);
+                    this.saveCommentButton.removeEventListener('click', this.clickSaveComment);
                     this.render();
-                    this.button.addEventListener('click', this.clickEditComment);
+                    this.saveCommentButton.addEventListener('click', this.clickEditComment);
                     this.renderMessage('Вы успешно оставили отзыв!', false);
                     break;
                 case 400:
@@ -182,7 +182,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
         response.then((value) => {
             const { code } = value;
-            this.button.disabled = false;
+            this.saveCommentButton.disabled = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -193,9 +193,9 @@ export default class CommentUserComponent implements AbstractComponent {
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 0 });
 
                     this.showTextArea = false;
-                    this.button.removeEventListener('click', this.clickSaveComment);
+                    this.saveCommentButton.removeEventListener('click', this.clickSaveComment);
                     this.render();
-                    this.button.addEventListener('click', this.clickEditComment);
+                    this.saveCommentButton.addEventListener('click', this.clickEditComment);
                     this.renderMessage('Вы успешно изменили отзыв!', false);
                     break;
                 case 400:

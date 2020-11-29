@@ -7,6 +7,10 @@ import {
     SUBMIT_SIGNIN,
     AUTH_USER,
 } from '@eventbus/constants';
+import {
+    INPUT_LOGIN,
+    INPUTS_PASWORDS,
+} from '@sign/constants/input-names';
 import Redirector from '@router/redirector';
 
 export default class SigninController implements PageController {
@@ -53,11 +57,11 @@ export default class SigninController implements PageController {
         let resolution = true;
         if (login === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', this.view.inputNames.LOGIN);
+            this.view.renderError('Заполните все поля!', INPUT_LOGIN);
         }
         if (password === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', this.view.inputNames.PASSWORDS);
+            this.view.renderError('Заполните все поля!', INPUTS_PASWORDS);
         }
 
         if (resolution) {
