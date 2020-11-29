@@ -1,33 +1,45 @@
-import type { CommentData } from '@/helpers/network/structs-server/comment-data';
-
+import User from '@user/user';
+import type { CommentData } from '@network/structs-server/comment-data';
+import type { AbstractComponent } from '@interfaces/components';
+import NotificationUser from '@/components/notification-user/notification-user';
 import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
     AUTH_USER,
 } from '@eventbus/constants';
 import NetworkHostel from '@/helpers/network/network-hostel';
-import User from '@user/user';
-import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
-import type { AbstractComponent } from '@interfaces/components';
-import NotificationUser from '@/components/notification-user/notification-user';
-import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 
+import * as template from '@hostel/comment-user/comment-user.hbs';
 import './comment-user.css';
+import type { UserData } from '@interfaces/structs-data/user-data';
+import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
+
+const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
 
 export default class CommentUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private comment?: CommentData;
-
     private idHostel: number;
 
-    private editButton?: HTMLButtonElement;
+    private comment?: CommentData;
+
+    private saveCommentButton: HTMLButtonElement;
+
+    private buttonIsEdit: boolean;
+
+    private readonly buttonTextAdd = 'Отправить';
+
+    private readonly buttonTextEdit = 'Редактировать';
+
+    private showTextArea: boolean;
 
     private textArea: HTMLTextAreaElement;
 
     private selectRating: HTMLSelectElement;
 
     private notification = NotificationUser;
+
+    private user = User;
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -41,38 +53,50 @@ export default class CommentUserComponent implements AbstractComponent {
         this.idHostel = idHostel;
         this.comment = comment;
 
+        this.showTextArea = (this.comment === undefined);
+        this.buttonIsEdit = !this.showTextArea;
+
         this.render();
         this.subscribeEvents();
     }
 
-    deactivate(): void {
-        this.place.innerHTML = '';
-
-        this.unsubscribeEvents();
-    }
-
-    private renderMessage(text: string, isError: boolean): void {
-        this.notification.showMessage(text, isError);
-    }
-
-    private addCommentClick = (event: Event): void => {
-        event.preventDefault();
-
-        this.currentButtonDisabled(true);
-        this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
-    };
-
-    private editCommentClick = (event: Event): void => {
-        event.preventDefault();
-
-        if (this.textArea.value === this.comment.message && +this.selectRating.value === this.comment.rating) {
-            this.renderMessage('Вы ничего не поменяли!', true);
-            return;
+    private render(): void {
+        if (!this.comment) {
+            this.place.classList.add('hostel__user-comment--no-auth-container');
         }
 
-        this.currentButtonDisabled(true);
-        this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
-    };
+        const viewModel = {
+            isAuth: this.user.isAuth,
+            comment: this.comment,
+            buttonName: this.showTextArea ? this.buttonTextAdd : this.buttonTextEdit,
+            showTextArea: this.showTextArea,
+        };
+
+        this.place.innerHTML = template(viewModel);
+        this.saveCommentButton = document.getElementById('button-comment') as HTMLButtonElement;
+        this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
+        this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
+
+        if (this.saveCommentButton) {
+            this.saveCommentButton.disabled = false;
+        }
+    }
+
+    private subscribeEvents(): void {
+        Events.subscribe(AUTH_USER, this.userAppear);
+
+        if (this.buttonIsEdit) {
+            this.saveCommentButton?.addEventListener('click', this.clickEditComment);
+        } else {
+            this.saveCommentButton?.addEventListener('click', this.clickSaveComment);
+        }
+    }
+
+    private unsubscribeEvents(): void {
+        Events.unsubscribe(AUTH_USER, this.userAppear);
+        this.saveCommentButton?.removeEventListener('click', this.clickEditComment);
+        this.saveCommentButton?.removeEventListener('click', this.clickSaveComment);
+    }
 
     private userAppear = (user: UserData): void => {
         if (user) {
@@ -80,40 +104,44 @@ export default class CommentUserComponent implements AbstractComponent {
         }
     };
 
-    private render(): void {
-        if (!this.comment) {
-            this.place.classList.add('hostel__user-comment--no-auth-container');
-        }
-        this.place.innerHTML = templateUser({ isAuth: User.isAuth, comment: this.comment });
-
-        this.editButton = document.getElementById('button-comment') as HTMLButtonElement;
-        this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
-        this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
-
-        this.currentButtonDisabled(false);
-    }
-
-    private subscribeEvents(): void {
-        Events.subscribe(AUTH_USER, this.userAppear);
+    private clickSaveComment = (event: Event): void => {
+        event.preventDefault();
+        this.saveCommentButton.disabled = true;
 
         if (this.comment) {
-            this.editButton?.addEventListener('click', this.editCommentClick);
+            const newMessage = this.textArea.value;
+            const newRating = +this.selectRating.value;
+            if (this.comment.message === newMessage && this.comment.rating === newRating) {
+                this.renderMessage('Вы ничего не поменяли', true);
+                this.saveCommentButton.disabled = false;
+                return;
+            }
+            this.editComment(this.comment.comm_id, newMessage, newRating);
         } else {
-            this.editButton?.addEventListener('click', this.addCommentClick);
+            this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
         }
+    };
+
+    private clickEditComment = (event: Event): void => {
+        event.preventDefault();
+
+        this.showTextArea = true;
+        this.saveCommentButton.removeEventListener('click', this.clickEditComment);
+        this.render();
+        this.saveCommentButton.addEventListener('click', this.clickSaveComment);
+    };
+
+    deactivate(): void {
+        if (!this.place || this.place.innerHTML === '') {
+            return;
+        }
+
+        this.place.innerHTML = '';
+        this.unsubscribeEvents();
     }
 
-    private unsubscribeEvents(): void {
-        Events.unsubscribe(AUTH_USER, this.userAppear);
-
-        this.editButton?.removeEventListener('click', this.editCommentClick);
-        this.editButton?.removeEventListener('click', this.addCommentClick);
-    }
-
-    private currentButtonDisabled(disabled: boolean): void {
-        if (this.editButton) {
-            this.editButton.disabled = disabled;
-        }
+    private renderMessage(text: string, isError: boolean): void {
+        this.notification.showMessage(text, isError);
     }
 
     private addComment(idHostel: number, message: string, rate: number): void {
@@ -121,7 +149,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
         response.then((value) => {
             const { code } = value;
-            this.currentButtonDisabled(false);
+            this.saveCommentButton.disabled = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -130,25 +158,23 @@ export default class CommentUserComponent implements AbstractComponent {
                     };
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 1 });
-                    this.editButton.removeEventListener('click', this.addCommentClick);
-                    this.unsubscribeEvents();
+                    this.showTextArea = false;
+                    this.saveCommentButton.removeEventListener('click', this.clickSaveComment);
                     this.render();
-                    this.editButton.innerText = 'Изменить';
-                    this.editButton.addEventListener('click', this.editCommentClick);
-                    this.subscribeEvents();
+                    this.saveCommentButton.addEventListener('click', this.clickEditComment);
                     this.renderMessage('Вы успешно оставили отзыв!', false);
                     break;
                 case 400:
-                    this.renderMessage('Сервер не смог обработать запрос!', true);
+                    this.renderMessage(ERROR_400, true);
                     break;
                 case 403:
-                    this.renderMessage('Нет прав доступа!', true);
+                    this.renderMessage(ERROR_403, true);
                     break;
                 case 423:
-                    this.renderMessage('Второй раз ставите оценку!', true);
+                    this.renderMessage(ERROR_SECOND_COMMENT, true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
+                    this.renderMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });
@@ -159,6 +185,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
         response.then((value) => {
             const { code } = value;
+            this.saveCommentButton.disabled = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -167,22 +194,24 @@ export default class CommentUserComponent implements AbstractComponent {
                     };
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 0 });
-                    this.unsubscribeEvents();
+
+                    this.showTextArea = false;
+                    this.saveCommentButton.removeEventListener('click', this.clickSaveComment);
                     this.render();
-                    this.subscribeEvents();
+                    this.saveCommentButton.addEventListener('click', this.clickEditComment);
                     this.renderMessage('Вы успешно изменили отзыв!', false);
                     break;
                 case 400:
-                    this.renderMessage('Сервер не смог обработать запрос!', true);
+                    this.renderMessage(ERROR_400, true);
                     break;
                 case 403:
-                    this.renderMessage('Нет прав доступа!', true);
+                    this.renderMessage(ERROR_403, true);
                     break;
                 case 423:
-                    this.renderMessage('Второй раз ставите оценку!', true);
+                    this.renderMessage(ERROR_SECOND_COMMENT, true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
+                    this.renderMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });

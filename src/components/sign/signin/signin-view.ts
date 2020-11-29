@@ -5,6 +5,10 @@ import {
     ERROR_SIGNIN,
     SIGNIN_USER,
 } from '@eventbus/constants';
+import {
+    INPUT_LOGIN,
+    INPUTS_PASWORDS,
+} from '@sign/constants/input-names';
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
 import '@sign/templates/sign.css';
@@ -46,20 +50,15 @@ export default class SigninView extends PageView {
         Events.trigger(SUBMIT_SIGNIN, { login, password });
     };
 
-    public inputNames = {
-        LOGIN: 'login',
-        PASSWORDS: 'password',
-    };
-
     renderError(errstr: string, nameInput?: string): void {
         this.signButton.disabled = false;
         if (this.timerId !== -1) {
             clearTimeout(this.timerId);
         }
-        if (nameInput === this.inputNames.LOGIN) {
+        if (nameInput === INPUT_LOGIN) {
             this.loginInput.classList.add('sign__input--error');
         }
-        if (nameInput === this.inputNames.PASSWORDS) {
+        if (nameInput === INPUTS_PASWORDS) {
             this.passwordInput.classList.add('sign__input--error');
         }
         const errLine = document.getElementById('text-error');

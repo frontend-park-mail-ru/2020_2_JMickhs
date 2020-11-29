@@ -2,11 +2,14 @@ import NetworkHostel from '@/helpers/network/network-hostel';
 import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 import type PageInfo from '@/helpers/network/structs-server/page-info';
 import Redirector from '@router/redirector';
+import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@global-variables/network-error';
 import type { AbstractComponent } from '@interfaces/components';
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 import './comments.css';
 import * as template from '@hostel/comments/comments.hbs';
+
+const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
 
 export default class CommentsComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -83,16 +86,16 @@ export default class CommentsComponent implements AbstractComponent {
                     this.subscribeEvents();
                     break;
                 case 400:
-                    Redirector.redirectError('bad request');
+                    Redirector.redirectError(ERROR_400);
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Redirector.redirectError(ERROR_403);
                     break;
                 case 423:
-                    Redirector.redirectError('Второй раз ставите оценку!');
+                    Redirector.redirectError(ERROR_SECOND_COMMENT);
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
+                    Redirector.redirectError(`${ERROR_DEFAULT}${code || value.error}`);
                     break;
             }
         });
