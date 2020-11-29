@@ -6,6 +6,11 @@ import {
     SUBMIT_SIGNUP,
     AUTH_USER,
 } from '@eventbus/constants';
+import {
+    INPUT_LOGIN,
+    INPUTS_PASWORDS,
+    INPUT_EMAIL,
+} from '@sign/constants/input-names';
 import Validator from '@/helpers/validator/validator';
 import Redirector from '@router/redirector';
 
@@ -56,20 +61,20 @@ export default class SignupController {
 
         if (login === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', this.view.inputNames.LOGIN);
+            this.view.renderError('Заполните все поля!', INPUT_LOGIN);
         }
         if (email === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', this.view.inputNames.EMAIL);
+            this.view.renderError('Заполните все поля!', INPUT_EMAIL);
         }
         if (passwordFirst === '' || passwordSecond === '') {
             resolution = false;
-            this.view.renderError('Заполните все поля!', this.view.inputNames.PASSWORDS);
+            this.view.renderError('Заполните все поля!', INPUTS_PASWORDS);
         }
 
         if (passwordFirst !== passwordSecond) {
             resolution = false;
-            this.view.renderError('Пароли не совпадают', this.view.inputNames.PASSWORDS);
+            this.view.renderError('Пароли не совпадают', INPUTS_PASWORDS);
         }
 
         if (!resolution) {
@@ -79,19 +84,19 @@ export default class SignupController {
         const loginErrors = Validator.validateLogin(login);
         if (loginErrors.length > 0) {
             resolution = false;
-            this.view.renderError(loginErrors[0], this.view.inputNames.LOGIN);
+            this.view.renderError(loginErrors[0], INPUT_LOGIN);
         }
 
         const emailErrors = Validator.validateEmail(email);
         if (emailErrors.length > 0) {
             resolution = false;
-            this.view.renderError(emailErrors[0], this.view.inputNames.EMAIL);
+            this.view.renderError(emailErrors[0], INPUT_EMAIL);
         }
 
         const passwordErrors = Validator.validatePassword(passwordFirst);
         if (passwordErrors.length > 0) {
             resolution = false;
-            this.view.renderError(passwordErrors[0], this.view.inputNames.PASSWORDS);
+            this.view.renderError(passwordErrors[0], INPUTS_PASWORDS);
         }
 
         if (resolution) {

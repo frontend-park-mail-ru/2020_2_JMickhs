@@ -3,6 +3,7 @@ import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Events from '@eventbus/eventbus';
 import { FILL_HOSTELS } from '@eventbus/constants';
 import Redirector from '@router/redirector';
+import { ERROR_400, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
 
 export default class HomeModel {
     private userName: string;
@@ -37,10 +38,10 @@ export default class HomeModel {
                     Events.trigger(FILL_HOSTELS, data.hotels);
                     break;
                 case 400:
-                    Redirector.redirectError('Неверный формат запроса');
+                    Redirector.redirectError(ERROR_400);
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
+                    Redirector.redirectError(`${ERROR_DEFAULT}${code || value.error}`);
                     break;
             }
         });
