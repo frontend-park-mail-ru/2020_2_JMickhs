@@ -3,7 +3,7 @@
     display: flex;
     grid-gap: 50px;
     padding: 5% 0;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .wishlists-list__name {
