@@ -5,6 +5,8 @@
 // — Вот смотри Колька. Вроде и у тебя пр вашем в проекте и у меня пр в вашем проекте...  Но!
 // Есть один нюанс…
 
+import Events from '@eventbus/eventbus';
+import { DEACTIVATE_POPUP } from '@eventbus/constants';
 import type { AbstractComponent } from '@interfaces/components';
 import * as template from './popup.hbs';
 import './popup.css';
@@ -51,11 +53,13 @@ class Popup {
     };
 
     private subscribeEvents(): void {
+        Events.subscribe(DEACTIVATE_POPUP, this.close);
         this.place.addEventListener('click', this.close);
         this.popup.addEventListener('click', this.clickContent);
     }
 
     private unsubscribeEvents(): void {
+        Events.unsubscribe(DEACTIVATE_POPUP, this.close);
         this.place.removeEventListener('click', this.close);
         this.popup.removeEventListener('click', this.clickContent);
     }

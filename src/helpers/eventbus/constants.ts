@@ -44,4 +44,4 @@ export const FILL_HOSTELS = 'fillHostels';
 // События сраницы избранного(Wishlist)
 export const FILL_HOSTELS_WISHLIST = 'fillHostelsWishlist';
 export const FILL_WISHLISTS = 'fillWishlists';
-export const GET_HOSTELS = 'getHostels';
+export const DEACTIVATE_POPUP = 'deactivatePopup';
