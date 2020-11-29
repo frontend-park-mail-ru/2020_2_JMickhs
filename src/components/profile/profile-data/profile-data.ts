@@ -1,12 +1,18 @@
+import { ERROR_DEFAULT, ERROR_403, ERROR_400 } from '@global-variables/network-error';
 import type { UserData } from '@interfaces/structs-data/user-data';
 import type { AbstractComponent } from '@interfaces/components';
 
 import * as dataTemplate from '@profile/profile-data/profile-data.hbs';
 import * as buttonTemplate from '@profile/profile-data/button.hbs';
-import * as messageTemplate from '@profile/profile-data/message.hbs';
 import User from '@user/user';
 import NetworkUser from '@network/network-user';
 import Redirector from '@router/redirector';
+import NotificationUser from '@/components/notification-user/notification-user';
+
+const AVATAR_UPDATE_MESSAGE = 'Аватарка обновлена';
+const ERROR_EXTENSION_FILE = 'Можно загружать только файлы с расширением jpg, png';
+const ERROR_SIZE_FILE = 'Размер изображения не должен превышать 5мб';
+const MAX_SIZE_FILE = 5242880; // 5мб
 
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -21,13 +27,7 @@ export default class DataUserComponent implements AbstractComponent {
 
     private avatarForm: HTMLFormElement;
 
-    private divAvatarBottom?: HTMLDivElement;
-
-    private idTimer: number;
-
-    constructor() {
-        this.idTimer = -1;
-    }
+    private divAvatarButton: HTMLDivElement;
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -43,22 +43,22 @@ export default class DataUserComponent implements AbstractComponent {
         this.exitButton = document.getElementById('button-exit') as HTMLButtonElement;
         this.avatarImage = document.getElementById('img-profile') as HTMLImageElement;
         this.avatarForm = document.getElementById('avatar-form') as HTMLFormElement;
-        this.divAvatarBottom = document.getElementById('div-avatar-bottom') as HTMLDivElement;
+        this.divAvatarButton = document.getElementById('div-avatar-bottom') as HTMLDivElement;
 
         this.subscribeEvents();
     }
 
     private newImage = (event: Event): void => {
         event.preventDefault();
-        this.divAvatarBottom.innerHTML = buttonTemplate();
+        this.divAvatarButton.innerHTML = buttonTemplate();
         this.reloadAvatarButton = document.getElementById('button-reload') as HTMLButtonElement;
         this.reloadAvatarButton.addEventListener('click', this.updateAvatarClick);
         const file = this.inputAvatar.files[0];
         if (this.inputAvatar.files.length === 0) {
             return;
         }
-        if (file.size > 5242880) { // 5мб
-            this.renderMessage('Размер изображения не должен превышать 5мб', true);
+        if (file.size > MAX_SIZE_FILE) { // 5мб
+            this.renderMessage(ERROR_SIZE_FILE, true);
             return;
         }
         const reader = new FileReader();
@@ -72,7 +72,7 @@ export default class DataUserComponent implements AbstractComponent {
         event.preventDefault();
         this.updateAvatar(this.avatarForm);
         this.reloadAvatarButton.removeEventListener('click', this.updateAvatarClick);
-        this.divAvatarBottom.innerHTML = '';
+        this.divAvatarButton.innerHTML = '';
         this.inputAvatar.value = '';
     };
 
@@ -110,22 +110,7 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private renderMessage(message: string, isErr = false): void {
-        if (this.idTimer !== -1) {
-            window.clearTimeout(this.idTimer);
-        }
-
-        this.divAvatarBottom.innerHTML = messageTemplate({ text: message });
-        const msg = document.getElementById('msg-avatar');
-        if (isErr) {
-            msg.classList.add('profile__text--error');
-        } else {
-            msg.classList.add('profile__text--accept');
-        }
-
-        this.idTimer = window.setTimeout(() => {
-            this.divAvatarBottom.removeChild(msg);
-            this.idTimer = -1;
-        }, 5000);
+        NotificationUser.showMessage(message, isErr);
     }
 
     private updateAvatar(formAvatar: HTMLFormElement): void {
@@ -136,24 +121,24 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     User.avatar = value.data as string;
                     this.avatarImage.src = User.avatar;
-                    this.renderMessage('Аватарка обновлена');
+                    this.renderMessage(AVATAR_UPDATE_MESSAGE);
                     break;
                 case 400:
                     this.avatarImage.src = User.avatar;
-                    this.renderMessage('Неверный формат данных', true);
+                    this.renderMessage(ERROR_400, true);
                     break;
                 case 401:
                     User.isAuth = false;
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    Redirector.redirectError('Нет прав на обновление аватарки');
+                    this.renderMessage(ERROR_403, true);
                     break;
                 case 415:
-                    this.renderMessage('Можно загружать только файлы с расширением jpg, png');
+                    this.renderMessage(ERROR_EXTENSION_FILE, true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера - ${code || value.error}`);
+                    this.renderMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });
@@ -169,7 +154,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
+                    this.renderMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });

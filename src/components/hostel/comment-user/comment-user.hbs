@@ -1,30 +1,34 @@
 {{#if isAuth}}
 <div class="hostel__textarea-container">
     <div>
-    <p class="hostel__title hostel__text--blue">Ваша оценка - {{#if comment}}{{comment.rating}} Новая оценка -{{/if}}
-        <select class="hostel__select" id="select-rating">
-            <option>5</option>
-            <option>4</option>
-            <option>3</option>
-            <option>2</option>
-            <option>1</option>
-        </select>
-    </p>
-</div>
-<form class="hostel__comment-container">
-    <textarea id="comment-textarea" class="hostel__textarea" placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}</textarea>
-    {{#if comment}}
-        <button class="hostel__button-round hostel__button--position-center" id="button-comment">Изменить</button>
-    {{else}}
-        <button class="hostel__button-round hostel__button--position-center" id="button-comment">Отправить</button>
-    {{/if}}
-</form>
+        <p class="hostel__title hostel__text--blue">Ваша оценка - {{#if comment}}{{comment.rating}} Новая оценка
+            -{{/if}}
+            <select class="hostel__select" id="select-rating">
+                <option>5</option>
+                <option>4</option>
+                <option>3</option>
+                <option>2</option>
+                <option>1</option>
+            </select>
+        </p>
+    </div>
+    <form class="hostel__comment-container">
+        <div class="hostel__textarea">
+             {{#if showTextArea}}
+             <textarea id="comment-textarea" class="hostel__textarea-element"
+            placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}</textarea>
+             {{else}}
+             <p class="hostel__textarea-element">{{#if comment}}{{comment.message}}{{/if}}</p>
+              {{/if}}
+        </div>
+        <button class="hostel__button-round hostel__button--position-center" id="button-comment">{{buttonName}}</button>
+    </form>
 </div>
 {{else}}
 <div class="hostel__message-container">
     <p class="hostel__title hostel__text--blue">
-    Чтобы оставлять комментарии, нужно
-    <a href="/signin" class="hostel__title hostel__text--orange">авторизоваться</a>
+        Чтобы оставлять комментарии, нужно
+        <a href="/signin" class="hostel__title hostel__text--orange">авторизоваться</a>
     </p>
 </div>
 {{/if}}
