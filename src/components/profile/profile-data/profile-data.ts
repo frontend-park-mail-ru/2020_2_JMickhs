@@ -21,7 +21,7 @@ export default class DataUserComponent implements AbstractComponent {
 
     private avatarForm: HTMLFormElement;
 
-    private divAvatarBottom: HTMLDivElement;
+    private divAvatarButton: HTMLDivElement;
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -37,14 +37,14 @@ export default class DataUserComponent implements AbstractComponent {
         this.exitButton = document.getElementById('button-exit') as HTMLButtonElement;
         this.avatarImage = document.getElementById('img-profile') as HTMLImageElement;
         this.avatarForm = document.getElementById('avatar-form') as HTMLFormElement;
-        this.divAvatarBottom = document.getElementById('div-avatar-bottom') as HTMLDivElement;
+        this.divAvatarButton = document.getElementById('div-avatar-bottom') as HTMLDivElement;
 
         this.subscribeEvents();
     }
 
     private newImage = (event: Event): void => {
         event.preventDefault();
-        this.divAvatarBottom.innerHTML = buttonTemplate();
+        this.divAvatarButton.innerHTML = buttonTemplate();
         this.reloadAvatarButton = document.getElementById('button-reload') as HTMLButtonElement;
         this.reloadAvatarButton.addEventListener('click', this.updateAvatarClick);
         const file = this.inputAvatar.files[0];
@@ -66,7 +66,7 @@ export default class DataUserComponent implements AbstractComponent {
         event.preventDefault();
         this.updateAvatar(this.avatarForm);
         this.reloadAvatarButton.removeEventListener('click', this.updateAvatarClick);
-        this.divAvatarBottom.innerHTML = '';
+        this.divAvatarButton.innerHTML = '';
         this.inputAvatar.value = '';
     };
 
