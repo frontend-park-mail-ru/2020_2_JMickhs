@@ -1,35 +1,42 @@
-import type { CommentData } from '@/helpers/network/structs-server/comment-data';
-
+import User from '@user/user';
+import type { CommentData } from '@network/structs-server/comment-data';
+import type { AbstractComponent } from '@interfaces/components';
+import NotificationUser from '@/components/notification-user/notification-user';
 import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
     AUTH_USER,
 } from '@eventbus/constants';
 import NetworkHostel from '@/helpers/network/network-hostel';
-import User from '@user/user';
-import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
-import type { AbstractComponent } from '@interfaces/components';
-import NotificationUser from '@/components/notification-user/notification-user';
-import * as templateUser from '@hostel/comment-user/comment-user.hbs';
 
+import * as template from '@hostel/comment-user/comment-user.hbs';
 import './comment-user.css';
+import type { UserData } from '@interfaces/structs-data/user-data';
 
 export default class CommentUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private comment?: CommentData;
-
     private idHostel: number;
 
-    private editButton?: HTMLButtonElement;
+    private comment?: CommentData;
 
-    private textArea: HTMLTextAreaElement;
+    private button: HTMLButtonElement;
+
+    private buttonIsEdit: boolean;
+
+    private readonly buttonTextAdd = 'Отправить';
+
+    private readonly buttonTextEdit = 'Редактировать';
 
     private showTextArea: boolean;
+
+    private textArea: HTMLTextAreaElement;
 
     private selectRating: HTMLSelectElement;
 
     private notification = NotificationUser;
+
+    private user = User;
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -43,38 +50,48 @@ export default class CommentUserComponent implements AbstractComponent {
         this.idHostel = idHostel;
         this.comment = comment;
 
+        this.showTextArea = (this.comment === undefined);
+        this.buttonIsEdit = !this.showTextArea;
+
         this.render();
         this.subscribeEvents();
     }
 
-    deactivate(): void {
-        this.place.innerHTML = '';
-
-        this.unsubscribeEvents();
-    }
-
-    private renderMessage(text: string, isError: boolean): void {
-        this.notification.showMessage(text, isError);
-    }
-
-    private addCommentClick = (event: Event): void => {
-        event.preventDefault();
-
-        this.currentButtonDisabled(true);
-        this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
-    };
-
-    private editCommentClick = (event: Event): void => {
-        event.preventDefault();
-
-        if (this.textArea.value === this.comment.message && +this.selectRating.value === this.comment.rating) {
-            this.renderMessage('Вы ничего не поменяли!', true);
-            return;
+    private render(): void {
+        if (!this.comment) {
+            this.place.classList.add('hostel__user-comment--no-auth-container');
         }
 
-        this.currentButtonDisabled(true);
-        this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
-    };
+        const viewModel = {
+            isAuth: this.user.isAuth,
+            comment: this.comment,
+            buttonName: this.showTextArea ? this.buttonTextAdd : this.buttonTextEdit,
+            showTextArea: this.showTextArea,
+        };
+
+        this.place.innerHTML = template(viewModel);
+        this.button = document.getElementById('button-comment') as HTMLButtonElement;
+        this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
+        this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
+
+        if (this.button) {
+            this.button.disabled = false;
+        }
+    }
+
+    private subscribeEvents(): void {
+        Events.subscribe(AUTH_USER, this.userAppear);
+
+        if (this.buttonIsEdit) {
+            this.button?.addEventListener('click', this.clickEditComment);
+        } else {
+            this.button?.addEventListener('click', this.clickSaveComment);
+        }
+    }
+
+    private unsubscribeEvents(): void {
+
+    }
 
     private userAppear = (user: UserData): void => {
         if (user) {
@@ -82,46 +99,37 @@ export default class CommentUserComponent implements AbstractComponent {
         }
     };
 
-    private render(): void {
-        if (!this.comment) {
-            this.place.classList.add('hostel__user-comment--no-auth-container');
-        }
-
-        this.showTextArea = (this.comment === undefined);
-        this.place.innerHTML = templateUser({
-            isAuth: User.isAuth,
-            comment: this.comment,
-            textarea: this.showTextArea,
-        });
-
-        this.editButton = document.getElementById('button-comment') as HTMLButtonElement;
-        this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
-        this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
-
-        this.currentButtonDisabled(false);
-    }
-
-    private subscribeEvents(): void {
-        Events.subscribe(AUTH_USER, this.userAppear);
+    private clickSaveComment = (event: Event): void => {
+        event.preventDefault();
+        this.button.disabled = true;
 
         if (this.comment) {
-            this.editButton?.addEventListener('click', this.editCommentClick);
+            this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
         } else {
-            this.editButton?.addEventListener('click', this.addCommentClick);
+            this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
         }
+    };
+
+    private clickEditComment = (event: Event): void => {
+        event.preventDefault();
+
+        this.showTextArea = true;
+        this.button.removeEventListener('click', this.clickEditComment);
+        this.render();
+        this.button.addEventListener('click', this.clickSaveComment);
+    };
+
+    deactivate(): void {
+        if (!this.place || this.place.innerHTML === '') {
+            return;
+        }
+
+        this.place.innerHTML = '';
+        this.unsubscribeEvents();
     }
 
-    private unsubscribeEvents(): void {
-        Events.unsubscribe(AUTH_USER, this.userAppear);
-
-        this.editButton?.removeEventListener('click', this.editCommentClick);
-        this.editButton?.removeEventListener('click', this.addCommentClick);
-    }
-
-    private currentButtonDisabled(disabled: boolean): void {
-        if (this.editButton) {
-            this.editButton.disabled = disabled;
-        }
+    private renderMessage(text: string, isError: boolean): void {
+        this.notification.showMessage(text, isError);
     }
 
     private addComment(idHostel: number, message: string, rate: number): void {
@@ -129,7 +137,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
         response.then((value) => {
             const { code } = value;
-            this.currentButtonDisabled(false);
+            this.button.disabled = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -138,12 +146,10 @@ export default class CommentUserComponent implements AbstractComponent {
                     };
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 1 });
-                    this.editButton.removeEventListener('click', this.addCommentClick);
-                    this.unsubscribeEvents();
+                    this.showTextArea = false;
+                    this.button.removeEventListener('click', this.clickSaveComment);
                     this.render();
-                    this.editButton.innerText = 'Изменить';
-                    this.editButton.addEventListener('click', this.editCommentClick);
-                    this.subscribeEvents();
+                    this.button.addEventListener('click', this.clickEditComment);
                     this.renderMessage('Вы успешно оставили отзыв!', false);
                     break;
                 case 400:
@@ -167,6 +173,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
         response.then((value) => {
             const { code } = value;
+            this.button.disabled = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -175,9 +182,11 @@ export default class CommentUserComponent implements AbstractComponent {
                     };
                     this.comment = data.comment;
                     Events.trigger(UPDATE_RATING_HOSTEL, { rating: data.new_rate, delta: 0 });
-                    this.unsubscribeEvents();
+
+                    this.showTextArea = false;
+                    this.button.removeEventListener('click', this.clickSaveComment);
                     this.render();
-                    this.subscribeEvents();
+                    this.button.addEventListener('click', this.clickEditComment);
                     this.renderMessage('Вы успешно изменили отзыв!', false);
                     break;
                 case 400:

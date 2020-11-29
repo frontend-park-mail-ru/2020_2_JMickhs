@@ -5,7 +5,7 @@ import type { CommentData } from '@network/structs-server/comment-data';
 
 import HostelDataComponent from './hostel-data/hostel-data';
 import HostelImagesComponent from './hostel-images/hostel-images';
-import CommentUserComponent from './comment-user/comment-userr';
+import CommentUserComponent from './comment-user/comment-user';
 import CommentsComponent from './comments/comments';
 
 import '@hostel/templates/hostel-page.css';
