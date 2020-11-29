@@ -189,7 +189,7 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     this.user.userName = username;
                     this.user.email = email;
-                    NotificationUser.showMessage('Вы успешно изменили данные о пользователе');
+                    NotificationUser.showMessage('Изменения успешно применены');
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
                     break;
                 case 400:
