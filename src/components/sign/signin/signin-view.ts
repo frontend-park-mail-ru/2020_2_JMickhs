@@ -33,7 +33,6 @@ export default class SigninView extends PageView {
 
     private errorSignin = (error: string): void => {
         this.renderError(error);
-        this.signButton.disabled = false;
     };
 
     private submitSigninForm = (evt: Event): void => {
@@ -48,6 +47,7 @@ export default class SigninView extends PageView {
     };
 
     renderError(errstr: string, numberInputErr = 0): void {
+        this.signButton.disabled = false;
         if (this.timerId !== -1) {
             clearTimeout(this.timerId);
         }

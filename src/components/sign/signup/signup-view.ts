@@ -39,7 +39,6 @@ export default class SignupView extends PageView {
     };
 
     private errorSignup = (err: string): void => {
-        this.signupButton.disabled = false;
         this.renderError(err);
     };
 
@@ -92,6 +91,7 @@ export default class SignupView extends PageView {
     }
 
     renderError(err: string, numberInputErr = 0): void {
+        this.signupButton.disabled = false;
         if (this.timerId !== -1) {
             window.clearTimeout(this.timerId);
         }

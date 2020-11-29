@@ -58,7 +58,7 @@
 .sign__button {
     position: absolute;
     bottom:0;
-    background-color: var(--blue);
+    background-color: var(--violet-light);
     color: var(--white);
     padding: 16px 20px;
     border: none;
@@ -67,16 +67,15 @@
     border-radius: var(--border-radius-legacy-design);
     text-decoration: none;
     outline: none;
-    opacity: var(--opacity-button-disabled);
     transition: 0.3s;
 }
 
 .sign__button:hover {
     box-shadow: var(--box-shadow-bold);
-    opacity: 1;
+    background-color: var(--blue);
 }
 
 .sign__button:disabled {
-    opacity: var(--opacity-70);
+    opacity: var(--opacity-button-disabled);
     pointer-events: none;
 }
