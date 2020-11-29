@@ -90,7 +90,9 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private unsubscribeEvents(): void {
-
+        Events.unsubscribe(AUTH_USER, this.userAppear);
+        this.button?.removeEventListener('click', this.clickEditComment);
+        this.button?.removeEventListener('click', this.clickSaveComment);
     }
 
     private userAppear = (user: UserData): void => {
@@ -104,7 +106,14 @@ export default class CommentUserComponent implements AbstractComponent {
         this.button.disabled = true;
 
         if (this.comment) {
-            this.editComment(this.comment.comm_id, this.textArea.value, +this.selectRating.value);
+            const newMessage = this.textArea.value;
+            const newRating = +this.selectRating.value;
+            if (this.comment.message === newMessage && this.comment.rating === newRating) {
+                this.renderMessage('Вы ничего не поменяли', true);
+                this.button.disabled = false;
+                return;
+            }
+            this.editComment(this.comment.comm_id, newMessage, newRating);
         } else {
             this.addComment(this.idHostel, this.textArea.value, +this.selectRating.value);
         }
