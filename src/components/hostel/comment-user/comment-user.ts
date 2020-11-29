@@ -12,6 +12,9 @@ import NetworkHostel from '@/helpers/network/network-hostel';
 import * as template from '@hostel/comment-user/comment-user.hbs';
 import './comment-user.css';
 import type { UserData } from '@interfaces/structs-data/user-data';
+import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
+
+const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
 
 export default class CommentUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -162,16 +165,16 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.renderMessage('Вы успешно оставили отзыв!', false);
                     break;
                 case 400:
-                    this.renderMessage('Сервер не смог обработать запрос!', true);
+                    this.renderMessage(ERROR_400, true);
                     break;
                 case 403:
-                    this.renderMessage('Нет прав доступа!', true);
+                    this.renderMessage(ERROR_403, true);
                     break;
                 case 423:
-                    this.renderMessage('Второй раз ставите оценку!', true);
+                    this.renderMessage(ERROR_SECOND_COMMENT, true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
+                    this.renderMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });
@@ -199,16 +202,16 @@ export default class CommentUserComponent implements AbstractComponent {
                     this.renderMessage('Вы успешно изменили отзыв!', false);
                     break;
                 case 400:
-                    this.renderMessage('Сервер не смог обработать запрос!', true);
+                    this.renderMessage(ERROR_400, true);
                     break;
                 case 403:
-                    this.renderMessage('Нет прав доступа!', true);
+                    this.renderMessage(ERROR_403, true);
                     break;
                 case 423:
-                    this.renderMessage('Второй раз ставите оценку!', true);
+                    this.renderMessage(ERROR_SECOND_COMMENT, true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
+                    this.renderMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });

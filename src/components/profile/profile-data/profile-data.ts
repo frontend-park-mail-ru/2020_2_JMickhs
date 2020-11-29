@@ -1,3 +1,4 @@
+import { ERROR_DEFAULT, ERROR_403, ERROR_400 } from '@global-variables/network-error';
 import type { UserData } from '@interfaces/structs-data/user-data';
 import type { AbstractComponent } from '@interfaces/components';
 
@@ -7,6 +8,11 @@ import User from '@user/user';
 import NetworkUser from '@network/network-user';
 import Redirector from '@router/redirector';
 import NotificationUser from '@/components/notification-user/notification-user';
+
+const AVATAR_UPDATE_MESSAGE = 'Аватарка обновлена';
+const ERROR_EXTENSION_FILE = 'Можно загружать только файлы с расширением jpg, png';
+const ERROR_SIZE_FILE = 'Размер изображения не должен превышать 5мб';
+const MAX_SIZE_FILE = 5242880; // 5мб
 
 export default class DataUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -51,8 +57,8 @@ export default class DataUserComponent implements AbstractComponent {
         if (this.inputAvatar.files.length === 0) {
             return;
         }
-        if (file.size > 5242880) { // 5мб
-            this.renderMessage('Размер изображения не должен превышать 5мб', true);
+        if (file.size > MAX_SIZE_FILE) { // 5мб
+            this.renderMessage(ERROR_SIZE_FILE, true);
             return;
         }
         const reader = new FileReader();
@@ -104,7 +110,7 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private renderMessage(message: string, isErr = false): void {
-        NotificationUser.showMessage(message, isErr, 5000);
+        NotificationUser.showMessage(message, isErr);
     }
 
     private updateAvatar(formAvatar: HTMLFormElement): void {
@@ -115,24 +121,24 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     User.avatar = value.data as string;
                     this.avatarImage.src = User.avatar;
-                    this.renderMessage('Аватарка обновлена');
+                    this.renderMessage(AVATAR_UPDATE_MESSAGE);
                     break;
                 case 400:
                     this.avatarImage.src = User.avatar;
-                    this.renderMessage('Неверный формат данных', true);
+                    this.renderMessage(ERROR_400, true);
                     break;
                 case 401:
                     User.isAuth = false;
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    this.renderMessage('Нет прав на обновление аватарки', true);
+                    this.renderMessage(ERROR_403, true);
                     break;
                 case 415:
-                    this.renderMessage('Можно загружать только файлы с расширением jpg, png', true);
+                    this.renderMessage(ERROR_EXTENSION_FILE, true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка - ${code || value.error}`, true);
+                    this.renderMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });
@@ -148,7 +154,7 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера - ${code || value.error}`);
+                    this.renderMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });
