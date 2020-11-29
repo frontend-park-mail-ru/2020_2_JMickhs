@@ -30,20 +30,20 @@ export default class WishlistController implements PageController {
     }
 
     subscribeEvents(): void {
-        Events.subscribe(FILL_WISHLISTS, this.renderWishlistsListAndGetOneOfThem);
+        Events.subscribe(FILL_WISHLISTS, this.renderWishlists);
     }
 
     unsubscribeEvents(): void {
-        Events.unsubscribe(FILL_WISHLISTS, this.renderWishlistsListAndGetOneOfThem);
+        Events.unsubscribe(FILL_WISHLISTS, this.renderWishlists);
     }
 
-    private renderWishlistsListAndGetOneOfThem = (wishlists: WishlistsStruct[]): void => {
+    private renderWishlists = (wishlists: WishlistsStruct[]): void => {
         if (!wishlists) {
             this.view.renderError('У вас пока нет ни одного списка избранного');
             return;
         }
         this.view.wishlists = wishlists;
-        if (!this.urlSearchParams) { // TODO: может не сработать условие
+        if (!this.urlSearchParams) {
             Redirector.redirectTo(`/wishlist?id=${wishlists[0].wishlist_id}`);
             return;
         }

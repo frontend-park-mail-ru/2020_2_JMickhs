@@ -66,7 +66,6 @@ export default class WishlistView extends PageView {
     }
 
     private fillHostels = (hostels: HostelData[]): void => {
-        this.listHotelsComponent.deactivate();
         this.listHotelsComponent.activate(hostels);
     };
 }

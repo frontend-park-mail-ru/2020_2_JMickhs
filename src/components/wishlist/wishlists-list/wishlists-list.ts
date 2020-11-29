@@ -46,6 +46,8 @@ export default class WishlistsListComponent implements AbstractComponent {
     }
 
     hide(): void {
-        this.place.innerHTML = '';
+        if (this.place) {
+            this.place.innerHTML = '';
+        }
     }
 }

@@ -9,27 +9,6 @@ import Redirector from '@router/redirector';
 import type { WishlistsStruct } from '@interfaces/structs-data/wishlists';
 
 export default class WishlistModel {
-    private userName: string;
-
-    private isAuth: boolean;
-
-    constructor() {
-        this.isAuth = false;
-        this.userName = 'Александр Цветков';
-    }
-
-    getData(): {isAuth: boolean, username: string} {
-        return {
-            isAuth: this.isAuth,
-            username: this.userName,
-        };
-    }
-
-    setData(name: string): void {
-        this.isAuth = !(name === '');
-        this.userName = name;
-    }
-
     getWishlistsList(): void {
         const response = NetworkWishlist.getUserWishlists();
 
