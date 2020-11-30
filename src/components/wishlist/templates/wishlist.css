@@ -20,6 +20,7 @@
 .wishlist__list {
     width: 100%;
     grid-area: list;
+    min-width: 0;
 }
 
 .wishlist__error-container {
