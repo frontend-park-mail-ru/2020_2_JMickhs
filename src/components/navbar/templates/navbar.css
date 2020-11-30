@@ -21,6 +21,7 @@
 
 .navbar__items {
     display: flex;
+    align-items: center;
 }
 
 .navbar__link {
@@ -76,4 +77,20 @@
 
 .navbar__button_big-font {
     font-size: var(--font-size-header);
+}
+
+.navbar__wishlist-icon {
+    fill: var(--violet-light);
+    cursor: pointer;
+}
+
+.navbar__wishlist-icon:hover {
+    fill: var(--orange);
+    cursor: pointer;
+}
+
+.navbar__svg-container {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
 }

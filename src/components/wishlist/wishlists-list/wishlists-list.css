@@ -16,6 +16,7 @@
     justify-content: center;
     background-color: var(--opacity-white);
     border-radius: var(--border-radius-regular);
+    overflow-x: overlay;
 }
 
 .wishlists-list__name--color-blue {

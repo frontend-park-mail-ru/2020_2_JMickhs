@@ -1,0 +1,8 @@
+<div class="wishlist-add__container">
+    <div class="wishlist-add__names-container" id="names-container">
+        {{#each wishlists}}
+            <div class="wishlist-add__name" id="wishlist-name-{{wishlist_id}}-{{../hostelId}}">{{name}}</div>
+        {{/each}}
+    </div>
+    <button class="wishlists-list__button-round" id="create-button">Создать новое избранное</button>
+</div>
