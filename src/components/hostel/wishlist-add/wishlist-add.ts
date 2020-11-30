@@ -51,22 +51,18 @@ export default class WishlistAddComponent implements AbstractComponent {
 
     subscribeEvents(): void {
         this.createWishlistButton.addEventListener('click', this.buttonClick);
-        if (this.wishlists) {
-            this.wishlists.forEach((cur) => {
-                const element = document.getElementById(`wishlist-name-${cur.wishlist_id}-${this.hostelId}`);
-                element.addEventListener('click', this.toWishlist);
-            });
-        }
+        this.wishlists.forEach((cur) => {
+            const element = document.getElementById(`wishlist-name-${cur.wishlist_id}-${this.hostelId}`);
+            element.addEventListener('click', this.toWishlist);
+        });
     }
 
     unsubscribeEvents(): void {
         this.createWishlistButton.removeEventListener('click', this.buttonClick);
-        if (this.wishlists) {
-            this.wishlists.forEach((cur) => {
-                const element = document.getElementById(`wishlist-name-${cur.wishlist_id}-${this.hostelId}`);
-                element.removeEventListener('click', this.toWishlist);
-            });
-        }
+        this.wishlists.forEach((cur) => {
+            const element = document.getElementById(`wishlist-name-${cur.wishlist_id}-${this.hostelId}`);
+            element.removeEventListener('click', this.toWishlist);
+        });
     }
 
     private createWishlist(): void {
@@ -146,7 +142,7 @@ export default class WishlistAddComponent implements AbstractComponent {
             switch (code) {
                 case 200:
                     const data = value.data as {wishlists: WishlistsStruct[]};
-                    this.wishlists = data.wishlists;
+                    this.wishlists = data.wishlists || [];
                     this.render();
                     break;
                 case 400:

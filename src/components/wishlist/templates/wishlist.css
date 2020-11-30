@@ -13,6 +13,7 @@
 }
 
 .wishlist__hotels {
+    width: 100%;
     grid-area: hostels;
 }
 
