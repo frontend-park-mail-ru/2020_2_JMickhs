@@ -161,6 +161,7 @@ export default class WishlistAddComponent implements AbstractComponent {
                     Redirector.redirectError(ERROR_400);
                     break;
                 case 401:
+                    Events.trigger(DEACTIVATE_POPUP);
                     Redirector.redirectError(ERROR_401);
                     break;
                 default:
