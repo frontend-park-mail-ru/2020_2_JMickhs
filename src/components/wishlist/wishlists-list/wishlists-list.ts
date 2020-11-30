@@ -6,7 +6,7 @@ import type { WishlistsStruct } from '@interfaces/structs-data/wishlists';
 export default class WishlistsListComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private wishlist: WishlistsStruct[];
+    public wishlists: WishlistsStruct[];
 
     activate(): void {
         if (!this.place) {
@@ -24,14 +24,6 @@ export default class WishlistsListComponent implements AbstractComponent {
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
-    }
-
-    set wishlists(value: WishlistsStruct[]) {
-        this.wishlist = value;
-    }
-
-    get wishlists(): WishlistsStruct[] {
-        return this.wishlist;
     }
 
     subscribeEvents(): void {
