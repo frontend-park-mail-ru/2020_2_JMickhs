@@ -1,125 +1,88 @@
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
-
-import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
-import * as imagesTemplate from '@hostel/hostel-data/hostel-images.hbs';
-
-import Events from '@evenbus/eventbus';
+import './hostel-data.css';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
-} from '@evenbus/constants';
-import { AbstractComponent } from '@interfaces/components';
-import { HandlerEvent } from '@interfaces/functions';
+} from '@eventbus/constants';
+import type { AbstractComponent } from '@interfaces/components';
+import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
+import WishlistAddComponent from '@hostel/wishlist-add/wishlist-add';
+import Popup from '@popup/popup';
+import MapComponent from '@hostel/map/map';
+import User from '@/helpers/user/user';
 
 export default class HostelDataComponent implements AbstractComponent {
-    private placeData: HTMLDivElement;
+    private place?: HTMLDivElement;
 
-    private placeImages: HTMLDivElement;
+    private mapComponent: MapComponent;
 
-    private image: HTMLImageElement;
+    private wishlistAddComponent: WishlistAddComponent;
 
-    private photos: string[];
+    private buttonMap: HTMLButtonElement;
 
-    private currentPhoto: number;
+    private wishlistButton?: HTMLButtonElement;
 
     private hostel: HostelData;
 
-    private handlers: Record<string, HandlerEvent>;
-
     constructor() {
-        this.handlers = this.makeHandlers();
+        this.mapComponent = new MapComponent();
+        this.wishlistAddComponent = new WishlistAddComponent();
     }
 
-    setPlace(placeText: HTMLDivElement, placePhotos: HTMLDivElement): void {
-        this.placeData = placeText;
-        this.placeImages = placePhotos;
+    setPlace(place: HTMLDivElement): void {
+        this.place = place;
     }
 
     activate(hostel: HostelData): void {
-        if (!this.placeData || !this.placeImages) {
+        if (!this.place) {
             return;
         }
 
         this.hostel = hostel;
-
-        this.photos = hostel.photos;
-        this.photos.unshift(hostel.image);
-        this.currentPhoto = 0;
-        const [imagePath] = this.photos;
-        this.hostel.image = imagePath;
-
         this.render(this.hostel);
     }
 
     private render(hostel: HostelData): void {
-        this.placeData.innerHTML = dataTemplate(hostel);
-        this.placeImages.innerHTML = imagesTemplate(hostel);
+        this.place.innerHTML = dataTemplate({ hostel, isAuth: User.isAuth });
 
-        this.image = document.getElementById('cur-image') as HTMLImageElement;
+        this.buttonMap = document.getElementById('map-button') as HTMLButtonElement;
+        this.wishlistButton = document.getElementById('wishlist-button') as HTMLButtonElement;
 
         this.subscribeEvents();
     }
 
-    private nextImage(): void {
-        this.currentPhoto += 1;
-        if (this.currentPhoto === this.photos.length) {
-            this.currentPhoto = 0;
-        }
-
-        this.image.src = this.photos[this.currentPhoto];
-    }
-
-    private prevImage(): void {
-        this.currentPhoto -= 1;
-        if (this.currentPhoto === -1) {
-            this.currentPhoto = this.photos.length - 1;
-        }
-
-        this.image.src = this.photos[this.currentPhoto];
-    }
-
     deactivate(): void {
         this.unsubscribeEvents();
-
-        this.placeData.innerHTML = '';
-        this.placeImages.innerHTML = '';
+        this.place.innerHTML = '';
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);
-
-        const buttonNext = document.getElementById('button-image-next');
-        buttonNext.addEventListener('click', this.handlers.nextImg);
-        const buttonPrev = document.getElementById('button-image-prev');
-        buttonPrev.addEventListener('click', this.handlers.prevImg);
+        Events.subscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
+        this.buttonMap.addEventListener('click', this.clickMapButton);
+        this.wishlistButton?.addEventListener('click', this.clickWishlistButton);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(UPDATE_RATING_HOSTEL, this.handlers.updateTextData);
-
-        const buttonNext = document.getElementById('button-image-next');
-        buttonNext.removeEventListener('click', this.handlers.nextImg);
-        const buttonPrev = document.getElementById('button-image-prev');
-        buttonPrev.removeEventListener('click', this.handlers.prevImg);
+        Events.unsubscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
+        this.buttonMap.removeEventListener('click', this.clickMapButton);
+        this.wishlistButton?.removeEventListener('click', this.clickWishlistButton);
     }
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            prevImg: (event: Event): void => {
-                event.preventDefault();
+    private updateTextData = (arg: {rating: number, delta: number}): void => {
+        this.hostel.countComments += arg.delta;
+        this.hostel.rating = arg.rating;
 
-                this.nextImage();
-            },
-            nextImg: (event: Event): void => {
-                event.preventDefault();
+        this.unsubscribeEvents();
+        this.render(this.hostel);
+    };
 
-                this.prevImage();
-            },
-            updateTextData: (arg: {rating: number, delta: number}): void => {
-                this.hostel.countComments += arg.delta;
-                this.hostel.rating = arg.rating;
+    private clickMapButton = (evt: Event): void => {
+        evt.preventDefault();
+        Popup.activate(this.mapComponent, this.hostel.latitude, this.hostel.longitude);
+    };
 
-                this.placeData.innerHTML = dataTemplate(this.hostel);
-            },
-        };
-    }
+    private clickWishlistButton = (evt: Event): void => {
+        evt.preventDefault();
+        Popup.activate(this.wishlistAddComponent, this.hostel.id);
+    };
 }

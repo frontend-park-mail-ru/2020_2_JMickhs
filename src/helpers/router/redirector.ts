@@ -1,4 +1,4 @@
-import { AbstractRouter } from '@interfaces/routers';
+import type { AbstractRouter } from '@interfaces/routers';
 import Router from './router';
 
 class Redirector {
@@ -8,8 +8,8 @@ class Redirector {
         this.router = Router;
     }
 
-    redirectTo(url: string, state?: unknown): void {
-        this.router.pushState(url, state);
+    redirectTo(path: string, state?: unknown): void {
+        this.router.pushState(path, state);
     }
 
     redirectBack(failBackUrl = '/'): void {

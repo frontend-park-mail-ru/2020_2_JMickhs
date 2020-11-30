@@ -16,6 +16,26 @@
     --gray-dark: #757575;
     --gray-new: #3c3f41;
     --shadow-color: rgba(0, 0, 0, 0.4);
+
+    --z-index-navbar: 2500;
+    --z-index-button: 2000;
+    --z-index-popup: 3000;
+
+    --box-shadow-thin: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    --box-shadow-bold: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+    --box-shadow-inset: inset 0 0 5px grey;
+
+    --font-size-large: large;
+    --font-size-regular: 17px;
+    --font-size-header: 24px;
+
+    --border-radius-legacy-design: 5px;
+    --border-radius-regular: 15px;
+    --border-radius-round: 1000px;
+
+    --border-regular: 4px solid var(--blue);
+
+    --opacity-button-disabled: 0.8;
 }
 
 body {

@@ -1,12 +1,17 @@
-import Request from '@network/request';
-import { ResponseData } from '@/helpers/network/structs-server/respose-data';
+import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
+import {
+    BACKEND_ADDRESS_USER,
+    BACKEND_ADDRESS_CSRF,
+    TEXT_ERROR_CSRF,
+} from './constants-network';
+import NetworkAbtract from './network-abstract';
 
-class NetworkUser {
-    static user(): Promise<ResponseData> {
-        return Request.ajax('GET', '/api/v1/users');
+class NetworkUser extends NetworkAbtract {
+    user(): Promise<ResponseData> {
+        return this.ajax('GET', '/api/v1/users');
     }
 
-    static signin(username: string, password: string): Promise<ResponseData> {
+    signin(username: string, password: string): Promise<ResponseData> {
         const body = {
             username,
             password,
@@ -14,10 +19,10 @@ class NetworkUser {
         const headers = {
             'Content-Type': 'application/json;charset=utf-8',
         };
-        return Request.ajax('POST', '/api/v1/users/sessions', body, false, headers);
+        return this.ajax('POST', '/api/v1/users/sessions', body, false, headers);
     }
 
-    static signup(username: string, email: string, password: string): Promise<ResponseData> {
+    signup(username: string, email: string, password: string): Promise<ResponseData> {
         const body = {
             email,
             username,
@@ -26,10 +31,10 @@ class NetworkUser {
         const headers = {
             'Content-Type': 'application/json;charset=utf-8',
         };
-        return Request.ajax('POST', '/api/v1/users', body, false, headers);
+        return this.ajax('POST', '/api/v1/users', body, false, headers);
     }
 
-    static updatePassword(oldPassword: string, password: string): Promise<ResponseData> {
+    updatePassword(oldPassword: string, password: string): Promise<ResponseData> {
         const body = {
             newpassword: password,
             oldpassword: oldPassword,
@@ -37,25 +42,25 @@ class NetworkUser {
         const headers = {
             'Content-Type': 'application/json;charset=utf-8',
         };
-        return Request.ajax('PUT', '/api/v1/users/password', body, true, headers);
+        return this.ajax('PUT', '/api/v1/users/password', body, true, headers);
     }
 
-    static signout(): Promise<ResponseData> {
-        return Request.ajax('DELETE', '/api/v1/users/sessions');
+    signout(): Promise<ResponseData> {
+        return this.ajax('DELETE', '/api/v1/users/sessions');
     }
 
-    static updateAvatar(formData: FormData): Promise<ResponseData> {
-        return Request.ajax('PUT', '/api/v1/users/avatar', formData, true);
+    updateAvatar(formData: FormData): Promise<ResponseData> {
+        return this.ajax('PUT', '/api/v1/users/avatar', formData, true);
     }
 
-    static changeUser(username: string, email: string): Promise<ResponseData> {
+    changeUser(username: string, email: string): Promise<ResponseData> {
         const body = {
             email,
             username,
         };
 
-        return Request.ajax('PUT', '/api/v1/users/credentials', body, true);
+        return this.ajax('PUT', '/api/v1/users/credentials', body, true);
     }
 }
 
-export default NetworkUser;
+export default new NetworkUser(BACKEND_ADDRESS_USER, BACKEND_ADDRESS_CSRF, TEXT_ERROR_CSRF);

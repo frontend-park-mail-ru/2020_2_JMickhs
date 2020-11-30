@@ -1,23 +1,24 @@
-import { ResponseData } from '@/helpers/network/structs-server/respose-data';
+import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 
 class Request {
-    private domain: string;
-
-    private port: string;
-
-    private token: string;
-
-    constructor() {
-        this.domain = 'https://hostelscan.ru';
-        this.port = ':8080';
-
-        this.token = '';
+    private customFetch(url: string, method: string, body?: BodyInit, headers?: HeadersInit): Promise<ResponseData> {
+        return fetch(url, {
+            method,
+            mode: 'cors',
+            credentials: 'include',
+            body,
+            headers,
+        }).then((response) => response.json()).then((json) => ({
+            code: json.code,
+            data: json.data,
+        })).catch((err) => ({
+            error: err,
+        }));
     }
 
     ajax(method: string,
         url: string,
         body?: unknown,
-        csrf?: boolean,
         headers?: Record<string, string>): Promise<ResponseData> {
         let reqBody: BodyInit;
 
@@ -33,33 +34,7 @@ class Request {
             }
         }
 
-        let reqHeaders = headers;
-
-        if (csrf) {
-            if (reqHeaders) {
-                reqHeaders['X-Csrf-Token'] = this.token;
-            } else {
-                reqHeaders = {
-                    'X-Csrf-Token': this.token,
-                };
-            }
-        }
-
-        return fetch(this.domain + this.port + url, {
-            method,
-            mode: 'cors',
-            credentials: 'include',
-            body: reqBody,
-            headers: reqHeaders,
-        }).then((response) => {
-            this.token = response.headers.get('csrf');
-            return response.json();
-        }).then((json) => ({
-            code: json.code,
-            data: json.data,
-        })).catch((err) => ({
-            error: err,
-        }));
+        return this.customFetch(url, method, reqBody, headers);
     }
 }
 

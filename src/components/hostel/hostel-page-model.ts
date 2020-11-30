@@ -1,12 +1,16 @@
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
-import { CommentData } from '@/helpers/network/structs-server/comment-data';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 import NetworkHostel from '@/helpers/network/network-hostel';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     UPDATE_HOSTEL,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
 import Redirector from '@router/redirector';
-import HotelFromServer from '@/helpers/network/structs-server/hotel-data';
+import type HotelFromServer from '@/helpers/network/structs-server/hotel-data';
+import User from '@user/user';
+import { ERROR_400, ERROR_DEFAULT } from '@global-variables/network-error';
+
+const ERROR_ID_HOSTEL = 'Такого отеля не существует';
 
 export default class HostelPageModel {
     private hostel: HostelData;
@@ -36,11 +40,13 @@ export default class HostelPageModel {
         this.hostel.location = hotel.location;
         this.hostel.countComments = hotel.comm_count;
         this.hostel.rating = hotel.rating;
+        this.hostel.latitude = hotel.latitude;
+        this.hostel.longitude = hotel.longitude;
     }
 
     fillModel(id: number): void {
         if (id <= 0) {
-            Redirector.redirectError('Такого отеля не существует');
+            Redirector.redirectError(ERROR_ID_HOSTEL);
         }
 
         const response = NetworkHostel.getHostel(id);
@@ -53,16 +59,16 @@ export default class HostelPageModel {
 
                     this.comment = data.comment;
 
-                    Events.trigger(UPDATE_HOSTEL, { hostel: this.hostel, comment: this.comment });
+                    Events.trigger(UPDATE_HOSTEL, { isAuth: User.isAuth, hostel: this.hostel, comment: this.comment });
                     break;
                 case 400:
-                    Redirector.redirectError('Неверный формат запроса');
+                    Redirector.redirectError(ERROR_400);
                     break;
                 case 410:
-                    Redirector.redirectError('Такого отеля не существует');
+                    Redirector.redirectError(ERROR_ID_HOSTEL);
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера: ${code}`);
+                    Redirector.redirectError(`${ERROR_DEFAULT}${code}`);
                     break;
             }
         });

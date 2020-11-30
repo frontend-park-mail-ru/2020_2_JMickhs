@@ -1,0 +1,39 @@
+.hostel__card {
+    width: 95%;
+    min-height: min-content;
+    max-height: 28vw;
+    margin: auto;
+    overflow: auto;
+}
+
+.hostel__card::-webkit-scrollbar {
+    width: 7px;
+    padding-right: 15px;
+}
+
+.hostel__card::-webkit-scrollbar-track {
+    box-shadow: var(--box-shadow-inset);
+    border-radius: var(--border-radius-regular);
+}
+
+.hostel__card::-webkit-scrollbar-thumb {
+    background: var(--gray);
+    border-radius: var(--border-radius-regular);
+}
+
+.hostel__card::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-dark);
+}
+
+.hostel__title {
+    font-weight: bolder;
+}
+
+.hostel__star::before {
+    overflow: hidden;
+    width: 265px;
+    margin-left: 0;
+    margin-right: 5px;
+    margin-bottom: 1%;
+    content: '★';
+}

@@ -33,10 +33,18 @@
                 "semi": [2, "always"],
                 "quotes": ["error", "single"],
                 "no-console": 2,
+                "newline-per-chained-call": "off",
+                "max-classes-per-file": ["error", 2],
                 "@typescript-eslint/indent": ["error", 4],
                 "no-case-declarations": "off",
                 "class-methods-use-this": "off",
-                "@typescript-eslint/explicit-function-return-type": 2
+                "@typescript-eslint/explicit-function-return-type": 2,
+                "@typescript-eslint/prefer-optional-chain": 2,
+                "@typescript-eslint/consistent-type-imports": 2,
+                "@typescript-eslint/no-confusing-non-null-assertion": 2,
+                "@typescript-eslint/no-duplicate-imports": 2,
+                "@typescript-eslint/no-redeclare": 2,
+                "@typescript-eslint/no-shadow": 2
             }
         }
     ]

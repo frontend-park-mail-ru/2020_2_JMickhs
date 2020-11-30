@@ -1,19 +1,22 @@
 import NetworkHostel from '@/helpers/network/network-hostel';
-import { CommentData } from '@/helpers/network/structs-server/comment-data';
-import PageInfo from '@/helpers/network/structs-server/page-info';
-
-import * as template from '@hostel/comments/comments.hbs';
+import type { CommentData } from '@/helpers/network/structs-server/comment-data';
+import type PageInfo from '@/helpers/network/structs-server/page-info';
 import Redirector from '@router/redirector';
-import { AbstractComponent } from '@interfaces/components';
-import { HandlerEvent } from '@interfaces/functions';
-import { ResponseData } from '@/helpers/network/structs-server/respose-data';
+import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@global-variables/network-error';
+import type { AbstractComponent } from '@interfaces/components';
+import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
+
+import './comments.css';
+import * as template from '@hostel/comments/comments.hbs';
+
+const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
 
 export default class CommentsComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
-    private nextButton: HTMLButtonElement;
+    private nextButton?: HTMLButtonElement;
 
-    private prevButton: HTMLButtonElement;
+    private prevButton?: HTMLButtonElement;
 
     private idHostel: number;
 
@@ -21,17 +24,9 @@ export default class CommentsComponent implements AbstractComponent {
 
     private countComments: number;
 
-    private handlers: Record<string, HandlerEvent>;
-
-    private subscribesButtons: boolean;
-
     private nextUrl: string;
 
     private prevUrl: string;
-
-    constructor() {
-        this.handlers = this.makeHandlers();
-    }
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -43,8 +38,6 @@ export default class CommentsComponent implements AbstractComponent {
         }
 
         this.idHostel = idHostel;
-        this.subscribesButtons = false;
-
         this.getComment();
     }
 
@@ -53,20 +46,19 @@ export default class CommentsComponent implements AbstractComponent {
         this.place.innerHTML = '';
     }
 
-    private makeHandlers(): Record<string, HandlerEvent> {
-        return {
-            nextComment: (event: Event): void => {
-                event.preventDefault();
+    private nextComment = (event: Event): void => {
+        event.preventDefault();
 
-                this.getComment(this.nextUrl);
-            },
-            prevComment: (event: Event): void => {
-                event.preventDefault();
+        this.buttonsDisabled(true);
+        this.getComment(this.nextUrl);
+    };
 
-                this.getComment(this.prevUrl);
-            },
-        };
-    }
+    private prevComment = (event: Event): void => {
+        event.preventDefault();
+
+        this.buttonsDisabled(true);
+        this.getComment(this.prevUrl);
+    };
 
     private getComment(url?: string): void {
         let response: Promise<ResponseData>;
@@ -94,43 +86,49 @@ export default class CommentsComponent implements AbstractComponent {
                     this.subscribeEvents();
                     break;
                 case 400:
-                    Redirector.redirectError('bad request');
+                    Redirector.redirectError(ERROR_400);
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    Redirector.redirectError(ERROR_403);
                     break;
                 case 423:
-                    Redirector.redirectError('Второй раз ставите оценку!');
+                    Redirector.redirectError(ERROR_SECOND_COMMENT);
                     break;
                 default:
-                    Redirector.redirectError(`Ошибка сервера: статус - ${code}`);
+                    Redirector.redirectError(`${ERROR_DEFAULT}${code || value.error}`);
                     break;
             }
         });
     }
 
+    private buttonsDisabled(disabled: boolean): void {
+        if (!this.nextButton && !this.prevButton) {
+            return;
+        }
+
+        this.nextButton.disabled = disabled;
+        this.prevButton.disabled = disabled;
+    }
+
     private render(): void {
+        if (!this.countComments) {
+            this.place.classList.add('hostel__comments--no-auth-container');
+        }
         this.place.innerHTML = template({ switch: this.countComments > 1, comment: this.comment });
 
         this.nextButton = document.getElementById('comment-next') as HTMLButtonElement;
         this.prevButton = document.getElementById('comment-prev') as HTMLButtonElement;
+
+        this.buttonsDisabled(false);
     }
 
     private subscribeEvents(): void {
-        if (!this.subscribesButtons && this.nextButton) {
-            this.nextButton.addEventListener('click', this.handlers.nextComment);
-            this.prevButton.addEventListener('click', this.handlers.prevComment);
-
-            this.subscribesButtons = true;
-        }
+        this.nextButton?.addEventListener('click', this.nextComment);
+        this.prevButton?.addEventListener('click', this.prevComment);
     }
 
     private unsubscribeEvents(): void {
-        if (this.subscribesButtons) {
-            this.nextButton.removeEventListener('click', this.handlers.nextComment);
-            this.prevButton.removeEventListener('click', this.handlers.prevComment);
-
-            this.subscribesButtons = false;
-        }
+        this.nextButton?.removeEventListener('click', this.nextComment);
+        this.prevButton?.removeEventListener('click', this.prevComment);
     }
 }

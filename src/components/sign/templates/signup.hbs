@@ -2,17 +2,19 @@
     <h1 class="sign__text sign__text--center sign__text--blue">Регистрация</h1>
     <label class="sign__text sign__text--left sign__text--orange"><b>Имя пользователя</b></label>
     <input type="text" class="sign__input" placeholder="Введите логин" id="signup-login">
+    <div id="login-promts"></div>
     <label class="sign__text sign__text--left sign__text--orange"><b>Почта</b></label>
     <input type="email" class="sign__input" placeholder="example@mail.ru" id="signup-email">
     <label class="sign__text sign__text--left sign__text--orange"><b>Пароль</b></label>
     <input type="password" class="sign__input" placeholder="Введите пароль" id="signup-password1">
     <label class="sign__text sign__text--left sign__text--orange"><b>Подтвердите пароль</b></label>
+    <div id="passwords-promts"></div>
     <input type="password" class="sign__input" placeholder="Повторите пароль" id="signup-password2">
     <p class="sign__text sign__text--center sign__text--blue">Есть аккаунт?
         <a href="/signin" class="sign__text sign__text--center sign__text--orange">Вход</a>
     </p>
     <div class="sign__place-bottom" id="div-button-sign">
         <h4 class="sign__text sign__text--center sign__text--error" id="text-error"></h4>
-        <button type="submit" class="sign__button">Регистрация</button>
+        <button type="submit" class="sign__button" id="signup-button">Регистрация</button>
     </div>
 </form>

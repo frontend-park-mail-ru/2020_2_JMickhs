@@ -1,0 +1,25 @@
+.wishlists-list__container {
+    width: 100%;
+    display: flex;
+    grid-gap: 50px;
+    padding: 5% 0;
+    overflow-x: auto;
+}
+
+.wishlists-list__name {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 60px;
+    max-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--opacity-white);
+    border-radius: var(--border-radius-regular);
+    overflow-x: overlay;
+}
+
+.wishlists-list__name--color-blue {
+    color: var(--blue);
+    text-align: center;
+}

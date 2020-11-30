@@ -1,0 +1,25 @@
+.popup-message__container {
+    text-align: center;
+    border-radius: var(--border-radius-regular);
+    background-color: var(--opacity-white);
+    padding: 15px;
+    width: 100%;
+    transition: 0.3s;
+    margin-bottom: 50%;
+}
+
+.popup-message__container:hover {
+    box-shadow: var(--box-shadow-bold);
+}
+
+.popup-message__text {
+    text-align: center;
+}
+
+.popup-message__ordinary-color {
+    color: var(--blue-dark)
+}
+
+.popup-message__error-color {
+    color: var(--red)
+}

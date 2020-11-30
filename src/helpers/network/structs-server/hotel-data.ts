@@ -1,4 +1,4 @@
-import { CommentData } from '@/helpers/network/structs-server/comment-data';
+import type { CommentData } from '@/helpers/network/structs-server/comment-data';
 
 interface HotelData {
     hotel: {
@@ -10,6 +10,8 @@ interface HotelData {
         location: string;
         rating: number;
         comm_count: number;
+        latitude: number;
+        longitude: number;
     }
     comment: CommentData;
 }

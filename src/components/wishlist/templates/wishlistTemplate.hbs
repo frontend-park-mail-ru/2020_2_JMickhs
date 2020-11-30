@@ -1,0 +1,10 @@
+<div class="wishlist__container-all" id="wishlist-container">
+    <div class="wishlist__list" id="wishlist-list"></div>
+    {{#if error}}
+        <div class="wishlist__hotels" id="wishlist-hotels">
+            <h4 class="wishlist__error-container">{{error}}</h4>
+        </div>
+    {{else}}
+        <div class="wishlist__hotels" id="wishlist-hotels"></div>
+    {{/if}}
+</div>

@@ -1,37 +1,45 @@
-import { AbstractComponent } from '@interfaces/components';
+import type { AbstractComponent } from '@interfaces/components';
 import Validator from '@/helpers/validator/validator';
 import NetworkUser from '@/helpers/network/network-user';
 import * as template from '@profile/settings-password/settings-password.hbs';
-import { HandlerEvent } from '@interfaces/functions';
 import User from '@/helpers/user/user';
 import Redirector from '@/helpers/router/redirector';
+import NotificationUser from '@/components/notification-user/notification-user';
+import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
+
+const MESSAGE_CHANGE_PASSWORD = 'Вы успешно обновили пароль';
+const ERROR_CHANGE_PASSWORD_OLD = 'Вы ввели неверный пароль';
 
 export default class DataUserComponent implements AbstractComponent {
-    private place: HTMLDivElement;
+    private place?: HTMLDivElement;
 
-    private saveButton?: HTMLButtonElement;
+    private saveButton: HTMLButtonElement;
 
-    private oldPasswordInput?: HTMLInputElement;
+    private oldPasswordInput: HTMLInputElement;
 
-    private newPasswordFirstInput?: HTMLInputElement;
+    private newPasswordFirstInput: HTMLInputElement;
 
-    private newPasswordSecondInput?: HTMLInputElement;
+    private newPasswordSecondInput: HTMLInputElement;
 
     private idTimer: number;
 
-    private newPasswordInputIdTimer: number;
+    private newFirstPasswordInputIdTimer: number;
+
+    private newSecondPasswordInputIdTimer: number;
 
     private oldPasswordInputIdTimer: number;
 
-    private handlers: Record<string, HandlerEvent>;
+    private inputNames = {
+        OLD_PASSWORD: 'oldPassword',
+        NEW_PASSWORD_FIRST: 'newPassword1',
+        NEW_PASSWORD_SECOND: 'newPassword2',
+    };
 
     constructor() {
         this.idTimer = -1;
         this.oldPasswordInputIdTimer = -1;
-        this.newPasswordInputIdTimer = -1;
-        this.handlers = {
-            clickSave: this.clickSave.bind(this),
-        };
+        this.newSecondPasswordInputIdTimer = -1;
+        this.newFirstPasswordInputIdTimer = -1;
     }
 
     setPlace(place: HTMLDivElement): void {
@@ -50,7 +58,7 @@ export default class DataUserComponent implements AbstractComponent {
         this.newPasswordFirstInput = document.getElementById('new-psw1') as HTMLInputElement;
         this.newPasswordSecondInput = document.getElementById('new-psw2') as HTMLInputElement;
 
-        this.saveButton.addEventListener('click', this.handlers.clickSave);
+        this.saveButton.addEventListener('click', this.clickSave);
     }
 
     deactivate(): void {
@@ -58,79 +66,104 @@ export default class DataUserComponent implements AbstractComponent {
             return;
         }
 
-        this.saveButton.removeEventListener('click', this.handlers.clickSave);
+        this.saveButton.removeEventListener('click', this.clickSave);
 
         this.place.innerHTML = '';
     }
 
-    private clickSave(event: Event): void {
+    private clickSave = (event: Event): void => {
         event.preventDefault();
 
-        this.validate();
-    }
+        this.saveButton.disabled = true;
+        const isDataRight = this.validate();
+        if (isDataRight) {
+            this.updatePassword(this.oldPasswordInput.value, this.newPasswordFirstInput.value);
+            return;
+        }
+        this.saveButton.disabled = false;
+    };
 
-    private validate(): void {
+    private validate(): boolean { // true, если все хорошо
         const oldPassword = this.oldPasswordInput.value;
         const newPasswordFirst = this.newPasswordFirstInput.value;
         const newPasswordSecond = this.newPasswordSecondInput.value;
 
-        if (oldPassword === '') {
-            this.renderOldPasswordInputError();
-            this.renderMessage('Вы не ввели старый пароль!');
-            return;
+        const emptyFieldsNumbers = Validator.stringsEmpty([
+            { name: this.inputNames.OLD_PASSWORD, value: oldPassword },
+            { name: this.inputNames.NEW_PASSWORD_FIRST, value: newPasswordFirst },
+            { name: this.inputNames.NEW_PASSWORD_SECOND, value: newPasswordSecond },
+        ]);
+
+        if (emptyFieldsNumbers.length > 0) {
+            this.renderMessage('Необходимо заполнить все поля', emptyFieldsNumbers);
+            return false;
         }
-        if (newPasswordFirst === '') {
-            this.renderNewPasswordInputError();
-            this.renderMessage('Необходимо заполнить все поля');
-            return;
+
+        if (!Validator.isStringsEqual(newPasswordFirst, newPasswordSecond)) {
+            this.renderMessage('Пароли не совпадают', [
+                this.inputNames.NEW_PASSWORD_FIRST,
+                this.inputNames.NEW_PASSWORD_SECOND,
+            ]);
+            return false;
         }
-        if (newPasswordFirst !== newPasswordSecond) {
-            this.renderNewPasswordInputError();
-            this.renderMessage('Пароли не совпадают');
-            return;
-        }
-        if (oldPassword === newPasswordFirst) {
-            this.renderNewPasswordInputError();
-            this.renderOldPasswordInputError();
-            this.renderMessage('Старый и новый пароль совпадает');
-            return;
+
+        if (Validator.isStringsEqual(oldPassword, newPasswordFirst)) {
+            this.renderMessage('Старый и новый пароль совпадает', [
+                this.inputNames.OLD_PASSWORD,
+                this.inputNames.NEW_PASSWORD_FIRST,
+                this.inputNames.NEW_PASSWORD_SECOND,
+            ]);
+            return false;
         }
 
         const passwordErrors = Validator.validatePassword(newPasswordFirst);
         if (passwordErrors.length > 0) {
-            this.renderNewPasswordInputError();
-            this.renderMessage(passwordErrors[0]);
-            return;
+            this.renderMessage(passwordErrors[0], [
+                this.inputNames.NEW_PASSWORD_FIRST,
+                this.inputNames.NEW_PASSWORD_SECOND,
+            ]);
+            return false;
         }
 
-        this.updatePassword(oldPassword, newPasswordFirst);
+        return true;
     }
 
     private renderOldPasswordInputError(): void {
         if (this.oldPasswordInputIdTimer !== -1) {
             window.clearTimeout(this.oldPasswordInputIdTimer);
         }
-        this.oldPasswordInput.className += ' profile__input--error';
+        this.oldPasswordInput.classList.add('profile__input--error');
         this.oldPasswordInputIdTimer = window.setTimeout(() => {
             if (this.oldPasswordInput) {
-                this.oldPasswordInput.className = 'profile__input';
+                this.oldPasswordInput.classList.remove('profile__input--error');
             }
             this.oldPasswordInputIdTimer = -1;
         }, 5000);
     }
 
-    private renderNewPasswordInputError(): void {
-        if (this.newPasswordInputIdTimer !== -1) {
-            window.clearTimeout(this.newPasswordInputIdTimer);
+    private renderNewFirstPasswordInputError(): void {
+        if (this.newFirstPasswordInputIdTimer !== -1) {
+            window.clearTimeout(this.newFirstPasswordInputIdTimer);
         }
-        this.newPasswordFirstInput.className += ' profile__input--error';
-        this.newPasswordSecondInput.className += ' profile__input--error';
-        this.newPasswordInputIdTimer = window.setTimeout(() => {
+        this.newPasswordFirstInput.classList.add('profile__input--error');
+        this.newFirstPasswordInputIdTimer = window.setTimeout(() => {
             if (this.newPasswordFirstInput) {
-                this.newPasswordFirstInput.className = 'profile__input';
-                this.newPasswordSecondInput.className = 'profile__input';
+                this.newPasswordFirstInput.classList.remove('profile__input--error');
             }
-            this.newPasswordInputIdTimer = -1;
+            this.newFirstPasswordInputIdTimer = -1;
+        }, 5000);
+    }
+
+    private renderNewSecondPasswordInputError(): void {
+        if (this.newSecondPasswordInputIdTimer !== -1) {
+            window.clearTimeout(this.newSecondPasswordInputIdTimer);
+        }
+        this.newPasswordSecondInput.classList.add('profile__input--error');
+        this.newSecondPasswordInputIdTimer = window.setTimeout(() => {
+            if (this.newPasswordSecondInput) {
+                this.newPasswordSecondInput.classList.remove('profile__input--error');
+            }
+            this.newSecondPasswordInputIdTimer = -1;
         }, 5000);
     }
 
@@ -140,24 +173,41 @@ export default class DataUserComponent implements AbstractComponent {
         this.newPasswordSecondInput.value = '';
     }
 
-    private renderMessage(text = '', isErr = true): void {
+    private renderMessage(text = '', errorInputs: string[] = []): void {
         if (this.idTimer !== -1) {
             window.clearTimeout(this.idTimer);
         }
         const errLine = document.getElementById('text-error-sequr');
 
-        if (isErr) {
-            errLine.className += ' profile__text--red';
+        if (errorInputs.length === 0) {
+            errLine.classList.remove('profile__text--error');
+            errLine.classList.add('profile__text--accept');
         } else {
-            errLine.className += 'profile__message profile__text profile__text--center profile__text--blue';
+            errLine.classList.remove('profile__text--accept');
+            errLine.classList.add('profile__text--error');
         }
+
+        errorInputs.forEach((cur) => {
+            switch (cur) {
+                case this.inputNames.OLD_PASSWORD:
+                    this.renderOldPasswordInputError();
+                    break;
+                case this.inputNames.NEW_PASSWORD_FIRST:
+                    this.renderNewFirstPasswordInputError();
+                    break;
+                case this.inputNames.NEW_PASSWORD_SECOND:
+                    this.renderNewSecondPasswordInputError();
+                    break;
+                default:
+                    break;
+            }
+        });
 
         errLine.textContent = text;
 
         this.idTimer = window.setTimeout(() => {
             if (errLine) {
                 errLine.textContent = '';
-                errLine.className = 'profile__message profile__text profile__text--center';
             }
             this.idTimer = -1;
         }, 5000);
@@ -166,29 +216,32 @@ export default class DataUserComponent implements AbstractComponent {
     private updatePassword(oldPassword: string, password: string): void {
         const response = NetworkUser.updatePassword(oldPassword, password);
         response.then((value) => {
+            this.saveButton.disabled = false;
             const { code } = value;
             switch (code) {
                 case 200:
-                    this.renderMessage('Вы успешно обновили пароль!', false);
+                    NotificationUser.showMessage(MESSAGE_CHANGE_PASSWORD);
                     this.clearInputs();
                     break;
                 case 400:
-                    this.renderMessage('Неверный формат запроса');
+                    NotificationUser.showMessage(ERROR_400, true);
                     break;
                 case 401:
-                    const user = User.getInstance();
+                    const user = User;
                     user.clear();
                     user.isAuth = false;
                     Redirector.redirectTo('/signin');
                     break;
                 case 402:
-                    this.renderMessage('Вы ввели неверный пароль');
+                    this.renderMessage(ERROR_CHANGE_PASSWORD_OLD, [
+                        this.inputNames.OLD_PASSWORD,
+                    ]);
                     break;
                 case 403:
-                    Redirector.redirectError('Нет csrf');
+                    NotificationUser.showMessage(ERROR_403, true);
                     break;
                 default:
-                    this.renderMessage(`Ошибка сервера - ${code || value.error}`);
+                    NotificationUser.showMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });

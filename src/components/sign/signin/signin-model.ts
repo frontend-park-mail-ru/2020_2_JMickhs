@@ -1,17 +1,23 @@
 import User from '@user/user';
 import NetworkUser from '@/helpers/network/network-user';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     SIGNIN_USER,
     ERROR_SIGNIN,
-} from '@evenbus/constants';
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
+} from '@eventbus/constants';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import {
+    ERROR_400,
+    ERROR_DEFAULT,
+} from '@global-variables/network-error';
+
+const ERROR_SIGNIN_MESSAGE = 'Вы ввели неправильный логин или пароль';
 
 export default class SigninModel {
-    private user: User;
+    private user: typeof User;
 
     constructor() {
-        this.user = User.getInstance();
+        this.user = User;
     }
 
     isAuth(): boolean {
@@ -29,13 +35,13 @@ export default class SigninModel {
                     Events.trigger(SIGNIN_USER, this.user.getData());
                     break;
                 case 400:
-                    Events.trigger(ERROR_SIGNIN, 'Неверный формат запроса');
+                    Events.trigger(ERROR_SIGNIN, ERROR_400);
                     break;
                 case 401:
-                    Events.trigger(ERROR_SIGNIN, 'Вы ввели неправильный логин или пароль');
+                    Events.trigger(ERROR_SIGNIN, ERROR_SIGNIN_MESSAGE);
                     break;
                 default:
-                    Events.trigger(ERROR_SIGNIN, `Ошибка сервера: статус - ${code || value.error}`);
+                    Events.trigger(ERROR_SIGNIN, `${ERROR_DEFAULT}${code || value.error}`);
                     break;
             }
         });

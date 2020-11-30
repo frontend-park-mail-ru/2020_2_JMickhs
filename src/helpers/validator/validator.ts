@@ -1,3 +1,16 @@
+// Подходит Сережа к директору своей школы и спрашивает:
+// - Эльвира Леопольдовна, а что такое нюанс?
+// - Ну давай, Сережка, объясню. Ты вот хорошо ЕГЭ написал?
+// - Неет
+// - Дааа уж... Но у меня для тебя хорошая новость. Ты поступил в Бауманку
+// - Ураааа! Я всегда об этом мечтал!
+// - Но есть один нюанс...
+
+interface Input {
+    name: string,
+    value: string,
+}
+
 class Validator {
     private loginTableCheckup: {regular: RegExp, error: string}[];
 
@@ -19,12 +32,12 @@ class Validator {
 
         this.passwordTableCheckup = [
             {
-                regular: new RegExp('^[a-zA-Z0-9]*$'),
-                error: 'Пароль может включать только буквы английского алфавита и цифры',
+                regular: new RegExp('[0-9a-zA-Z!@#$%^&*]{5,20}'),
+                error: 'Длина пароля должна быть в пределах от 5 до 20 символов',
             },
             {
-                regular: new RegExp('^.{5,30}$'),
-                error: 'Длина пароля должна быть в пределах от 5 до 30 символов',
+                regular: new RegExp('(?=.*[0-9])'),
+                error: 'Пароль должен содержать хотя бы одно число',
             },
         ];
 
@@ -46,6 +59,14 @@ class Validator {
         return result;
     }
 
+    loginRules(): string[] {
+        const rules: string[] = [];
+        this.loginTableCheckup.forEach((rule) => {
+            rules.push(rule.error);
+        });
+        return rules;
+    }
+
     validatePassword(password: string) : string[] {
         const result: string[] = [];
         this.passwordTableCheckup.forEach((checkup) => {
@@ -56,11 +77,33 @@ class Validator {
         return result;
     }
 
+    passwordRules(): string[] {
+        const rules: string[] = [];
+        this.passwordTableCheckup.forEach((rule) => {
+            rules.push(rule.error);
+        });
+        return rules;
+    }
+
     validateEmail(email: string) : string[] {
         const result: string[] = [];
         this.emailTableCheckup.forEach((checkup) => {
             if (!checkup.regular.exec(email)) {
                 result.push(checkup.error);
+            }
+        });
+        return result;
+    }
+
+    isStringsEqual(left: string, right: string): boolean {
+        return left === right;
+    }
+
+    stringsEmpty(strs: Input[]): string[] {
+        const result: string[] = [];
+        strs.forEach((input) => {
+            if (input.value === '') {
+                result.push(input.name);
             }
         });
         return result;

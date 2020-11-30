@@ -1,6 +1,8 @@
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { UserData } from '@/helpers/interfaces/structs-data/user-data';
 
-export default class User {
+class User {
+    private isWaiting: boolean;
+
     isAuth: boolean;
 
     id: number;
@@ -11,21 +13,20 @@ export default class User {
 
     avatar: string;
 
-    private static instance: User;
-
-    static getInstance(): User {
-        if (this.instance === undefined) {
-            this.instance = new User();
-        }
-        return this.instance;
-    }
-
-    private constructor() {
+    constructor() {
         this.isAuth = false;
         this.id = -1;
         this.userName = '';
         this.avatar = '';
         this.email = '';
+    }
+
+    waiting(): boolean {
+        return this.isWaiting;
+    }
+
+    updateWaiting(waiting: boolean): void {
+        this.isWaiting = waiting;
     }
 
     getData(): UserData {
@@ -54,3 +55,5 @@ export default class User {
         this.email = '';
     }
 }
+
+export default new User();

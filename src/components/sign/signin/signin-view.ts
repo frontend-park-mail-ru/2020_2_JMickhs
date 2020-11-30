@@ -1,78 +1,73 @@
 import { PageView } from '@interfaces/views';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import {
     SUBMIT_SIGNIN,
     ERROR_SIGNIN,
     SIGNIN_USER,
-} from '@evenbus/constants';
+} from '@eventbus/constants';
+import {
+    INPUT_LOGIN,
+    INPUTS_PASWORDS,
+} from '@sign/constants/input-names';
 
 import * as signinTemplate from '@sign/templates/signin.hbs';
 import '@sign/templates/sign.css';
-import { UserData } from '@/helpers/interfaces/structs-data/user-data';
+import type { UserData } from '@interfaces/structs-data/user-data';
 import Redirector from '@router/redirector';
-import { HandlerEvent } from '@interfaces/functions';
 
 export default class SigninView extends PageView {
-    private handlers: Record<string, HandlerEvent>;
-
     private timerId: number;
 
-    private form?: HTMLFormElement;
+    private form: HTMLFormElement;
 
-    constructor(parent: HTMLElement) {
-        super(parent);
+    private loginInput: HTMLInputElement;
 
-        this.handlers = this.makeHadlers();
-    }
+    private passwordInput: HTMLInputElement;
 
-    private makeHadlers(): Record<string, HandlerEvent> {
-        return {
-            signinUser: (user: UserData): void => {
-                if (user) {
-                    Redirector.redirectBack();
-                } else {
-                    Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
-                }
-            },
-            renderErr: this.renderError.bind(this),
-            submitSigninForm: (evt: Event): void => {
-                evt.preventDefault();
-                const loginInput = document.getElementById('signin-login') as HTMLInputElement;
-                const passInput = document.getElementById('signin-password') as HTMLInputElement;
-                const login = loginInput.value;
-                const password = passInput.value;
-                document.getElementById('signin-login').className = 'sign__input';
-                document.getElementById('signin-password').className = 'sign__input';
-                Events.trigger(SUBMIT_SIGNIN, { login, password });
-            },
-        };
-    }
+    private signButton: HTMLButtonElement;
 
-    renderError(errstr: string, numberInputErr = 0): void {
+    private signinUser = (user: UserData): void => {
+        this.signButton.disabled = false;
+        if (user) {
+            Redirector.redirectBack();
+        } else {
+            Events.trigger(ERROR_SIGNIN, 'Неверный логин или пароль!');
+        }
+    };
+
+    private errorSignin = (error: string): void => {
+        this.renderError(error);
+    };
+
+    private submitSigninForm = (evt: Event): void => {
+        evt.preventDefault();
+
+        const login = this.loginInput.value;
+        const password = this.passwordInput.value;
+        this.loginInput.classList.remove('sign__input--error');
+        this.passwordInput.classList.remove('sign__input--error');
+        this.signButton.disabled = true;
+        Events.trigger(SUBMIT_SIGNIN, { login, password });
+    };
+
+    renderError(errstr: string, nameInput?: string): void {
+        this.signButton.disabled = false;
         if (this.timerId !== -1) {
             clearTimeout(this.timerId);
         }
-        if (numberInputErr === 1) {
-            document.getElementById('signin-login').className += ' sign__input--error';
+        if (nameInput === INPUT_LOGIN) {
+            this.loginInput.classList.add('sign__input--error');
         }
-        if (numberInputErr === 2) {
-            document.getElementById('signin-password').className += ' sign__input--error';
+        if (nameInput === INPUTS_PASWORDS) {
+            this.passwordInput.classList.add('sign__input--error');
         }
         const errLine = document.getElementById('text-error');
         errLine.textContent = errstr;
 
         this.timerId = window.setTimeout(() => {
             errLine.textContent = '';
-            const loginElem = document.getElementById('signin-login');
-            // тут не очевидно, так что поясню.
-            // Если отрендерится ошибка и пользователь перейдет на другую страницу до того как эта ошибка пропадет,
-            // выполнится следующий код, но уже на новой странице, на которой нет html-тегов,
-            // котрые используются функцией. Бах, и jserror в консоль! Но мы это предвидим :) и проверяем, есть ли
-            // нужные теги(одного достаточно на самом деле) на странице
-            if (loginElem !== null) {
-                loginElem.className = 'sign__input';
-                document.getElementById('signin-password').className = 'sign__input';
-            }
+            this.loginInput.classList.remove('sign__input--error');
+            this.passwordInput.classList.remove('sign__input--error');
             this.timerId = -1;
         }, 5000);
     }
@@ -83,6 +78,10 @@ export default class SigninView extends PageView {
 
         this.form = document.getElementById('signinform') as HTMLFormElement;
 
+        this.loginInput = document.getElementById('signin-login') as HTMLInputElement;
+        this.passwordInput = document.getElementById('signin-password') as HTMLInputElement;
+        this.signButton = document.getElementById('signin-button') as HTMLButtonElement;
+
         this.subscribeEvents();
     }
 
@@ -90,23 +89,22 @@ export default class SigninView extends PageView {
         if (this.page.innerHTML === '') {
             return;
         }
+
         this.unsubscribeEvents();
         this.page.innerHTML = '';
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(ERROR_SIGNIN, this.handlers.renderErr);
-        Events.subscribe(SIGNIN_USER, this.handlers.signinUser);
+        Events.subscribe(ERROR_SIGNIN, this.errorSignin);
+        Events.subscribe(SIGNIN_USER, this.signinUser);
 
-        this.form.addEventListener('submit', this.handlers.submitSigninForm);
+        this.form.addEventListener('submit', this.submitSigninForm);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(ERROR_SIGNIN, this.handlers.renderErr);
-        Events.unsubscribe(SIGNIN_USER, this.handlers.signinUser);
+        Events.unsubscribe(ERROR_SIGNIN, this.errorSignin);
+        Events.unsubscribe(SIGNIN_USER, this.signinUser);
 
-        if (this.form) {
-            this.form.removeEventListener('submit', this.handlers.submitSigninForm);
-        }
+        this.form.removeEventListener('submit', this.submitSigninForm);
     }
 }

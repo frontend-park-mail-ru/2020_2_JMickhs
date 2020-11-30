@@ -1,0 +1,25 @@
+.hostel__cur-image {
+    border-radius: var(--border-radius-regular);
+    box-shadow: var(--box-shadow-thin);
+    object-fit: cover;
+    transition: 0.3s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hostel__cur-image:hover {
+    box-shadow: var(--box-shadow-bold);
+}
+
+.hostel__img-button-container {
+    width: 105%;
+    margin-left: -3%;
+    position: absolute;
+    top: 50%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}

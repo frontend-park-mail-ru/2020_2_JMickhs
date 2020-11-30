@@ -1,65 +1,95 @@
 import { PageView } from '@interfaces/views';
-import Events from '@evenbus/eventbus';
+import Events from '@eventbus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
     FILL_HOSTELS,
-} from '@evenbus/constants';
-import { HandlerEvent } from '@interfaces/functions';
+} from '@eventbus/constants';
 
 import '@home/templates/home.css';
 import ListComponent from '@/components/home/list-hostels/list-hostels';
-import { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import FilterComponent from '@/components/home/filtration/filtration';
+import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
 
 export default class HomeView extends PageView {
-    private handlers: Record<string, HandlerEvent>;
-
     private mainContainerElement: HTMLDivElement;
+
+    private searchForm: HTMLFormElement;
+
+    private searchButton: HTMLButtonElement;
+
+    private inputElement: HTMLInputElement;
+
+    private imageElement: HTMLDivElement;
 
     private listComponent: ListComponent;
 
-    constructor(parent: HTMLElement) {
-        super(parent);
+    private filterComponent: FilterComponent;
+
+    private inputTimer: number;
+
+    constructor(place: HTMLElement) {
+        super(place);
         this.listComponent = new ListComponent();
-
-        this.handlers = this.makeHadlers();
+        this.filterComponent = new FilterComponent();
+        this.inputTimer = -1;
     }
 
-    private makeHadlers(): Record<string, HandlerEvent> {
-        const handlers = {
-            searchClick: (evt: Event): void => {
-                evt.preventDefault();
-                const input = document.getElementById('input') as HTMLInputElement;
-                Redirector.redirectTo(`?pattern=${input.value}`);
-            },
-            renderHostelList: (hostels: HostelData[]): void => {
-                this.mainContainerElement.className = 'home__container-list-all';
-                this.listComponent.activate(hostels);
-            },
-        };
-        return handlers;
-    }
+    private searchClick = (evt: Event): void => {
+        evt.preventDefault();
 
-    listComponentOn(): void {
+        if (this.searchButton) {
+            this.searchButton.disabled = true;
+        }
+        this.closeFilter();
+        Redirector.redirectTo(this.setSearchUrl());
+    };
+
+    private renderHostelList = (hostels: HostelData[]): void => {
+        if (this.searchButton) {
+            this.searchButton.disabled = false;
+        }
+        this.mainContainerElement.className = 'home__container-list-all';
+        this.listComponent.activate(hostels);
+    };
+
+    private changeInput = (): void => {
+        if (this.inputElement.value.length > 50) {
+            this.renderError('Длинна запроса не должна превышать 50 символов');
+        }
+    };
+
+    listComponentOff(): void {
         this.mainContainerElement.className = 'home__container-all';
         this.listComponent.deactivate();
     }
 
-    listComponentOff(pattern: string): void {
-        const input = document.getElementById('input') as HTMLInputElement;
-        input.value = pattern;
+    listComponentOn(pattern: string): void {
+        this.inputElement.value = pattern;
         this.mainContainerElement.className = 'home__container-list-all';
     }
 
-    render(): void {
-        this.page.innerHTML = homeTemplate();
+    render(err = ''): void {
+        this.page.innerHTML = homeTemplate({ error: err });
 
-        const searchForm = document.getElementById('search-form');
-        searchForm.addEventListener('submit', this.handlers.searchClick);
+        this.searchForm = document.getElementById('search-form') as HTMLFormElement;
+        this.searchButton = document.getElementById('search-button') as HTMLButtonElement;
+        this.inputElement = document.getElementById('input') as HTMLInputElement;
+        this.imageElement = document.getElementById('filter-image') as HTMLDivElement;
+        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
         this.subscribeEvents();
-        this.listComponent.setPlace(document.getElementById('list'));
-        this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
+
+        this.listComponent.setPlace(document.getElementById('list') as HTMLDivElement);
+        this.filterComponent.setPlace(document.getElementById('filter') as HTMLDivElement);
+        this.filterComponent.activate();
+    }
+
+    renderError(error: string): void {
+        this.listComponent.deactivate();
+        this.filterComponent.deactivate();
+        this.render(error);
+        this.clearInputError();
     }
 
     hide(): void {
@@ -67,8 +97,7 @@ export default class HomeView extends PageView {
             return;
         }
         this.listComponent.deactivate();
-        const searchButton = document.getElementById('button');
-        searchButton.removeEventListener('submit', this.handlers.searchClick);
+        this.filterComponent.deactivate();
 
         this.unsubscribeEvents();
 
@@ -76,10 +105,49 @@ export default class HomeView extends PageView {
     }
 
     private subscribeEvents(): void {
-        Events.subscribe(FILL_HOSTELS, this.handlers.renderHostelList);
+        this.searchForm.addEventListener('submit', this.searchClick);
+        this.inputElement.addEventListener('input', this.changeInput);
+        this.imageElement.addEventListener('click', this.toggleFilter);
+        Events.subscribe(FILL_HOSTELS, this.renderHostelList);
     }
 
     private unsubscribeEvents(): void {
-        Events.unsubscribe(FILL_HOSTELS, this.handlers.renderHostelList);
+        this.searchForm.removeEventListener('submit', this.searchClick);
+        this.inputElement.removeEventListener('input', this.changeInput);
+        this.imageElement.removeEventListener('click', this.toggleFilter);
+        Events.unsubscribe(FILL_HOSTELS, this.renderHostelList);
+    }
+
+    private clearInputError(): void {
+        if (this.inputTimer !== -1) {
+            window.clearTimeout(this.inputTimer);
+        }
+        const listElement = document.getElementById('list') as HTMLDivElement;
+        this.inputTimer = window.setTimeout(() => {
+            if (listElement) {
+                listElement.innerHTML = '';
+                listElement.classList.remove('home__list--grid-area-search');
+            }
+            this.inputTimer = -1;
+        }, 5000);
+    }
+
+    private toggleFilter = (): void => {
+        document.getElementById('filter').classList.toggle('home__display-none');
+    };
+
+    private closeFilter = (): void => {
+        document.getElementById('filter').classList.add('home__display-none');
+    };
+
+    private setSearchUrl(): string {
+        const {
+            rateFrom,
+            rateTo,
+            percent,
+            comments,
+        } = this.filterComponent.filterParameters;
+        return `?pattern=${this.inputElement.value}&page=0&rateStart=${rateFrom}`
+        + `&rateEnd=${rateTo}&commentStart=${comments}&commCount=4,5&commPercent=${percent}`;
     }
 }

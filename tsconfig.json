@@ -9,7 +9,7 @@
         "paths": {
             "@/*": ["src/*"],
             "@navbar/*": ["src/components/navbar/*"],
-            "@evenbus/*": ["src/helpers/eventbus/*"],
+            "@eventbus/*": ["src/helpers/eventbus/*"],
             "@network/*": ["src/helpers/network/*"],
             "@user/*": ["src/helpers/user/*"],
             "@interfaces/*": ["src/helpers/interfaces/*"],
@@ -19,7 +19,10 @@
             "@home/*": ["src/components/home/*"],
             "@list/*": ["src/components/listHostel/*"],
             "@sign/*": ["src/components/sign/*"],
-            "@profile/*": ["src/components/profile/*"]
-        },
-    },
+            "@profile/*": ["src/components/profile/*"],
+            "@wishlist/*": ["src/components/wishlist/*"],
+            "@popup/*": ["src/components/popup/*"],
+            "@global-variables/*": ["src/helpers/global-variables/*"]
+        }
+    }
 }
