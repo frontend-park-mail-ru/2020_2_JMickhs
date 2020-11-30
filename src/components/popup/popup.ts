@@ -45,6 +45,12 @@ class Popup {
         evt.stopPropagation();
     };
 
+    private clickKeyboard = (event: KeyboardEvent): void => {
+        if (event.code === 'Escape') {
+            this.close();
+        }
+    };
+
     private close = (): void => {
         this.component?.deactivate();
         this.unsubscribeEvents();
@@ -56,12 +62,14 @@ class Popup {
         Events.subscribe(DEACTIVATE_POPUP, this.close);
         this.place.addEventListener('click', this.close);
         this.popup.addEventListener('click', this.clickContent);
+        document.addEventListener('keydown', this.clickKeyboard);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(DEACTIVATE_POPUP, this.close);
         this.place.removeEventListener('click', this.close);
         this.popup.removeEventListener('click', this.clickContent);
+        document.removeEventListener('keydown', this.clickKeyboard);
     }
 }
 
