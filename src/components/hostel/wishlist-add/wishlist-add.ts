@@ -55,8 +55,8 @@ export default class WishlistAddComponent implements AbstractComponent {
     subscribeEvents(): void {
         this.createWishlistButton.addEventListener('click', this.buttonClick);
         if (this.wishlists) {
-            this.wishlists.forEach((cur) => {
-                const element = document.getElementById(`wishlist-name-${cur.wishlist_id}-${this.hostelId}`);
+            this.wishlists.forEach((wishlist) => {
+                const element = document.getElementById(`wishlist-name-${wishlist.wishlist_id}-${this.hostelId}`);
                 element.addEventListener('click', this.toWishlist);
             });
         }
