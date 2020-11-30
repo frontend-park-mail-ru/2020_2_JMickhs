@@ -29,13 +29,13 @@ export default class WishlistView extends PageView {
         return this.wishlistsListComponent.wishlists;
     }
 
-    render(error: string = undefined): void {
+    render(wishlistId: number, error: string = undefined): void {
         this.page.innerHTML = wishlistTemplate({ error });
         this.subscribeEvents();
 
         this.listHotelsComponent.setPlace(document.getElementById('wishlist-hotels') as HTMLDivElement);
         this.wishlistsListComponent.setPlace(document.getElementById('wishlist-list') as HTMLDivElement);
-        this.wishlistsListComponent.activate();
+        this.wishlistsListComponent.activate(wishlistId);
     }
 
     renderError(error: string): void {
