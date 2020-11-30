@@ -45,6 +45,9 @@ export default class WishlistAddComponent implements AbstractComponent {
     }
 
     deactivate(): void {
+        if (!this.place) {
+            return;
+        }
         this.unsubscribeEvents();
         this.place.innerHTML = '';
     }
