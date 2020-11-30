@@ -73,7 +73,7 @@ export default class WishlistAddComponent implements AbstractComponent {
         this.createWishlistButton.removeEventListener('click', this.buttonClick);
         this.wishlists.forEach((wishlist) => {
             const element = document.getElementById(`wishlist-name-${wishlist.wishlist_id}-${this.hostelId}`);
-            element.removeEventListener('click', this.toWishlist);
+            element?.removeEventListener('click', this.toWishlist); // вопросительный знак на всякий случай
         });
     }
 
@@ -85,12 +85,26 @@ export default class WishlistAddComponent implements AbstractComponent {
         this.namesContainerElement.appendChild(this.newWishlistInput);
         this.createWishlistButton.id = 'accept-button';
         this.createWishlistButton.innerText = 'Подтвердить создание';
+        this.newWishlistInput.addEventListener('keyup', this.keyboardInputClick);
+        this.createWishlistButton.disabled = true;
     }
 
+    private keyboardInputClick = (event: KeyboardEvent): void => {
+        if (this.newWishlistInput.value === '') {
+            this.createWishlistButton.disabled = true;
+            return;
+        }
+        this.createWishlistButton.disabled = false;
+        if (event.code === 'Enter') {
+            this.buttonClick();
+        }
+    };
+
     private acceptWishlist(id: number): void {
+        this.newWishlistInput.removeEventListener('keyup', this.keyboardInputClick);
         const inputValue = this.newWishlistInput.value;
         this.createWishlistButton.id = 'create-button';
-        this.createWishlistButton.innerText = 'Создать новое избранное';
+        this.createWishlistButton.innerText = 'Создать новую папку';
         const newWishlistName = document.createElement('div');
         newWishlistName.classList.add('wishlist-add__name');
         newWishlistName.innerText = inputValue;
@@ -111,7 +125,8 @@ export default class WishlistAddComponent implements AbstractComponent {
     };
 
     private toWishlist = (evt: Event): void => {
-        const elementId = (<HTMLElement>evt.target).id;
+        const element = evt.target as HTMLElement;
+        const elementId = element.id;
         const array = elementId.split('-');
         const wishlistId = array[2];
         const hostelId = array[3];
@@ -121,7 +136,7 @@ export default class WishlistAddComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    NotificationUser.showMessage('Отель добавлен в избранное');
+                    NotificationUser.showMessage(`Отель добавлен в папку с названием ${element.innerText}`);
                     break;
                 case 400:
                     Events.trigger(DEACTIVATE_POPUP);
@@ -132,7 +147,7 @@ export default class WishlistAddComponent implements AbstractComponent {
                     Redirector.redirectError(ERROR_403);
                     break;
                 case 409:
-                    NotificationUser.showMessage('Этот отель уже в избранном');
+                    NotificationUser.showMessage(`Этот отель уже есть в папке с названием ${element.innerText}`);
                     break;
                 case 423:
                     Events.trigger(DEACTIVATE_POPUP);
