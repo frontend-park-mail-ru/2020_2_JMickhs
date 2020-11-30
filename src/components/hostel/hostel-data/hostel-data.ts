@@ -9,6 +9,7 @@ import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
 import WishlistAddComponent from '@hostel/wishlist-add/wishlist-add';
 import Popup from '@popup/popup';
 import MapComponent from '@hostel/map/map';
+import User from '@/helpers/user/user';
 
 export default class HostelDataComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -19,7 +20,7 @@ export default class HostelDataComponent implements AbstractComponent {
 
     private buttonMap: HTMLButtonElement;
 
-    private wishlistButton: HTMLButtonElement;
+    private wishlistButton?: HTMLButtonElement;
 
     private hostel: HostelData;
 
@@ -42,7 +43,7 @@ export default class HostelDataComponent implements AbstractComponent {
     }
 
     private render(hostel: HostelData): void {
-        this.place.innerHTML = dataTemplate(hostel);
+        this.place.innerHTML = dataTemplate({ hostel, isAuth: User.isAuth });
 
         this.buttonMap = document.getElementById('map-button') as HTMLButtonElement;
         this.wishlistButton = document.getElementById('wishlist-button') as HTMLButtonElement;
@@ -58,13 +59,13 @@ export default class HostelDataComponent implements AbstractComponent {
     private subscribeEvents(): void {
         Events.subscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
         this.buttonMap.addEventListener('click', this.clickMapButton);
-        this.wishlistButton.addEventListener('click', this.clickWishlistButton);
+        this.wishlistButton?.addEventListener('click', this.clickWishlistButton);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
         this.buttonMap.removeEventListener('click', this.clickMapButton);
-        this.wishlistButton.removeEventListener('click', this.clickWishlistButton);
+        this.wishlistButton?.removeEventListener('click', this.clickWishlistButton);
     }
 
     private updateTextData = (arg: {rating: number, delta: number}): void => {

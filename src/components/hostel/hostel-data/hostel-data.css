@@ -4,7 +4,6 @@
     max-height: 28vw;
     margin: auto;
     overflow: auto;
-    display: grid;
 }
 
 .hostel__card::-webkit-scrollbar {

@@ -10,6 +10,7 @@ import {
     ERROR_403,
     ERROR_DEFAULT,
 } from '@/helpers/global-variables/network-error';
+import NotificationUser from '@/components/notification-user/notification-user';
 
 import * as template from './wishlist-add.hbs';
 import './wishlist-add.css';
@@ -120,7 +121,7 @@ export default class WishlistAddComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    Events.trigger(DEACTIVATE_POPUP);
+                    NotificationUser.showMessage('Отель добавлен в избранное');
                     break;
                 case 400:
                     Events.trigger(DEACTIVATE_POPUP);
@@ -131,7 +132,7 @@ export default class WishlistAddComponent implements AbstractComponent {
                     Redirector.redirectError(ERROR_403);
                     break;
                 case 409:
-                    Events.trigger(DEACTIVATE_POPUP);
+                    NotificationUser.showMessage('Этот отель уже в избранном');
                     break;
                 case 423:
                     Events.trigger(DEACTIVATE_POPUP);
