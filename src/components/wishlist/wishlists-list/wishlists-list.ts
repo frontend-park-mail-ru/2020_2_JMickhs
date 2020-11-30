@@ -15,7 +15,7 @@ export default class WishlistsListComponent implements AbstractComponent {
 
     private currentWishlistId: number;
 
-    private currentWishlistDeleteIcon: HTMLElement;
+    private currentWishlistDeleteIcon?: HTMLElement;
 
     activate(wishlistId : number): void {
         if (!this.place) {
@@ -34,10 +34,10 @@ export default class WishlistsListComponent implements AbstractComponent {
 
     private findCurrentWishlist(): void {
         this.currentWishlistDeleteIcon = document.getElementById(`svg-${this.currentWishlistId}`);
-        this.currentWishlistDeleteIcon.classList.remove('wishlists-list__display-none');
+        this.currentWishlistDeleteIcon?.classList.remove('wishlists-list__display-none');
         const currentWishlist = document.getElementById(`name-${this.currentWishlistId}`);
         currentWishlist.classList.add('wishlists-list__cursor-auto');
-        this.currentWishlistDeleteIcon.addEventListener('click', this.deleteWishlist);
+        this.currentWishlistDeleteIcon?.addEventListener('click', this.deleteWishlist);
     }
 
     setPlace(place: HTMLDivElement): void {
@@ -45,7 +45,7 @@ export default class WishlistsListComponent implements AbstractComponent {
     }
 
     unsubscribeEvents(): void {
-        this.currentWishlistDeleteIcon.removeEventListener('click', this.deleteWishlist);
+        this.currentWishlistDeleteIcon?.removeEventListener('click', this.deleteWishlist);
     }
 
     render(): void {
