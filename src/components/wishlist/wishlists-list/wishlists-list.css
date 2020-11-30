@@ -11,15 +11,37 @@
     max-width: 200px;
     min-height: 60px;
     max-height: 60px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 20px;
+    grid-template-rows: 23px 1fr;
     align-items: center;
     justify-content: center;
     background-color: var(--opacity-white);
     border-radius: var(--border-radius-regular);
     overflow-x: overlay;
+    text-decoration: none;
 }
 
 .wishlists-list__name--color-blue {
     color: var(--blue);
     text-align: center;
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+}
+
+.wishlists-list__delete-icon {
+    width: 15px;
+    height: 15px;
+    fill: var(--new-red);
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    cursor: pointer;
+}
+
+.wishlists-list__cursor-auto {
+    cursor: auto;
+}
+
+.wishlists-list__display-none {
+    display: none;
 }

@@ -61,7 +61,7 @@ export default class WishlistController implements PageController {
             return;
         }
         this.urlSearchParams = params;
-        this.view.render();
+        this.view.render(+id);
         this.model.getWishlist(+id);
     }
 
