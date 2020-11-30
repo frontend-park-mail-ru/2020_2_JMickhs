@@ -13,14 +13,18 @@
         </p>
     </div>
     <form class="hostel__comment-container">
-        <div class="hostel__textarea">
+        
              {{#if showTextArea}}
+             <div class="hostel__textarea hostel__textarea--editing">
              <textarea id="comment-textarea" class="hostel__textarea-element"
             placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}</textarea>
+             </div>
              {{else}}
+             <div class="hostel__textarea">
              <p class="hostel__textarea-element">{{#if comment}}{{comment.message}}{{/if}}</p>
+             </div>
               {{/if}}
-        </div>
+        
         <button class="hostel__button-round hostel__button--position-center" id="button-comment">{{buttonName}}</button>
     </form>
 </div>
