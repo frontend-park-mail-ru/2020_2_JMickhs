@@ -4,10 +4,15 @@ import type { WishlistsStruct } from '@interfaces/structs-data/wishlists';
 import NetworkWishlist from '@network/network-wishlist';
 import Events from '@eventbus/eventbus';
 import { DEACTIVATE_POPUP } from '@eventbus/constants';
+import {
+    ERROR_400,
+    ERROR_401,
+    ERROR_403,
+    ERROR_DEFAULT,
+} from '@/helpers/global-variables/network-error';
 
-import './wishlist-add.css';
-import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
 import * as template from './wishlist-add.hbs';
+import './wishlist-add.css';
 
 const ERROR_ALIEN_WISHLIST = 'Вы обращаетесь к чужому списку избранного';
 
@@ -154,6 +159,9 @@ export default class WishlistAddComponent implements AbstractComponent {
                 case 400:
                     Events.trigger(DEACTIVATE_POPUP);
                     Redirector.redirectError(ERROR_400);
+                    break;
+                case 401:
+                    Redirector.redirectError(ERROR_401);
                     break;
                 default:
                     Events.trigger(DEACTIVATE_POPUP);
