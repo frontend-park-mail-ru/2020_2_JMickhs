@@ -85,12 +85,26 @@ export default class WishlistAddComponent implements AbstractComponent {
         this.namesContainerElement.appendChild(this.newWishlistInput);
         this.createWishlistButton.id = 'accept-button';
         this.createWishlistButton.innerText = 'Подтвердить создание';
+        this.newWishlistInput.addEventListener('keyup', this.keyboardInputClick);
+        this.createWishlistButton.disabled = true;
     }
 
+    private keyboardInputClick = (event: KeyboardEvent): void => {
+        if (this.newWishlistInput.value === '') {
+            this.createWishlistButton.disabled = true;
+            return;
+        }
+        this.createWishlistButton.disabled = false;
+        if (event.code === 'Enter') {
+            this.buttonClick();
+        }
+    };
+
     private acceptWishlist(id: number): void {
+        this.newWishlistInput.removeEventListener('keyup', this.keyboardInputClick);
         const inputValue = this.newWishlistInput.value;
         this.createWishlistButton.id = 'create-button';
-        this.createWishlistButton.innerText = 'Создать новое избранное';
+        this.createWishlistButton.innerText = 'Создать новую папку';
         const newWishlistName = document.createElement('div');
         newWishlistName.classList.add('wishlist-add__name');
         newWishlistName.innerText = inputValue;
