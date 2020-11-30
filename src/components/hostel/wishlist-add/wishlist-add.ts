@@ -73,7 +73,7 @@ export default class WishlistAddComponent implements AbstractComponent {
         this.createWishlistButton.removeEventListener('click', this.buttonClick);
         this.wishlists.forEach((wishlist) => {
             const element = document.getElementById(`wishlist-name-${wishlist.wishlist_id}-${this.hostelId}`);
-            element.removeEventListener('click', this.toWishlist);
+            element?.removeEventListener('click', this.toWishlist); // вопросительный знак на всякий случай
         });
     }
 
