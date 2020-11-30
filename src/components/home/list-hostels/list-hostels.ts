@@ -19,6 +19,7 @@ export default class ListComponent implements AbstractComponent {
         if (!this.place) {
             return;
         }
+        this.deactivate();
 
         this.hotels = hostels;
         if (hostels.length > 0) {

@@ -1,16 +1,19 @@
 <div class="hostel__card">
-    <p class="hostel__title hostel__title--orange">{{name}}</p>
+    <p class="hostel__title hostel__title--orange">{{hostel.name}}</p>
+    {{#if isAuth}}
+        <button class="hostel__button-round" id="wishlist-button">Добавить в избранное</button>
+    {{/if}}
     <p class="hostel__star hostel__title hostel__title--orange">
-        {{#if rating}}
-        Рейтинг: {{rating}}
+        {{#if hostel.rating}}
+        Рейтинг: {{hostel.rating}}
         {{else}}
         Поставьте оценку первым!
         {{/if}}
     </p>
-    <p class="hostel__title hostel__text--blue">Количество комментариев: {{countComments}}</p>
-    <p class="hostel__title hostel__title--orange">{{location}}</p>
+    <p class="hostel__title hostel__text--blue">Количество комментариев: {{hostel.countComments}}</p>
+    <p class="hostel__title hostel__title--orange">{{hostel.location}}</p>
     <button class="hostel__button-round" id="map-button">Показать на карте</button>
     <p class="hostel__text hostel__text--blue">
-        {{description}}
+        {{hostel.description}}
     </p>
 </div>

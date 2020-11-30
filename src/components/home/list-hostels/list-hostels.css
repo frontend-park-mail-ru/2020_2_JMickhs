@@ -75,7 +75,7 @@
         padding-top: 8%;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(auto-fill, minmax(250px, 1fr));
-        grid-gap: 1%;
+        grid-gap: 4vh;
         height: min-content;
         justify-items: center;
     }
@@ -84,9 +84,6 @@
 @media only screen and (max-height: 800px) {
     .hostels-card {
         min-height: 250px;
-    }
-    .list__container-all {
-        grid-gap: 2%;
     }
     .hostel-card__text {
         font-size: 15px;

@@ -6,20 +6,27 @@ import {
 } from '@eventbus/constants';
 import type { AbstractComponent } from '@interfaces/components';
 import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
+import WishlistAddComponent from '@hostel/wishlist-add/wishlist-add';
 import Popup from '@popup/popup';
 import MapComponent from '@hostel/map/map';
+import User from '@/helpers/user/user';
 
 export default class HostelDataComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
     private mapComponent: MapComponent;
 
+    private wishlistAddComponent: WishlistAddComponent;
+
     private buttonMap: HTMLButtonElement;
+
+    private wishlistButton?: HTMLButtonElement;
 
     private hostel: HostelData;
 
     constructor() {
         this.mapComponent = new MapComponent();
+        this.wishlistAddComponent = new WishlistAddComponent();
     }
 
     setPlace(place: HTMLDivElement): void {
@@ -36,9 +43,10 @@ export default class HostelDataComponent implements AbstractComponent {
     }
 
     private render(hostel: HostelData): void {
-        this.place.innerHTML = dataTemplate(hostel);
+        this.place.innerHTML = dataTemplate({ hostel, isAuth: User.isAuth });
 
         this.buttonMap = document.getElementById('map-button') as HTMLButtonElement;
+        this.wishlistButton = document.getElementById('wishlist-button') as HTMLButtonElement;
 
         this.subscribeEvents();
     }
@@ -51,11 +59,13 @@ export default class HostelDataComponent implements AbstractComponent {
     private subscribeEvents(): void {
         Events.subscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
         this.buttonMap.addEventListener('click', this.clickMapButton);
+        this.wishlistButton?.addEventListener('click', this.clickWishlistButton);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
         this.buttonMap.removeEventListener('click', this.clickMapButton);
+        this.wishlistButton?.removeEventListener('click', this.clickWishlistButton);
     }
 
     private updateTextData = (arg: {rating: number, delta: number}): void => {
@@ -69,5 +79,10 @@ export default class HostelDataComponent implements AbstractComponent {
     private clickMapButton = (evt: Event): void => {
         evt.preventDefault();
         Popup.activate(this.mapComponent, this.hostel.latitude, this.hostel.longitude);
+    };
+
+    private clickWishlistButton = (evt: Event): void => {
+        evt.preventDefault();
+        Popup.activate(this.wishlistAddComponent, this.hostel.id);
     };
 }

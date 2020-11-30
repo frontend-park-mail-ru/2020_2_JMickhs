@@ -39,6 +39,9 @@ export const UPDATE_HOSTEL = 'updateHostel';
 export const SEARCH_HOSTELS = 'searchHostels';
 export const SET_CONTAINER_FOR_SEARCH = 'changeCntToSearch';
 export const SET_CONTAINER_FOR_LIST = 'changeCntToList';
-
-// мусор, который пока не разобрали
 export const FILL_HOSTELS = 'fillHostels';
+
+// События сраницы избранного(Wishlist)
+export const FILL_HOSTELS_WISHLIST = 'fillHostelsWishlist';
+export const FILL_WISHLISTS = 'fillWishlists';
+export const DEACTIVATE_POPUP = 'deactivatePopup';

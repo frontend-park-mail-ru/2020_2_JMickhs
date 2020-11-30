@@ -20,6 +20,7 @@
             "@list/*": ["src/components/listHostel/*"],
             "@sign/*": ["src/components/sign/*"],
             "@profile/*": ["src/components/profile/*"],
+            "@wishlist/*": ["src/components/wishlist/*"],
             "@popup/*": ["src/components/popup/*"],
             "@global-variables/*": ["src/helpers/global-variables/*"]
         }
