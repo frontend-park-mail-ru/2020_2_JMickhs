@@ -111,7 +111,8 @@ export default class WishlistAddComponent implements AbstractComponent {
     };
 
     private toWishlist = (evt: Event): void => {
-        const elementId = (<HTMLElement>evt.target).id;
+        const element = evt.target as HTMLElement;
+        const elementId = element.id;
         const array = elementId.split('-');
         const wishlistId = array[2];
         const hostelId = array[3];
@@ -121,7 +122,7 @@ export default class WishlistAddComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    NotificationUser.showMessage('Отель добавлен в избранное');
+                    NotificationUser.showMessage(`Отель добавлен в папку с названием ${element.innerText}`);
                     break;
                 case 400:
                     Events.trigger(DEACTIVATE_POPUP);
@@ -132,7 +133,7 @@ export default class WishlistAddComponent implements AbstractComponent {
                     Redirector.redirectError(ERROR_403);
                     break;
                 case 409:
-                    NotificationUser.showMessage('Этот отель уже в избранном');
+                    NotificationUser.showMessage(`Этот отель уже в папку с названием ${element.innerText}`);
                     break;
                 case 423:
                     Events.trigger(DEACTIVATE_POPUP);
