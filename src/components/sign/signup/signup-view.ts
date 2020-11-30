@@ -147,7 +147,7 @@ export default class SignupView extends PageView {
             }
         }
 
-        document.getElementById('password-promts').innerHTML = '';
+        document.getElementById('passwords-promts').innerHTML = '';
         document.getElementById('login-promts').innerHTML = '';
 
         const promtsDiv = document.getElementById(`${inputName}-promts`);
