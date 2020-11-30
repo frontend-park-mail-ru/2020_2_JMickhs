@@ -147,7 +147,7 @@ export default class WishlistAddComponent implements AbstractComponent {
                     Redirector.redirectError(ERROR_403);
                     break;
                 case 409:
-                    NotificationUser.showMessage(`Этот отель уже в папку с названием ${element.innerText}`);
+                    NotificationUser.showMessage(`Этот отель уже есть в папке с названием ${element.innerText}`);
                     break;
                 case 423:
                     Events.trigger(DEACTIVATE_POPUP);
