@@ -16,6 +16,10 @@
     box-shadow: var(--box-shadow-bold);
 }
 
+.hostel__textarea--editing {
+    border: 2px solid var(--orange);
+}
+
 .hostel__textarea-element {
     border-radius: var(--border-radius-regular);
     padding: 12px 20px;
