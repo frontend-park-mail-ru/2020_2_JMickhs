@@ -37,7 +37,7 @@ export default class WishlistsListComponent implements AbstractComponent {
         this.currentWishlistDeleteIcon?.classList.remove('wishlists-list__display-none');
         const currentWishlist = document.getElementById(`name-${this.currentWishlistId}`) as HTMLAnchorElement;
         currentWishlist.classList.add('wishlists-list__cursor-auto');
-        currentWishlist.href = '';
+        currentWishlist.href = '#';
         this.currentWishlistDeleteIcon?.addEventListener('click', this.deleteWishlist);
     }
 
