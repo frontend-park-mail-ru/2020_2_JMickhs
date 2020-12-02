@@ -59,7 +59,8 @@ export default class WishlistsListComponent implements AbstractComponent {
         }
     }
 
-    private deleteWishlist = (): void => {
+    private deleteWishlist = (evt: Event): void => {
+        evt.preventDefault();
         const response = NetworkWishlist.deleteWishlist(this.currentWishlistId);
 
         response.then((value) => {
