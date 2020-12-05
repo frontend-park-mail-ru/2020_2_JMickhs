@@ -3,6 +3,13 @@
     {{#if isAuth}}
         <button class="hostel__button-round" id="wishlist-button">Добавить в избранное</button>
     {{/if}}
+    <p class="hostel__title hostel__title--blue">
+        <nobr class="hostel__wishlist-label">Этот отель уже есть в папках:</nobr>
+        <a class="hostel__wishlist" href="/wishlist/1">KEK</a>
+        <a class="hostel__wishlist">Отели в поездку</a>
+        <a class="hostel__wishlist">Владик</a>
+        <nobr class="hostel__wishlist-label">и т.д.</nobr>
+    </p>
     <p class="hostel__star hostel__title hostel__title--orange">
         {{#if hostel.rating}}
         Рейтинг: {{hostel.rating}}
