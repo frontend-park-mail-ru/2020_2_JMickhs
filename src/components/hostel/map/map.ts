@@ -1,3 +1,7 @@
+// — Слышал, Абдула разводится с Зухрой!
+// — С чего это он? Разлюбил, что ли?
+// — Любит, да вот беда: надел на жену пояс верности, а ключ потерял!
+
 import type { AbstractComponent } from '@interfaces/components';
 import { Loader } from 'google-maps';
 
