@@ -38,7 +38,7 @@
 }
 
 .hostel__wishlist {
-    border-radius: 15px;
+    border-radius: var(--border-radius-regular);
     background-color: var(--gray-while-blue);
     width: fit-content;
     padding: 0 10px;
