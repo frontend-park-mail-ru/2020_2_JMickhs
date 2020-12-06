@@ -51,7 +51,12 @@ export default class HostelDataComponent implements AbstractComponent {
         }
 
         this.hostel = hostel;
-        this.getWishlists();
+        this.wishlists = [];
+        if (User.isAuth) {
+            this.getWishlists();
+            return;
+        }
+        this.render(this.hostel, this.wishlists);
     }
 
     private render(hostel: HostelData, wishlists: WishlistsStruct[]): void {
