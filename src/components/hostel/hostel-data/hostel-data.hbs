@@ -9,7 +9,7 @@
             {{#each wishlists}}
                 <a class="hostel__wishlist" href="/wishlist?id={{wishlist_id}}">{{name}}</a>
             {{/each}}
-            {{#if moreThan3Wishlists}}
+            {{#if moreThanMaxWishlists}}
                 <nobr class="hostel__wishlist-label">и т.д.</nobr>
             {{/if}}
         </p>
