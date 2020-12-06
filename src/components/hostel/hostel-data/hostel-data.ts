@@ -19,6 +19,8 @@ import {
 } from '@global-variables/network-error';
 import type { WishlistsStruct } from '@interfaces/structs-data/wishlists';
 
+const MAX_WISHLISTS_ELEMENTS = 3;
+
 export default class HostelDataComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
@@ -53,12 +55,12 @@ export default class HostelDataComponent implements AbstractComponent {
     }
 
     private render(hostel: HostelData, wishlists: WishlistsStruct[]): void {
-        const moreThan3Wishlists = this.wishlists.length > 3;
+        const moreThanMaxWishlists = this.wishlists.length > MAX_WISHLISTS_ELEMENTS;
         this.place.innerHTML = dataTemplate({
             hostel,
             isAuth: User.isAuth,
             wishlists,
-            moreThan3Wishlists,
+            moreThanMaxWishlists,
         });
 
         this.buttonMap = document.getElementById('map-button') as HTMLButtonElement;
@@ -98,7 +100,7 @@ export default class HostelDataComponent implements AbstractComponent {
         this.wishlists.push({ name: arg.name, wishlist_id: arg.id });
 
         this.unsubscribeEvents();
-        this.render(this.hostel, this.wishlists.slice(0, 3));
+        this.render(this.hostel, this.wishlists.slice(0, MAX_WISHLISTS_ELEMENTS));
     };
 
     private clickMapButton = (evt: Event): void => {
@@ -120,7 +122,7 @@ export default class HostelDataComponent implements AbstractComponent {
                 case 200:
                     const data = value.data as {wishlists: WishlistsStruct[]};
                     this.wishlists = data.wishlists || [];
-                    this.render(this.hostel, this.wishlists.slice(0, 3));
+                    this.render(this.hostel, this.wishlists.slice(0, MAX_WISHLISTS_ELEMENTS));
                     break;
                 case 400:
                     Redirector.redirectError(ERROR_400);
