@@ -61,6 +61,7 @@ export default class FilterComponent implements AbstractComponent {
 
         this.render();
         this.getValues();
+        this.setValues();
         this.subscribeEvents();
     }
 
@@ -89,6 +90,15 @@ export default class FilterComponent implements AbstractComponent {
         this.percentInput = document.getElementById('percent-input') as HTMLInputElement;
         this.commentNumber = document.getElementById('comment-number') as HTMLParagraphElement;
         this.percentNumber = document.getElementById('percent-number') as HTMLParagraphElement;
+    }
+
+    private setValues(): void {
+        this.commentNumber.innerText = `> ${this.filterParams.comments}`;
+        this.percentNumber.innerText = `> ${this.filterParams.percent}%`;
+        this.commentInput.value = this.filterParams.comments.toString();
+        this.percentInput.value = this.filterParams.percent.toString();
+        this.rateFromInput.placeholder = this.filterParams.rateFrom.toString();
+        this.rateToInput.placeholder = this.filterParams.rateTo.toString();
     }
 
     subscribeEvents(): void {
