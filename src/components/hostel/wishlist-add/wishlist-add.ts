@@ -3,7 +3,10 @@ import Redirector from '@router/redirector';
 import type { WishlistsStruct } from '@interfaces/structs-data/wishlists';
 import NetworkWishlist from '@network/network-wishlist';
 import Events from '@eventbus/eventbus';
-import { DEACTIVATE_POPUP } from '@eventbus/constants';
+import {
+    DEACTIVATE_POPUP,
+    UPDATE_WISHLISTS,
+} from '@eventbus/constants';
 import {
     ERROR_400,
     ERROR_401,
@@ -136,6 +139,7 @@ export default class WishlistAddComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
+                    Events.trigger(UPDATE_WISHLISTS, { id: wishlistId, name: element.innerText });
                     NotificationUser.showMessage(`Отель добавлен в папку с названием ${element.innerText}`);
                     break;
                 case 400:

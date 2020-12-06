@@ -4,6 +4,8 @@ import { Loader } from 'google-maps';
 import * as template from './map.hbs';
 import './map.css';
 
+const mapApiKey = 'AIzaSyDRvlTULyQ1ADfqMmVTSrzt-y9_8DyETkc';
+
 export default class MapComponent implements AbstractComponent {
     private loader: Loader;
 
@@ -16,8 +18,7 @@ export default class MapComponent implements AbstractComponent {
     private loaded: boolean;
 
     constructor() {
-        // в том, что мы просто передаем ключ ничего страшного, поставлено ограничение на домен
-        this.loader = new Loader('AIzaSyDRvlTULyQ1ADfqMmVTSrzt-y9_8DyETkc');
+        this.loader = new Loader(mapApiKey);
         this.loaded = false;
     }
 
