@@ -1,8 +1,14 @@
+// — Слышал, Абдула разводится с Зухрой!
+// — С чего это он? Разлюбил, что ли?
+// — Любит, да вот беда: надел на жену пояс верности, а ключ потерял!
+
 import type { AbstractComponent } from '@interfaces/components';
 import { Loader } from 'google-maps';
 
 import * as template from './map.hbs';
 import './map.css';
+
+const MAP_API_KEY = 'AIzaSyDRvlTULyQ1ADfqMmVTSrzt-y9_8DyETkc';
 
 export default class MapComponent implements AbstractComponent {
     private loader: Loader;
@@ -16,8 +22,7 @@ export default class MapComponent implements AbstractComponent {
     private loaded: boolean;
 
     constructor() {
-        // в том, что мы просто передаем ключ ничего страшного, поставлено ограничение на домен
-        this.loader = new Loader('AIzaSyDRvlTULyQ1ADfqMmVTSrzt-y9_8DyETkc');
+        this.loader = new Loader(MAP_API_KEY);
         this.loaded = false;
     }
 

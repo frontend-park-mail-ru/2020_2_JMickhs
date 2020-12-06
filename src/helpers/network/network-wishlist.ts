@@ -39,6 +39,10 @@ class NetworkWishlist extends NetworkAbstract {
         };
         return this.ajax('DELETE', `/api/v1/wishlists/${wishlistId}/hotels`, body, true);
     }
+
+    getHostelsWishlists(hostelId: number): Promise<ResponseData> {
+        return this.ajax('GET', `/api/v1/wishlists/hotels/${hostelId}`);
+    }
 }
 
 export default new NetworkWishlist(BACKEND_ADDRESS_HOSTEL, BACKEND_ADDRESS_CSRF, TEXT_ERROR_CSRF);

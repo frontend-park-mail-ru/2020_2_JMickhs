@@ -96,10 +96,6 @@
     opacity: var(--opacity-button-disabled);
 }
 
-.hostel__title--orange {
-    color: var(--orange);
-}
-
 .hostel__text {
     font-weight: normal;
 }
