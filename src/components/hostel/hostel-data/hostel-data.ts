@@ -52,7 +52,8 @@ export default class HostelDataComponent implements AbstractComponent {
         this.getWishlists();
     }
 
-    private render(hostel: HostelData, wishlists: WishlistsStruct[], moreThan3Wishlists: boolean): void {
+    private render(hostel: HostelData, wishlists: WishlistsStruct[]): void {
+        const moreThan3Wishlists = this.wishlists.length > 3;
         this.place.innerHTML = dataTemplate({
             hostel,
             isAuth: User.isAuth,
@@ -90,16 +91,14 @@ export default class HostelDataComponent implements AbstractComponent {
         this.hostel.rating = arg.rating;
 
         this.unsubscribeEvents();
-        const isLengthMoreThan3 = this.wishlists.length > 3;
-        this.render(this.hostel, this.wishlists, isLengthMoreThan3);
+        this.render(this.hostel, this.wishlists);
     };
 
     private updateWishlists = (arg: {id: number, name: string}): void => {
         this.wishlists.push({ name: arg.name, wishlist_id: arg.id });
 
         this.unsubscribeEvents();
-        const isLengthMoreThan3 = this.wishlists.length > 3;
-        this.render(this.hostel, this.wishlists.slice(0, 3), isLengthMoreThan3);
+        this.render(this.hostel, this.wishlists.slice(0, 3));
     };
 
     private clickMapButton = (evt: Event): void => {
@@ -121,8 +120,7 @@ export default class HostelDataComponent implements AbstractComponent {
                 case 200:
                     const data = value.data as {wishlists: WishlistsStruct[]};
                     this.wishlists = data.wishlists || [];
-                    const isLengthMoreThan3 = this.wishlists.length > 3;
-                    this.render(this.hostel, this.wishlists.slice(0, 3), isLengthMoreThan3);
+                    this.render(this.hostel, this.wishlists.slice(0, 3));
                     break;
                 case 400:
                     Redirector.redirectError(ERROR_400);

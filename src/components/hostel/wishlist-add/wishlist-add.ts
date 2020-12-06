@@ -19,6 +19,8 @@ import * as template from './wishlist-add.hbs';
 import './wishlist-add.css';
 
 const ERROR_ALIEN_WISHLIST = 'Вы обращаетесь к чужому списку избранного';
+const ERROR_ADD_EXIST_HOSTEL = 'Этот отель уже есть в папке с названием';
+const ACCEPT_ADD_WISHLIST = 'Отель добавлен в папку с названием';
 
 export default class WishlistAddComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -140,7 +142,7 @@ export default class WishlistAddComponent implements AbstractComponent {
             switch (code) {
                 case 200:
                     Events.trigger(UPDATE_WISHLISTS, { id: wishlistId, name: element.innerText });
-                    NotificationUser.showMessage(`Отель добавлен в папку с названием ${element.innerText}`);
+                    NotificationUser.showMessage(`${ACCEPT_ADD_WISHLIST} ${element.innerText}`);
                     break;
                 case 400:
                     Events.trigger(DEACTIVATE_POPUP);
@@ -151,7 +153,7 @@ export default class WishlistAddComponent implements AbstractComponent {
                     Redirector.redirectError(ERROR_403);
                     break;
                 case 409:
-                    NotificationUser.showMessage(`Этот отель уже есть в папке с названием ${element.innerText}`);
+                    NotificationUser.showMessage(`${ERROR_ADD_EXIST_HOSTEL} ${element.innerText}`);
                     break;
                 case 423:
                     Events.trigger(DEACTIVATE_POPUP);
