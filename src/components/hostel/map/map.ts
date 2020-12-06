@@ -8,7 +8,7 @@ import { Loader } from 'google-maps';
 import * as template from './map.hbs';
 import './map.css';
 
-const mapApiKey = 'AIzaSyDRvlTULyQ1ADfqMmVTSrzt-y9_8DyETkc';
+const MAP_API_KEY = 'AIzaSyDRvlTULyQ1ADfqMmVTSrzt-y9_8DyETkc';
 
 export default class MapComponent implements AbstractComponent {
     private loader: Loader;
@@ -22,7 +22,7 @@ export default class MapComponent implements AbstractComponent {
     private loaded: boolean;
 
     constructor() {
-        this.loader = new Loader(mapApiKey);
+        this.loader = new Loader(MAP_API_KEY);
         this.loaded = false;
     }
 
