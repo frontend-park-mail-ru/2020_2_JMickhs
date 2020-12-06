@@ -2,7 +2,8 @@ import './hostel-data.css';
 import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Events from '@eventbus/eventbus';
 import {
-    UPDATE_RATING_HOSTEL, UPDATE_WISHLISTS,
+    UPDATE_RATING_HOSTEL,
+    UPDATE_WISHLISTS,
 } from '@eventbus/constants';
 import type { AbstractComponent } from '@interfaces/components';
 import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
@@ -98,7 +99,7 @@ export default class HostelDataComponent implements AbstractComponent {
 
         this.unsubscribeEvents();
         const isLengthMoreThan3 = this.wishlists.length > 3;
-        this.render(this.hostel, this.wishlists, isLengthMoreThan3);
+        this.render(this.hostel, this.wishlists.slice(0, 3), isLengthMoreThan3);
     };
 
     private clickMapButton = (evt: Event): void => {
@@ -121,7 +122,7 @@ export default class HostelDataComponent implements AbstractComponent {
                     const data = value.data as {wishlists: WishlistsStruct[]};
                     this.wishlists = data.wishlists || [];
                     const isLengthMoreThan3 = this.wishlists.length > 3;
-                    this.render(this.hostel, this.wishlists, isLengthMoreThan3);
+                    this.render(this.hostel, this.wishlists.slice(0, 3), isLengthMoreThan3);
                     break;
                 case 400:
                     Redirector.redirectError(ERROR_400);
