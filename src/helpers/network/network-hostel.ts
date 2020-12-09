@@ -52,6 +52,10 @@ class NetworkHostel extends NetworkAbtract {
     getCommentsFromUrl(url: string): Promise<ResponseData> {
         return this.ajax('GET', url);
     }
+
+    getRecommendedHostels(): Promise<ResponseData> {
+        return this.ajax('GET', '/api/v1/hotels/recommendations');
+    }
 }
 
 export default new NetworkHostel(BACKEND_ADDRESS_HOSTEL, BACKEND_ADDRESS_CSRF, TEXT_ERROR_CSRF);

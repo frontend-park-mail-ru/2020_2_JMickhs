@@ -43,11 +43,11 @@
 }
 
 .list__container-all {
-    height: 100%;
+    height: min-content;
     display: grid;
     grid-gap: 2%;
     grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(270px, 30vh));
     align-items: center;
     justify-items: center;
     justify-content: space-between;
@@ -75,7 +75,6 @@
 
 @media only screen and (max-width: 750px) {
     .list__container-all {
-        padding-top: 8%;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(auto-fill, minmax(250px, 1fr));
         grid-gap: 4vh;

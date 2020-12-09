@@ -13,6 +13,7 @@ export default class HomeController implements PageController {
     }
 
     activate(params?: URLSearchParams): void {
+        this.model.getRecommendation();
         this.view.render();
         if (params) {
             this.updateParams(params);

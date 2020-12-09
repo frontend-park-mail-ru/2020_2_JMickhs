@@ -1,9 +1,12 @@
 .home__container-all {
     height: 100%;
     display: grid;
-    grid-template-areas: "search";
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr;
+    grid-template-areas:
+        "search"
+        "label"
+        "list";
+    grid-template-rows: auto min-content auto;
+    /*grid-template-columns: 1fr;*/
     position: relative;
     align-items: center;
     justify-items: center;
@@ -33,12 +36,19 @@
     display: flex;
     justify-content: flex-end;
     padding: 5% 0;
+    align-self: end;
+}
+
+.home__search--start-page-indents {
+    padding: 3% 0;
+    margin-top: 2%;
 }
 
 .home__list {
     grid-area: list;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+    align-self: start;
 }
 
 .home__button-orange--size {
@@ -58,6 +68,11 @@
     width: 100%;
     min-width: 170px;
     transition: 0.3s;
+}
+
+.home__recommendation-label {
+    grid-area: label;
+    color: var(--red);
 }
 
 .home__search-input:hover {
@@ -193,4 +208,10 @@
     background-image: url('https://hostelscan.ru/filter.png');
     background-position: center;
     background-size: cover;
+}
+
+@media only screen and (max-width: 750px) {
+    .home__recommendation-label {
+        padding-top: 5%;
+    }
 }
