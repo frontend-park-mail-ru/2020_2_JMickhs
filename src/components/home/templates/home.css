@@ -72,7 +72,7 @@
 
 .home__recommendation-label {
     grid-area: label;
-    color: var(--red);
+    color: var(--blue);
 }
 
 .home__search-input:hover {
