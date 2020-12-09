@@ -76,6 +76,7 @@ export default class HomeView extends PageView {
     }
 
     listComponentOn(pattern: string): void {
+        this.listComponent.hide();
         this.inputElement.value = pattern;
         this.recommendationLabelElement.classList.add('home__display-none');
         this.searchForm.classList.remove('home__search--start-page-indents');
