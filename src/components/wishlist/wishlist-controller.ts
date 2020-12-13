@@ -39,7 +39,7 @@ export default class WishlistController implements PageController {
 
     private renderWishlists = (wishlists: WishlistsStruct[]): void => {
         if (!wishlists) {
-            this.view.renderError('У вас пока нет ни одного списка избранного');
+            this.view.renderError('У вас пока нет ни одной папки в избранном');
             return;
         }
         this.view.wishlists = wishlists;
@@ -61,7 +61,7 @@ export default class WishlistController implements PageController {
             return;
         }
         this.urlSearchParams = params;
-        this.view.render();
+        this.view.render(+id);
         this.model.getWishlist(+id);
     }
 

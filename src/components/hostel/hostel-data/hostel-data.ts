@@ -3,6 +3,7 @@ import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
+    UPDATE_WISHLISTS,
 } from '@eventbus/constants';
 import type { AbstractComponent } from '@interfaces/components';
 import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
@@ -10,6 +11,15 @@ import WishlistAddComponent from '@hostel/wishlist-add/wishlist-add';
 import Popup from '@popup/popup';
 import MapComponent from '@hostel/map/map';
 import User from '@/helpers/user/user';
+import NetworkWishlist from '@network/network-wishlist';
+import Redirector from '@router/redirector';
+import {
+    ERROR_400,
+    ERROR_DEFAULT,
+} from '@global-variables/network-error';
+import type { WishlistsStruct } from '@interfaces/structs-data/wishlists';
+
+const MAX_WISHLISTS_ELEMENTS = 3;
 
 export default class HostelDataComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -23,6 +33,8 @@ export default class HostelDataComponent implements AbstractComponent {
     private wishlistButton?: HTMLButtonElement;
 
     private hostel: HostelData;
+
+    private wishlists: WishlistsStruct[];
 
     constructor() {
         this.mapComponent = new MapComponent();
@@ -39,11 +51,17 @@ export default class HostelDataComponent implements AbstractComponent {
         }
 
         this.hostel = hostel;
-        this.render(this.hostel);
+        this.getWishlists();
     }
 
-    private render(hostel: HostelData): void {
-        this.place.innerHTML = dataTemplate({ hostel, isAuth: User.isAuth });
+    private render(hostel: HostelData, wishlists: WishlistsStruct[]): void {
+        const moreThanMaxWishlists = this.wishlists.length > MAX_WISHLISTS_ELEMENTS;
+        this.place.innerHTML = dataTemplate({
+            hostel,
+            isAuth: User.isAuth,
+            wishlists,
+            moreThanMaxWishlists,
+        });
 
         this.buttonMap = document.getElementById('map-button') as HTMLButtonElement;
         this.wishlistButton = document.getElementById('wishlist-button') as HTMLButtonElement;
@@ -58,12 +76,14 @@ export default class HostelDataComponent implements AbstractComponent {
 
     private subscribeEvents(): void {
         Events.subscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
+        Events.subscribe(UPDATE_WISHLISTS, this.updateWishlists);
         this.buttonMap.addEventListener('click', this.clickMapButton);
         this.wishlistButton?.addEventListener('click', this.clickWishlistButton);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
+        Events.unsubscribe(UPDATE_WISHLISTS, this.updateWishlists);
         this.buttonMap.removeEventListener('click', this.clickMapButton);
         this.wishlistButton?.removeEventListener('click', this.clickWishlistButton);
     }
@@ -73,7 +93,14 @@ export default class HostelDataComponent implements AbstractComponent {
         this.hostel.rating = arg.rating;
 
         this.unsubscribeEvents();
-        this.render(this.hostel);
+        this.render(this.hostel, this.wishlists);
+    };
+
+    private updateWishlists = (arg: {id: number, name: string}): void => {
+        this.wishlists.push({ name: arg.name, wishlist_id: arg.id });
+
+        this.unsubscribeEvents();
+        this.render(this.hostel, this.wishlists.slice(0, MAX_WISHLISTS_ELEMENTS));
     };
 
     private clickMapButton = (evt: Event): void => {
@@ -84,5 +111,26 @@ export default class HostelDataComponent implements AbstractComponent {
     private clickWishlistButton = (evt: Event): void => {
         evt.preventDefault();
         Popup.activate(this.wishlistAddComponent, this.hostel.id);
+    };
+
+    private getWishlists = (): void => {
+        const response = NetworkWishlist.getHostelsWishlists(this.hostel.id);
+
+        response.then((value) => {
+            const { code } = value;
+            switch (code) {
+                case 200:
+                    const data = value.data as {wishlists: WishlistsStruct[]};
+                    this.wishlists = data.wishlists || [];
+                    this.render(this.hostel, this.wishlists.slice(0, MAX_WISHLISTS_ELEMENTS));
+                    break;
+                case 400:
+                    Redirector.redirectError(ERROR_400);
+                    break;
+                default:
+                    Redirector.redirectError(`${ERROR_DEFAULT}${code || value.error}`);
+                    break;
+            }
+        });
     };
 }

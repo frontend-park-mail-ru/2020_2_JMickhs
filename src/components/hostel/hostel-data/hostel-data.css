@@ -29,6 +29,29 @@
     font-weight: bolder;
 }
 
+.hostel__title--orange {
+    color: var(--orange);
+}
+
+.hostel__title--blue {
+    color: var(--blue);
+}
+
+.hostel__wishlist {
+    border-radius: var(--border-radius-regular);
+    background-color: var(--gray-white-blue);
+    width: fit-content;
+    padding: 0 10px;
+    margin-right: 10px;
+    font-family: inherit;
+    text-decoration: none;
+    color: inherit;
+}
+
+.hostel__wishlist-label {
+    margin-right: 10px;
+}
+
 .hostel__star::before {
     overflow: hidden;
     width: 265px;

@@ -3,7 +3,10 @@ import Redirector from '@router/redirector';
 import type { WishlistsStruct } from '@interfaces/structs-data/wishlists';
 import NetworkWishlist from '@network/network-wishlist';
 import Events from '@eventbus/eventbus';
-import { DEACTIVATE_POPUP } from '@eventbus/constants';
+import {
+    DEACTIVATE_POPUP,
+    UPDATE_WISHLISTS,
+} from '@eventbus/constants';
 import {
     ERROR_400,
     ERROR_401,
@@ -16,6 +19,8 @@ import * as template from './wishlist-add.hbs';
 import './wishlist-add.css';
 
 const ERROR_ALIEN_WISHLIST = 'Вы обращаетесь к чужому списку избранного';
+const ERROR_ADD_EXIST_HOSTEL = 'Этот отель уже есть в папке с названием';
+const ACCEPT_ADD_WISHLIST = 'Отель добавлен в папку с названием';
 
 export default class WishlistAddComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -73,7 +78,7 @@ export default class WishlistAddComponent implements AbstractComponent {
         this.createWishlistButton.removeEventListener('click', this.buttonClick);
         this.wishlists.forEach((wishlist) => {
             const element = document.getElementById(`wishlist-name-${wishlist.wishlist_id}-${this.hostelId}`);
-            element.removeEventListener('click', this.toWishlist);
+            element?.removeEventListener('click', this.toWishlist); // вопросительный знак на всякий случай
         });
     }
 
@@ -85,12 +90,26 @@ export default class WishlistAddComponent implements AbstractComponent {
         this.namesContainerElement.appendChild(this.newWishlistInput);
         this.createWishlistButton.id = 'accept-button';
         this.createWishlistButton.innerText = 'Подтвердить создание';
+        this.newWishlistInput.addEventListener('keyup', this.keyboardInputClick);
+        this.createWishlistButton.disabled = true;
     }
 
+    private keyboardInputClick = (event: KeyboardEvent): void => {
+        if (this.newWishlistInput.value === '') {
+            this.createWishlistButton.disabled = true;
+            return;
+        }
+        this.createWishlistButton.disabled = false;
+        if (event.code === 'Enter') {
+            this.buttonClick();
+        }
+    };
+
     private acceptWishlist(id: number): void {
+        this.newWishlistInput.removeEventListener('keyup', this.keyboardInputClick);
         const inputValue = this.newWishlistInput.value;
         this.createWishlistButton.id = 'create-button';
-        this.createWishlistButton.innerText = 'Создать новое избранное';
+        this.createWishlistButton.innerText = 'Создать новую папку';
         const newWishlistName = document.createElement('div');
         newWishlistName.classList.add('wishlist-add__name');
         newWishlistName.innerText = inputValue;
@@ -111,7 +130,8 @@ export default class WishlistAddComponent implements AbstractComponent {
     };
 
     private toWishlist = (evt: Event): void => {
-        const elementId = (<HTMLElement>evt.target).id;
+        const element = evt.target as HTMLElement;
+        const elementId = element.id;
         const array = elementId.split('-');
         const wishlistId = array[2];
         const hostelId = array[3];
@@ -121,7 +141,8 @@ export default class WishlistAddComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    NotificationUser.showMessage('Отель добавлен в избранное');
+                    Events.trigger(UPDATE_WISHLISTS, { id: wishlistId, name: element.innerText });
+                    NotificationUser.showMessage(`${ACCEPT_ADD_WISHLIST} ${element.innerText}`);
                     break;
                 case 400:
                     Events.trigger(DEACTIVATE_POPUP);
@@ -132,7 +153,7 @@ export default class WishlistAddComponent implements AbstractComponent {
                     Redirector.redirectError(ERROR_403);
                     break;
                 case 409:
-                    NotificationUser.showMessage('Этот отель уже в избранном');
+                    NotificationUser.showMessage(`${ERROR_ADD_EXIST_HOSTEL} ${element.innerText}`);
                     break;
                 case 423:
                     Events.trigger(DEACTIVATE_POPUP);

@@ -57,7 +57,7 @@
     border-radius: var(--border-radius-round);
     background-color: var(--orange);
     color: var(--white);
-    padding: 16px 20px;
+    padding: 16px 2px;
     border: none;
     cursor: pointer;
     text-decoration: none;
@@ -66,6 +66,11 @@
     z-index: var(--z-index-button);
     transition: 0.3s;
     grid-column: 2 / 3;
+}
+
+.wishlists-list__button-round:disabled {
+    opacity: var(--opacity-button-disabled);
+    pointer-events: none;
 }
 
 .wishlists-list__button-round:hover {
