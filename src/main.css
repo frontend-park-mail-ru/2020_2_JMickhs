@@ -17,6 +17,7 @@
     --gray-new: #3c3f41;
     --gray-white-blue: #D7DFE0;
     --shadow-color: rgba(0, 0, 0, 0.4);
+    --black: black;
 
     --z-index-navbar: 2500;
     --z-index-button: 2000;
@@ -28,6 +29,7 @@
 
     --font-size-large: large;
     --font-size-regular: 17px;
+    --font-size-small: 13px;
     --font-size-header: 24px;
 
     --border-radius-legacy-design: 5px;
@@ -35,6 +37,7 @@
     --border-radius-round: 1000px;
 
     --border-regular: 4px solid var(--blue);
+    --border-title: 1px solid var(--white);
 
     --opacity-button-disabled: 0.8;
 }
