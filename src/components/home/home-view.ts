@@ -12,7 +12,7 @@ import FilterComponent from '@/components/home/filtration/filtration';
 import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
 
-const searchInputMaxLength = 50;
+const SEARCH_INPUT_MAX_LENGTH = 50;
 
 export default class HomeView extends PageView {
     private mainContainerElement: HTMLDivElement;
@@ -63,8 +63,8 @@ export default class HomeView extends PageView {
     };
 
     private changeInput = (): void => {
-        if (this.inputElement.value.length > searchInputMaxLength) {
-            this.renderError(`Длинна запроса не должна превышать ${searchInputMaxLength} символов`);
+        if (this.inputElement.value.length > SEARCH_INPUT_MAX_LENGTH) {
+            this.renderError(`Длинна запроса не должна превышать ${SEARCH_INPUT_MAX_LENGTH} символов`);
         }
     };
 
