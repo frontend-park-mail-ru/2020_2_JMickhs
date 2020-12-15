@@ -22,7 +22,7 @@
     --z-index-navbar: 2500;
     --z-index-button: 2000;
     --z-index-popup: 3000;
-    --z-index-title: 3500;
+    --z-index-tooltip: 3500;
 
     --box-shadow-thin: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     --box-shadow-bold: 0 8px 16px 0 rgba(0, 0, 0, 0.4);

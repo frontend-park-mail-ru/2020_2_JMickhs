@@ -228,7 +228,7 @@
 .navbar--filter-title {
     width: fit-content;
     font-size: var(--font-size-small);
-    z-index: var(--z-index-title);
+    z-index: var(--z-index-tooltip);
     display: none;
     position: absolute;
     background-color: var(--black);
