@@ -76,7 +76,6 @@ export default class Chat implements AbstractComponent {
         if (!this.place) {
             return;
         }
-
         if (params) {
             this.socket = new CustomWebSocket(`wss://hostelscan.ru:8080/api/v1/ws?${params.toString()}`);
         } else {
@@ -84,7 +83,6 @@ export default class Chat implements AbstractComponent {
         }
 
         this.render();
-        this.subscribeEvents();
     }
 
     deactivate(): void {

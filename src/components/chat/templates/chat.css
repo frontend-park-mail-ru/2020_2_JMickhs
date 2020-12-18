@@ -82,14 +82,18 @@
     padding: 20px 15px;
     width: max-content;
     height: max-content;
+    margin-bottom: 20px;
+    border-radius: var(--border-radius-regular);
 }
 
 .chat__message--user-massage {
     background-color: var(--violet-light);
     justify-self: end;
+    margin-right: 20px;
 }
 
 .chat__message--moderator-massage {
     background-color: var(--gray-white-blue);
     justify-self: start;
+    margin-left: 20px;
 }
