@@ -22,10 +22,6 @@ export default class Chat implements AbstractComponent {
 
     private socket: CustomWebSocket;
 
-    constructor() {
-        this.socket = new CustomWebSocket(WEBSOCKET_URL);
-    }
-
     private subscribeEvents(): void {
         Events.subscribe(WEBSOCKET_GET_MESSAGE, this.renderNewMessage);
 
@@ -76,9 +72,15 @@ export default class Chat implements AbstractComponent {
         this.place.innerHTML = '';
     }
 
-    activate():void {
+    activate(params?: URLSearchParams):void {
         if (!this.place) {
             return;
+        }
+
+        if (params) {
+            this.socket = new CustomWebSocket(`wss://hostelscan.ru:8080/api/v1/ws${params.toString()}`);
+        } else {
+            this.socket = new CustomWebSocket(WEBSOCKET_URL);
         }
 
         this.render();
