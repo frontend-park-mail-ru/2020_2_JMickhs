@@ -13,6 +13,7 @@ import * as template from '@hostel/comment-user/comment-user.hbs';
 import './comment-user.css';
 import type { UserData } from '@interfaces/structs-data/user-data';
 import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
+import CommentImagesComponent from '../comment-images/comment-images';
 
 const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
 
@@ -41,8 +42,14 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private user = User;
 
+    private commentImages = new CommentImagesComponent();
+
     setPlace(place: HTMLDivElement): void {
         this.place = place;
+    }
+
+    setImagesPlace(place: HTMLDivElement): void {
+        this.commentImages.setPlace(place);
     }
 
     activate(idHostel: number, comment?: CommentData): void {

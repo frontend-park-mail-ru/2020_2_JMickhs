@@ -5,8 +5,9 @@
     display: grid;
     grid-template-areas:
         "images data"
-        "comments comment";
-    grid-template-rows: repeat(2, min-content);
+        "comments comment"
+        "unknow comment-images";
+    grid-template-rows: repeat(3, min-content);
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 6%;
 }
@@ -17,8 +18,9 @@
             "images"
             "data"
             "comment"
+            "comment-images"
             "comments";
-        grid-template-rows: repeat(4, auto);
+        grid-template-rows: repeat(5, auto);
         grid-template-columns: 1fr;
         grid-gap: 2%;
     }
@@ -28,6 +30,12 @@
     .hostel__comments {
         margin-bottom: 5%;
     }
+}
+
+.hostel__comment-images {
+    grid-area: comment-images;
+    width: 100%;
+    background-color: blueviolet;
 }
 
 .hostel__images {
