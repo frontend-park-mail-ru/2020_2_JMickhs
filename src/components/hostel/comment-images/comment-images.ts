@@ -1,6 +1,7 @@
 import type { AbstractComponent } from '@interfaces/components';
 
 import * as templateContainer from '@hostel/comment-images/container-images.hbs';
+import './comment-images.css';
 
 export default class CommentImagesComponent implements AbstractComponent {
     private arrayImages: string[];
@@ -26,8 +27,8 @@ export default class CommentImagesComponent implements AbstractComponent {
         this.container = document.getElementById('container-comment-images') as HTMLDivElement;
     }
 
-    private addImage(): void {
-        this.container.innerHTML += '<p>Изображение</p>';
+    private addImage(image: string): void {
+        this.container.innerHTML += `<p>Изображение${image}</p>`;
     }
 
     deactivate(): void {

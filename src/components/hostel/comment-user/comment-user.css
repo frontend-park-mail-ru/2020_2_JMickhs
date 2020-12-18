@@ -1,3 +1,12 @@
+label{
+    /* display: inline-block; */
+    background-color: indigo;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+}
+
 .hostel__textarea-container {
     width: 100%;
     margin: auto;

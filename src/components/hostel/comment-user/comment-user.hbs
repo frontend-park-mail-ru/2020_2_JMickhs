@@ -10,32 +10,32 @@
                 <option>2</option>
                 <option>1</option>
             </select>
-            Добавьте фотографии
+            Фотографии
+            <input type="file" class="custom-file-input" name="photos" id="upload" hidden>
+            <label for="upload">Choose file</label>
+        <form class="hostel__comment-container">
+            {{#if showTextArea}}
+            <div class="hostel__textarea hostel__textarea--editing">
+                <textarea id="comment-textarea" class="hostel__textarea-element"
+                    placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}
+            </textarea>
+
+            </div>
+            {{else}}
+            <div class="hostel__textarea">
+                <p class="hostel__textarea-element">{{#if comment}}{{comment.message}}{{/if}}</p>
+            </div>
+            {{/if}}
+
+            <button class="hostel__button-round hostel__button--position-center"
+                id="button-comment">{{buttonName}}</button>
+        </form>
+    </div>
+    {{else}}
+    <div class="hostel__message-container">
+        <p class="hostel__title hostel__text--blue">
+            Чтобы оставлять комментарии, нужно
+            <a href="/signin" class="hostel__title hostel__text--orange">авторизоваться</a>
         </p>
     </div>
-    <form class="hostel__comment-container">
-
-        {{#if showTextArea}}
-        <div class="hostel__textarea hostel__textarea--editing">
-            <textarea id="comment-textarea" class="hostel__textarea-element"
-                placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}
-            </textarea>
-            
-        </div>
-        {{else}}
-        <div class="hostel__textarea">
-            <p class="hostel__textarea-element">{{#if comment}}{{comment.message}}{{/if}}</p>
-        </div>
-        {{/if}}
-
-        <button class="hostel__button-round hostel__button--position-center" id="button-comment">{{buttonName}}</button>
-    </form>
-</div>
-{{else}}
-<div class="hostel__message-container">
-    <p class="hostel__title hostel__text--blue">
-        Чтобы оставлять комментарии, нужно
-        <a href="/signin" class="hostel__title hostel__text--orange">авторизоваться</a>
-    </p>
-</div>
-{{/if}}
+    {{/if}}
