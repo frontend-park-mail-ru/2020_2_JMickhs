@@ -78,7 +78,7 @@ export default class Chat implements AbstractComponent {
         }
 
         if (params) {
-            this.socket = new CustomWebSocket(`wss://hostelscan.ru:8080/api/v1/ws${params.toString()}`);
+            this.socket = new CustomWebSocket(`wss://hostelscan.ru:8080/api/v1/ws?${params.toString()}`);
         } else {
             this.socket = new CustomWebSocket(WEBSOCKET_URL);
         }
