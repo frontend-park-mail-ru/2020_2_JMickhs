@@ -1,0 +1,95 @@
+.chat__container {
+    height: 600px;
+    width: 400px;
+    display: grid;
+    grid-template-areas: "header"
+                         "messages"
+                         "form";
+    grid-template-rows: 50px 1fr min-content;
+}
+
+.chat__header {
+    grid-area: header;
+    background-color: var(--blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border-radius: var(--border-radius-regular);
+}
+
+.chat__messages_container {
+    grid-area: messages;
+    background-color: var(--opacity-white);
+    border-radius: var(--border-radius-regular);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.chat__messages_grid {
+    display: grid;
+    grid-template-rows: max-content;
+    align-content: end;
+    /*height: 100%;*/
+    margin-top: 1px;
+}
+
+.chat__footer {
+    grid-area: form;
+    display: flex;
+}
+
+.chat__input {
+    width: 100%;
+    border-radius: var(--border-radius-round);
+    background-color: var(--white);
+    outline: none;
+    padding-left: 10px;
+}
+
+.chat__input:focus::placeholder {
+    color: var(--transparent);
+}
+
+.chat__submit-button {
+    border-radius: var(--border-radius-round);
+    background-color: var(--orange-new);
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--white);
+    font-weight: 500;
+    font-size: var(--font-size-regular);
+    padding: 9px 30px;
+    border: none;
+    outline: none;
+    height: 45px;
+    transition: 0.3s;
+}
+
+.chat__submit-button:hover {
+    background-color: var(--orange);
+    box-shadow: 0 0 16px var(--shadow-color);
+}
+
+.chat__submit-button:disabled {
+    opacity: var(--opacity-button-disabled);
+    pointer-events: none;
+}
+
+.chat__message {
+    padding: 20px 15px;
+    width: max-content;
+    height: max-content;
+}
+
+.chat__message--user-massage {
+    background-color: var(--violet-light);
+    justify-self: end;
+}
+
+.chat__message--moderator-massage {
+    background-color: var(--gray-white-blue);
+    justify-self: start;
+}

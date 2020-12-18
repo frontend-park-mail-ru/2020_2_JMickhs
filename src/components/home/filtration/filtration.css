@@ -34,7 +34,7 @@
 }
 
 .filtration__input:focus::placeholder {
-    color: transparent;
+    color: var(--transparent);
 }
 
 .filtration__comment {
