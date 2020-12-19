@@ -17,10 +17,14 @@ import CommentImagesComponent from '../comment-images/comment-images';
 
 const MAX_IMAGES_COUNT = 5;
 const MAX_SIZE_FILE = 5242880; // 5мб
+const MAX_SIZE_TEXT_COMMENT = 200;
 
 const ERROR_COUNT_MESSAGES = 'Нельзя добавить больше 5 фотографий!';
 const ERROR_SIZE_FILE = 'Размер фотографии не должен превышать 5 мб!';
 const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
+const ERROR_DONT_CHANGE_COMMENT = 'Вы ничего не поменяли';
+const ERROR_DONT_TEXT = 'Вы не оставили комментарий!';
+const ERROR_TEXT_SIZE = `Размер текста не может превышать ${MAX_SIZE_TEXT_COMMENT} символов`;
 
 export default class CommentUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -45,6 +49,8 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private fileInput?: HTMLInputElement;
 
+    private changedFiles = false;
+
     private notification = NotificationUser;
 
     private user = User;
@@ -68,9 +74,6 @@ export default class CommentUserComponent implements AbstractComponent {
 
         this.render();
         this.subscribeEvents();
-
-        this.commentImages.setPlace(document.getElementById('user-comments-images') as HTMLDivElement);
-        this.commentImages.activate();
     }
 
     private render(): void {
@@ -86,7 +89,11 @@ export default class CommentUserComponent implements AbstractComponent {
         };
 
         this.place.innerHTML = template(viewModel);
-        if (this.comment) {
+
+        this.commentImages.deactivate();
+        this.commentImages.setPlace(document.getElementById('user-comments-images') as HTMLDivElement);
+        this.commentImages.activate();
+        if (this.comment?.photos) {
             this.commentImages.clear();
             this.comment.photos.forEach((url) => {
                 this.commentImages.addImage(url);
@@ -121,7 +128,6 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private addFiles = (event: Event): void => {
         event.preventDefault();
-
         const array = this.fileInput.files;
         if (!array) {
             return;
@@ -153,6 +159,7 @@ export default class CommentUserComponent implements AbstractComponent {
             };
             reader.readAsDataURL(file);
         }
+        this.changedFiles = true;
     };
 
     private userAppear = (user: UserData): void => {
@@ -163,13 +170,24 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private clickSaveComment = (event: Event): void => {
         event.preventDefault();
+
+        const text = this.textArea.value;
+        if (text === '') {
+            this.renderMessage(ERROR_DONT_TEXT, true);
+            return;
+        }
+        if (text.length > MAX_SIZE_TEXT_COMMENT) {
+            this.renderMessage(ERROR_TEXT_SIZE, true);
+            return;
+        }
+
         this.saveCommentButton.disabled = true;
 
         if (this.comment) {
             const newMessage = this.textArea.value;
             const newRating = +this.selectRating.value;
-            if (this.comment.message === newMessage && this.comment.rating === newRating) {
-                this.renderMessage('Вы ничего не поменяли', true);
+            if (this.comment.message === newMessage && this.comment.rating === newRating && !this.changedFiles) {
+                this.renderMessage(ERROR_DONT_CHANGE_COMMENT, true);
                 this.saveCommentButton.disabled = false;
                 return;
             }
@@ -185,6 +203,7 @@ export default class CommentUserComponent implements AbstractComponent {
         this.showTextArea = true;
         this.saveCommentButton.removeEventListener('click', this.clickEditComment);
         this.render();
+        this.fileInput.addEventListener('change', this.addFiles);
         this.saveCommentButton.addEventListener('click', this.clickSaveComment);
     };
 
@@ -208,6 +227,7 @@ export default class CommentUserComponent implements AbstractComponent {
         response.then((value) => {
             const { code } = value;
             this.saveCommentButton.disabled = false;
+            this.changedFiles = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -239,11 +259,12 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private editComment(idComment: number, message: string, rating: number): void {
-        const response = NetworkHostel.editComment(idComment, message, rating);
+        const response = NetworkHostel.editComment(idComment, message, rating, this.changedFiles, this.fileInput.files);
 
         response.then((value) => {
             const { code } = value;
             this.saveCommentButton.disabled = false;
+            this.changedFiles = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
