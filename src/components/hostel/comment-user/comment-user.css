@@ -2,10 +2,11 @@
     display: inline-block;
     background-color: var(--orange);
     color: var(--white);
-    padding: 0.5rem;
-    border-radius: var(--border-radius-regular);
+    padding: 10px 10px;
+    border-radius: var(--border-radius-button);
     cursor: pointer;
     transition: 0.3s;
+    font-family: Comfortaa,cursive;
 }
 
 .hostel__file-button:hover {
