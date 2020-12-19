@@ -1,6 +1,7 @@
 {{#if isAuth}}
 <div class="hostel__textarea-container">
     <div>
+        {{#if showTextArea}}
         <p class="hostel__title hostel__text--blue">Ваша оценка - {{#if comment}}{{comment.rating}} Новая оценка
             -{{/if}}
             <select class="hostel__select" id="select-rating">
@@ -11,15 +12,19 @@
                 <option>1</option>
             </select>
             Фотографии
-            <input type="file" class="custom-file-input" name="photos" id="upload" hidden>
-            <label for="upload">Choose file</label>
+            <input type="file" name="photos" id="upload-comment" accept=".jpg, .jpeg, .png"
+                hidden multiple>
+            <label for="upload-comment" class="hostel__file-button">Выбрать</label>
+        </p>
+        {{else}}
+        <p class="hostel__title hostel__text--blue">{{#if comment}}Ваша оценка - {{comment.rating}} {{/if}}
+        </p>
+        {{/if}}
         <form class="hostel__comment-container">
             {{#if showTextArea}}
             <div class="hostel__textarea hostel__textarea--editing">
-                <textarea id="comment-textarea" class="hostel__textarea-element"
-                    placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}
-            </textarea>
-
+                <textarea id="comment-textarea" class="hostel__textarea-element" placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}
+                </textarea>
             </div>
             {{else}}
             <div class="hostel__textarea">

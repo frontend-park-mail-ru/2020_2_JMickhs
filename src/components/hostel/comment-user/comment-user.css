@@ -1,10 +1,15 @@
-label{
-    /* display: inline-block; */
-    background-color: indigo;
-    color: white;
+.hostel__file-button {
+    display: inline-block;
+    background-color: var(--orange);
+    color: var(--white);
     padding: 0.5rem;
-    border-radius: 0.3rem;
+    border-radius: var(--border-radius-regular);
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.hostel__file-button:hover {
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__textarea-container {
@@ -66,6 +71,11 @@ label{
     outline: none;
     border: none;
     font-size: var(--font-size-large);
+    transition: 0.3s;
+}
+
+.hostel__select:hover {
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__button--position-center {

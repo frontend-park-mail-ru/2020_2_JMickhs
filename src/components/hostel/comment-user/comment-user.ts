@@ -15,6 +15,9 @@ import type { UserData } from '@interfaces/structs-data/user-data';
 import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
 import CommentImagesComponent from '../comment-images/comment-images';
 
+const MAX_IMAGES_COUNT = 5;
+
+const ERROR_COUNT_MESSAGES = 'Нельзя добавить больше 5 фотографий!';
 const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
 
 export default class CommentUserComponent implements AbstractComponent {
@@ -37,6 +40,8 @@ export default class CommentUserComponent implements AbstractComponent {
     private textArea: HTMLTextAreaElement;
 
     private selectRating: HTMLSelectElement;
+
+    private fileInput?: HTMLInputElement;
 
     private notification = NotificationUser;
 
@@ -65,6 +70,8 @@ export default class CommentUserComponent implements AbstractComponent {
 
         this.render();
         this.subscribeEvents();
+
+        this.commentImages.activate();
     }
 
     private render(): void {
@@ -83,7 +90,7 @@ export default class CommentUserComponent implements AbstractComponent {
         this.saveCommentButton = document.getElementById('button-comment') as HTMLButtonElement;
         this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
         this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
-
+        this.fileInput = document.getElementById('upload-comment') as HTMLInputElement;
         if (this.saveCommentButton) {
             this.saveCommentButton.disabled = false;
         }
@@ -92,6 +99,7 @@ export default class CommentUserComponent implements AbstractComponent {
     private subscribeEvents(): void {
         Events.subscribe(AUTH_USER, this.userAppear);
 
+        this.fileInput?.addEventListener('change', this.addFiles);
         if (this.buttonIsEdit) {
             this.saveCommentButton?.addEventListener('click', this.clickEditComment);
         } else {
@@ -103,7 +111,29 @@ export default class CommentUserComponent implements AbstractComponent {
         Events.unsubscribe(AUTH_USER, this.userAppear);
         this.saveCommentButton?.removeEventListener('click', this.clickEditComment);
         this.saveCommentButton?.removeEventListener('click', this.clickSaveComment);
+        this.fileInput?.removeEventListener('change', this.addFiles);
     }
+
+    private addFiles = (event: Event): void => {
+        event.preventDefault();
+
+        const array = this.fileInput.files;
+        if (!array) {
+            return;
+        }
+
+        if (array.length + this.commentImages.count > MAX_IMAGES_COUNT) {
+            this.fileInput.value = '';
+            this.notification.showMessage(ERROR_COUNT_MESSAGES, true);
+            return;
+        }
+
+        this.commentImages.clear();
+        for (let i = 0; i < array.length; i += 1) {
+            const file = array[i];
+            this.commentImages.addImage(file.name);
+        }
+    };
 
     private userAppear = (user: UserData): void => {
         if (user) {
@@ -143,6 +173,7 @@ export default class CommentUserComponent implements AbstractComponent {
             return;
         }
 
+        this.commentImages.deactivate();
         this.place.innerHTML = '';
         this.unsubscribeEvents();
     }

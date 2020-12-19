@@ -4,15 +4,11 @@ import * as templateContainer from '@hostel/comment-images/container-images.hbs'
 import './comment-images.css';
 
 export default class CommentImagesComponent implements AbstractComponent {
-    private arrayImages: string[];
-
     private place?: HTMLDivElement;
 
-    private container: HTMLDivElement;
+    private container?: HTMLDivElement;
 
-    constructor() {
-        this.arrayImages = [];
-    }
+    count = 0;
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -27,9 +23,22 @@ export default class CommentImagesComponent implements AbstractComponent {
         this.container = document.getElementById('container-comment-images') as HTMLDivElement;
     }
 
-    private addImage(image: string): void {
-        this.container.innerHTML += `<p>Изображение${image}</p>`;
+    addImage(image: string): void {
+        if (!this.container) {
+            return;
+        }
+
+        this.count += 1;
+        this.container.innerHTML += `<p>${image}</p>`;
     }
+
+    clear = (): void => {
+        if (!this.container) {
+            return;
+        }
+
+        this.container.innerHTML = '';
+    };
 
     deactivate(): void {
         if (!this.place) {

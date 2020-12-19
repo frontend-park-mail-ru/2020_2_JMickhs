@@ -35,7 +35,6 @@
 .hostel__comment-images {
     grid-area: comment-images;
     width: 100%;
-    background-color: blueviolet;
 }
 
 .hostel__images {
