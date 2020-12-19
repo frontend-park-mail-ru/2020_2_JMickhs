@@ -38,6 +38,7 @@ export default class CommentImagesComponent implements AbstractComponent {
             return;
         }
 
+        this.count = 0;
         this.container.innerHTML = '';
     };
 

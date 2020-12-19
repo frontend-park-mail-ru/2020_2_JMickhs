@@ -15,13 +15,18 @@ class NetworkHostel extends NetworkAbtract {
         return this.ajax('GET', `/api/v1/hotels/${id}`);
     }
 
-    addComment(idHostel: number, message: string, rate: number): Promise<ResponseData> {
-        const body = {
+    addComment(idHostel: number, message: string, rate: number, photos: FileList): Promise<ResponseData> {
+        const jsonData = {
             hotel_id: idHostel,
             message,
             rating: rate,
         };
 
+        const body = new FormData();
+        for (let i = 0; i < photos.length; i += 1) {
+            body.append('photos', photos[i]);
+        }
+        body.append('jsonData', JSON.stringify(jsonData));
         return this.ajax('POST', '/api/v1/comments', body, true);
     }
 

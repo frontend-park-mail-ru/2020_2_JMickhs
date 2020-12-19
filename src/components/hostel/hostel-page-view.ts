@@ -42,8 +42,6 @@ export default class HostelPageView extends PageView {
 
         const placeUserComment = document.getElementById('user-comment') as HTMLDivElement;
         this.userCommentComponent.setPlace(placeUserComment);
-        const placeUserImagesComment = document.getElementById('user-comments-images') as HTMLDivElement;
-        this.userCommentComponent.setImagesPlace(placeUserImagesComment);
         this.userCommentComponent.activate(data.hostel.id, data.comment);
 
         const placeComments = document.getElementById('hostel-comments') as HTMLDivElement;

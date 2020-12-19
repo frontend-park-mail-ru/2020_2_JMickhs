@@ -20,12 +20,12 @@
         <p class="hostel__title hostel__text--blue">{{#if comment}}Ваша оценка - {{comment.rating}} {{/if}}
         </p>
         {{/if}}
+        <div id="user-comments-images">
+        </div>
         <form class="hostel__comment-container">
             {{#if showTextArea}}
             <div class="hostel__textarea hostel__textarea--editing">
-                <textarea id="comment-textarea" class="hostel__textarea-element" placeholder="Оставьте свой комментарий!">
-                    {{#if comment}}{{comment.message}}{{/if}}
-                </textarea>
+                <textarea id="comment-textarea" class="hostel__textarea-element" placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}</textarea>
             </div>
             {{else}}
             <div class="hostel__textarea">

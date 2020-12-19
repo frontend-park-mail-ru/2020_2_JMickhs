@@ -55,10 +55,6 @@ export default class CommentUserComponent implements AbstractComponent {
         this.place = place;
     }
 
-    setImagesPlace(place: HTMLDivElement): void {
-        this.commentImages.setPlace(place);
-    }
-
     activate(idHostel: number, comment?: CommentData): void {
         if (!this.place) {
             return;
@@ -73,6 +69,7 @@ export default class CommentUserComponent implements AbstractComponent {
         this.render();
         this.subscribeEvents();
 
+        this.commentImages.setPlace(document.getElementById('user-comments-images') as HTMLDivElement);
         this.commentImages.activate();
     }
 
@@ -89,6 +86,12 @@ export default class CommentUserComponent implements AbstractComponent {
         };
 
         this.place.innerHTML = template(viewModel);
+        if (this.comment) {
+            this.commentImages.clear();
+            this.comment.photos.forEach((url) => {
+                this.commentImages.addImage(url);
+            });
+        }
         this.saveCommentButton = document.getElementById('button-comment') as HTMLButtonElement;
         this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
         this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
@@ -200,7 +203,7 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private addComment(idHostel: number, message: string, rate: number): void {
-        const response = NetworkHostel.addComment(idHostel, message, rate);
+        const response = NetworkHostel.addComment(idHostel, message, rate, this.fileInput.files);
 
         response.then((value) => {
             const { code } = value;

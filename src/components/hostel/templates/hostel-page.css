@@ -5,11 +5,11 @@
     display: grid;
     grid-template-areas:
         "images data"
-        "comments comment"
-        "unknow comment-images";
-    grid-template-rows: repeat(3, min-content);
+        "comments comment";
+    grid-template-rows: repeat(2, min-content);
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 6%;
+    row-gap: 1%;
+    column-gap: 6%;
 }
 
 @media all and (max-width: 768px) {
@@ -18,11 +18,10 @@
             "images"
             "data"
             "comment"
-            "comment-images"
             "comments";
-        grid-template-rows: repeat(5, auto);
+        grid-template-rows: repeat(4, auto);
         grid-template-columns: 1fr;
-        grid-gap: 2%;
+        grid-gap: 1%;
     }
     .hostel__images {
         margin-top: 5%;
