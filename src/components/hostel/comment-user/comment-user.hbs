@@ -23,7 +23,8 @@
         <form class="hostel__comment-container">
             {{#if showTextArea}}
             <div class="hostel__textarea hostel__textarea--editing">
-                <textarea id="comment-textarea" class="hostel__textarea-element" placeholder="Оставьте свой комментарий!">{{#if comment}}{{comment.message}}{{/if}}
+                <textarea id="comment-textarea" class="hostel__textarea-element" placeholder="Оставьте свой комментарий!">
+                    {{#if comment}}{{comment.message}}{{/if}}
                 </textarea>
             </div>
             {{else}}

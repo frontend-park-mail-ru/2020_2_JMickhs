@@ -16,8 +16,10 @@ import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/
 import CommentImagesComponent from '../comment-images/comment-images';
 
 const MAX_IMAGES_COUNT = 5;
+const MAX_SIZE_FILE = 5242880; // 5мб
 
 const ERROR_COUNT_MESSAGES = 'Нельзя добавить больше 5 фотографий!';
+const ERROR_SIZE_FILE = 'Размер фотографии не должен превышать 5 мб!';
 const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
 
 export default class CommentUserComponent implements AbstractComponent {
@@ -131,7 +133,22 @@ export default class CommentUserComponent implements AbstractComponent {
         this.commentImages.clear();
         for (let i = 0; i < array.length; i += 1) {
             const file = array[i];
-            this.commentImages.addImage(file.name);
+            let key = true;
+            if (file.size > MAX_SIZE_FILE) {
+                this.commentImages.clear();
+                this.fileInput.value = '';
+                this.renderMessage(ERROR_SIZE_FILE, true);
+                key = false;
+                break;
+            }
+            const reader = new FileReader();
+            reader.onload = (evt): void => {
+                if (key === false) {
+                    return;
+                }
+                this.commentImages.addImage(evt.target.result as string);
+            };
+            reader.readAsDataURL(file);
         }
     };
 

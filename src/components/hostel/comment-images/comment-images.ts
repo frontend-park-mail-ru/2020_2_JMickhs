@@ -1,6 +1,7 @@
 import type { AbstractComponent } from '@interfaces/components';
 
 import * as templateContainer from '@hostel/comment-images/container-images.hbs';
+import * as templateImage from '@hostel/comment-images/comment-images.hbs';
 import './comment-images.css';
 
 export default class CommentImagesComponent implements AbstractComponent {
@@ -28,8 +29,8 @@ export default class CommentImagesComponent implements AbstractComponent {
             return;
         }
 
+        this.container.innerHTML += templateImage({ id: `comment-image-${this.count}`, src: image });
         this.count += 1;
-        this.container.innerHTML += `<p>${image}</p>`;
     }
 
     clear = (): void => {
