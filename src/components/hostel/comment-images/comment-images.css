@@ -1,9 +1,9 @@
 .comment-images__image {
     object-fit: cover;
-    height: 10vh;
     margin: 10px;
     max-height: 10vh;
     border-radius: 5px;
+    border: 2px solid var(--gray-new);
 }
 
 .comment-images__container {
@@ -11,6 +11,6 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
     margin-bottom: 1vh;
 }

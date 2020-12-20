@@ -3,10 +3,10 @@
     padding: 1px 5%;
     width: 100%;
     max-width: 42vw;
-    height: 11rem;
+    height: 15rem;
     transition: 0.3s;
     overflow: auto;
-    margin-top: 38px;
+    margin-top: 7px;
     border-radius: var(--border-radius-regular);
     background-color: var(--opacity-white);
     margin-bottom: 3%;
@@ -27,7 +27,7 @@
 
 .hostel__comment-switch {
     margin-top: 1%;
-    margin-bottom: 2%;
+    margin-bottom: 0.2%;
 }
 
 .hostel__message-container {
@@ -60,7 +60,25 @@
 .hostel__comments--no-auth-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.hostel__comment-image {
+    object-fit: cover;
+    margin: 10px;
+    max-height: 10vh;
+    border-radius: 5px;
+    border: 2px solid var(--gray-new);
+}
+
+.hostel__comment-images-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
 }
 
 @media only screen and (max-width: 768px) {
