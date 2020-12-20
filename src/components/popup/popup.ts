@@ -41,8 +41,10 @@ class Popup {
         this.close();
     }
 
-    private clickContent = (evt: Event): void => {
-        evt.stopPropagation();
+    private blockClose = false;
+
+    private clickContent = (): void => {
+        this.blockClose = true;
     };
 
     private clickKeyboard = (event: KeyboardEvent): void => {
@@ -52,6 +54,10 @@ class Popup {
     };
 
     private close = (): void => {
+        if (this.blockClose) {
+            this.blockClose = false;
+            return;
+        }
         this.component?.deactivate();
         this.unsubscribeEvents();
         this.place.innerHTML = '';

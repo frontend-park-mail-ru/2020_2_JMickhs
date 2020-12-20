@@ -1,3 +1,19 @@
+.hostel__file-button {
+    display: inline-block;
+    background-color: var(--orange);
+    color: var(--white);
+    padding: 10px 10px;
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: Comfortaa,cursive;
+    font-weight: normal;
+}
+
+.hostel__file-button:hover {
+    box-shadow: var(--box-shadow-bold);
+}
+
 .hostel__textarea-container {
     width: 100%;
     margin: auto;
@@ -57,6 +73,11 @@
     outline: none;
     border: none;
     font-size: var(--font-size-large);
+    transition: 0.3s;
+}
+
+.hostel__select:hover {
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__button--position-center {

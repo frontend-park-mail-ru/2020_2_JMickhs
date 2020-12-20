@@ -1,4 +1,3 @@
-import type { HostelData } from '@interfaces/structs-data/hostel-data';
 import type { AbstractComponent } from '@interfaces/components';
 
 import './hostel-images.css';
@@ -17,21 +16,21 @@ export default class HostelImagesComponent implements AbstractComponent {
 
     private currentPhoto: number;
 
-    activate(hostel: HostelData): void {
-        this.photos = hostel.photos || [];
-        this.photos.unshift(hostel.image);
-        this.currentPhoto = 0;
+    private idUniq: number;
 
+    activate(images: string[], start: number, idUniq: number): void {
+        this.photos = images || [];
+        this.currentPhoto = start;
+        this.idUniq = idUniq;
         this.render();
 
-        this.nextButton = document.getElementById('button-image-next') as HTMLButtonElement;
-        this.prevButton = document.getElementById('button-image-prev') as HTMLButtonElement;
-        this.image = document.getElementById('cur-image') as HTMLImageElement;
+        this.nextButton = document.getElementById(`button-image-next${idUniq}`) as HTMLButtonElement;
+        this.prevButton = document.getElementById(`button-image-prev${idUniq}`) as HTMLButtonElement;
+        this.image = document.getElementById(`cur-image${idUniq}`) as HTMLImageElement;
 
         if (!this.image.complete) {
             this.buttonsDisabled(true);
         }
-
         this.subscribeEvents();
     }
 
@@ -73,7 +72,11 @@ export default class HostelImagesComponent implements AbstractComponent {
             return;
         }
 
-        this.place.innerHTML = imagesTemplate({ image: this.photos[this.currentPhoto] });
+        this.place.innerHTML = imagesTemplate({
+            image: this.photos[this.currentPhoto],
+            switch: this.photos.length > 1,
+            id: this.idUniq,
+        });
     }
 
     private buttonsDisabled(disabled: boolean): void {

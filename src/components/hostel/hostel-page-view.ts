@@ -38,7 +38,9 @@ export default class HostelPageView extends PageView {
 
         const imagesPlace = document.getElementById('hostel-images') as HTMLDivElement;
         this.imagesComponent.setPlace(imagesPlace);
-        this.imagesComponent.activate(data.hostel);
+        const photos = data.hostel.photos || [];
+        photos.unshift(data.hostel.image);
+        this.imagesComponent.activate(photos, 0, 1);
 
         const placeUserComment = document.getElementById('user-comment') as HTMLDivElement;
         this.userCommentComponent.setPlace(placeUserComment);

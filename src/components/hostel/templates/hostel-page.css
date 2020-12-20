@@ -8,7 +8,8 @@
         "comments comment";
     grid-template-rows: repeat(2, min-content);
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 6%;
+    row-gap: 1%;
+    column-gap: 6%;
 }
 
 @media all and (max-width: 768px) {
@@ -20,7 +21,7 @@
             "comments";
         grid-template-rows: repeat(4, auto);
         grid-template-columns: 1fr;
-        grid-gap: 2%;
+        grid-gap: 1%;
     }
     .hostel__images {
         margin-top: 5%;
@@ -28,6 +29,11 @@
     .hostel__comments {
         margin-bottom: 5%;
     }
+}
+
+.hostel__comment-images {
+    grid-area: comment-images;
+    width: 100%;
 }
 
 .hostel__images {

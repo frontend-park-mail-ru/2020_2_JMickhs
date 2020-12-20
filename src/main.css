@@ -35,6 +35,7 @@
 
     --border-radius-legacy-design: 5px;
     --border-radius-regular: 15px;
+    --border-radius-button: 25px;
     --border-radius-round: 1000px;
 
     --border-regular: 4px solid var(--blue);
