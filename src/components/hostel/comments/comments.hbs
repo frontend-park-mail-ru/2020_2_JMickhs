@@ -1,4 +1,14 @@
 {{#if comment}}
+{{#if switch}}
+<div class="hostel__comment-switch">
+    <button class="hostel__button-round" id="comment-prev">
+        <
+    </button>
+    <button class="hostel__button-round" id="comment-next">
+        >
+    </button>
+</div>
+{{/if}}
 <div class="hostel__comment-card">
     <div class="hostel__comment-user-data">
         <img src="{{comment.avatar}}" class="hostel__comment-avatar">
@@ -14,17 +24,13 @@
         Комментарий не оставлен
         {{/if}}
     </p>
+    <div class="hostel__comment-images-container" id="container-comments-images">
+        {{#each comment.photos}}
+            <img class="hostel__comment-image" src="{{this}}">
+        {{/each}}
+    </div>
+    
 </div>
-{{#if switch}}
-<div class="hostel__comment-switch">
-    <button class="hostel__button-round" id="comment-prev">
-        <
-    </button>
-    <button class="hostel__button-round" id="comment-next">
-        >
-    </button>
-</div>
-{{/if}}
 {{else}}
 <div class="hostel__message-container">
     <p class="hostel__title hostel__text--blue">Другие пользователи пока не оставили комментарии!</p>

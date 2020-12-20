@@ -15,13 +15,18 @@ class NetworkHostel extends NetworkAbtract {
         return this.ajax('GET', `/api/v1/hotels/${id}`);
     }
 
-    addComment(idHostel: number, message: string, rate: number): Promise<ResponseData> {
-        const body = {
+    addComment(idHostel: number, message: string, rate: number, photos: FileList): Promise<ResponseData> {
+        const jsonData = {
             hotel_id: idHostel,
             message,
             rating: rate,
         };
 
+        const body = new FormData();
+        for (let i = 0; i < photos.length; i += 1) {
+            body.append('photos', photos[i]);
+        }
+        body.append('jsonData', JSON.stringify(jsonData));
         return this.ajax('POST', '/api/v1/comments', body, true);
     }
 
@@ -29,12 +34,25 @@ class NetworkHostel extends NetworkAbtract {
         return this.ajax('GET', `/api/v1/hotels/search${searchParams}`);
     }
 
-    editComment(idComment: number, message: string, rating: number): Promise<ResponseData> {
-        const body = {
+    editComment(idComment: number,
+        message: string,
+        rating: number,
+        delele: boolean,
+        photos: FileList): Promise<ResponseData> {
+        const comment = {
             comm_id: idComment,
             message,
             rating,
         };
+        const jsonData = {
+            comment,
+            delete: delele,
+        };
+        const body = new FormData();
+        body.append('jsonData', JSON.stringify(jsonData));
+        for (let i = 0; i < photos.length; i += 1) {
+            body.append('photos', photos[i]);
+        }
 
         return this.ajax('PUT', '/api/v1/comments', body, true);
     }
@@ -50,6 +68,13 @@ class NetworkHostel extends NetworkAbtract {
     }
 
     getCommentsFromUrl(url: string): Promise<ResponseData> {
+        return this.ajax('GET', url);
+    }
+
+    getAlbum(idHostel: number): Promise<ResponseData> {
+        const searchParams = new URLSearchParams('');
+        searchParams.set('id', idHostel.toString());
+        const url = `/api/v1/comments/photos?${searchParams}`;
         return this.ajax('GET', url);
     }
 }

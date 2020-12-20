@@ -49,7 +49,8 @@
         "build": "webpack",
         "linter": "eslint src",
         "dev": "webpack --watch --mode=development",
-        "prod": "webpack --mode=production"
+        "prod": "webpack --mode=production",
+        "clear": "rm -rf public/bundle.*"
     },
     "pre-commit": [
         "linter"
