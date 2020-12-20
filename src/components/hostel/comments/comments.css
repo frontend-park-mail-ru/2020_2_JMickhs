@@ -3,7 +3,8 @@
     padding: 1px 5%;
     width: 100%;
     max-width: 42vw;
-    height: 15rem;
+    min-height: 7rem;
+    max-height: 15rem;
     transition: 0.3s;
     overflow: auto;
     margin-top: 7px;
@@ -31,6 +32,7 @@
 }
 
 .hostel__message-container {
+    margin-top: 0;
     text-align: center;
     border-radius: var(--border-radius-regular);
     background-color: var(--opacity-white);
@@ -71,6 +73,12 @@
     max-height: 10vh;
     border-radius: 5px;
     border: 2px solid var(--gray-new);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hostel__comment-image:hover {
+    box-shadow: var(--box-shadow-bold);
 }
 
 .hostel__comment-images-container {

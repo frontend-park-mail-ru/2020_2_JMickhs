@@ -70,6 +70,13 @@ class NetworkHostel extends NetworkAbtract {
     getCommentsFromUrl(url: string): Promise<ResponseData> {
         return this.ajax('GET', url);
     }
+
+    getAlbum(idHostel: number): Promise<ResponseData> {
+        const searchParams = new URLSearchParams('');
+        searchParams.set('id', idHostel.toString());
+        const url = `/api/v1/comments/photos?${searchParams}`;
+        return this.ajax('GET', url);
+    }
 }
 
 export default new NetworkHostel(BACKEND_ADDRESS_HOSTEL, BACKEND_ADDRESS_CSRF, TEXT_ERROR_CSRF);

@@ -15,11 +15,11 @@ import type { UserData } from '@interfaces/structs-data/user-data';
 import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
 import CommentImagesComponent from '../comment-images/comment-images';
 
-const MAX_IMAGES_COUNT = 5;
+const MAX_IMAGES_COUNT = 4;
 const MAX_SIZE_FILE = 5242880; // 5мб
 const MAX_SIZE_TEXT_COMMENT = 200;
 
-const ERROR_COUNT_MESSAGES = 'Нельзя добавить больше 5 фотографий!';
+const ERROR_COUNT_MESSAGES = 'Нельзя добавить больше 4 фотографий!';
 const ERROR_SIZE_FILE = 'Размер фотографии не должен превышать 5 мб!';
 const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
 const ERROR_DONT_CHANGE_COMMENT = 'Вы ничего не поменяли';
@@ -133,7 +133,7 @@ export default class CommentUserComponent implements AbstractComponent {
             return;
         }
 
-        if (array.length + this.commentImages.count > MAX_IMAGES_COUNT) {
+        if (array.length > MAX_IMAGES_COUNT) {
             this.fileInput.value = '';
             this.notification.showMessage(ERROR_COUNT_MESSAGES, true);
             return;
