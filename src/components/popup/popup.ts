@@ -54,7 +54,7 @@ class Popup {
     };
 
     private close = (): void => {
-        if (this.blockClose === true) {
+        if (this.blockClose) {
             this.blockClose = false;
             return;
         }

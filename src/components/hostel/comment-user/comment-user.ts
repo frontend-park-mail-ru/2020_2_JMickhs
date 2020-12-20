@@ -49,13 +49,19 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private fileInput?: HTMLInputElement;
 
-    private changedFiles = false;
+    private changedFiles: boolean;
 
-    private notification = NotificationUser;
+    private notification: typeof NotificationUser;
 
     private user = User;
 
-    private commentImages = new CommentImagesComponent();
+    private commentImages: CommentImagesComponent;
+
+    constructor() {
+        this.changedFiles = false;
+        this.commentImages = new CommentImagesComponent();
+        this.notification = NotificationUser;
+    }
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;

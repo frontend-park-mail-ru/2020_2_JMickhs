@@ -40,8 +40,7 @@ export default class HostelPageView extends PageView {
         this.imagesComponent.setPlace(imagesPlace);
         const photos = data.hostel.photos || [];
         photos.unshift(data.hostel.image);
-        const idImages = 228; // уникальная цифра с потолка
-        this.imagesComponent.activate(photos, 0, idImages);
+        this.imagesComponent.activate(photos, 0, 1);
 
         const placeUserComment = document.getElementById('user-comment') as HTMLDivElement;
         this.userCommentComponent.setPlace(placeUserComment);

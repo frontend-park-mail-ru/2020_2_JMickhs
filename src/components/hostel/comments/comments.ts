@@ -86,7 +86,7 @@ export default class CommentsComponent implements AbstractComponent {
                 comments: CommentData[],
                 pag_info: PageInfo,
             };
-            const comment = data.comments[0];
+            const comment = data.comments ? data.comments[0] : undefined;
             switch (code) {
                 case 200:
                     this.comment = comment;
@@ -164,8 +164,7 @@ export default class CommentsComponent implements AbstractComponent {
         if (start < 0 || start >= this.album.length) {
             return;
         }
-        const id = 322; // уникальаная цифра с потолка
-        Popup.activate(this.imagesComponent, this.album, start, id);
+        Popup.activate(this.imagesComponent, this.album, start, 2);
     }
 
     private renderMessage(text: string, isError: boolean): void {
