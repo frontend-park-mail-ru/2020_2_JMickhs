@@ -17,10 +17,12 @@
     --gray-new: #3c3f41;
     --gray-white-blue: #D7DFE0;
     --shadow-color: rgba(0, 0, 0, 0.4);
+    --black: black;
 
     --z-index-navbar: 2500;
     --z-index-button: 2000;
     --z-index-popup: 3000;
+    --z-index-tooltip: 3500;
 
     --box-shadow-thin: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     --box-shadow-bold: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
@@ -28,6 +30,7 @@
 
     --font-size-large: large;
     --font-size-regular: 17px;
+    --font-size-small: 13px;
     --font-size-header: 24px;
 
     --border-radius-legacy-design: 5px;
@@ -36,6 +39,7 @@
     --border-radius-round: 1000px;
 
     --border-regular: 4px solid var(--blue);
+    --border-title: 1px solid var(--white);
 
     --opacity-button-disabled: 0.8;
 }

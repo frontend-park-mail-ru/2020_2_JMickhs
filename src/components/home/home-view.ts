@@ -3,6 +3,7 @@ import Events from '@eventbus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
     FILL_HOSTELS,
+    FILL_RECOMMENDATION,
 } from '@eventbus/constants';
 
 import '@home/templates/home.css';
@@ -10,6 +11,8 @@ import ListComponent from '@/components/home/list-hostels/list-hostels';
 import FilterComponent from '@/components/home/filtration/filtration';
 import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
+
+const SEARCH_INPUT_MAX_LENGTH = 50;
 
 export default class HomeView extends PageView {
     private mainContainerElement: HTMLDivElement;
@@ -21,6 +24,8 @@ export default class HomeView extends PageView {
     private inputElement: HTMLInputElement;
 
     private imageElement: HTMLDivElement;
+
+    private recommendationLabelElement: HTMLHeadElement;
 
     private listComponent: ListComponent;
 
@@ -53,19 +58,28 @@ export default class HomeView extends PageView {
         this.listComponent.activate(hostels);
     };
 
+    private renderRecommendationList = (hostels: HostelData[]): void => {
+        this.listComponent.activate(hostels);
+    };
+
     private changeInput = (): void => {
-        if (this.inputElement.value.length > 50) {
-            this.renderError('Длинна запроса не должна превышать 50 символов');
+        if (this.inputElement.value.length > SEARCH_INPUT_MAX_LENGTH) {
+            this.renderError(`Длинна запроса не должна превышать ${SEARCH_INPUT_MAX_LENGTH} символов`);
         }
     };
 
     listComponentOff(): void {
         this.mainContainerElement.className = 'home__container-all';
+        this.recommendationLabelElement.classList.remove('home__display-none');
+        this.searchForm.classList.add('home__search--start-page-indents');
         this.listComponent.deactivate();
     }
 
     listComponentOn(pattern: string): void {
+        this.listComponent.hide();
         this.inputElement.value = pattern;
+        this.recommendationLabelElement.classList.add('home__display-none');
+        this.searchForm.classList.remove('home__search--start-page-indents');
         this.mainContainerElement.className = 'home__container-list-all';
     }
 
@@ -76,6 +90,7 @@ export default class HomeView extends PageView {
         this.searchButton = document.getElementById('search-button') as HTMLButtonElement;
         this.inputElement = document.getElementById('input') as HTMLInputElement;
         this.imageElement = document.getElementById('filter-image') as HTMLDivElement;
+        this.recommendationLabelElement = document.getElementById('recommendation-label') as HTMLHeadElement;
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
 
         this.subscribeEvents();
@@ -109,6 +124,7 @@ export default class HomeView extends PageView {
         this.inputElement.addEventListener('input', this.changeInput);
         this.imageElement.addEventListener('click', this.toggleFilter);
         Events.subscribe(FILL_HOSTELS, this.renderHostelList);
+        Events.subscribe(FILL_RECOMMENDATION, this.renderRecommendationList);
     }
 
     private unsubscribeEvents(): void {
@@ -116,6 +132,7 @@ export default class HomeView extends PageView {
         this.inputElement.removeEventListener('input', this.changeInput);
         this.imageElement.removeEventListener('click', this.toggleFilter);
         Events.unsubscribe(FILL_HOSTELS, this.renderHostelList);
+        Events.unsubscribe(FILL_RECOMMENDATION, this.renderRecommendationList);
     }
 
     private clearInputError(): void {

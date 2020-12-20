@@ -25,6 +25,7 @@ export const UPDATE_HOSTEL = 'updateHostel';
 
 // События домашней сраницы(Home)
 export const FILL_HOSTELS = 'fillHostels';
+export const FILL_RECOMMENDATION = 'fillRecommendations';
 
 // События сраницы избранного(Wishlist)
 export const FILL_HOSTELS_WISHLIST = 'fillHostelsWishlist';

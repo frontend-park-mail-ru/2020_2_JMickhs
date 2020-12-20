@@ -1,9 +1,11 @@
 .home__container-all {
     height: 100%;
     display: grid;
-    grid-template-areas: "search";
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr;
+    grid-template-areas:
+        "search"
+        "label"
+        "list";
+    grid-template-rows: auto min-content auto;
     position: relative;
     align-items: center;
     justify-items: center;
@@ -30,15 +32,27 @@
     grid-area: search;
     width: 75%;
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-areas: "input icon button";
+    grid-template-columns: 1fr min-content min-content;
     justify-content: flex-end;
-    padding: 5% 0;
+    padding: 6vh 0;
+    align-self: end;
+}
+
+.home__search--start-page-indents {
+    padding: 3vh 0;
+    margin-top: 2%;
+}
+
+.home__search--filtration-indents {
+    top: calc(3vh + 40px);
 }
 
 .home__list {
     grid-area: list;
     width: 100%;
-    height: 100%;
+    align-self: start;
 }
 
 .home__button-orange--size {
@@ -58,6 +72,11 @@
     width: 100%;
     min-width: 170px;
     transition: 0.3s;
+}
+
+.home__recommendation-label {
+    grid-area: label;
+    color: var(--blue);
 }
 
 .home__search-input:hover {
@@ -89,6 +108,7 @@
     .home__filter-img-container {
         min-height: 4vh;
         min-width: 4vh;
+        align-self: center;
     }
 
     .home__container-all {
@@ -101,18 +121,21 @@
         width: 100%;
         padding: 0;
         height: 4vh;
-        margin-top: 7%;
+        margin: 7% 0;
     }
 
     .home__button-orange {
         padding: 10px 15px;
         height: min-content;
     }
-}
 
-@media only screen and (max-height: 800px) {
+    .navbar--filter-title {
+        margin-top: 34px;
+        right: 53px;
+    }
+
     .home__filtration {
-        margin-top: 50px;
+        top: calc(7% + 45px);
     }
 }
 
@@ -173,10 +196,11 @@
 .home__filtration {
     grid-area: search;
     position: absolute;
-    margin-top: 7vh;
+    top: calc(6vh + 40px);
     width: 100%;
     max-width: 500px;
     min-width: 335px;
+    justify-self: end;
 }
 
 .home__display-none {
@@ -193,4 +217,28 @@
     background-image: url('https://hostelscan.ru/filter.png');
     background-position: center;
     background-size: cover;
+}
+
+@media only screen and (max-width: 750px) {
+    .home__recommendation-label {
+        padding-top: 5%;
+    }
+}
+
+.navbar--filter-title {
+    width: fit-content;
+    font-size: var(--font-size-small);
+    z-index: var(--z-index-tooltip);
+    display: none;
+    position: absolute;
+    background-color: var(--black);
+    color: var(--white);
+    padding: 5px 10px;
+    margin-top: 50px;
+    right: 111px;
+    border: var(--border-title);
+}
+
+.home__filter-img-container:hover .navbar--filter-title{
+    display: block;
 }

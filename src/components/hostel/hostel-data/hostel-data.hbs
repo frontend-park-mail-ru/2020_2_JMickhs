@@ -2,17 +2,17 @@
     <p class="hostel__title hostel__title--orange">{{hostel.name}}</p>
     {{#if isAuth}}
         <button class="hostel__button-round" id="wishlist-button">Добавить в избранное</button>
-    {{/if}}
-    {{#if wishlists}}
-        <p class="hostel__title hostel__title--blue">
-            <nobr class="hostel__wishlist-label">Этот отель уже есть в папках:</nobr>
-            {{#each wishlists}}
-                <a class="hostel__wishlist" href="/wishlist?id={{wishlist_id}}">{{name}}</a>
-            {{/each}}
-            {{#if moreThanMaxWishlists}}
-                <nobr class="hostel__wishlist-label">и т.д.</nobr>
-            {{/if}}
-        </p>
+        {{#if wishlists}}
+            <p class="hostel__title hostel__title--blue">
+                <nobr class="hostel__wishlist-label">Этот отель уже есть в папках:</nobr>
+                {{#each wishlists}}
+                    <a class="hostel__wishlist" href="/wishlist?id={{wishlist_id}}">{{name}}</a>
+                {{/each}}
+                {{#if moreThanMaxWishlists}}
+                    <nobr class="hostel__wishlist-label">и т.д.</nobr>
+                {{/if}}
+            </p>
+        {{/if}}
     {{/if}}
     <p class="hostel__star hostel__title hostel__title--orange">
         {{#if hostel.rating}}
