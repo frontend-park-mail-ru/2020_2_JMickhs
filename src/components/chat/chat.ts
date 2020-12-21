@@ -15,6 +15,7 @@ import {
     ERROR_400,
     ERROR_DEFAULT,
 } from '@global-variables/network-error';
+import User from '@user/user';
 
 const WEBSOCKET_CHAT = 'wss://hostelscan.ru:8080/api/v1/ws/chat';
 const WEBSOCKET_URL = 'wss://hostelscan.ru:8080/api/v1/ws';
@@ -45,8 +46,9 @@ export default class Chat implements AbstractComponent {
     }
 
     private unsubscribeEvents(): void {
-        this.sendButton.removeEventListener('click', this.sendNewMessage);
         Events.unsubscribe(WEBSOCKET_GET_MESSAGE, this.renderNewMessage);
+
+        this.sendButton.removeEventListener('click', this.sendNewMessage);
         window.removeEventListener('beforeunload', this.closeSocket);
         this.inputElement.removeEventListener('input', this.checkMessageLength);
     }
@@ -134,7 +136,11 @@ export default class Chat implements AbstractComponent {
                     const serverMessages = value.data as [{ Message: string, Moderator: boolean }] || [];
                     const messages: MessageData[] = [];
                     serverMessages.forEach((message) => {
-                        messages.push({ message: message.Message, user: !message.Moderator });
+                        if (User.isModerator) {
+                            messages.push({ message: message.Message, user: message.Moderator });
+                        } else {
+                            messages.push({ message: message.Message, user: !message.Moderator });
+                        }
                     });
                     this.render(messages);
 
