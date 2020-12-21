@@ -28,6 +28,7 @@
     --box-shadow-thin: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     --box-shadow-bold: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
     --box-shadow-inset: inset 0 0 5px grey;
+    --box-shadow-input-error: 0 0 8px 0 rgba(213, 0, 0, 0.4);
 
     --font-size-large: large;
     --font-size-regular: 17px;
@@ -40,6 +41,7 @@
 
     --border-regular: 4px solid var(--blue);
     --border-title: 1px solid var(--white);
+    --border-input-error: 2px solid var(--new-red);
 
     --opacity-button-disabled: 0.8;
 }

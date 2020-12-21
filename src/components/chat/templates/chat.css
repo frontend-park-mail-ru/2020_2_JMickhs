@@ -6,6 +6,8 @@
                          "messages"
                          "form";
     grid-template-rows: 50px 1fr min-content;
+    margin: auto;
+    margin-top: 100px;
 }
 
 .chat__header {
@@ -43,10 +45,12 @@
 
 .chat__input {
     width: 100%;
-    border-radius: var(--border-radius-round);
+    border-radius: var(--border-radius-regular);
     background-color: var(--white);
     outline: none;
     padding-left: 10px;
+    resize: none;
+    height: 40px;
 }
 
 .chat__input:focus::placeholder {
@@ -60,11 +64,12 @@
     cursor: pointer;
     color: var(--white);
     font-weight: 500;
-    font-size: var(--font-size-regular);
-    padding: 9px 30px;
+    font-size: var(--font-size-small);
+    align-self: center;
+    padding: 9px 15px;
     border: none;
     outline: none;
-    height: 45px;
+    height: 35px;
     transition: 0.3s;
 }
 
@@ -84,6 +89,7 @@
     height: max-content;
     margin-bottom: 20px;
     border-radius: var(--border-radius-regular);
+    max-width: 300px;
 }
 
 .chat__message--user-massage {
@@ -96,4 +102,9 @@
     background-color: var(--gray-white-blue);
     justify-self: start;
     margin-left: 20px;
+}
+
+.chat__input-error {
+    border: var(--border-input-error);
+    box-shadow: var(--box-shadow-input-error);
 }
