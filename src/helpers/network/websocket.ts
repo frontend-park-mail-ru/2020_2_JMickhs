@@ -9,7 +9,6 @@ export default class CustomWebSocket {
         this.webSocket = new WebSocket(url);
 
         this.webSocket.addEventListener('message', this.onMessageHandler);
-        this.webSocket.addEventListener('close', this.onCloseHandler);
         this.webSocket.addEventListener('error', this.onErrorHandler);
     }
 
@@ -20,11 +19,6 @@ export default class CustomWebSocket {
     close(code = 1000, message = 'Work is done'): void {
         this.webSocket.close(code, message);
     }
-
-    private onCloseHandler = (event: CloseEvent):void => {
-        // eslint-disable-next-line no-console
-        console.log(event.code, event.reason, event.target, event.wasClean);
-    };
 
     private onMessageHandler = (event: MessageEvent):void => {
         Events.trigger(WEBSOCKET_GET_MESSAGE, event.data);

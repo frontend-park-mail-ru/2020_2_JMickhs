@@ -89,6 +89,11 @@
     margin-bottom: 20px;
     border-radius: var(--border-radius-regular);
     max-width: 300px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 .chat__message--user-massage {
