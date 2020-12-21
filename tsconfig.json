@@ -28,8 +28,7 @@
         "lib": [
             "dom",
             "es5",
-            "scripthost",
-            "dom"
+            "scripthost"
         ]
     }
 }

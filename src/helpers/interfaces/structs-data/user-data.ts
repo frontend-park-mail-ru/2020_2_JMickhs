@@ -4,4 +4,5 @@ export interface UserData {
     id: number,
     avatar: string,
     isAuth: boolean,
+    mode_rule: boolean;
 }

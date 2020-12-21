@@ -16,7 +16,8 @@ import {
     ERROR_DEFAULT,
 } from '@global-variables/network-error';
 
-const WEBSOCKET_URL = 'wss://hostelscan.ru:8080/api/v1/ws/chat';
+const WEBSOCKET_CHAT = 'wss://hostelscan.ru:8080/api/v1/ws/chat';
+const WEBSOCKET_URL = 'wss://hostelscan.ru:8080/api/v1/ws';
 
 export default class Chat implements AbstractComponent {
     private place?: HTMLElement;
@@ -39,18 +40,14 @@ export default class Chat implements AbstractComponent {
         Events.subscribe(WEBSOCKET_GET_MESSAGE, this.renderNewMessage);
 
         this.sendButton.addEventListener('click', this.sendNewMessage);
-        window.addEventListener('beforeunload', () => {
-            this.socket.close();
-        });
+        window.addEventListener('beforeunload', this.closeSocket);
         this.inputElement.addEventListener('input', this.checkMessageLength);
     }
 
     private unsubscribeEvents(): void {
         this.sendButton.removeEventListener('click', this.sendNewMessage);
         Events.unsubscribe(WEBSOCKET_GET_MESSAGE, this.renderNewMessage);
-        window.removeEventListener('beforeunload', () => {
-            this.socket.close();
-        });
+        window.removeEventListener('beforeunload', this.closeSocket);
         this.inputElement.removeEventListener('input', this.checkMessageLength);
     }
 
@@ -96,7 +93,11 @@ export default class Chat implements AbstractComponent {
         }, 1000);
     };
 
-    render(messages: MessageData[] = undefined): void {
+    private closeSocket = (): void => {
+        this.socket.close();
+    };
+
+    private render(messages: MessageData[] = undefined): void {
         window.scrollTo(0, 0);
         this.place.innerHTML = chatTemplate();
 
@@ -124,33 +125,32 @@ export default class Chat implements AbstractComponent {
             return;
         }
 
-        const response = NetworkChat.getHistory();
+        const response = NetworkChat.getHistory(params);
 
         response.then((value) => {
             const { code } = value;
             switch (code) {
                 case 200:
-                    const serverMesages = value.data as [{ Message: string, Moderator: boolean }] || [];
+                    const serverMessages = value.data as [{ Message: string, Moderator: boolean }] || [];
                     const messages: MessageData[] = [];
-                    serverMesages.forEach((message) => {
+                    serverMessages.forEach((message) => {
                         messages.push({ message: message.Message, user: !message.Moderator });
                     });
                     this.render(messages);
 
                     if (params) {
-                        this.socket = new CustomWebSocket(`wss://hostelscan.ru:8080/api/v1/ws?${params.toString()}`);
+                        this.socket = new CustomWebSocket(`${WEBSOCKET_URL}?${params.toString()}`);
                     } else {
-                        this.socket = new CustomWebSocket(WEBSOCKET_URL);
+                        this.socket = new CustomWebSocket(WEBSOCKET_CHAT);
                     }
                     break;
                 case 401:
                     if (params) {
                         this.render();
-                        this.socket = new CustomWebSocket(`wss://hostelscan.ru:8080/api/v1/ws?${params.toString()}`);
+                        this.socket = new CustomWebSocket(`${WEBSOCKET_URL}?${params.toString()}`);
                     } else {
                         Redirector.redirectTo('/signin');
                     }
-                    // Redirector.redirectTo('/signin');
                     break;
                 case 400:
                     Redirector.redirectError(ERROR_400);
@@ -160,8 +160,6 @@ export default class Chat implements AbstractComponent {
                     break;
             }
         });
-
-        // this.render();
     }
 
     deactivate(): void {

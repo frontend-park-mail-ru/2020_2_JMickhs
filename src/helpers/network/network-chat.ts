@@ -7,7 +7,10 @@ import {
 } from '@network/constants-network';
 
 class NetworkChat extends NetworkAbstract {
-    getHistory(): Promise<ResponseData> {
+    getHistory(urlSearchParams?: URLSearchParams): Promise<ResponseData> {
+        if (urlSearchParams) {
+            return this.ajax('GET', `/api/v1/ws/chat/history?${urlSearchParams.toString()}`);
+        }
         return this.ajax('GET', '/api/v1/ws/chat/history');
     }
 }

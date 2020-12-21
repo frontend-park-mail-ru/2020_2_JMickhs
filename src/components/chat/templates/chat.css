@@ -34,7 +34,6 @@
     display: grid;
     grid-template-rows: max-content;
     align-content: end;
-    /*height: 100%;*/
     margin-top: 1px;
 }
 
@@ -84,7 +83,7 @@
 }
 
 .chat__message {
-    padding: 20px 15px;
+    padding: 10px 15px;
     width: max-content;
     height: max-content;
     margin-bottom: 20px;

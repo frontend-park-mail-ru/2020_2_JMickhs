@@ -116,12 +116,12 @@
     margin-right: 20px;
 }
 
-.svg-chat-icon {
+.navbar__chat-icon {
     fill: var(--violet-light);
     cursor: pointer;
 }
 
-.navbar__wishlist-icon:hover {
+.navbar__chat-icon:hover {
     fill: var(--orange);
 }
 

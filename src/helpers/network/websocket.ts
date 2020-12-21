@@ -1,5 +1,6 @@
 import Events from '@eventbus/eventbus';
 import { WEBSOCKET_GET_MESSAGE } from '@eventbus/constants';
+import redirector from '@router/redirector';
 
 export default class CustomWebSocket {
     private webSocket: WebSocket;
@@ -7,7 +8,6 @@ export default class CustomWebSocket {
     constructor(url: string) {
         this.webSocket = new WebSocket(url);
 
-        this.webSocket.addEventListener('open', this.onOpenHandler);
         this.webSocket.addEventListener('message', this.onMessageHandler);
         this.webSocket.addEventListener('close', this.onCloseHandler);
         this.webSocket.addEventListener('error', this.onErrorHandler);
@@ -21,10 +21,6 @@ export default class CustomWebSocket {
         this.webSocket.close(code, message);
     }
 
-    private onOpenHandler = ():void => {
-        // do something
-    };
-
     private onCloseHandler = (event: CloseEvent):void => {
         // eslint-disable-next-line no-console
         console.log(event.code, event.reason, event.target, event.wasClean);
@@ -35,7 +31,6 @@ export default class CustomWebSocket {
     };
 
     private onErrorHandler = (event: ErrorEvent):void => {
-        // eslint-disable-next-line no-console
-        console.log(event.error, event.message, event.target, event.type);
+        redirector.redirectError(event.error);
     };
 }
