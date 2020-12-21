@@ -1,0 +1,7 @@
+{{#each this}}
+    {{#if user}}
+        <div class="chat__message chat__message--user-massage">{{message}}</div>
+    {{else}}
+        <div class="chat__message chat__message--moderator-massage">{{message}}</div>
+    {{/if}}
+{{/each}}

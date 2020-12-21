@@ -31,3 +31,7 @@ export const FILL_RECOMMENDATION = 'fillRecommendations';
 export const FILL_HOSTELS_WISHLIST = 'fillHostelsWishlist';
 export const FILL_WISHLISTS = 'fillWishlists';
 export const DEACTIVATE_POPUP = 'deactivatePopup';
+
+// События чата(Chat)
+export const WEBSOCKET_GET_MESSAGE = 'webSocketGetMessage';
+export const WEBSOCKET_SEND_MESSAGE = 'webSocketSendMessage';

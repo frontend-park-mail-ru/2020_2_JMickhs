@@ -13,12 +13,15 @@ class User {
 
     avatar: string;
 
+    isModerator: boolean;
+
     constructor() {
         this.isAuth = false;
         this.id = -1;
         this.userName = '';
         this.avatar = '';
         this.email = '';
+        this.isModerator = false;
     }
 
     waiting(): boolean {
@@ -36,6 +39,7 @@ class User {
             id: this.id,
             avatar: this.avatar,
             isAuth: this.isAuth,
+            mod_rule: this.isModerator,
         };
     }
 
@@ -45,6 +49,7 @@ class User {
         this.email = user.email;
         this.id = user.id;
         this.avatar = user.avatar;
+        this.isModerator = user.mod_rule;
     }
 
     clear(): void {
@@ -53,6 +58,7 @@ class User {
         this.userName = '';
         this.avatar = '';
         this.email = '';
+        this.isModerator = false;
     }
 }
 

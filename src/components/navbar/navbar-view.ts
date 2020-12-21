@@ -8,7 +8,7 @@ export default class NavView {
         this.place = place;
     }
 
-    render(data: { isAuth: boolean, renderProfileButtons: boolean, username: string }): void {
+    render(data: { isAuth: boolean, renderProfileButtons: boolean, username: string, notModerator: boolean }): void {
         this.place.innerHTML = navbarTemplate(data);
     }
 }
