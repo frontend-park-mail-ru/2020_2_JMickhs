@@ -43,6 +43,7 @@ export default class Chat implements AbstractComponent {
         this.sendButton.addEventListener('click', this.sendNewMessage);
         window.addEventListener('beforeunload', this.closeSocket);
         this.inputElement.addEventListener('input', this.checkMessageLength);
+        document.addEventListener('keydown', this.enterMessage);
     }
 
     private unsubscribeEvents(): void {
@@ -51,6 +52,7 @@ export default class Chat implements AbstractComponent {
         this.sendButton.removeEventListener('click', this.sendNewMessage);
         window.removeEventListener('beforeunload', this.closeSocket);
         this.inputElement.removeEventListener('input', this.checkMessageLength);
+        document.removeEventListener('keydown', this.enterMessage);
     }
 
     private renderNewMessage = (message: string): void => {
@@ -97,6 +99,13 @@ export default class Chat implements AbstractComponent {
 
     private closeSocket = (): void => {
         this.socket.close();
+    };
+
+    private enterMessage = (event: KeyboardEvent): void => {
+        if (event.code === 'Enter') {
+            event.preventDefault();
+            this.sendNewMessage();
+        }
     };
 
     private render(messages: MessageData[] = undefined): void {

@@ -74,7 +74,7 @@ class NetworkHostel extends NetworkAbtract {
     getRecommendedHostels(): Promise<ResponseData> {
         return this.ajax('GET', '/api/v1/hotels/recommendations');
     }
-  
+
     getAlbum(idHostel: number): Promise<ResponseData> {
         const searchParams = new URLSearchParams('');
         searchParams.set('id', idHostel.toString());
