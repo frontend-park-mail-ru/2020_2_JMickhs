@@ -13,8 +13,18 @@ import * as template from '@hostel/comment-user/comment-user.hbs';
 import './comment-user.css';
 import type { UserData } from '@interfaces/structs-data/user-data';
 import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
+import CommentImagesComponent from '../comment-images/comment-images';
 
+const MAX_IMAGES_COUNT = 4;
+const MAX_SIZE_FILE = 5242880; // 5мб
+const MAX_SIZE_TEXT_COMMENT = 200;
+
+const ERROR_COUNT_MESSAGES = 'Нельзя добавить больше 4 фотографий!';
+const ERROR_SIZE_FILE = 'Размер фотографии не должен превышать 5 мб!';
 const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
+const ERROR_DONT_CHANGE_COMMENT = 'Вы ничего не поменяли';
+const ERROR_DONT_TEXT = 'Вы не оставили комментарий!';
+const ERROR_TEXT_SIZE = `Размер текста не может превышать ${MAX_SIZE_TEXT_COMMENT} символов`;
 
 export default class CommentUserComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -37,9 +47,21 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private selectRating: HTMLSelectElement;
 
-    private notification = NotificationUser;
+    private fileInput?: HTMLInputElement;
+
+    private changedFiles: boolean;
+
+    private notification: typeof NotificationUser;
 
     private user = User;
+
+    private commentImages: CommentImagesComponent;
+
+    constructor() {
+        this.changedFiles = false;
+        this.commentImages = new CommentImagesComponent();
+        this.notification = NotificationUser;
+    }
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -73,10 +95,20 @@ export default class CommentUserComponent implements AbstractComponent {
         };
 
         this.place.innerHTML = template(viewModel);
+
+        this.commentImages.deactivate();
+        this.commentImages.setPlace(document.getElementById('user-comments-images') as HTMLDivElement);
+        this.commentImages.activate();
+        if (this.comment?.photos) {
+            this.commentImages.clear();
+            this.comment.photos.forEach((url) => {
+                this.commentImages.addImage(url);
+            });
+        }
         this.saveCommentButton = document.getElementById('button-comment') as HTMLButtonElement;
         this.textArea = document.getElementById('comment-textarea') as HTMLTextAreaElement;
         this.selectRating = document.getElementById('select-rating') as HTMLSelectElement;
-
+        this.fileInput = document.getElementById('upload-comment') as HTMLInputElement;
         if (this.saveCommentButton) {
             this.saveCommentButton.disabled = false;
         }
@@ -85,6 +117,7 @@ export default class CommentUserComponent implements AbstractComponent {
     private subscribeEvents(): void {
         Events.subscribe(AUTH_USER, this.userAppear);
 
+        this.fileInput?.addEventListener('change', this.addFiles);
         if (this.buttonIsEdit) {
             this.saveCommentButton?.addEventListener('click', this.clickEditComment);
         } else {
@@ -96,7 +129,44 @@ export default class CommentUserComponent implements AbstractComponent {
         Events.unsubscribe(AUTH_USER, this.userAppear);
         this.saveCommentButton?.removeEventListener('click', this.clickEditComment);
         this.saveCommentButton?.removeEventListener('click', this.clickSaveComment);
+        this.fileInput?.removeEventListener('change', this.addFiles);
     }
+
+    private addFiles = (event: Event): void => {
+        event.preventDefault();
+        const array = this.fileInput.files;
+        if (!array) {
+            return;
+        }
+
+        if (array.length > MAX_IMAGES_COUNT) {
+            this.fileInput.value = '';
+            this.notification.showMessage(ERROR_COUNT_MESSAGES, true);
+            return;
+        }
+
+        this.commentImages.clear();
+        for (let i = 0; i < array.length; i += 1) {
+            const file = array[i];
+            let key = true;
+            if (file.size > MAX_SIZE_FILE) {
+                this.commentImages.clear();
+                this.fileInput.value = '';
+                this.renderMessage(ERROR_SIZE_FILE, true);
+                key = false;
+                break;
+            }
+            const reader = new FileReader();
+            reader.onload = (evt): void => {
+                if (key === false) {
+                    return;
+                }
+                this.commentImages.addImage(evt.target.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+        this.changedFiles = true;
+    };
 
     private userAppear = (user: UserData): void => {
         if (user) {
@@ -106,13 +176,24 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private clickSaveComment = (event: Event): void => {
         event.preventDefault();
+
+        const text = this.textArea.value;
+        if (text === '') {
+            this.renderMessage(ERROR_DONT_TEXT, true);
+            return;
+        }
+        if (text.length > MAX_SIZE_TEXT_COMMENT) {
+            this.renderMessage(ERROR_TEXT_SIZE, true);
+            return;
+        }
+
         this.saveCommentButton.disabled = true;
 
         if (this.comment) {
             const newMessage = this.textArea.value;
             const newRating = +this.selectRating.value;
-            if (this.comment.message === newMessage && this.comment.rating === newRating) {
-                this.renderMessage('Вы ничего не поменяли', true);
+            if (this.comment.message === newMessage && this.comment.rating === newRating && !this.changedFiles) {
+                this.renderMessage(ERROR_DONT_CHANGE_COMMENT, true);
                 this.saveCommentButton.disabled = false;
                 return;
             }
@@ -128,6 +209,7 @@ export default class CommentUserComponent implements AbstractComponent {
         this.showTextArea = true;
         this.saveCommentButton.removeEventListener('click', this.clickEditComment);
         this.render();
+        this.fileInput.addEventListener('change', this.addFiles);
         this.saveCommentButton.addEventListener('click', this.clickSaveComment);
     };
 
@@ -136,6 +218,7 @@ export default class CommentUserComponent implements AbstractComponent {
             return;
         }
 
+        this.commentImages.deactivate();
         this.place.innerHTML = '';
         this.unsubscribeEvents();
     }
@@ -145,11 +228,12 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private addComment(idHostel: number, message: string, rate: number): void {
-        const response = NetworkHostel.addComment(idHostel, message, rate);
+        const response = NetworkHostel.addComment(idHostel, message, rate, this.fileInput.files);
 
         response.then((value) => {
             const { code } = value;
             this.saveCommentButton.disabled = false;
+            this.changedFiles = false;
             switch (code) {
                 case 200:
                     const data = value.data as {
@@ -181,11 +265,12 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private editComment(idComment: number, message: string, rating: number): void {
-        const response = NetworkHostel.editComment(idComment, message, rating);
+        const response = NetworkHostel.editComment(idComment, message, rating, this.changedFiles, this.fileInput.files);
 
         response.then((value) => {
             const { code } = value;
             this.saveCommentButton.disabled = false;
+            this.changedFiles = false;
             switch (code) {
                 case 200:
                     const data = value.data as {

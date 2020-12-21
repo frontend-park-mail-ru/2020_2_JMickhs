@@ -6,6 +6,7 @@ import SignupController from '@sign/signup/signup-controller';
 import ProfileController from '@profile/profile-controller';
 import HostelPageController from '@hostel/hostel-page-controller';
 import WishlistController from '@wishlist/wishlist-controller';
+import Chat from '@chat/chat';
 import ErrorPageController from '@/components/page-error/page-error-controller';
 import userFromCookie from '@/helpers/user/cookie-user';
 import registrateServiceWorker from '@/service-worker/registrate';
@@ -35,6 +36,10 @@ import '@/main.css';
     const profileController = new ProfileController(pageElement);
     const hostelPageController = new HostelPageController(pageElement);
     const wishlistController = new WishlistController(pageElement);
+
+    const chatController = new Chat();
+    chatController.setPlace(pageElement as HTMLDivElement);
+
     const errorPageController = new ErrorPageController(pageElement);
 
     const popupElement = frame.getElement(ID_POPUP);
@@ -46,6 +51,7 @@ import '@/main.css';
     Router.append('/profile', profileController);
     Router.append('/hostel/', hostelPageController);
     Router.append('/wishlist', wishlistController);
+    Router.append('/chat', chatController);
 
     Router.errorController = errorPageController;
     Router.start();

@@ -28,7 +28,7 @@ export default class HostelDataComponent implements AbstractComponent {
 
     private wishlistAddComponent: WishlistAddComponent;
 
-    private buttonMap: HTMLButtonElement;
+    private buttonMap?: HTMLButtonElement;
 
     private wishlistButton?: HTMLButtonElement;
 
@@ -51,7 +51,12 @@ export default class HostelDataComponent implements AbstractComponent {
         }
 
         this.hostel = hostel;
-        this.getWishlists();
+        this.wishlists = [];
+        if (User.isAuth) {
+            this.getWishlists();
+            return;
+        }
+        this.render(this.hostel, this.wishlists);
     }
 
     private render(hostel: HostelData, wishlists: WishlistsStruct[]): void {
@@ -77,14 +82,14 @@ export default class HostelDataComponent implements AbstractComponent {
     private subscribeEvents(): void {
         Events.subscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
         Events.subscribe(UPDATE_WISHLISTS, this.updateWishlists);
-        this.buttonMap.addEventListener('click', this.clickMapButton);
+        this.buttonMap?.addEventListener('click', this.clickMapButton);
         this.wishlistButton?.addEventListener('click', this.clickWishlistButton);
     }
 
     private unsubscribeEvents(): void {
         Events.unsubscribe(UPDATE_RATING_HOSTEL, this.updateTextData);
         Events.unsubscribe(UPDATE_WISHLISTS, this.updateWishlists);
-        this.buttonMap.removeEventListener('click', this.clickMapButton);
+        this.buttonMap?.removeEventListener('click', this.clickMapButton);
         this.wishlistButton?.removeEventListener('click', this.clickWishlistButton);
     }
 

@@ -8,8 +8,12 @@ import type { ResponseData } from '@/helpers/network/structs-server/respose-data
 
 import './comments.css';
 import * as template from '@hostel/comments/comments.hbs';
+import notificationUser from '@/components/notification-user/notification-user';
+import Popup from '@/components/popup/popup';
+import HostelImagesComponent from '../hostel-images/hostel-images';
 
 const ERROR_SECOND_COMMENT = 'Второй раз ставите оценку!';
+const UNKNOW_IMAGES_ERROR = 'Непредвиденная при открытии изображения!';
 
 export default class CommentsComponent implements AbstractComponent {
     private place?: HTMLDivElement;
@@ -27,6 +31,14 @@ export default class CommentsComponent implements AbstractComponent {
     private nextUrl: string;
 
     private prevUrl: string;
+
+    private commentImages?: HTMLDivElement;
+
+    private album: string[];
+
+    private notification = notificationUser;
+
+    private imagesComponent = new HostelImagesComponent();
 
     setPlace(place: HTMLDivElement): void {
         this.place = place;
@@ -74,7 +86,7 @@ export default class CommentsComponent implements AbstractComponent {
                 comments: CommentData[],
                 pag_info: PageInfo,
             };
-            const comment = data.comments[0];
+            const comment = data.comments ? data.comments[0] : undefined;
             switch (code) {
                 case 200:
                     this.comment = comment;
@@ -118,17 +130,56 @@ export default class CommentsComponent implements AbstractComponent {
 
         this.nextButton = document.getElementById('comment-next') as HTMLButtonElement;
         this.prevButton = document.getElementById('comment-prev') as HTMLButtonElement;
+        this.commentImages = document.getElementById('container-comments-images') as HTMLDivElement;
 
         this.buttonsDisabled(false);
+    }
+
+    private imageClick = (evt: Event): void => {
+        const image = evt.target as HTMLImageElement;
+        if (image === undefined) {
+            return;
+        }
+
+        if (this.album === undefined) {
+            const response = NetworkHostel.getAlbum(this.idHostel);
+            response.then((value) => {
+                const { code } = value;
+                const data = value.data as {
+                    photos: string[],
+                };
+                if (code === 200) {
+                    this.album = data.photos;
+                    this.openAlbum(this.album.indexOf(image.src));
+                } else {
+                    this.renderMessage(UNKNOW_IMAGES_ERROR, true);
+                }
+            });
+            return;
+        }
+        this.openAlbum(this.album.indexOf(image.src));
+    };
+
+    private openAlbum(start: number): void {
+        if (start < 0 || start >= this.album.length) {
+            return;
+        }
+        Popup.activate(this.imagesComponent, this.album, start, 2);
+    }
+
+    private renderMessage(text: string, isError: boolean): void {
+        this.notification.showMessage(text, isError);
     }
 
     private subscribeEvents(): void {
         this.nextButton?.addEventListener('click', this.nextComment);
         this.prevButton?.addEventListener('click', this.prevComment);
+        this.commentImages?.addEventListener('click', this.imageClick);
     }
 
     private unsubscribeEvents(): void {
         this.nextButton?.removeEventListener('click', this.nextComment);
         this.prevButton?.removeEventListener('click', this.prevComment);
+        this.commentImages?.removeEventListener('click', this.imageClick);
     }
 }

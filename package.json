@@ -4,8 +4,10 @@
     "description": "Веб сервис, который помогает найти подходящий отель в поездку",
     "private": true,
     "dependencies": {
+        "@types/ws": "^7.4.0",
         "express": "^4.17.1",
-        "google-maps": "^4.3.3"
+        "google-maps": "^4.3.3",
+        "websocket": "^1.0.33"
     },
     "devDependencies": {
         "@types/google-maps": "^3.2.2",
@@ -49,7 +51,8 @@
         "build": "webpack",
         "linter": "eslint src",
         "dev": "webpack --watch --mode=development",
-        "prod": "webpack --mode=production"
+        "prod": "webpack --mode=production",
+        "clear": "rm -rf public/bundle.*"
     },
     "pre-commit": [
         "linter"

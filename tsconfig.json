@@ -19,10 +19,16 @@
             "@home/*": ["src/components/home/*"],
             "@list/*": ["src/components/listHostel/*"],
             "@sign/*": ["src/components/sign/*"],
+            "@chat/*": ["src/components/chat/*"],
             "@profile/*": ["src/components/profile/*"],
             "@wishlist/*": ["src/components/wishlist/*"],
             "@popup/*": ["src/components/popup/*"],
             "@global-variables/*": ["src/helpers/global-variables/*"]
-        }
+        },
+        "lib": [
+            "dom",
+            "es5",
+            "scripthost"
+        ]
     }
 }

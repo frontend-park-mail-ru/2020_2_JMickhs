@@ -1,6 +1,8 @@
 .navbar {
     background-color: var(--blue);
     display: flex;
+    grid-template-areas: "offset1 left center right offset2";
+    grid-template-columns: 7% min-content 1fr min-content 7%;
     font-family: sans-serif;
     color: var(--white);
     position: fixed;
@@ -31,11 +33,27 @@
 .navbar__items--right {
     margin-right: 7%;
     margin-left: auto;
+    display: grid;
+    grid-template-columns: min-content min-content min-content;
 }
 
 .navbar__items--left {
     margin-left: 7%;
     margin-right: auto;
+}
+
+.navbar--star-title {
+    width: fit-content;
+    font-size: var(--font-size-small);
+    z-index: var(--z-index-tooltip);
+    display: none;
+    position: absolute;
+    background-color: var(--black);
+    color: var(--white);
+    padding: 5px 10px;
+    margin-top: 10px;
+    right: calc(7% + 93px);
+    border: var(--border-title);
 }
 
 .navbar__button {
@@ -86,11 +104,41 @@
 
 .navbar__wishlist-icon:hover {
     fill: var(--orange);
-    cursor: pointer;
+}
+
+.navbar__svg-container:hover .navbar--star-title{
+    display: block;
 }
 
 .navbar__svg-container {
     width: 30px;
     height: 30px;
     margin-right: 20px;
+}
+
+.navbar__chat-icon {
+    fill: var(--violet-light);
+    cursor: pointer;
+}
+
+.navbar__chat-icon:hover {
+    fill: var(--orange);
+}
+
+.navbar--chat-title {
+    width: fit-content;
+    font-size: var(--font-size-small);
+    z-index: var(--z-index-tooltip);
+    display: none;
+    position: absolute;
+    background-color: var(--black);
+    color: var(--white);
+    padding: 5px 10px;
+    margin-top: 10px;
+    right: calc(9% + 100px);
+    border: var(--border-title);
+}
+
+.navbar__svg-container:hover .navbar--chat-title{
+    display: block;
 }
