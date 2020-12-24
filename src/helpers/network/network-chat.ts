@@ -1,8 +1,7 @@
 import NetworkAbstract from '@network/network-abstract';
 import type { ResponseData } from '@network/structs-server/respose-data';
 import {
-    BACKEND_ADDRESS_CSRF,
-    BACKEND_ADDRESS_HOSTEL,
+    BACKEND_ADDRESS,
     TEXT_ERROR_CSRF,
 } from '@network/constants-network';
 
@@ -15,4 +14,4 @@ class NetworkChat extends NetworkAbstract {
     }
 }
 
-export default new NetworkChat(BACKEND_ADDRESS_HOSTEL, BACKEND_ADDRESS_CSRF, TEXT_ERROR_CSRF);
+export default new NetworkChat(BACKEND_ADDRESS, TEXT_ERROR_CSRF);

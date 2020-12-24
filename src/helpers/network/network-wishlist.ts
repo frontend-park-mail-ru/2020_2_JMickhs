@@ -1,7 +1,6 @@
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 import {
-    BACKEND_ADDRESS_HOSTEL,
-    BACKEND_ADDRESS_CSRF,
+    BACKEND_ADDRESS,
     TEXT_ERROR_CSRF,
 } from './constants-network';
 import NetworkAbstract from './network-abstract';
@@ -45,4 +44,4 @@ class NetworkWishlist extends NetworkAbstract {
     }
 }
 
-export default new NetworkWishlist(BACKEND_ADDRESS_HOSTEL, BACKEND_ADDRESS_CSRF, TEXT_ERROR_CSRF);
+export default new NetworkWishlist(BACKEND_ADDRESS, TEXT_ERROR_CSRF);

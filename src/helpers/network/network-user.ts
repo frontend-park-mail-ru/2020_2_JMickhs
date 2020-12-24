@@ -1,7 +1,6 @@
 import type { ResponseData } from '@/helpers/network/structs-server/respose-data';
 import {
-    BACKEND_ADDRESS_USER,
-    BACKEND_ADDRESS_CSRF,
+    BACKEND_ADDRESS,
     TEXT_ERROR_CSRF,
 } from './constants-network';
 import NetworkAbtract from './network-abstract';
@@ -63,4 +62,4 @@ class NetworkUser extends NetworkAbtract {
     }
 }
 
-export default new NetworkUser(BACKEND_ADDRESS_USER, BACKEND_ADDRESS_CSRF, TEXT_ERROR_CSRF);
+export default new NetworkUser(BACKEND_ADDRESS, TEXT_ERROR_CSRF);

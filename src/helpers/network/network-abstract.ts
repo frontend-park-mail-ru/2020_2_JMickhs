@@ -13,9 +13,9 @@ export default class NetworkAbstract {
 
     private request: typeof Request;
 
-    constructor(address: string, addressCSRF: string, errorCSRF: string) {
+    constructor(address: string, errorCSRF: string) {
         this.address = address;
-        this.addressCSRF = addressCSRF;
+        this.addressCSRF = address;
         this.errorCSRF = errorCSRF;
 
         this.request = Request;
