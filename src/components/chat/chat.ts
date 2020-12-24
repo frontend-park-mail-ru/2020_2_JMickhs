@@ -17,8 +17,8 @@ import {
 } from '@global-variables/network-error';
 import User from '@user/user';
 
-const WEBSOCKET_CHAT = 'wss://hostelscan.ru:8080/api/v1/ws/chat';
-const WEBSOCKET_URL = 'wss://hostelscan.ru:8080/api/v1/ws';
+const WEBSOCKET_CHAT = 'wss://hostelscan.ru/api/v1/ws/chat';
+const WEBSOCKET_URL = 'wss://hostelscan.ru/api/v1/ws';
 
 export default class Chat implements AbstractComponent {
     private place?: HTMLElement;
