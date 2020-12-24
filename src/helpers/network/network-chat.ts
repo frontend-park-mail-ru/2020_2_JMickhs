@@ -8,9 +8,9 @@ import {
 class NetworkChat extends NetworkAbstract {
     getHistory(urlSearchParams?: URLSearchParams): Promise<ResponseData> {
         if (urlSearchParams) {
-            return this.ajax('GET', `/api/v1/ws/chat/history?${urlSearchParams.toString()}`);
+            return this.ajax('GET', `/api/v1/chat/history?${urlSearchParams.toString()}`);
         }
-        return this.ajax('GET', '/api/v1/ws/chat/history');
+        return this.ajax('GET', '/api/v1/chat/history');
     }
 }
 
