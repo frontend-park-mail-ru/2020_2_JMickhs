@@ -48,7 +48,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'HostelScan12',
+            title: 'HostelScan',
             filename: 'index.html',
             template: './src/template.html',
             entryPoint: 'app',
