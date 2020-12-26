@@ -1,18 +1,8 @@
 import type { CommentData } from '@/helpers/network/structs-server/comment-data';
+import type HotelInfo from './hotel-info';
 
 interface HotelData {
-    hotel: {
-        description: string,
-        hotel_id: number;
-        name: string;
-        image: string;
-        photos: string[];
-        location: string;
-        rating: number;
-        comm_count: number;
-        latitude: number;
-        longitude: number;
-    }
+    hotel: HotelInfo;
     comment: CommentData;
 }
 

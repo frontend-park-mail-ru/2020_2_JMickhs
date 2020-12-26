@@ -110,7 +110,9 @@ export default class HostelDataComponent implements AbstractComponent {
 
     private clickMapButton = (evt: Event): void => {
         evt.preventDefault();
-        Popup.activate(this.mapComponent, this.hostel.latitude, this.hostel.longitude);
+        Popup.activate(this.mapComponent, this.hostel.latitude, this.hostel.longitude, (): void => {
+            Popup.deactivate();
+        });
     };
 
     private clickWishlistButton = (evt: Event): void => {

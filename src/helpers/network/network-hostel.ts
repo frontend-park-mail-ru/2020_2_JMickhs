@@ -80,6 +80,15 @@ class NetworkHostel extends NetworkAbtract {
         const url = `/api/v1/comments/photos?${searchParams}`;
         return this.ajax('GET', url);
     }
+
+    getHostelsByRadius(radius: number, latitude: number, longitude: number): Promise<ResponseData> {
+        const searchParams = new URLSearchParams('');
+        searchParams.set('radius', radius.toString());
+        searchParams.set('latitude', latitude.toString());
+        searchParams.set('longitude', longitude.toString());
+        const url = `/api/v1/hotels/radiusSearch?${searchParams}`;
+        return this.ajax('GET', url);
+    }
 }
 
 export default new NetworkHostel(BACKEND_ADDRESS, TEXT_ERROR_CSRF);
