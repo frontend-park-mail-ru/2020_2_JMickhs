@@ -13,7 +13,8 @@ import {
     ERROR_403,
     ERROR_DEFAULT,
 } from '@/helpers/global-variables/network-error';
-import NotificationUser from '@/components/notification-user/notification-user';
+// import NotificationUser from '@/components/notification-user/notification-user';
+import MessagePopup from '@/components/message-popup/message-popup';
 
 import * as template from './wishlist-add.hbs';
 import './wishlist-add.css';
@@ -142,7 +143,8 @@ export default class WishlistAddComponent implements AbstractComponent {
             switch (code) {
                 case 200:
                     Events.trigger(UPDATE_WISHLISTS, { id: wishlistId, name: element.innerText });
-                    NotificationUser.showMessage(`${ACCEPT_ADD_WISHLIST} ${element.innerText}`);
+                    MessagePopup.addMessage(`${ACCEPT_ADD_WISHLIST} ${element.innerText}`);
+                    // NotificationUser.showMessage(`${ACCEPT_ADD_WISHLIST} ${element.innerText}`);
                     break;
                 case 400:
                     Events.trigger(DEACTIVATE_POPUP);
@@ -153,7 +155,8 @@ export default class WishlistAddComponent implements AbstractComponent {
                     Redirector.redirectError(ERROR_403);
                     break;
                 case 409:
-                    NotificationUser.showMessage(`${ERROR_ADD_EXIST_HOSTEL} ${element.innerText}`);
+                    // NotificationUser.showMessage(`${ERROR_ADD_EXIST_HOSTEL} ${element.innerText}`);
+                    MessagePopup.addMessage(`${ERROR_ADD_EXIST_HOSTEL} ${element.innerText}`, true);
                     break;
                 case 423:
                     Events.trigger(DEACTIVATE_POPUP);
