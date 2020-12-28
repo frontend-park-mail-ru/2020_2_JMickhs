@@ -7,7 +7,8 @@ import * as buttonTemplate from '@profile/profile-data/button.hbs';
 import User from '@user/user';
 import NetworkUser from '@network/network-user';
 import Redirector from '@router/redirector';
-import NotificationUser from '@/components/notification-user/notification-user';
+// import NotificationUser from '@/components/notification-user/notification-user';
+import MessagePopup from '@/components/message-popup/message-popup';
 
 const AVATAR_UPDATE_MESSAGE = 'Аватарка обновлена';
 const ERROR_EXTENSION_FILE = 'Можно загружать только файлы с расширением jpg, png';
@@ -110,7 +111,8 @@ export default class DataUserComponent implements AbstractComponent {
     }
 
     private renderMessage(message: string, isErr = false): void {
-        NotificationUser.showMessage(message, isErr);
+        // NotificationUser.showMessage(message, isErr);
+        MessagePopup.addMessage(message, isErr);
     }
 
     private updateAvatar(formAvatar: HTMLFormElement): void {

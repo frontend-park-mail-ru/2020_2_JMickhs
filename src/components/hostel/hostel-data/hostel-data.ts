@@ -9,7 +9,7 @@ import type { AbstractComponent } from '@interfaces/components';
 import * as dataTemplate from '@hostel/hostel-data/hostel-data.hbs';
 import WishlistAddComponent from '@hostel/wishlist-add/wishlist-add';
 import Popup from '@popup/popup';
-import MapComponent from '@hostel/map/map';
+import mapComponent from '@hostel/map/map';
 import User from '@/helpers/user/user';
 import NetworkWishlist from '@network/network-wishlist';
 import Redirector from '@router/redirector';
@@ -20,11 +20,12 @@ import {
 import type { WishlistsStruct } from '@interfaces/structs-data/wishlists';
 
 const MAX_WISHLISTS_ELEMENTS = 3;
+const MAP_ZOOM = 16;
 
 export default class HostelDataComponent implements AbstractComponent {
     private place?: HTMLDivElement;
 
-    private mapComponent: MapComponent;
+    private mapComponent: typeof mapComponent;
 
     private wishlistAddComponent: WishlistAddComponent;
 
@@ -37,7 +38,7 @@ export default class HostelDataComponent implements AbstractComponent {
     private wishlists: WishlistsStruct[];
 
     constructor() {
-        this.mapComponent = new MapComponent();
+        this.mapComponent = mapComponent;
         this.wishlistAddComponent = new WishlistAddComponent();
     }
 
@@ -110,9 +111,12 @@ export default class HostelDataComponent implements AbstractComponent {
 
     private clickMapButton = (evt: Event): void => {
         evt.preventDefault();
-        Popup.activate(this.mapComponent, this.hostel.latitude, this.hostel.longitude, (): void => {
-            Popup.deactivate();
-        });
+        Popup.activate(this.mapComponent,
+            { latitude: this.hostel.latitude, longitude: this.hostel.longitude },
+            MAP_ZOOM,
+            (): void => {
+                Popup.deactivate();
+            });
     };
 
     private clickWishlistButton = (evt: Event): void => {
