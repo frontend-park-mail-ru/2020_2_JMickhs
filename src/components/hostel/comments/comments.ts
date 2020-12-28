@@ -141,23 +141,19 @@ export default class CommentsComponent implements AbstractComponent {
             return;
         }
 
-        if (this.album === undefined) {
-            const response = NetworkHostel.getAlbum(this.idHostel);
-            response.then((value) => {
-                const { code } = value;
-                const data = value.data as {
-                    photos: string[],
-                };
-                if (code === 200) {
-                    this.album = data.photos;
-                    this.openAlbum(this.album.indexOf(image.src));
-                } else {
-                    this.renderMessage(UNKNOW_IMAGES_ERROR, true);
-                }
-            });
-            return;
-        }
-        this.openAlbum(this.album.indexOf(image.src));
+        const response = NetworkHostel.getAlbum(this.idHostel);
+        response.then((value) => {
+            const { code } = value;
+            const data = value.data as {
+                photos: string[],
+            };
+            if (code === 200) {
+                this.album = data.photos;
+                this.openAlbum(this.album.indexOf(image.src));
+            } else {
+                this.renderMessage(UNKNOW_IMAGES_ERROR, true);
+            }
+        });
     };
 
     private openAlbum(start: number): void {
