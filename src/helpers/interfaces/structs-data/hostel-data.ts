@@ -10,3 +10,8 @@ export interface HostelData {
     latitude?: number;
     longitude?: number;
 }
+
+export interface Coordinate {
+    latitude?: number;
+    longitude?: number;
+}

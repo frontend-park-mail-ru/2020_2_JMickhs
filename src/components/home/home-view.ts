@@ -2,6 +2,7 @@ import { PageView } from '@interfaces/views';
 import Events from '@eventbus/eventbus';
 import * as homeTemplate from '@home/templates/homeTemplate.hbs';
 import {
+    FILL_COORDINATE,
     FILL_HOSTELS,
     FILL_RECOMMENDATION,
 } from '@eventbus/constants';
@@ -9,10 +10,16 @@ import {
 import '@home/templates/home.css';
 import ListComponent from '@/components/home/list-hostels/list-hostels';
 import FilterComponent from '@/components/home/filtration/filtration';
-import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type {
+    Coordinate,
+    HostelData,
+} from '@/helpers/interfaces/structs-data/hostel-data';
 import Redirector from '@router/redirector';
+import mapComponent from '@hostel/map/map';
+import Popup from '@popup/popup';
 
 const SEARCH_INPUT_MAX_LENGTH = 50;
+const MAP_ZOOM = 13;
 
 export default class HomeView extends PageView {
     private mainContainerElement: HTMLDivElement;
@@ -31,10 +38,17 @@ export default class HomeView extends PageView {
 
     private filterComponent: FilterComponent;
 
+    private mapComponent: typeof mapComponent;
+
+    private imageMapElement: HTMLDivElement;
+
     private inputTimer: number;
+
+    private point: Coordinate;
 
     constructor(place: HTMLElement) {
         super(place);
+        this.mapComponent = mapComponent;
         this.listComponent = new ListComponent();
         this.filterComponent = new FilterComponent();
         this.inputTimer = -1;
@@ -48,6 +62,13 @@ export default class HomeView extends PageView {
         }
         this.closeFilter();
         Redirector.redirectTo(this.setSearchUrl());
+    };
+
+    private clickMapButton = (evt: Event): void => {
+        evt.preventDefault();
+        Popup.activate(this.mapComponent, this.point, MAP_ZOOM, (): void => {
+            Popup.deactivate();
+        });
     };
 
     private renderHostelList = (hostels: HostelData[]): void => {
@@ -66,6 +87,10 @@ export default class HomeView extends PageView {
         if (this.inputElement.value.length > SEARCH_INPUT_MAX_LENGTH) {
             this.renderError(`Длинна запроса не должна превышать ${SEARCH_INPUT_MAX_LENGTH} символов`);
         }
+    };
+
+    private getCoordinate = (point: Coordinate): void => {
+        this.point = point;
     };
 
     listComponentOff(): void {
@@ -92,6 +117,7 @@ export default class HomeView extends PageView {
         this.imageElement = document.getElementById('filter-image') as HTMLDivElement;
         this.recommendationLabelElement = document.getElementById('recommendation-label') as HTMLHeadElement;
         this.mainContainerElement = document.getElementById('container') as HTMLDivElement;
+        this.imageMapElement = document.getElementById('map-image') as HTMLDivElement;
 
         this.subscribeEvents();
 
@@ -123,16 +149,20 @@ export default class HomeView extends PageView {
         this.searchForm.addEventListener('submit', this.searchClick);
         this.inputElement.addEventListener('input', this.changeInput);
         this.imageElement.addEventListener('click', this.toggleFilter);
+        this.imageMapElement.addEventListener('click', this.clickMapButton);
         Events.subscribe(FILL_HOSTELS, this.renderHostelList);
         Events.subscribe(FILL_RECOMMENDATION, this.renderRecommendationList);
+        Events.subscribe(FILL_COORDINATE, this.getCoordinate);
     }
 
     private unsubscribeEvents(): void {
         this.searchForm.removeEventListener('submit', this.searchClick);
         this.inputElement.removeEventListener('input', this.changeInput);
         this.imageElement.removeEventListener('click', this.toggleFilter);
+        this.imageMapElement.removeEventListener('click', this.clickMapButton);
         Events.unsubscribe(FILL_HOSTELS, this.renderHostelList);
         Events.unsubscribe(FILL_RECOMMENDATION, this.renderRecommendationList);
+        Events.unsubscribe(FILL_COORDINATE, this.getCoordinate);
     }
 
     private clearInputError(): void {
