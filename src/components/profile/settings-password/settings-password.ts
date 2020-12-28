@@ -4,7 +4,8 @@ import NetworkUser from '@/helpers/network/network-user';
 import * as template from '@profile/settings-password/settings-password.hbs';
 import User from '@/helpers/user/user';
 import Redirector from '@/helpers/router/redirector';
-import NotificationUser from '@/components/notification-user/notification-user';
+// import NotificationUser from '@/components/notification-user/notification-user';
+import MessagePopup from '@/components/message-popup/message-popup';
 import { ERROR_400, ERROR_403, ERROR_DEFAULT } from '@/helpers/global-variables/network-error';
 
 const MESSAGE_CHANGE_PASSWORD = 'Вы успешно обновили пароль';
@@ -220,11 +221,13 @@ export default class DataUserComponent implements AbstractComponent {
             const { code } = value;
             switch (code) {
                 case 200:
-                    NotificationUser.showMessage(MESSAGE_CHANGE_PASSWORD);
+                    MessagePopup.addMessage(MESSAGE_CHANGE_PASSWORD);
+                    // NotificationUser.showMessage(MESSAGE_CHANGE_PASSWORD);
                     this.clearInputs();
                     break;
                 case 400:
-                    NotificationUser.showMessage(ERROR_400, true);
+                    MessagePopup.addMessage(ERROR_400, true);
+                    // NotificationUser.showMessage(ERROR_400, true);
                     break;
                 case 401:
                     const user = User;
@@ -238,10 +241,12 @@ export default class DataUserComponent implements AbstractComponent {
                     ]);
                     break;
                 case 403:
-                    NotificationUser.showMessage(ERROR_403, true);
+                    MessagePopup.addMessage(ERROR_403, true);
+                    // NotificationUser.showMessage(ERROR_403, true);
                     break;
                 default:
-                    NotificationUser.showMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
+                    MessagePopup.addMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
+                    // NotificationUser.showMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });

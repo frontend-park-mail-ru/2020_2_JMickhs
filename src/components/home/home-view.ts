@@ -91,6 +91,11 @@ export default class HomeView extends PageView {
 
     private getCoordinate = (point: Coordinate): void => {
         this.point = point;
+        if (!point || !point.latitude || !point.longitude) {
+            this.imageMapElement.classList.add('home__display-none');
+        } else {
+            this.imageMapElement.classList.remove('home__display-none');
+        }
     };
 
     listComponentOff(): void {
