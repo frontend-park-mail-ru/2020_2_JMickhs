@@ -1,7 +1,8 @@
 import User from '@user/user';
 import type { CommentData } from '@network/structs-server/comment-data';
 import type { AbstractComponent } from '@interfaces/components';
-import NotificationUser from '@/components/notification-user/notification-user';
+import MessagePopup from '@/components/message-popup/message-popup';
+// import NotificationUser from '@/components/notification-user/notification-user';
 import Events from '@eventbus/eventbus';
 import {
     UPDATE_RATING_HOSTEL,
@@ -51,7 +52,7 @@ export default class CommentUserComponent implements AbstractComponent {
 
     private changedFiles: boolean;
 
-    private notification: typeof NotificationUser;
+    // private notification: typeof NotificationUser;
 
     private user = User;
 
@@ -60,7 +61,7 @@ export default class CommentUserComponent implements AbstractComponent {
     constructor() {
         this.changedFiles = false;
         this.commentImages = new CommentImagesComponent();
-        this.notification = NotificationUser;
+        // this.notification = NotificationUser;
     }
 
     setPlace(place: HTMLDivElement): void {
@@ -141,7 +142,8 @@ export default class CommentUserComponent implements AbstractComponent {
 
         if (array.length > MAX_IMAGES_COUNT) {
             this.fileInput.value = '';
-            this.notification.showMessage(ERROR_COUNT_MESSAGES, true);
+            MessagePopup.addMessage(ERROR_COUNT_MESSAGES, true);
+            // this.notification.showMessage(ERROR_COUNT_MESSAGES, true);
             return;
         }
 
@@ -224,7 +226,8 @@ export default class CommentUserComponent implements AbstractComponent {
     }
 
     private renderMessage(text: string, isError: boolean): void {
-        this.notification.showMessage(text, isError);
+        // this.notification.showMessage(text, isError);
+        MessagePopup.addMessage(text, isError);
     }
 
     private addComment(idHostel: number, message: string, rate: number): void {

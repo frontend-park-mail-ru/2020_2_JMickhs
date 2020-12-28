@@ -9,13 +9,14 @@ import './map.css';
 import NetworkHostel from '@/helpers/network/network-hostel';
 import type HotelInfo from '@network/structs-server/hotel-info';
 import Redirector from '@/helpers/router/redirector';
+import type { Coordinate } from '@interfaces/structs-data/hostel-data';
 import * as template from './map.hbs';
 
 const MAP_API_KEY = 'AIzaSyDRvlTULyQ1ADfqMmVTSrzt-y9_8DyETkc';
 
 const ERROR_LOAD_HOSTELS = 'Не удалось загрузить отели';
 
-export default class MapComponent implements AbstractComponent {
+export class MapComponent implements AbstractComponent {
     private loader: Loader;
 
     private map: google.maps.Map;
@@ -43,18 +44,24 @@ export default class MapComponent implements AbstractComponent {
         this.place = place;
     }
 
-    activate(latitude: number, longitude: number, onClose: () => void): void {
+    activate(point: Coordinate, zoom: number, onClose: () => void): void {
         if (!this.place) {
             return;
         }
         this.onClose = onClose;
 
         this.place.innerHTML = template();
+
+        if (!point) {
+            this.renderError('У введенного места нет координат');
+            return;
+        }
+
         if (this.loaded) {
-            this.render(latitude, longitude);
+            this.render(point.latitude, point.longitude, zoom);
         } else {
             this.loader.load().then(() => {
-                this.render(latitude, longitude);
+                this.render(point.latitude, point.longitude, zoom);
                 this.loaded = true;
             }).catch(() => {
                 this.renderError('Извините, в данный момент карта не доступна');
@@ -62,11 +69,15 @@ export default class MapComponent implements AbstractComponent {
         }
     }
 
-    private render(latitude: number, longitude: number): void {
+    private render(latitude: number, longitude: number, zoom: number): void {
+        if (!latitude || !longitude) {
+            this.renderError('У введенного места нет координат');
+            return;
+        }
         const point = { lat: latitude, lng: longitude };
         this.map = new google.maps.Map(document.getElementById('map-container') as HTMLDivElement, {
             center: point,
-            zoom: 16,
+            zoom,
             minZoom: 13,
         });
 
@@ -141,3 +152,5 @@ export default class MapComponent implements AbstractComponent {
         this.place.innerHTML = '';
     }
 }
+
+export default new MapComponent();

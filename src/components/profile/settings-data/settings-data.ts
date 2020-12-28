@@ -11,7 +11,8 @@ import {
 
 import * as template from '@profile/settings-data/settings-data.hbs';
 import Redirector from '@router/redirector';
-import NotificationUser from '@/components/notification-user/notification-user';
+// import NotificationUser from '@/components/notification-user/notification-user';
+import MessagePopup from '@/components/message-popup/message-popup';
 
 const CHANGE_LOGIN_ERROR = 'Пользователь с таким логином уже зарегистрирован';
 const CHANGE_EMAIL_ERROR = 'Пользователь с таким email уже зарегистрирован';
@@ -193,7 +194,8 @@ export default class DataUserComponent implements AbstractComponent {
                 case 200:
                     this.user.userName = username;
                     this.user.email = email;
-                    NotificationUser.showMessage('Изменения успешно применены');
+                    MessagePopup.addMessage('Изменения успешно применены');
+                    // NotificationUser.showMessage('Изменения успешно применены');
                     Events.trigger(CHANGE_USER_OK, this.user.getData());
                     break;
                 case 400:
@@ -207,7 +209,8 @@ export default class DataUserComponent implements AbstractComponent {
                     Redirector.redirectTo('/signin');
                     break;
                 case 403:
-                    NotificationUser.showMessage(ERROR_403);
+                    MessagePopup.addMessage(ERROR_403, true);
+                    // NotificationUser.showMessage(ERROR_403);
                     break;
                 case 406:
                     this.renderMessage(CHANGE_EMAIL_ERROR);
@@ -216,7 +219,8 @@ export default class DataUserComponent implements AbstractComponent {
                     this.renderMessage(CHANGE_LOGIN_ERROR);
                     break;
                 default:
-                    NotificationUser.showMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
+                    MessagePopup.addMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
+                    // NotificationUser.showMessage(`${ERROR_DEFAULT}${code || value.error}`, true);
                     break;
             }
         });

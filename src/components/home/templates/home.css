@@ -34,7 +34,7 @@
     position: relative;
     display: grid;
     grid-template-areas: "input icon button";
-    grid-template-columns: 1fr min-content min-content;
+    grid-template-columns: 1fr min-content min-content min-content;
     justify-content: flex-end;
     padding: 6vh 0;
     align-self: end;
@@ -111,6 +111,12 @@
         align-self: center;
     }
 
+    .home__map-img-container {
+        min-height: 4vh;
+        min-width: 4vh;
+        align-self: center;
+    }
+
     .home__container-all {
         margin: 0;
         width: 100%;
@@ -129,9 +135,14 @@
         height: min-content;
     }
 
-    .navbar--filter-title {
-        margin-top: 34px;
-        right: 53px;
+    .home__tooltip--filter--position {
+        margin-top: 40px;
+        right: 107px;
+    }
+
+    .home__tooltip--map--position {
+        margin-top: 40px;
+        right: 33px;
     }
 
     .home__filtration {
@@ -219,13 +230,27 @@
     background-size: cover;
 }
 
+.home__map-img-container {
+    cursor: pointer;
+    width: 3vh;
+    height: 3vh;
+    min-width: 35px;
+    min-height: 35px;
+    padding-right: 5px;
+    margin: 0 5px;
+    background-image: url('https://hostelscan.ru/onmap.png');
+    background-position: center;
+    background-size: cover;
+    align-self: center;
+}
+
 @media only screen and (max-width: 750px) {
     .home__recommendation-label {
         padding-top: 5%;
     }
 }
 
-.navbar--filter-title {
+.home__tooltip {
     width: fit-content;
     font-size: var(--font-size-small);
     z-index: var(--z-index-tooltip);
@@ -234,11 +259,23 @@
     background-color: var(--black);
     color: var(--white);
     padding: 5px 10px;
-    margin-top: 50px;
-    right: 111px;
     border: var(--border-title);
 }
 
-.home__filter-img-container:hover .navbar--filter-title{
+.home__tooltip--filter--position {
+    margin-top: 50px;
+    right: 156px;
+}
+
+.home__tooltip--map--position {
+    margin-top: 45px;
+    right: 81px;
+}
+
+.home__filter-img-container:hover .home__tooltip{
+    display: block;
+}
+
+.home__map-img-container:hover .home__tooltip{
     display: block;
 }

@@ -1,7 +1,11 @@
 import NetworkHostel from '@/helpers/network/network-hostel';
-import type { HostelData } from '@/helpers/interfaces/structs-data/hostel-data';
+import type {
+    Coordinate,
+    HostelData,
+} from '@/helpers/interfaces/structs-data/hostel-data';
 import Events from '@eventbus/eventbus';
 import {
+    FILL_COORDINATE,
     FILL_HOSTELS,
     FILL_RECOMMENDATION,
 } from '@eventbus/constants';
@@ -37,7 +41,8 @@ export default class HomeModel {
             const { code } = value;
             switch (code) {
                 case 200:
-                    const data = value.data as {hotels: HostelData[], Pag_info: unknown};
+                    const data = value.data as {hotels: HostelData[], Pag_info: unknown, point: Coordinate};
+                    Events.trigger(FILL_COORDINATE, data.point);
                     Events.trigger(FILL_HOSTELS, data.hotels);
                     break;
                 case 400:
@@ -58,6 +63,7 @@ export default class HomeModel {
             switch (code) {
                 case 200:
                     const data = value.data as { hotels: HostelData[] };
+                    Events.trigger(FILL_COORDINATE, {});
                     Events.trigger(FILL_RECOMMENDATION, data.hotels);
                     break;
                 case 400:

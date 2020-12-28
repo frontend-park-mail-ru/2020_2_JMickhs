@@ -10,9 +10,15 @@ import Chat from '@chat/chat';
 import ErrorPageController from '@/components/page-error/page-error-controller';
 import userFromCookie from '@/helpers/user/cookie-user';
 import registrateServiceWorker from '@/service-worker/registrate';
+import MessagePopup from '@/components/message-popup/message-popup';
 import Popup from '@/components/popup/popup';
 import MainFrame from '@/helpers/layout/main-frame';
-import { ID_PAGE, ID_NAVBAR, ID_POPUP } from '@/helpers/layout/id-components';
+import {
+    ID_PAGE,
+    ID_NAVBAR,
+    ID_POPUP,
+    ID_MESSAGE_POPUP,
+} from '@/helpers/layout/id-components';
 
 import '@/main.css';
 
@@ -21,7 +27,7 @@ import '@/main.css';
 
     const application = document.getElementById('app');
     const frame = new MainFrame(application);
-    frame.createElements([ID_NAVBAR, ID_PAGE, ID_POPUP]);
+    frame.createElements([ID_NAVBAR, ID_PAGE, ID_POPUP, ID_MESSAGE_POPUP]);
 
     userFromCookie();
 
@@ -44,6 +50,8 @@ import '@/main.css';
 
     const popupElement = frame.getElement(ID_POPUP);
     Popup.init(popupElement);
+    const messagePopupElement = frame.getElement(ID_MESSAGE_POPUP) as HTMLDivElement;
+    MessagePopup.init(messagePopupElement);
 
     Router.append('/', homeController);
     Router.append('/signin', signinController);
